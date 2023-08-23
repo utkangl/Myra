@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".NamePickFragment">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/empty">
+    </TextView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/namepickfragmentstar3"
+        android:background="@drawable/star_shape"
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/empty"
+        android:layout_marginRight="8dp">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/namepickfragmentstar2"
+        android:background="@drawable/star_shape"
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/namepickfragmentstar3"
+        android:layout_marginRight="16dp">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/namepickfragmentstar1"
+        android:background="@drawable/star_shape"
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toLeftOf="@+id/namepickfragmentstar2"
+        android:layout_marginRight="16dp">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/namepickfragmentstar4"
+        android:background="@drawable/star_shape"
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/empty"
+        android:layout_marginLeft="8dp">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/namepickfragmentstar5"
+        android:background="@drawable/star_shape"
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/namepickfragmentstar4"
+        android:layout_marginLeft="16dp">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/namepickfragmentstar6"
+        android:background="@drawable/star_shape"
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/namepickfragmentstar5"
+        android:layout_marginLeft="16dp">
+    </ImageView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/namepickfragmenttitle"
+
+        android:layout_above="@+id/namepickfragmentnameinput"
+        android:layout_marginBottom="120dp"
+
+        android:layout_centerHorizontal="true"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Isminiz ile Baslayalim"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/namepickfragmentnameinput"
+
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:layout_centerVertical="true"
+
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+
+        app:cardCornerRadius="25dp">
+
+        <EditText
+            android:id="@+id/namepickfragmentnameinputtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/nameinputbackground"
+            android:drawableLeft="@drawable/baseline_edit_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:paddingLeft="10dp"
+            android:hint="Isminiz"
+            android:text = ""
+            android:textSize="24sp" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:id="@+id/namepickfragmentnextbutton"
+
+        android:layout_below="@+id/namepickfragmentnameinput"
+        android:layout_marginTop="100dp"
+
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+
+        android:background="@drawable/nextbuttonbackground"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Devam"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textAllCaps="false">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/alreadyhaveanaccounttext"
+
+        android:layout_below="@id/namepickfragmentnextbutton"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="10dp"
+
+        android:text="Already have an account?"
+        android:fontFamily="@font/arima_madurai_light"
+        >
+    </TextView>
+
+    <com.example.falci.LinkTextView
+        android:id="@+id/logintextview"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/namepickfragmentnextbutton"
+        android:layout_marginLeft="5dp"
+
+        android:layout_marginTop="74dp"
+        android:layout_toRightOf="@+id/alreadyhaveanaccounttext"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Login"
+        android:textStyle="italic"
+
+        >
+
+    </com.example.falci.LinkTextView>
+
+
+</RelativeLayout>

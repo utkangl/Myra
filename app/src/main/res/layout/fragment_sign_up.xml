@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SignUpFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/loginfragmenttitletextview"
+
+            android:layout_above="@+id/signupfragmentusername"
+            android:layout_marginBottom="45dp"
+
+            android:layout_centerHorizontal="true"
+
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="Bilgilerinizi Girin Lutfen"
+            android:textColor="@color/white"
+            android:textSize="32sp">
+
+        </TextView>
+
+
+
+
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/signupfragmentusername"
+
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+
+            android:layout_centerVertical="true"
+
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+
+            app:cardCornerRadius="15dp">
+
+            <EditText
+                android:id="@+id/signupfragmentusernametext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/loginfragmentusernamebackground"
+                android:drawableLeft="@drawable/baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:paddingLeft="10dp"
+                android:hint="Kullanici Adi"
+                android:text = ""
+                android:textSize="24sp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/signupfragmentpassword"
+
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+
+            android:layout_below="@+id/signupfragmentusername"
+
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="20dp"
+
+            app:cardCornerRadius="15dp">
+
+            <EditText
+                android:id="@+id/signupfragmentpasswordtext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/loginfragmentusernamebackground"
+                android:drawableLeft="@drawable/baseline_edit_24"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:paddingLeft="10dp"
+                android:hint="Sifre"
+                android:text = ""
+                android:textSize="24sp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+
+            android:id="@+id/signupfragmentsignupbutton"
+
+            android:layout_below="@+id/signupfragmentpassword"
+            android:layout_marginTop="110dp"
+
+
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="75dp"
+
+            android:background="@drawable/nextbuttonbackground"
+
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="Kayit Ol"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textAllCaps="false">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

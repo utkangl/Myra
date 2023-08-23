@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Loginfragment">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+
+           android:id="@+id/loginfragmenttitletextview"
+
+           android:layout_above="@+id/loginfragmentusername"
+           android:layout_marginBottom="45dp"
+
+           android:layout_centerHorizontal="true"
+
+           android:fontFamily="@font/arima_madurai_bold"
+           android:text="Bilgilerinizi Girin"
+           android:textColor="@color/white"
+           android:textSize="32sp">
+
+       </TextView>
+
+
+       <androidx.cardview.widget.CardView
+
+           android:id="@+id/loginfragmentusername"
+
+           android:layout_width="match_parent"
+           android:layout_height="65dp"
+
+           android:layout_centerVertical="true"
+
+           android:layout_marginLeft="55dp"
+           android:layout_marginRight="55dp"
+
+           app:cardCornerRadius="15dp">
+
+           <EditText
+               android:id="@+id/loginfragmentusernametext"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/loginfragmentusernamebackground"
+               android:drawableLeft="@drawable/baseline_edit_24"
+               android:drawablePadding="10dp"
+               android:fontFamily="@font/arima_madurai_light"
+               android:paddingLeft="10dp"
+               android:hint="Kullanici Adi"
+               android:text = ""
+               android:textSize="24sp" />
+
+       </androidx.cardview.widget.CardView>
+
+
+       <androidx.cardview.widget.CardView
+
+           android:id="@+id/loginfragmentpassword"
+
+           android:layout_width="match_parent"
+           android:layout_height="65dp"
+
+           android:layout_below="@+id/loginfragmentusername"
+
+           android:layout_marginLeft="55dp"
+           android:layout_marginRight="55dp"
+           android:layout_marginTop="20dp"
+
+           app:cardCornerRadius="15dp">
+
+           <EditText
+               android:id="@+id/loginfragmentpasswordtext"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:background="@drawable/loginfragmentusernamebackground"
+               android:drawableLeft="@drawable/baseline_edit_24"
+               android:drawablePadding="10dp"
+               android:fontFamily="@font/arima_madurai_light"
+               android:paddingLeft="10dp"
+               android:hint="Sifre"
+               android:text = ""
+               android:textSize="24sp" />
+
+       </androidx.cardview.widget.CardView>
+
+
+
+       <com.example.falci.LinkTextView
+           android:id="@+id/logintextview"
+           android:layout_width="wrap_content"
+
+           android:layout_height="wrap_content"
+
+           android:layout_below="@+id/loginfragmentpassword"
+
+           android:layout_marginLeft="57dp"
+           android:layout_marginTop="4dp"
+
+           android:fontFamily="@font/arima_madurai_bold"
+           android:text="Sifremi Unuttum"
+           android:textStyle="italic">
+
+       </com.example.falci.LinkTextView>
+
+
+       <androidx.appcompat.widget.AppCompatButton
+           android:layout_width="match_parent"
+           android:layout_height="65dp"
+
+           android:id="@+id/loginfragmentloginbutton"
+
+           android:layout_below="@+id/loginfragmentpassword"
+           android:layout_marginTop="110dp"
+
+
+           android:layout_marginLeft="75dp"
+           android:layout_marginRight="75dp"
+
+           android:background="@drawable/nextbuttonbackground"
+
+           android:fontFamily="@font/arima_madurai_bold"
+           android:text="Giris Yapin"
+           android:textColor="@color/white"
+           android:textSize="24sp"
+           android:textAllCaps="false">
+
+       </androidx.appcompat.widget.AppCompatButton>
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+
+           android:id="@+id/loginfragmentdonthaveanaccounttextview"
+
+           android:layout_below="@id/loginfragmentloginbutton"
+           android:layout_marginTop="4dp"
+           android:layout_marginLeft="80dp"
+
+           android:text="Hesabınız yok mu?"
+           android:fontFamily="@font/arima_madurai_light"
+           >
+       </TextView>
+
+
+       <com.example.falci.LinkTextView
+           android:id="@+id/loginfragmentsignuplinkedtext"
+           android:layout_width="wrap_content"
+
+           android:layout_height="wrap_content"
+
+           android:layout_below="@+id/loginfragmentloginbutton"
+           android:layout_toRightOf="@id/loginfragmentdonthaveanaccounttextview"
+
+           android:layout_marginLeft="5dp"
+           android:layout_marginTop="4dp"
+
+           android:fontFamily="@font/arima_madurai_bold"
+           android:text="Kayit Olun"
+           android:textStyle="italic">
+
+       </com.example.falci.LinkTextView>
+
+
+   </RelativeLayout>
+
+</LinearLayout>
