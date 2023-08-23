@@ -46,7 +46,7 @@ class LoginSignupActivity : AppCompatActivity() {
 
     }
 
-    object postRegistirationJSONFunction{
+    object PostRegistrationJSONFunction{
 
 
         fun postJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
@@ -63,17 +63,38 @@ class LoginSignupActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call, e: IOException) {
                     callback(null, e)
+                    println("hafiften sictik")
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
+
+                    val jsonoftokens = responseBody?.let { JSONObject(it) }
+
+                    val refreshtoken = jsonoftokens?.getString("refresh")
+                    val accesstoken  = jsonoftokens?.getString("access")
+
                     callback(responseBody, null)
-                    println(responseBody)
+
                 }
             })
         }
 
     }
+
+
+    object loginvalidation{
+
+
+
+
+
+
+    }
+
+
+
+
 
 
 }
