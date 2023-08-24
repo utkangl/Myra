@@ -35,10 +35,14 @@ class NamePickFragment : Fragment() {
 
             if (namepickfragmentnameinputtext.text.isNotEmpty())
             {
-                val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.container, genderPickFragment )
-                transaction.commit()
+                parentFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragment_container, genderPickFragment)
+                    addToBackStack(null)
+                    commit()
+                }
+
             }
+
         }
 
 

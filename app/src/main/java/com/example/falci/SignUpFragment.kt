@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
-import com.example.falci.LoginSignupActivity.RegistrationFunction as regobject
-import com.example.falci.LoginSignupActivity.PostRegistrationJSONFunction as postjsonobject
+import com.example.falci.LoginSignupActivity.RegistrationFunctions
 
 
 class SignUpFragment : Fragment() {
@@ -26,20 +25,18 @@ class SignUpFragment : Fragment() {
         val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
 
         val registerposturl = "http://31.210.43.174:1337/auth/register/"
-        val loginposturl = "http://31.210.43.174:1337/auth/"
 
         signupfragmentsignupbutton.setOnClickListener{
 
-            val registrationJSON = regobject.createRegistrationJSON(username.toString(), password.toString())
+            val registrationJSON = RegistrationFunctions.createRegistrationJSON(username.toString(), password.toString())
 
-            postjsonobject.postJson(registerposturl, registrationJSON) { responseBody, exception ->
+            RegistrationFunctions.postsignupJson(registerposturl, registrationJSON) { responseBody, exception ->
                 if (exception != null) {
                     println("Error: ${exception.message}")
                 } else {
                     println("Response: $responseBody")
                 }
             }
-
 
         }
 

@@ -19,13 +19,13 @@ class LoginSignupActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.container, loginfragment).commit()
     }
 
-    object RegistrationFunction{
+    object RegistrationFunctions{
 
         fun createRegistrationJSON(username: String, password: String): JSONObject {
-            val jsonObject = JSONObject()
+            val registerjsonObject = JSONObject()
 
-            jsonObject.put("username", username)
-            jsonObject.put("password", password)
+            registerjsonObject.put("username", username)
+            registerjsonObject.put("password", password)
 
             val registerInfo = JSONObject()
             val zodiacInfo = JSONObject()
@@ -39,18 +39,14 @@ class LoginSignupActivity : AppCompatActivity() {
             registerInfo.put("zodiacInfo", zodiacInfo)
             registerInfo.put("relationshipStatus", "single")
 
-            jsonObject.put("registerInfo", registerInfo)
+            registerjsonObject.put("registerInfo", registerInfo)
 
-            return jsonObject
+            return registerjsonObject
         }
 
-    }
 
-    object PostRegistrationJSONFunction{
-
-
-        fun postJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
-            val client = OkHttpClient()
+        fun postsignupJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+            val signupclient = OkHttpClient()
 
             val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
 
@@ -59,7 +55,7 @@ class LoginSignupActivity : AppCompatActivity() {
                 .post(requestBody)
                 .build()
 
-            client.newCall(request).enqueue(object : Callback {
+            signupclient.newCall(request).enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {
                     callback(null, e)
@@ -71,8 +67,8 @@ class LoginSignupActivity : AppCompatActivity() {
 
                     val jsonoftokens = responseBody?.let { JSONObject(it) }
 
-                    val refreshtoken = jsonoftokens?.getString("refresh")
-                    val accesstoken  = jsonoftokens?.getString("access")
+//                    val refreshtoken = jsonoftokens?.getString("refresh")
+//                    val accesstoken  = jsonoftokens?.getString("access")
 
                     callback(responseBody, null)
 
@@ -83,9 +79,56 @@ class LoginSignupActivity : AppCompatActivity() {
     }
 
 
-    object loginvalidation{
+    object Loginfunctions{
+
+        fun createLoginJSON(username: String, password: String): JSONObject {
+
+            val loginjsonObject = JSONObject()
+
+            loginjsonObject.put("username", username)
+            loginjsonObject.put("password", password)
+
+            return loginjsonObject
+        }
 
 
+        fun postloginJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+
+            val loginclient = OkHttpClient()
+
+            val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build()
+
+
+            loginclient.newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {
+                    callback(null, e)
+                    println("hafiften sictik")
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+
+//                    val jsonoftokens = responseBody?.let { JSONObject(it) }
+//
+//                    val refreshtoken = jsonoftokens?.getString("refresh")
+//                    val accesstoken  = jsonoftokens?.getString("access")
+
+                    callback(responseBody, null)
+//                    println("refreshtoken $refreshtoken")
+//                    println("accesstoken  $accesstoken")
+
+
+
+                }
+            })
+
+        }
 
 
 

@@ -15,7 +15,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        supportFragmentManager.beginTransaction().replace(R.id.container, namePickFragment).commit()
+        if (savedInstanceState == null){
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragment_container, namePickFragment)
+                commit()
+            }
+        }
+
 
 
     }

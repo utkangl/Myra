@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
+import android.widget.EditText
+import androidx.appcompat.widget.AppCompatButton
+import com.example.falci.LoginSignupActivity.Loginfunctions.createLoginJSON
+import com.example.falci.LoginSignupActivity.Loginfunctions.postloginJson
 
 
 class Loginfragment : Fragment() {
@@ -21,11 +24,40 @@ class Loginfragment : Fragment() {
         val loginfragmentsignuplinkedtext = v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
         val signUpFragment = SignUpFragment()
 
-        loginfragmentsignuplinkedtext.setOnClickListener{
-            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.container, signUpFragment )
-            transaction.commit()
+        val username = v.findViewById<EditText>(R.id.loginfragmentusernametext).text
+        val password = v.findViewById<EditText>(R.id.loginfragmentpasswordtext).text
+
+        val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginfragmentloginbutton)
+
+        val loginposturl = "http://31.210.43.174:1337/auth/token/"
+
+
+        loginfragmentloginbutton.setOnClickListener{
+
+            val loginJson = createLoginJSON(username.toString(), password.toString())
+
+            postloginJson(loginposturl, loginJson) { responseBody, exception ->
+                if (exception != null) {
+                    println("Error: ${exception.message}")
+                } else {
+                    println("Response: $responseBody")
+                }
+            }
+
+
         }
+
+
+        loginfragmentsignuplinkedtext.setOnClickListener{
+
+            parentFragmentManager.beginTransaction().apply{
+                replace(R.id.container, signUpFragment)
+                addToBackStack(null)
+                commit()
+            }
+
+        }
+
 
         return v
 
