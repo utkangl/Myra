@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.FragmentTransaction
 
-
 class NamePickFragment : Fragment() {
 
     override fun onCreateView(
@@ -27,8 +26,6 @@ class NamePickFragment : Fragment() {
         val namepickfragmentnameinputtext = v.findViewById<EditText>(R.id.namepickfragmentnameinputtext)
 
         val genderPickFragment = GenderPickFragment()
-
-
 
 
         namepickfragmentnextbutton.setOnClickListener{

@@ -34,77 +34,10 @@
 
 
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/namepickfragmentstar3"
-        android:background="@drawable/star_shape"
-        android:layout_above="@+id/namepickfragmenttitle"
-        android:layout_marginBottom="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/empty"
-        android:layout_marginRight="8dp">
-    </ImageView>
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/namepickfragmentstar2"
-        android:background="@drawable/star_shape"
-        android:layout_above="@+id/namepickfragmenttitle"
-        android:layout_marginBottom="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/namepickfragmentstar3"
-        android:layout_marginRight="16dp">
-    </ImageView>
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/namepickfragmentstar1"
-        android:background="@drawable/star_shape"
-        android:layout_above="@+id/namepickfragmenttitle"
-        android:layout_marginBottom="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_toLeftOf="@+id/namepickfragmentstar2"
-        android:layout_marginRight="16dp">
-    </ImageView>
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/namepickfragmentstar4"
-        android:background="@drawable/star_shape"
-        android:layout_above="@+id/namepickfragmenttitle"
-        android:layout_marginBottom="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/empty"
-        android:layout_marginLeft="8dp">
-    </ImageView>
 
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/namepickfragmentstar5"
-        android:background="@drawable/star_shape"
-        android:layout_above="@+id/namepickfragmenttitle"
-        android:layout_marginBottom="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/namepickfragmentstar4"
-        android:layout_marginLeft="16dp">
-    </ImageView>
-
-    <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/namepickfragmentstar6"
-        android:background="@drawable/star_shape"
-        android:layout_above="@+id/namepickfragmenttitle"
-        android:layout_marginBottom="12dp"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/namepickfragmentstar5"
-        android:layout_marginLeft="16dp">
-    </ImageView>
 
 
     <TextView
@@ -144,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/nameinputbackground"
-            android:drawableLeft="@drawable/baseline_edit_24"
+            android:drawableLeft="@drawable/write_icon"
             android:drawablePadding="10dp"
             android:fontFamily="@font/arima_madurai_light"
             android:paddingLeft="10dp"

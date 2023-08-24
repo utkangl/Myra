@@ -1,14 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GenderPickFragment">
 
+
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the to pick your gender">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/genderpickfragmentstep2of6"
+
+        android:layout_marginTop="30dp"
+
+        android:layout_centerHorizontal="true"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Step 2 of 6"
+        android:textColor="@color/white"
+        android:textSize="20sp">
+
     </TextView>
 
-</FrameLayout>
+    <ImageView
+
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+
+        android:id="@+id/genderpickfragmentmaincircle"
+
+        android:src="@drawable/maintransparentring"
+
+        android:scaleType="centerInside"
+        android:background="@android:color/transparent"
+
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+    </ImageView>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+
+        android:id="@+id/malecircle"
+
+        android:src="@drawable/overlay_drawable_male"
+
+        android:scaleType="centerInside"
+        android:background="@android:color/transparent"
+
+
+        android:layout_above="@+id/genderpickfragmentmaincircle"
+        android:layout_marginBottom="-100dp"
+        android:layout_marginLeft="25dp">
+    </ImageView>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+
+        android:id="@+id/femalecircle"
+
+        android:src="@drawable/overlay_drawable_female"
+
+        android:scaleType="centerInside"
+        android:background="@android:color/transparent"
+
+
+        android:layout_below="@+id/genderpickfragmentmaincircle"
+        android:layout_marginTop="-140dp"
+        android:layout_marginRight="25dp"
+        android:layout_alignParentEnd="true"
+        >
+    </ImageView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:id="@+id/genderpickfragmentnextbutton"
+
+        android:layout_below="@+id/femalecircle"
+        android:layout_marginTop="50dp"
+
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+
+        android:background="@drawable/nextbuttonbackground"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Devam"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textAllCaps="false">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+
+
+</RelativeLayout>

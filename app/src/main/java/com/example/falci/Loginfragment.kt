@@ -44,9 +44,7 @@ class Loginfragment : Fragment() {
                 }
             }
 
-
         }
-
 
         loginfragmentsignuplinkedtext.setOnClickListener{
 
@@ -57,7 +55,6 @@ class Loginfragment : Fragment() {
             }
 
         }
-
 
         return v
 

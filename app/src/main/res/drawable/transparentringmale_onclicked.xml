@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke
+        android:width="12dp"
+        android:color="@color/white" /> <!-- Buradaki renk kodu: #80(alpha)RRGGBB -->
+    <solid android:color="@android:color/transparent" />
+    <corners android:radius="100dp" /> <!-- Halka şeklini vermek için köşe yarıçapını yarım genişlikte verin -->
+
+</shape>
