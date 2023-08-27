@@ -1,5 +1,6 @@
 package com.example.falci
 
+import ChatAdapter
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import androidx.cardview.widget.CardView
+import android.widget.ListView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -31,21 +32,32 @@ class ChatFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_chat, container, false)
 
         val messageInput = v.findViewById<EditText>(R.id.chatfragmentmessageinputtext)
-        val messageCardContainer = v.findViewById<CardView>(R.id.chatfragmentmessageinput)
+
+        val mainLayout = v.findViewById<View>(R.id.chat_fragment)
+
+        val chatListView = v.findViewById<ListView>(R.id.chatListView)
+
+        val messages = mutableListOf(
+            ChatMessage("Hello!", true),
+        )
+
+        val chatAdapter = ChatAdapter(requireContext(), messages)
+        chatListView.adapter = chatAdapter
 
 
-        val mainLayout = v.findViewById<View>(R.id.chat_fragment) // Ana düzenin ID'sini buraya ekleyin
         mainLayout.setOnClickListener {
             val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
-
 
         messageInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEND) {
                 println(messageInput.text.toString())
                 usermessagetomira = messageInput.text.toString()
 
+
+                val myMessage = ChatMessage(usermessagetomira, true)
+                messages.add(myMessage)
 
                 val chatJson = createChatJSON(usermessagetomira)
                 val gptchatUrl = "http://31.210.43.174:1337/gpt/chat/"
@@ -58,7 +70,30 @@ class ChatFragment : Fragment() {
                         println("Error: ${exception.message}")
                     } else {
                         println("Response: $responseBody")
-                        println("Yolladim galiba")
+
+                        activity?.runOnUiThread {
+                            val jsonResponse = responseBody?.let { JSONObject(it) }
+                            val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
+
+                            if (chatMessagesArray != null) {
+                                for (i in 0 until chatMessagesArray.length()) {
+                                    val chatMessageObject = chatMessagesArray.getJSONObject(i)
+                                    val sender = chatMessageObject.getString("owner")
+                                    val message = chatMessageObject.getString("message")
+
+                                    val apiMessage = ChatMessage(message, false)
+                                    if (sender == "assistant"){
+                                        messages.add(apiMessage)
+                                    }
+                                }
+                            }
+
+                            // Adaptörü güncelle
+                            chatAdapter.notifyDataSetChanged()
+
+                            // ListView'i en alt pozisyona kaydır
+                            chatListView.smoothScrollToPosition(messages.size - 1)
+                        }
 
                     }
                 }
@@ -74,13 +109,12 @@ class ChatFragment : Fragment() {
             }
         }
 
-
         return v
 
     }
 
 
-    fun createChatJSON(message: String, thread: Int? = null ): JSONObject {
+    private fun createChatJSON(message: String, thread: Int? = null ): JSONObject {
 
         val chatJsonObject = JSONObject()
 
@@ -94,7 +128,7 @@ class ChatFragment : Fragment() {
     }
 
 
-    fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+    private fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
 
         val chatclient = OkHttpClient()
 

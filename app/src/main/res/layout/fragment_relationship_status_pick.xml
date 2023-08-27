@@ -41,8 +41,7 @@
         android:text="Devam"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textAllCaps="false"
-        tools:ignore="HardcodedText">
+        android:textAllCaps="false">
 
     </androidx.appcompat.widget.AppCompatButton>
 

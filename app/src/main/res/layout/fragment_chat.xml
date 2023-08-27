@@ -10,17 +10,44 @@
 
 
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/chatfragmentmessageinput"
+        android:layout_marginBottom="10dp">
+
+
+        <ListView
+            android:id="@+id/chatListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/white"
+            android:dividerHeight="0dp"
+            android:stackFromBottom="true"
+            android:transcriptMode="normal" >
+
+        </ListView>
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+
     <androidx.cardview.widget.CardView
 
         android:id="@+id/chatfragmentmessageinput"
 
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="55dp"
 
-        android:layout_centerVertical="true"
-
-        android:layout_marginLeft="55dp"
-        android:layout_marginRight="55dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
 
         app:cardCornerRadius="25dp">
 
@@ -30,27 +57,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:background="@drawable/nameinputbackground"
+            android:background="@drawable/chatinputbackground"
 
             android:drawableLeft="@drawable/write_icon"
             android:drawablePadding="10dp"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20dp"
 
             android:fontFamily="@font/arima_madurai_light"
             android:text = ""
             android:textSize="24sp"
-
+            android:textAlignment="center"
+            android:paddingRight="35dp"
 
             android:inputType="text"
             android:imeOptions="actionSend"
 
+            android:hint="Message to Mira"
 
-            android:hint="Mira'ya bir sey söyleyin" />
+            tools:ignore="HardcodedText" />
 
     </androidx.cardview.widget.CardView>
-
-
-
 
 
 
