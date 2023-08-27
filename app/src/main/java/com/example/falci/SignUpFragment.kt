@@ -43,7 +43,6 @@ class SignUpFragment : Fragment() {
         return v
     }
 
-
 }
 
 

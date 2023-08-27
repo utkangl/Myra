@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BirthdatePickFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the to pick your birthdate">
-    </TextView>
+        <DatePicker
 
-</FrameLayout>
+            android:id="@+id/datepicker"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"
+
+            android:calendarTextColor="@color/white"
+
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
+
+        </DatePicker>
+
+        <TimePicker
+
+            android:id="@+id/timepicker"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:timePickerMode="spinner"
+
+            android:layout_above="@+id/datepicker"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+
+            >
+
+        </TimePicker>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:id="@+id/datepickfragmentnextbutton"
+
+        android:layout_below="@+id/datepicker"
+        android:layout_marginTop="100dp"
+
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:layout_centerHorizontal="true"
+
+        android:background="@drawable/nextbuttonbackground"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Devam"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textAllCaps="false">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+
+</RelativeLayout>

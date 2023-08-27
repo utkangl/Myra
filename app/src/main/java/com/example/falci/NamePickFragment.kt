@@ -35,8 +35,7 @@ class NamePickFragment : Fragment() {
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.fragment_container, genderPickFragment)
                     addToBackStack(null)
-                    commit()
-                }
+                    commit() }
 
             }
 

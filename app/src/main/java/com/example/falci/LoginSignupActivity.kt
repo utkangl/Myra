@@ -59,16 +59,13 @@ class LoginSignupActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call, e: IOException) {
                     callback(null, e)
-                    println("hafiften sictik")
+
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
 
-                    val jsonoftokens = responseBody?.let { JSONObject(it) }
-
-//                    val refreshtoken = jsonoftokens?.getString("refresh")
-//                    val accesstoken  = jsonoftokens?.getString("access")
+                   // val jsonoftokens = responseBody?.let { JSONObject(it) }
 
                     callback(responseBody, null)
 
@@ -108,22 +105,16 @@ class LoginSignupActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call, e: IOException) {
                     callback(null, e)
-                    println("hafiften sictik")
+
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
 
 //                    val jsonoftokens = responseBody?.let { JSONObject(it) }
-//
-//                    val refreshtoken = jsonoftokens?.getString("refresh")
-//                    val accesstoken  = jsonoftokens?.getString("access")
+
 
                     callback(responseBody, null)
-//                    println("refreshtoken $refreshtoken")
-//                    println("accesstoken  $accesstoken")
-
-
 
                 }
             })

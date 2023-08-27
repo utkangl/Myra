@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BirthLocationPickFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the to pick your birth location">
-    </TextView>
+        android:layout_height="65dp"
 
-</FrameLayout>
+        android:id="@+id/birthlocationpickfragmentnextbutton"
+
+        android:layout_centerVertical="true"
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+
+        android:background="@drawable/nextbuttonbackground"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Devam"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textAllCaps="false">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+    <AutoCompleteTextView
+        android:id="@+id/cityInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter a city" />
+
+</RelativeLayout>

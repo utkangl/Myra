@@ -23,10 +23,10 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         path.reset()
 
-        val innerRadius = radius / 16  // İçbükeylik sağlamak için iç yarıçapı belirleyin
+        val innerRadius = radius / 512  // İçbükeylik sağlamak için iç yarıçapı belirleyin
 
         for (i in 0 until 6) {
-            val angle = Math.PI * i / 2
+            val angle = Math.PI * i / 4
             var x = (centerX + radius * cos(angle)).toFloat()
             var y = (centerY + radius * sin(angle)).toFloat()
 
@@ -52,7 +52,7 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         path.close()
 
-        paint.color = android.graphics.Color.BLACK
+        paint.color = android.graphics.Color.WHITE
         paint.style = Paint.Style.FILL
 
         canvas.drawPath(path, paint)

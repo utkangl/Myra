@@ -34,10 +34,17 @@
 
 
 
+    <com.example.falci.StarShape
+        android:layout_width="40dp"
+        android:layout_height="40dp"
 
+        android:layout_above="@+id/namepickfragmenttitle"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
 
+        >
 
-
+    </com.example.falci.StarShape>
 
 
     <TextView
