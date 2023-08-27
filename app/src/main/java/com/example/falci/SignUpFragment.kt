@@ -23,6 +23,7 @@ class SignUpFragment : Fragment() {
         val password = v.findViewById<EditText>(R.id.signupfragmentpasswordtext).text
 
         val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
+        val loginfragment = Loginfragment()
 
         val registerposturl = "http://31.210.43.174:1337/auth/register/"
 
@@ -35,8 +36,19 @@ class SignUpFragment : Fragment() {
                     println("Error: ${exception.message}")
                 } else {
                     println("Response: $responseBody")
+                    println("Kayit saglandi")
+
+                    parentFragmentManager.beginTransaction().apply{
+                        replace(R.id.container, loginfragment)
+                        addToBackStack(null)
+                        commit()
+
+                    }
+
                 }
             }
+
+
 
         }
 

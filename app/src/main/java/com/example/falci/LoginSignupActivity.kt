@@ -3,14 +3,14 @@ package com.example.falci
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import okhttp3.*
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
 
 class LoginSignupActivity : AppCompatActivity() {
 
-
-    val loginfragment = Loginfragment()
+    private val loginfragment = Loginfragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +65,6 @@ class LoginSignupActivity : AppCompatActivity() {
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
 
-                   // val jsonoftokens = responseBody?.let { JSONObject(it) }
 
                     callback(responseBody, null)
 
@@ -77,6 +76,9 @@ class LoginSignupActivity : AppCompatActivity() {
 
 
     object Loginfunctions{
+
+        lateinit var RefreshToken : String
+        lateinit var AccessToken : String
 
         fun createLoginJSON(username: String, password: String): JSONObject {
 
@@ -111,8 +113,20 @@ class LoginSignupActivity : AppCompatActivity() {
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
 
-//                    val jsonoftokens = responseBody?.let { JSONObject(it) }
+                    if (responseBody != null) {
 
+                        val (refreshToken, accessToken) = parseJWTTokens(responseBody)
+
+                        println("Token 1: $refreshToken")
+                        if (refreshToken != null) {
+                            RefreshToken = refreshToken
+                        }
+                        println("Token 2: $accessToken")
+                        if (accessToken != null) {
+                            AccessToken = accessToken
+                        }
+
+                    }
 
                     callback(responseBody, null)
 
@@ -120,6 +134,22 @@ class LoginSignupActivity : AppCompatActivity() {
             })
 
         }
+
+        fun parseJWTTokens(responseBody: String): Pair<String?, String?> {
+            var token1: String? = null
+            var token2: String? = null
+
+            try {
+                val jsonResponse = JSONObject(responseBody)
+                token1 = jsonResponse.optString("refresh", null.toString()) // "token1_key" yerine gerçek anahtarınızı kullanın
+                token2 = jsonResponse.optString("access", null.toString()) // "token2_key" yerine gerçek anahtarınızı kullanın
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+            return Pair(token1, token2)
+        }
+
 
 
 

@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".OccupationPickFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the to pick your occupation">
-    </TextView>
+    <androidx.cardview.widget.CardView
 
-</FrameLayout>
+        android:id="@+id/occupationpickfragmentoccupationinput"
+
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:layout_centerVertical="true"
+
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+
+        app:cardCornerRadius="25dp">
+
+        <EditText
+            android:id="@+id/occupationpickfragmentoccupationinputtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/nameinputbackground"
+            android:drawableLeft="@drawable/write_icon"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:paddingLeft="10dp"
+            android:hint="Mesleginiz"
+            android:text = ""
+            android:textSize="24sp"
+            android:inputType="text"
+            tools:ignore="HardcodedText" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:id="@+id/occupationpickfragmentnextbutton"
+
+        android:layout_below="@+id/occupationpickfragmentoccupationinput"
+        android:layout_marginTop="100dp"
+
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+
+        android:background="@drawable/nextbuttonbackground"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Devam"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textAllCaps="false"
+        tools:ignore="HardcodedText">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</RelativeLayout>

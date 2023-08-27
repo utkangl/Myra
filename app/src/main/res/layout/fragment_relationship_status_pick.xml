@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RelationshipStatusPickFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="This is the to pick your relationship status">
-    </TextView>
 
-</FrameLayout>
+
+    <Spinner
+        android:id="@+id/marital_status_spinner"
+
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:background="@drawable/nameinputbackground"
+
+        android:textAlignment="center"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:id="@+id/relationshipstatuspickfragmentnextbutton"
+
+        android:layout_below="@+id/marital_status_spinner"
+        android:layout_marginTop="100dp"
+
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+
+        android:background="@drawable/nextbuttonbackground"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Devam"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textAllCaps="false"
+        tools:ignore="HardcodedText">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+</RelativeLayout>

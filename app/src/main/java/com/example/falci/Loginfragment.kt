@@ -23,6 +23,7 @@ class Loginfragment : Fragment() {
 
         val loginfragmentsignuplinkedtext = v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
         val signUpFragment = SignUpFragment()
+        val chatFragment = ChatFragment()
 
         val username = v.findViewById<EditText>(R.id.loginfragmentusernametext).text
         val password = v.findViewById<EditText>(R.id.loginfragmentpasswordtext).text
@@ -41,6 +42,15 @@ class Loginfragment : Fragment() {
                     println("Error: ${exception.message}")
                 } else {
                     println("Response: $responseBody")
+                    println("Giris saglandi")
+
+                    parentFragmentManager.beginTransaction().apply{
+                        replace(R.id.container, chatFragment)
+                        addToBackStack(null)
+                        commit()
+                    }
+
+
                 }
             }
 

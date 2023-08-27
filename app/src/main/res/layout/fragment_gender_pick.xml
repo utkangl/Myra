@@ -20,62 +20,27 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Step 2 of 6"
         android:textColor="@color/white"
-        android:textSize="20sp">
+        android:textSize="20sp"
+        tools:ignore="HardcodedText">
 
     </TextView>
 
-    <ImageView
 
-        android:layout_width="300dp"
-        android:layout_height="300dp"
 
-        android:id="@+id/genderpickfragmentmaincircle"
+    <Spinner
+        android:id="@+id/genderpick_spinner"
 
-        android:src="@drawable/maintransparentring"
-
-        android:scaleType="centerInside"
-        android:background="@android:color/transparent"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
 
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
 
-    </ImageView>
+        android:background="@drawable/nameinputbackground"
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:textAlignment="center"
 
-        android:id="@+id/malecircle"
-
-        android:src="@drawable/overlay_drawable_male"
-
-        android:scaleType="centerInside"
-        android:background="@android:color/transparent"
-
-
-        android:layout_above="@+id/genderpickfragmentmaincircle"
-        android:layout_marginBottom="-100dp"
-        android:layout_marginLeft="25dp">
-    </ImageView>
-
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-
-        android:id="@+id/femalecircle"
-
-        android:src="@drawable/overlay_drawable_female"
-
-        android:scaleType="centerInside"
-        android:background="@android:color/transparent"
-
-
-        android:layout_below="@+id/genderpickfragmentmaincircle"
-        android:layout_marginTop="-140dp"
-        android:layout_marginRight="25dp"
-        android:layout_alignParentEnd="true"
-        >
-    </ImageView>
+        />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -84,8 +49,8 @@
 
         android:id="@+id/genderpickfragmentnextbutton"
 
-        android:layout_below="@+id/femalecircle"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/genderpick_spinner"
+        android:layout_marginTop="100dp"
 
 
         android:layout_marginLeft="75dp"
@@ -97,7 +62,8 @@
         android:text="Devam"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textAllCaps="false">
+        android:textAllCaps="false"
+        tools:ignore="HardcodedText">
 
     </androidx.appcompat.widget.AppCompatButton>
 

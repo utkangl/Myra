@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ChatFragment"
+    android:id="@+id/chat_fragment">
+
+
+
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/chatfragmentmessageinput"
+
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:layout_centerVertical="true"
+
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+
+        app:cardCornerRadius="25dp">
+
+        <EditText
+            android:id="@+id/chatfragmentmessageinputtext"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="@drawable/nameinputbackground"
+
+            android:drawableLeft="@drawable/write_icon"
+            android:drawablePadding="10dp"
+            android:paddingLeft="10dp"
+
+            android:fontFamily="@font/arima_madurai_light"
+            android:text = ""
+            android:textSize="24sp"
+
+
+            android:inputType="text"
+            android:imeOptions="actionSend"
+
+
+            android:hint="Mira'ya bir sey söyleyin" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+</RelativeLayout>
