@@ -16,13 +16,11 @@ import org.json.JSONObject
 import java.io.IOException
 import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
 
-
-
 class ChatFragment : Fragment() {
-
 
     private lateinit var usermessagetomira: String
 
+    private var threadNumber : Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +35,7 @@ class ChatFragment : Fragment() {
 
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
-        val messages = mutableListOf(
-            ChatMessage("Hello!", true),
-        )
+        val messages = mutableListOf<ChatMessage>()
 
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
@@ -55,11 +51,13 @@ class ChatFragment : Fragment() {
                 println(messageInput.text.toString())
                 usermessagetomira = messageInput.text.toString()
 
-
                 val myMessage = ChatMessage(usermessagetomira, true)
                 messages.add(myMessage)
+                messageInput.setText("")
+                chatAdapter.notifyDataSetChanged()
+                chatListView.smoothScrollToPosition(messages.size - 1)
 
-                val chatJson = createChatJSON(usermessagetomira)
+                val chatJson = createChatJSON(usermessagetomira, threadNumber)
                 val gptchatUrl = "http://31.210.43.174:1337/gpt/chat/"
 
                 postChatJson(
@@ -76,14 +74,18 @@ class ChatFragment : Fragment() {
                             val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
 
                             if (chatMessagesArray != null) {
-                                for (i in 0 until chatMessagesArray.length()) {
+                                // En son mesaji bulmak icin chatMessagesArray'ı tersten dön
+                                for (i in chatMessagesArray.length() - 1 downTo 0) {
                                     val chatMessageObject = chatMessagesArray.getJSONObject(i)
                                     val sender = chatMessageObject.getString("owner")
                                     val message = chatMessageObject.getString("message")
+                                    threadNumber = chatMessageObject.getInt("thread")
 
                                     val apiMessage = ChatMessage(message, false)
-                                    if (sender == "assistant"){
+                                    if (sender == "assistant") {
                                         messages.add(apiMessage)
+                                        // En son mesajı bulduktan sonra döngüyü sonlandır
+                                        break
                                     }
                                 }
                             }
@@ -98,21 +100,18 @@ class ChatFragment : Fragment() {
                     }
                 }
 
-
-
                 true
-
 
             } else {
                 println("yaz bakalim")
                 false
             }
+
         }
 
         return v
 
     }
-
 
     private fun createChatJSON(message: String, thread: Int? = null ): JSONObject {
 
@@ -126,7 +125,6 @@ class ChatFragment : Fragment() {
 
         return chatJsonObject
     }
-
 
     private fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
 
@@ -145,7 +143,6 @@ class ChatFragment : Fragment() {
 
             override fun onFailure(call: Call, e: IOException) {
                 callback(null, e)
-
             }
 
             override fun onResponse(call: Call, response: Response) {
