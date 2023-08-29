@@ -90,10 +90,10 @@ class ChatFragment : Fragment() {
                                 }
                             }
 
-                            // Adaptörü güncelle
+// Adaptörü güncelle
                             chatAdapter.notifyDataSetChanged()
 
-                            // ListView'i en alt pozisyona kaydır
+// ListView'i en alt pozisyona kaydır
                             chatListView.smoothScrollToPosition(messages.size - 1)
                         }
 
@@ -143,6 +143,7 @@ class ChatFragment : Fragment() {
 
             override fun onFailure(call: Call, e: IOException) {
                 callback(null, e)
+
             }
 
             override fun onResponse(call: Call, response: Response) {

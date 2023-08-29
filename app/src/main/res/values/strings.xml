@@ -10,10 +10,35 @@
     </string-array>
 
     <string-array name="genders">
-        <item>Pick your gender</item>
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
+            <item>Pick your gender</item>
+            <item>Male</item>
+            <item>Female</item>
+            <item>Other</item>
     </string-array>
+
+    <string-array name="occupations">
+        <item>Healthcare and Medicine</item>
+        <item>Education and Teaching</item>
+        <item>Information Technology (IT)</item>
+        <item>Business and Management</item>
+        <item>Sales and Marketing</item>
+        <item>Engineering</item>
+        <item>Arts and Entertainment</item>
+        <item>Construction and Trades</item>
+        <item>Law and Legal Services</item>
+        <item>Science and Research</item>
+        <item>Social Services and Nonprofits</item>
+        <item>Finance and Accounting</item>
+        <item>Agriculture and Farming</item>
+        <item>Hospitality and Tourism</item>
+        <item>Media and Communication</item>
+        <item>Manufacturing and Production</item>
+        <item>Transportation and Logistics</item>
+        <item>Administration and Office Support</item>
+        <item>Sports and Recreation</item>
+        <item>Government and Public Administration</item>
+    </string-array>
+
+
 
 </resources>
