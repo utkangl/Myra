@@ -55,8 +55,8 @@ class Loginfragment : Fragment() {
             v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
         val signUpFragment = SignUpFragment()
 
-        usernameEditText = v.findViewById<EditText>(R.id.loginfragmentusername)
-        passwordEditText = v.findViewById<EditText>(R.id.loginfragmentpassword)
+        usernameEditText = v.findViewById(R.id.loginfragmentusername)
+        passwordEditText = v.findViewById(R.id.loginfragmentpassword)
 
         val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginfragmentnextbutton)
         val loginfragmentloginwithgooglebutton =

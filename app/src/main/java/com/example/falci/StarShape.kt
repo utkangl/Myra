@@ -27,8 +27,8 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         for (i in 0 until 6) {
             val angle = Math.PI * i / 4
-            var x = (centerX + radius * cos(angle)).toFloat()
-            var y = (centerY + radius * sin(angle)).toFloat()
+            val x = (centerX + radius * cos(angle)).toFloat()
+            val y = (centerY + radius * sin(angle)).toFloat()
 
 
             if (i == 0) {
@@ -39,8 +39,8 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
                 val prevX = (centerX + radius * cos(prevAngle)).toFloat()
                 val prevY = (centerY + radius * sin(prevAngle)).toFloat()
 
-                val midX = (prevX + x) / 2
-                val midY = (prevY + y) / 2
+//                val midX = (prevX + x) / 2
+//                val midY = (prevY + y) / 2
 
                 val controlX = (centerX + innerRadius * cos(angle - Math.PI / 8)).toFloat()
                 val controlY = (centerY + innerRadius * sin(angle - Math.PI / 8)).toFloat()

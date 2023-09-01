@@ -33,8 +33,8 @@ class BirthLocationPickFragment : Fragment() {
 
         autoCompleteTextView = v.findViewById(R.id.cityInput)
 
-        // Google Places API başlatma
-        Places.initialize(requireContext(), "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo")
+
+        Places.initialize(requireContext(), "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo") // Google Places API başlatma TODO/apikeyi boyle aciktan verme
         placesClient = Places.createClient(requireContext())
 
         val adapter = ArrayAdapter(
@@ -70,9 +70,7 @@ class BirthLocationPickFragment : Fragment() {
                     addToBackStack(null)
                     commit()
                 }
-
             }
-
         }
 
         return v

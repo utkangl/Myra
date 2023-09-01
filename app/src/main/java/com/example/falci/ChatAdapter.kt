@@ -1,11 +1,11 @@
+package com.example.falci
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.falci.ChatMessage
-import com.example.falci.R
 
 class ChatAdapter(private val context: Context, private val messages: List<ChatMessage>) :
     BaseAdapter() {
@@ -22,7 +22,7 @@ class ChatAdapter(private val context: Context, private val messages: List<ChatM
         return position.toLong()
     }
 
-    private class ViewHolder(val view: View) {
+    private class ViewHolder(view: View) {
         val messageTextView: TextView = view.findViewById(R.id.messageTextView)
     }
 

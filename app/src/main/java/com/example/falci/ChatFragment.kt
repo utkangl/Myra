@@ -1,6 +1,5 @@
 package com.example.falci
 
-import ChatAdapter
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -151,7 +150,7 @@ class ChatFragment : Fragment() {
 
                 println("response from mira $responseBody")
 
-                println(" sfdbdsfbsdfbsdfbsdfbfd $AccessToken")
+                println(AccessToken)
 
                 callback(responseBody, null)
 
