@@ -6,7 +6,6 @@
     tools:context=".RelationshipStatusPickFragment">
 
 
-
     <Spinner
         android:id="@+id/marital_status_spinner"
 
@@ -23,25 +22,24 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/relationshipstatuspickfragmentnextbutton"
         android:layout_width="match_parent"
+
         android:layout_height="75dp"
 
-        android:id="@+id/relationshipstatuspickfragmentnextbutton"
-
         android:layout_below="@+id/marital_status_spinner"
-        android:layout_marginTop="100dp"
-
 
         android:layout_marginLeft="75dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="75dp"
 
         android:background="@drawable/nextbuttonbackground"
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Devam"
+        android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textAllCaps="false">
+        android:textSize="24sp">
 
     </androidx.appcompat.widget.AppCompatButton>
 

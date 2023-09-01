@@ -6,10 +6,10 @@
     tools:context=".BirthLocationPickFragment">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-
         android:id="@+id/birthlocationpickfragmentnextbutton"
+        android:layout_width="match_parent"
+
+        android:layout_height="65dp"
 
         android:layout_centerVertical="true"
 
@@ -20,9 +20,9 @@
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Devam"
+        android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textAllCaps="false">
+        android:textSize="24sp">
 
     </androidx.appcompat.widget.AppCompatButton>
 

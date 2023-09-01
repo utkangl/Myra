@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".OccupationPickFragment">
 
     <Spinner
@@ -17,30 +17,29 @@
 
         android:background="@drawable/nameinputbackground"
 
-        android:textAlignment="center"
         android:maxHeight="200dp"
-        />
+        android:textAlignment="center" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/occupationpickfragmentnextbutton"
         android:layout_width="match_parent"
+
         android:layout_height="75dp"
 
-        android:id="@+id/occupationpickfragmentnextbutton"
-
         android:layout_below="@+id/occupation_spinner"
-        android:layout_marginTop="100dp"
-
-
         android:layout_marginLeft="75dp"
+
+
+        android:layout_marginTop="100dp"
         android:layout_marginRight="75dp"
 
         android:background="@drawable/nextbuttonbackground"
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Kaydı tamamla!"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textAllCaps="false"
         tools:ignore="HardcodedText">
 
     </androidx.appcompat.widget.AppCompatButton>
