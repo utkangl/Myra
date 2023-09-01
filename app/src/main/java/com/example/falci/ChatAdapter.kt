@@ -21,7 +21,6 @@ class ChatAdapter(private val context: Context, private val messages: List<ChatM
         return position.toLong()
     }
 
-
     private class ViewHolder(val view: View) {
         val messageTextView: TextView = view.findViewById(R.id.messageTextView)
     }

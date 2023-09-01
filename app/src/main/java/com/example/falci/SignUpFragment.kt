@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
-import com.example.falci.LoginSignupActivity.RegistrationFunctions
-
+import com.example.falci.SignUpFragment.Usernameandpasswordobject.password
+import com.example.falci.SignUpFragment.Usernameandpasswordobject.username
 
 class SignUpFragment : Fragment() {
 
@@ -19,41 +19,36 @@ class SignUpFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
 
-        val username = v.findViewById<EditText>(R.id.signupfragmentusernametext).text
-        val password = v.findViewById<EditText>(R.id.signupfragmentpasswordtext).text
+        val usernamefield = v.findViewById<EditText>(R.id.signupfragmentusernametext).text
+        val passwordfield = v.findViewById<EditText>(R.id.signupfragmentpasswordtext).text
 
         val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
-        val loginfragment = Loginfragment()
+        val namePickFragment = NamePickFragment()
 
-        val registerposturl = "http://31.210.43.174:1337/auth/register/"
 
         signupfragmentsignupbutton.setOnClickListener{
 
-            val registrationJSON = RegistrationFunctions.createRegistrationJSON(username.toString(), password.toString())
+            username = usernamefield.toString()
+            password = passwordfield.toString()
 
-            RegistrationFunctions.postsignupJson(registerposturl, registrationJSON) { responseBody, exception ->
-                if (exception != null) {
-                    println("Error: ${exception.message}")
-                } else {
-                    println("Response: $responseBody")
-                    println("Kayit saglandi")
+            println(" username $username")
+            println(" password $password")
 
-                    parentFragmentManager.beginTransaction().apply{
-                        replace(R.id.container, loginfragment)
-                        addToBackStack(null)
-                        commit()
-
-                    }
-
-                }
-            }
-
-
-
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.main_fragment_container, namePickFragment)
+                addToBackStack(null)
+                commit() }
         }
 
         return v
     }
+
+
+    object Usernameandpasswordobject{
+        lateinit var username: String
+        lateinit var password: String
+    }
+
 
 }
 

@@ -56,10 +56,12 @@ class BirthLocationPickFragment : Fragment() {
 
         birthLocationPickFragmentnextbutton.setOnClickListener{
 
+            print("location: ${LocationObject.location}")
+
             if (isCitySelected){
 
                 parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container, relationshipStatusPickFragment)
+                    replace(R.id.main_fragment_container, relationshipStatusPickFragment)
                     addToBackStack(null)
                     commit()
                 }
@@ -69,6 +71,11 @@ class BirthLocationPickFragment : Fragment() {
         }
 
         return v
+    }
+
+
+    object LocationObject{
+        lateinit var location: String
     }
 
     private fun fetchPredictions() {
@@ -88,8 +95,10 @@ class BirthLocationPickFragment : Fragment() {
 
                 // Kullanıcı bir seçim yaptı mı kontrolü
                 val selectedCity = autoCompleteTextView.text.toString()
-                isCitySelected =
-                    selectedCity in response.autocompletePredictions.map { it.getFullText(null).toString() }
+
+                LocationObject.location = selectedCity
+                isCitySelected = selectedCity in response.autocompletePredictions.map { it.getFullText(null).toString() }
+
             }
             .addOnFailureListener { exception ->
                 val statusCode = (exception as? ApiException)?.statusCode

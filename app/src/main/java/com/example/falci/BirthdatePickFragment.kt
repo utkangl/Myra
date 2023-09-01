@@ -19,24 +19,23 @@ class BirthdatePickFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_birthdate_pick, container, false)
 
         val datepicker = v.findViewById<DatePicker>(R.id.datepicker)
-        val timepicker = v.findViewById<TimePicker>(R.id.timepicker)
 
         val datepickfragmentnextbutton = v.findViewById<AppCompatButton>(R.id.datepickfragmentnextbutton)
-        val birthLocationPickFragment = BirthLocationPickFragment()
+        val birthTimePickFragment = BirthTimePickFragment()
 
         datepickfragmentnextbutton.setOnClickListener {
             val selectedYear = datepicker.year
             val selectedMonth = datepicker.month + 1 // DatePicker'da aylar 0-11 arasında indekslenir
             val selectedDay = datepicker.dayOfMonth
 
-            val selectedHour = timepicker.hour
-            val selectedMinute = timepicker.minute
 
-            val selectedDateTimeText = "Tarih: $selectedDay/$selectedMonth/$selectedYear, Saat: $selectedHour:$selectedMinute"
-            println("Seçili Tarih ve Saat: $selectedDateTimeText")
+            val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
+            DateObject.date = selectedDate
+
+            println(selectedDate)
 
             parentFragmentManager.beginTransaction().apply {
-                replace(R.id.fragment_container, birthLocationPickFragment)
+                replace(R.id.main_fragment_container, birthTimePickFragment)
                 addToBackStack(null)
                 commit()
             }
@@ -44,4 +43,10 @@ class BirthdatePickFragment : Fragment() {
 
         return v
     }
+
+
+    object DateObject{
+        lateinit var date: String
+    }
+
 }

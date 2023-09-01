@@ -10,10 +10,10 @@
     </string-array>
 
     <string-array name="genders">
-            <item>Pick your gender</item>
-            <item>Male</item>
-            <item>Female</item>
-            <item>Other</item>
+        <item>Pick your gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="occupations">
@@ -38,7 +38,6 @@
         <item>Sports and Recreation</item>
         <item>Government and Public Administration</item>
     </string-array>
-
 
 
 </resources>

@@ -48,11 +48,13 @@ class RelationshipStatusPickFragment : Fragment() {
 
         relationshipStatusPickFragmentnextbutton.setOnClickListener{
 
+            println("marital statu: $selectedMaritalStatus")
+
             if (selectedMaritalStatus != "Medeni durumunuzu Seciniz"){
-                println(selectedMaritalStatus)
+                MaritalStatusObject.maritalStatu = selectedMaritalStatus
 
                 parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container, occupationPickFragment)
+                    replace(R.id.main_fragment_container, occupationPickFragment)
                     addToBackStack(null)
                     commit()
                 }
@@ -64,6 +66,10 @@ class RelationshipStatusPickFragment : Fragment() {
         }
 
         return v
+    }
+
+    object MaritalStatusObject{
+        lateinit var maritalStatu: String
     }
 
 }

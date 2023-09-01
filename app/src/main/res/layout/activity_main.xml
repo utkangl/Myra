@@ -9,8 +9,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/falcibackground"
-        android:id="@+id/fragment_container">
+        android:id="@+id/main_fragment_container">
     </FrameLayout>
 
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/chatwithmira"
+
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+
+        android:layout_centerInParent="true"
+
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="40dp"
+
+        android:layout_marginRight="75dp"
+
+        android:background="@drawable/nextbuttonbackground"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Chat with Mira"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="24sp">
+
+    </androidx.appcompat.widget.AppCompatButton>
 
 </RelativeLayout>

@@ -48,6 +48,7 @@ class ChatFragment : Fragment() {
 
         messageInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEND) {
+                println()
                 println(messageInput.text.toString())
                 usermessagetomira = messageInput.text.toString()
 
@@ -150,6 +151,8 @@ class ChatFragment : Fragment() {
                 val responseBody = response.body()?.string()
 
                 println("response from mira $responseBody")
+
+                println(" sfdbdsfbsdfbsdfbsdfbfd $AccessToken")
 
                 callback(responseBody, null)
 

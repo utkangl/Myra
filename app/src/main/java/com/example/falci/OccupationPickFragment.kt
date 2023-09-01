@@ -11,11 +11,22 @@ import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 
+import com.example.falci.LoginSignupActivity.RegistrationFunctions
+
+
+import com.example.falci.NamePickFragment.NameObject.name
+import com.example.falci.GenderPickFragment.GenderObject.gender
+import com.example.falci.BirthdatePickFragment.DateObject.date
+import com.example.falci.BirthTimePickFragment.TimeObject.time
+import com.example.falci.BirthLocationPickFragment.LocationObject.location
+import com.example.falci.RelationshipStatusPickFragment.MaritalStatusObject.maritalStatu
+import com.example.falci.SignUpFragment.Usernameandpasswordobject.username
+import com.example.falci.SignUpFragment.Usernameandpasswordobject.password
+
 
 class OccupationPickFragment : Fragment() {
 
     private lateinit var selectedOccupation: String
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +35,7 @@ class OccupationPickFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_occupation_pick, container, false)
 
+        val loginFragment = Loginfragment()
 
         val occupationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.occupationpickfragmentnextbutton)
 
@@ -42,30 +54,53 @@ class OccupationPickFragment : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                println("Nothing Selected for Marital Status")
+                println("Nothing Selected for Occupation")
             }
         }
 
+        val registerposturl = "http://31.210.43.174:1337/auth/register/"
 
         occupationPickFragmentnextbutton.setOnClickListener{
 
-            val intent = Intent(activity, MainPage::class.java)
+            val formattedDate = formatDateAndTime(date,time)
+
+            val registrationJSON = RegistrationFunctions.createRegistrationJSON(
+                username,
+                password,
+                name.toString(),
+                gender,
+                formattedDate,
+                location,
+                maritalStatu,
+                selectedOccupation
+            )
+
+            RegistrationFunctions.postsignupJson(registerposturl, registrationJSON) { responseBody, exception ->
+                if (exception != null) {
+                    println("Error: ${exception.message}")
+                } else {
+                    println("Response: $responseBody")
+
+                    parentFragmentManager.beginTransaction().apply {
+                        replace(R.id.main_fragment_container, loginFragment)
+                        addToBackStack(null)
+                        commit() }
 
 
-            if (selectedOccupation.isNotEmpty()){
-                startActivity(intent)
-            }else{
-                println("choose an occupation to go on")
+                }
             }
 
         }
 
+            return v
 
+        }
 
-
-        return v
+        private fun formatDateAndTime(date: String, time: String): String{
+            return("$date $time PM +0000")
+        }
 
     }
 
 
-}
+

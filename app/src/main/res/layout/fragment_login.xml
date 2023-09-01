@@ -3,12 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Loginfragment">
 
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent">
+
+       <ImageView
+           android:layout_width="200dp"
+           android:layout_height="200dp"
+           android:background="@drawable/character"
+           android:layout_centerHorizontal="true"
+           android:layout_above="@+id/loginfragmenttitletextview"
+           android:layout_marginBottom="20dp">
+
+       </ImageView>
+
 
        <TextView
            android:layout_width="wrap_content"
@@ -17,7 +27,7 @@
            android:id="@+id/loginfragmenttitletextview"
 
            android:layout_above="@+id/loginfragmentusername"
-           android:layout_marginBottom="45dp"
+           android:layout_marginBottom="25dp"
 
            android:layout_centerHorizontal="true"
 
@@ -27,106 +37,142 @@
            android:textSize="32sp">
        </TextView>
 
-       <androidx.cardview.widget.CardView
+       <EditText
+
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
 
            android:id="@+id/loginfragmentusername"
 
-           android:layout_width="match_parent"
-           android:layout_height="65dp"
+           android:layout_marginStart="50dp"
+           android:layout_marginEnd="50dp"
 
-           android:layout_centerVertical="true"
+           android:layout_above="@+id/loginfragmentpassword"
+           android:layout_marginBottom="20dp"
 
-           android:layout_marginLeft="55dp"
-           android:layout_marginRight="55dp"
+           android:hint="Kullanici Adi"
+           android:textColorHint="@color/white"
+           android:textColor="@color/white">
 
-           app:cardCornerRadius="15dp">
-
-           <EditText
-               android:id="@+id/loginfragmentusernametext"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:background="@drawable/loginfragmentusernamebackground"
-               android:drawableLeft="@drawable/write_icon"
-               android:drawablePadding="10dp"
-               android:fontFamily="@font/arima_madurai_light"
-               android:paddingLeft="10dp"
-               android:hint="Kullanici Adi"
-               android:text = ""
-               android:textSize="24sp" />
-
-       </androidx.cardview.widget.CardView>
+       </EditText>
 
 
-       <androidx.cardview.widget.CardView
-
+       <EditText
            android:id="@+id/loginfragmentpassword"
-
            android:layout_width="match_parent"
-           android:layout_height="65dp"
-
-           android:layout_below="@+id/loginfragmentusername"
-
-           android:layout_marginLeft="55dp"
-           android:layout_marginRight="55dp"
-           android:layout_marginTop="20dp"
-
-           app:cardCornerRadius="15dp">
-
-           <EditText
-               android:id="@+id/loginfragmentpasswordtext"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:background="@drawable/loginfragmentusernamebackground"
-               android:drawableLeft="@drawable/write_icon"
-               android:drawablePadding="10dp"
-               android:fontFamily="@font/arima_madurai_light"
-               android:paddingLeft="10dp"
-               android:hint="Sifre"
-               android:text = ""
-               android:textSize="24sp" />
-
-       </androidx.cardview.widget.CardView>
-
-
-
-       <com.example.falci.LinkTextView
-           android:id="@+id/logintextview"
-           android:layout_width="wrap_content"
 
            android:layout_height="wrap_content"
 
-           android:layout_below="@+id/loginfragmentpassword"
+           android:layout_centerInParent="true"
 
-           android:layout_marginLeft="57dp"
-           android:layout_marginTop="4dp"
+           android:layout_marginStart="50dp"
+
+           android:layout_marginEnd="50dp"
+           android:hint="Sifre"
+           android:autofillHints="password"
+           android:inputType="textPassword"
+           android:textColorHint="@color/white"
+           android:textColor="@color/white">
+
+       </EditText>
+
+       <com.example.falci.LinkTextView
+           android:id="@+id/loginfragmentforgotmypasswordlinkedtext"
+
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+
+           android:layout_below="@+id/loginfragmentpassword"
+           android:layout_marginTop="5dp"
+
+           android:layout_alignParentEnd="true"
+           android:layout_marginEnd="75dp"
 
            android:fontFamily="@font/arima_madurai_bold"
-           android:text="Sifremi Unuttum"
-           android:textStyle="italic">
-
+           android:text="Sifremi unuttum"
+           android:textStyle="italic"
+           android:textColor="@color/white">
        </com.example.falci.LinkTextView>
 
 
        <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/loginfragmentnextbutton"
+
            android:layout_width="match_parent"
            android:layout_height="65dp"
 
-           android:id="@+id/loginfragmentloginbutton"
+           android:layout_below="@id/loginfragmentpassword"
 
-           android:layout_below="@+id/loginfragmentpassword"
-           android:layout_marginTop="110dp"
-
+           android:layout_centerInParent="true"
 
            android:layout_marginLeft="75dp"
-           android:layout_marginRight="75dp"
 
+           android:layout_marginTop="40dp"
+           android:layout_marginRight="75dp"
            android:background="@drawable/nextbuttonbackground"
+           android:fontFamily="@font/arima_madurai_bold"
+           android:text="Devam"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           android:textSize="24sp">
+
+       </androidx.appcompat.widget.AppCompatButton>
+
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/loginfragmentloginwithgooglebutton"
+
+           android:layout_width="match_parent"
+           android:layout_height="65dp"
+
+           android:layout_below="@id/loginfragmentnextbutton"
+
+           android:layout_centerInParent="true"
+
+           android:layout_marginLeft="40dp"
+           android:layout_marginTop="40dp"
+           android:layout_marginRight="40dp"
+
+           android:background="@drawable/loginwithgooglebuttonbackground"
+
+           android:drawableLeft="@drawable/write_icon"
+           android:drawablePadding="10dp"
+           android:paddingStart="10dp"
 
            android:fontFamily="@font/arima_madurai_bold"
-           android:text="Giris Yapin"
+           android:text="Google ile devam et"
+           android:textAlignment="textStart"
+           android:textAllCaps="false"
+           android:textColor="#808080"
+           android:textSize="24sp">
+
+       </androidx.appcompat.widget.AppCompatButton>
+
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/loginfragmentloginwithfacebookbutton"
+
+           android:layout_width="match_parent"
+           android:layout_height="65dp"
+
+           android:layout_below="@id/loginfragmentloginwithgooglebutton"
+
+           android:layout_centerInParent="true"
+
+           android:layout_marginLeft="40dp"
+
+           android:layout_marginTop="20dp"
+
+           android:layout_marginRight="40dp"
+           android:background="@drawable/loginwithfacebookbuttonbackground"
+           android:drawableLeft="@drawable/write_icon"
+
+           android:drawablePadding="10dp"
+           android:fontFamily="@font/arima_madurai_bold"
+           android:paddingStart="10dp"
+           android:text="Facebook ile devam et"
+           android:textAlignment="textStart"
+           android:textAllCaps="false"
            android:textColor="@color/white"
-           android:textSize="24sp"
-           android:textAllCaps="false">
+           android:textSize="24sp">
 
        </androidx.appcompat.widget.AppCompatButton>
 
@@ -134,18 +180,14 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-
-           android:id="@+id/loginfragmentdonthaveanaccounttextview"
-
-           android:layout_below="@id/loginfragmentloginbutton"
-           android:layout_marginTop="4dp"
-           android:layout_marginLeft="80dp"
-
-           android:text="Hesabınız yok mu?"
-           android:fontFamily="@font/arima_madurai_light"
+           android:text="ya da"
+           android:layout_centerHorizontal="true"
+           android:layout_below="@id/loginfragmentloginwithfacebookbutton"
+           android:layout_marginTop="5dp"
+           android:textColor="@color/white"
            >
-       </TextView>
 
+       </TextView>
 
        <com.example.falci.LinkTextView
            android:id="@+id/loginfragmentsignuplinkedtext"
@@ -153,17 +195,26 @@
 
            android:layout_height="wrap_content"
 
-           android:layout_below="@+id/loginfragmentloginbutton"
-           android:layout_toRightOf="@id/loginfragmentdonthaveanaccounttextview"
+           android:layout_below="@+id/loginfragmentloginwithfacebookbutton"
 
-           android:layout_marginLeft="5dp"
-           android:layout_marginTop="4dp"
-
+            android:layout_centerHorizontal="true"
+           android:layout_marginTop="20dp"
            android:fontFamily="@font/arima_madurai_bold"
-           android:text="Kayit Olun"
-           android:textStyle="italic">
+           android:text="Hesabınız yok mu, hesap açın"
+           android:textStyle="italic"
+           android:textColor="@color/white">
 
        </com.example.falci.LinkTextView>
+
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Logout"
+           android:id="@+id/logoutfromgoogle"
+           >
+
+       </Button>
+
 
    </RelativeLayout>
 

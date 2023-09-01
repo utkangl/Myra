@@ -25,7 +25,6 @@ class GenderPickFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_gender_pick, container, false)
 
 
-
         val genderpickfragmentnextbutton = v.findViewById<AppCompatButton>(R.id.genderpickfragmentnextbutton)
         val genderpickspinner = v.findViewById<Spinner>(R.id.genderpick_spinner)
         val birthdatepickfragment = BirthdatePickFragment()
@@ -37,10 +36,12 @@ class GenderPickFragment : Fragment() {
 
 
         genderpickspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedgender = parent?.getItemAtPosition(position) as? String
                 if (selectedgender != null) {
                     selectedGender = selectedgender
+                    GenderObject.gender = selectedGender
                 }
             }
 
@@ -52,11 +53,13 @@ class GenderPickFragment : Fragment() {
 
         genderpickfragmentnextbutton.setOnClickListener{
 
+            println("gender: $selectedGender")
+
             if (selectedGender != "Pick your gender"){
                 println(selectedGender)
 
                 parentFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container, birthdatepickfragment)
+                    replace(R.id.main_fragment_container, birthdatepickfragment)
                     addToBackStack(null)
                     commit()
                 }
@@ -68,6 +71,12 @@ class GenderPickFragment : Fragment() {
         }
 
         return v
+    }
+
+    object GenderObject{
+
+        lateinit var gender: String
+
     }
 
 

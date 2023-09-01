@@ -25,14 +25,10 @@
             android:divider="@android:color/white"
             android:dividerHeight="0dp"
             android:stackFromBottom="true"
-            android:transcriptMode="normal" >
+            android:transcriptMode="normal"
+           >
 
         </ListView>
-
-
-
-
-
 
     </RelativeLayout>
 
