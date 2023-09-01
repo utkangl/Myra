@@ -13,7 +13,6 @@ import androidx.appcompat.widget.AppCompatButton
 class BirthTimePickFragment : Fragment() {
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,7 +22,8 @@ class BirthTimePickFragment : Fragment() {
 
         val timepicker = v.findViewById<TimePicker>(R.id.timepicker)
 
-        val timepickfragmentnextbutton = v.findViewById<AppCompatButton>(R.id.timepickfragmentnextbutton)
+        val timepickfragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.timepickfragmentnextbutton)
 
         val birthLocationPickFragment = BirthLocationPickFragment()
 
@@ -43,12 +43,12 @@ class BirthTimePickFragment : Fragment() {
                 commit()
             }
         }
-        
+
         return v
     }
 
 
-    object TimeObject{
+    object TimeObject {
         lateinit var time: String
     }
 

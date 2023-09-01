@@ -37,16 +37,26 @@ class OccupationPickFragment : Fragment() {
 
         val loginFragment = Loginfragment()
 
-        val occupationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.occupationpickfragmentnextbutton)
+        val occupationPickFragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.occupationpickfragmentnextbutton)
 
         val occupationspinner = v.findViewById<Spinner>(R.id.occupation_spinner)
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.occupations, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.occupations,
+            android.R.layout.simple_spinner_item
+        )
 
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item)
         occupationspinner.adapter = adapter
 
         occupationspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedStatus = parent?.getItemAtPosition(position) as? String
                 if (selectedStatus != null) {
                     selectedOccupation = selectedStatus
@@ -60,9 +70,9 @@ class OccupationPickFragment : Fragment() {
 
         val registerposturl = "http://31.210.43.174:1337/auth/register/"
 
-        occupationPickFragmentnextbutton.setOnClickListener{
+        occupationPickFragmentnextbutton.setOnClickListener {
 
-            val formattedDate = formatDateAndTime(date,time)
+            val formattedDate = formatDateAndTime(date, time)
 
             val registrationJSON = RegistrationFunctions.createRegistrationJSON(
                 username,
@@ -75,7 +85,10 @@ class OccupationPickFragment : Fragment() {
                 selectedOccupation
             )
 
-            RegistrationFunctions.postsignupJson(registerposturl, registrationJSON) { responseBody, exception ->
+            RegistrationFunctions.postsignupJson(
+                registerposturl,
+                registrationJSON
+            ) { responseBody, exception ->
                 if (exception != null) {
                     println("Error: ${exception.message}")
                 } else {
@@ -84,7 +97,8 @@ class OccupationPickFragment : Fragment() {
                     parentFragmentManager.beginTransaction().apply {
                         replace(R.id.main_fragment_container, loginFragment)
                         addToBackStack(null)
-                        commit() }
+                        commit()
+                    }
 
 
                 }
@@ -92,15 +106,15 @@ class OccupationPickFragment : Fragment() {
 
         }
 
-            return v
-
-        }
-
-        private fun formatDateAndTime(date: String, time: String): String{
-            return("$date $time PM +0000")
-        }
+        return v
 
     }
+
+    private fun formatDateAndTime(date: String, time: String): String {
+        return ("$date $time PM +0000")
+    }
+
+}
 
 
 

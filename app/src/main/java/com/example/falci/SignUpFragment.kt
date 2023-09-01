@@ -1,4 +1,5 @@
 package com.example.falci
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -22,11 +23,12 @@ class SignUpFragment : Fragment() {
         val usernamefield = v.findViewById<EditText>(R.id.signupfragmentusernametext).text
         val passwordfield = v.findViewById<EditText>(R.id.signupfragmentpasswordtext).text
 
-        val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
+        val signupfragmentsignupbutton =
+            v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
         val namePickFragment = NamePickFragment()
 
 
-        signupfragmentsignupbutton.setOnClickListener{
+        signupfragmentsignupbutton.setOnClickListener {
 
             username = usernamefield.toString()
             password = passwordfield.toString()
@@ -37,14 +39,15 @@ class SignUpFragment : Fragment() {
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.main_fragment_container, namePickFragment)
                 addToBackStack(null)
-                commit() }
+                commit()
+            }
         }
 
         return v
     }
 
 
-    object Usernameandpasswordobject{
+    object Usernameandpasswordobject {
         lateinit var username: String
         lateinit var password: String
     }

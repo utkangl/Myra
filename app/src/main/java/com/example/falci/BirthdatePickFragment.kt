@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.TimePicker
 import androidx.appcompat.widget.AppCompatButton
-import java.util.*
 
 class BirthdatePickFragment : Fragment() {
 
@@ -20,12 +18,15 @@ class BirthdatePickFragment : Fragment() {
 
         val datepicker = v.findViewById<DatePicker>(R.id.datepicker)
 
-        val datepickfragmentnextbutton = v.findViewById<AppCompatButton>(R.id.datepickfragmentnextbutton)
+        val datepickfragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.datepickfragmentnextbutton)
+
         val birthTimePickFragment = BirthTimePickFragment()
 
         datepickfragmentnextbutton.setOnClickListener {
             val selectedYear = datepicker.year
-            val selectedMonth = datepicker.month + 1 // DatePicker'da aylar 0-11 arasında indekslenir
+            val selectedMonth =
+                datepicker.month + 1 // DatePicker'da aylar 0-11 arasında indekslenir
             val selectedDay = datepicker.dayOfMonth
 
 
@@ -44,8 +45,7 @@ class BirthdatePickFragment : Fragment() {
         return v
     }
 
-
-    object DateObject{
+    object DateObject {
         lateinit var date: String
     }
 

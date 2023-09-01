@@ -37,7 +37,11 @@ class BirthLocationPickFragment : Fragment() {
         Places.initialize(requireContext(), "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo")
         placesClient = Places.createClient(requireContext())
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, mutableListOf<String>())
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            mutableListOf<String>()
+        )
         autoCompleteTextView.setAdapter(adapter)
 
         autoCompleteTextView.addTextChangedListener(object : TextWatcher {
@@ -51,14 +55,15 @@ class BirthLocationPickFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthlocationpickfragmentnextbutton)
+        val birthLocationPickFragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.birthlocationpickfragmentnextbutton)
         val relationshipStatusPickFragment = RelationshipStatusPickFragment()
 
-        birthLocationPickFragmentnextbutton.setOnClickListener{
+        birthLocationPickFragmentnextbutton.setOnClickListener {
 
             print("location: ${LocationObject.location}")
 
-            if (isCitySelected){
+            if (isCitySelected) {
 
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.main_fragment_container, relationshipStatusPickFragment)
@@ -74,7 +79,7 @@ class BirthLocationPickFragment : Fragment() {
     }
 
 
-    object LocationObject{
+    object LocationObject {
         lateinit var location: String
     }
 
@@ -97,7 +102,9 @@ class BirthLocationPickFragment : Fragment() {
                 val selectedCity = autoCompleteTextView.text.toString()
 
                 LocationObject.location = selectedCity
-                isCitySelected = selectedCity in response.autocompletePredictions.map { it.getFullText(null).toString() }
+                isCitySelected = selectedCity in response.autocompletePredictions.map {
+                    it.getFullText(null).toString()
+                }
 
             }
             .addOnFailureListener { exception ->
@@ -107,12 +114,6 @@ class BirthLocationPickFragment : Fragment() {
                 }
             }
     }
-
-
-
-
-
-
 
 
 }

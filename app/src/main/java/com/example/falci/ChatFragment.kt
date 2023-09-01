@@ -20,11 +20,10 @@ class ChatFragment : Fragment() {
 
     private lateinit var usermessagetomira: String
 
-    private var threadNumber : Int? = null
+    private var threadNumber: Int? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_chat, container, false)
@@ -42,7 +41,8 @@ class ChatFragment : Fragment() {
 
 
         mainLayout.setOnClickListener {
-            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
 
@@ -62,8 +62,7 @@ class ChatFragment : Fragment() {
                 val gptchatUrl = "http://31.210.43.174:1337/gpt/chat/"
 
                 postChatJson(
-                    gptchatUrl,
-                    chatJson
+                    gptchatUrl, chatJson
                 ) { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")
@@ -114,30 +113,30 @@ class ChatFragment : Fragment() {
 
     }
 
-    private fun createChatJSON(message: String, thread: Int? = null ): JSONObject {
+    private fun createChatJSON(message: String, thread: Int? = null): JSONObject {
 
         val chatJsonObject = JSONObject()
 
-        chatJsonObject.put("message" , message)
+        chatJsonObject.put("message", message)
 
-        if (thread != null){
-            chatJsonObject.put("thread" , thread)
+        if (thread != null) {
+            chatJsonObject.put("thread", thread)
         }
 
         return chatJsonObject
     }
 
-    private fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+    private fun postChatJson(
+        url: String, json: JSONObject, callback: (String?, Exception?) -> Unit
+    ) {
 
         val chatclient = OkHttpClient()
 
-        val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+        val requestBody =
+            RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
 
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
-            .header("Authorization", "Bearer $AccessToken")
-            .build()
+        val request = Request.Builder().url(url).post(requestBody)
+            .header("Authorization", "Bearer $AccessToken").build()
 
 
         chatclient.newCall(request).enqueue(object : Callback {

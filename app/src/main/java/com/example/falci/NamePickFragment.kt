@@ -24,23 +24,24 @@ class NamePickFragment : Fragment() {
 
         val namepickfragmentnextbutton = v.findViewById<Button>(R.id.namepickfragmentnextbutton)
 
-        val namepickfragmentnameinputtext = v.findViewById<EditText>(R.id.namepickfragmentnameinputtext).text
+        val namepickfragmentnameinputtext =
+            v.findViewById<EditText>(R.id.namepickfragmentnameinputtext).text
 
         NameObject.name = namepickfragmentnameinputtext
 
         val genderPickFragment = GenderPickFragment()
 
-        namepickfragmentnextbutton.setOnClickListener{
+        namepickfragmentnextbutton.setOnClickListener {
 
-            print("amcik")
+
             println(NameObject.name)
 
-            if (namepickfragmentnameinputtext.toString().isNotEmpty())
-            {
+            if (namepickfragmentnameinputtext.toString().isNotEmpty()) {
                 parentFragmentManager.beginTransaction().apply {
                     replace(R.id.main_fragment_container, genderPickFragment)
                     addToBackStack(null)
-                    commit() }
+                    commit()
+                }
             }
 
         }

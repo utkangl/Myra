@@ -18,11 +18,21 @@ class LoginSignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_signup)
 
-        supportFragmentManager.beginTransaction().replace(R.id.login_signup_container, loginfragment).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.login_signup_container, loginfragment).commit()
     }
 
-    object RegistrationFunctions{
-        fun createRegistrationJSON(username: String, password: String, name: String, gender: String, birthDay: String,location: String, relationshipStatus: String, occupation: String ): JSONObject {
+    object RegistrationFunctions {
+        fun createRegistrationJSON(
+            username: String,
+            password: String,
+            name: String,
+            gender: String,
+            birthDay: String,
+            location: String,
+            relationshipStatus: String,
+            occupation: String
+        ): JSONObject {
 
             val registerjsonObject = JSONObject()
             registerjsonObject.put("username", username)
@@ -50,7 +60,10 @@ class LoginSignupActivity : AppCompatActivity() {
         fun postsignupJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
             val signupclient = OkHttpClient()
 
-            val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                json.toString()
+            )
 
             val request = Request.Builder()
                 .url(url)
@@ -61,13 +74,10 @@ class LoginSignupActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call, e: IOException) {
                     callback(null, e)
-
                 }
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
-
-
                     callback(responseBody, null)
 
                 }
@@ -77,10 +87,10 @@ class LoginSignupActivity : AppCompatActivity() {
     }
 
 
-    object Loginfunctions{
+    object Loginfunctions {
 
-        lateinit var RefreshToken : String
-        lateinit var AccessToken : String
+        lateinit var RefreshToken: String
+        lateinit var AccessToken: String
         var StatusCode by Delegates.notNull<Int>()
 
         fun createLoginJSON(username: String, password: String): JSONObject {
@@ -98,7 +108,10 @@ class LoginSignupActivity : AppCompatActivity() {
 
             val loginclient = OkHttpClient()
 
-            val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                json.toString()
+            )
 
             val request = Request.Builder()
                 .url(url)
@@ -120,7 +133,9 @@ class LoginSignupActivity : AppCompatActivity() {
 
                     if (responseBody != null) {
 
-                        val (refreshToken, accessToken) = JwtTokenFunctions.parseJWTTokens(responseBody)
+                        val (refreshToken, accessToken) = JwtTokenFunctions.parseJWTTokens(
+                            responseBody
+                        )
 
                         println("Token 1: $refreshToken")
                         if (refreshToken != null) {
@@ -143,37 +158,44 @@ class LoginSignupActivity : AppCompatActivity() {
     }
 
 
-    object JwtTokenFunctions{
-            fun parseJWTTokens(responseBody: String): Pair<String?, String?> {
-                var token1: String? = null
-                var token2: String? = null
+    object JwtTokenFunctions {
+        fun parseJWTTokens(responseBody: String): Pair<String?, String?> {
+            var token1: String? = null
+            var token2: String? = null
 
-                try {
-                    val jsonResponse = JSONObject(responseBody)
-                    token1 = jsonResponse.optString("refresh", null.toString())
-                    token2 = jsonResponse.optString("access", null.toString())
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-
-                return Pair(token1, token2)
+            try {
+                val jsonResponse = JSONObject(responseBody)
+                token1 = jsonResponse.optString("refresh", null.toString())
+                token2 = jsonResponse.optString("access", null.toString())
+            } catch (e: JSONException) {
+                e.printStackTrace()
             }
 
-            fun createRefreshAccessTokenJson(tokenRefresh: String): JSONObject{
+            return Pair(token1, token2)
+        }
 
-                val tokenRefreshJson = JSONObject()
+        fun createRefreshAccessTokenJson(tokenRefresh: String): JSONObject {
 
-                tokenRefreshJson.put("refresh", tokenRefresh)
+            val tokenRefreshJson = JSONObject()
 
-                return tokenRefreshJson
+            tokenRefreshJson.put("refresh", tokenRefresh)
 
-            }
+            return tokenRefreshJson
 
-        fun postRefreshAccessTokenJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+        }
+
+        fun postRefreshAccessTokenJson(
+            url: String,
+            json: JSONObject,
+            callback: (String?, Exception?) -> Unit
+        ) {
 
             val refreshAccessTokenClient = OkHttpClient()
 
-            val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                json.toString()
+            )
 
             val request = Request.Builder()
                 .url(url)
@@ -207,8 +229,6 @@ class LoginSignupActivity : AppCompatActivity() {
         }
 
     }
-
-
 
 
 }

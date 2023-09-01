@@ -25,19 +25,29 @@ class GenderPickFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_gender_pick, container, false)
 
 
-        val genderpickfragmentnextbutton = v.findViewById<AppCompatButton>(R.id.genderpickfragmentnextbutton)
+        val genderpickfragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.genderpickfragmentnextbutton)
         val genderpickspinner = v.findViewById<Spinner>(R.id.genderpick_spinner)
         val birthdatepickfragment = BirthdatePickFragment()
 
 
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.genders, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.genders,
+            android.R.layout.simple_spinner_item
+        )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         genderpickspinner.adapter = adapter
 
 
         genderpickspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedgender = parent?.getItemAtPosition(position) as? String
                 if (selectedgender != null) {
                     selectedGender = selectedgender
@@ -51,11 +61,11 @@ class GenderPickFragment : Fragment() {
         }
 
 
-        genderpickfragmentnextbutton.setOnClickListener{
+        genderpickfragmentnextbutton.setOnClickListener {
 
             println("gender: $selectedGender")
 
-            if (selectedGender != "Pick your gender"){
+            if (selectedGender != "Pick your gender") {
                 println(selectedGender)
 
                 parentFragmentManager.beginTransaction().apply {
@@ -64,7 +74,7 @@ class GenderPickFragment : Fragment() {
                     commit()
                 }
 
-            }else{
+            } else {
                 println("you must select your gender before go on")
             }
 
@@ -73,7 +83,7 @@ class GenderPickFragment : Fragment() {
         return v
     }
 
-    object GenderObject{
+    object GenderObject {
 
         lateinit var gender: String
 

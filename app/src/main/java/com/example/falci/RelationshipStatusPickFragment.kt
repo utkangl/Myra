@@ -24,13 +24,22 @@ class RelationshipStatusPickFragment : Fragment() {
 
 
         val maritalStatusSpinner = v.findViewById<Spinner>(R.id.marital_status_spinner)
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.marital_status,
+            android.R.layout.simple_spinner_item
+        )
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         maritalStatusSpinner.adapter = adapter
 
         maritalStatusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedStatus = parent?.getItemAtPosition(position) as? String
                 if (selectedStatus != null) {
                     selectedMaritalStatus = selectedStatus
@@ -42,15 +51,16 @@ class RelationshipStatusPickFragment : Fragment() {
             }
         }
 
-        val relationshipStatusPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.relationshipstatuspickfragmentnextbutton)
+        val relationshipStatusPickFragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.relationshipstatuspickfragmentnextbutton)
         val occupationPickFragment = OccupationPickFragment()
 
 
-        relationshipStatusPickFragmentnextbutton.setOnClickListener{
+        relationshipStatusPickFragmentnextbutton.setOnClickListener {
 
             println("marital statu: $selectedMaritalStatus")
 
-            if (selectedMaritalStatus != "Medeni durumunuzu Seciniz"){
+            if (selectedMaritalStatus != "Medeni durumunuzu Seciniz") {
                 MaritalStatusObject.maritalStatu = selectedMaritalStatus
 
                 parentFragmentManager.beginTransaction().apply {
@@ -59,7 +69,7 @@ class RelationshipStatusPickFragment : Fragment() {
                     commit()
                 }
 
-            }else{
+            } else {
                 println("you must select your marital status before go on")
             }
 
@@ -68,7 +78,7 @@ class RelationshipStatusPickFragment : Fragment() {
         return v
     }
 
-    object MaritalStatusObject{
+    object MaritalStatusObject {
         lateinit var maritalStatu: String
     }
 

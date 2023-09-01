@@ -35,14 +35,14 @@ class Loginfragment : Fragment() {
     private lateinit var passwordEditText: EditText
 
 
-
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val resultCode = result.resultCode
-        val data: Intent? = result.data
-        if (resultCode == AppCompatActivity.RESULT_OK) {
-            handleSignInResult(data)
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val resultCode = result.resultCode
+            val data: Intent? = result.data
+            if (resultCode == AppCompatActivity.RESULT_OK) {
+                handleSignInResult(data)
+            }
         }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,14 +51,16 @@ class Loginfragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_login, container, false)
 
 
-        val loginfragmentsignuplinkedtext = v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
+        val loginfragmentsignuplinkedtext =
+            v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
         val signUpFragment = SignUpFragment()
 
         usernameEditText = v.findViewById<EditText>(R.id.loginfragmentusername)
         passwordEditText = v.findViewById<EditText>(R.id.loginfragmentpassword)
 
         val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginfragmentnextbutton)
-        val loginfragmentloginwithgooglebutton = v.findViewById<AppCompatButton>(R.id.loginfragmentloginwithgooglebutton)
+        val loginfragmentloginwithgooglebutton =
+            v.findViewById<AppCompatButton>(R.id.loginfragmentloginwithgooglebutton)
         val logoutfromgooglebutton = v.findViewById<Button>(R.id.logoutfromgoogle)
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -110,7 +112,7 @@ class Loginfragment : Fragment() {
         }
 
 
-        logoutfromgooglebutton.setOnClickListener{
+        logoutfromgooglebutton.setOnClickListener {
             signOut()
         }
 
@@ -128,6 +130,7 @@ class Loginfragment : Fragment() {
         val signInIntent = gsc.signInIntent
         resultLauncher.launch(signInIntent)
     }
+
     private fun signOut() {
         gsc.signOut().addOnCompleteListener {
             Toast.makeText(requireContext(), "Signed out from Google", Toast.LENGTH_SHORT).show()

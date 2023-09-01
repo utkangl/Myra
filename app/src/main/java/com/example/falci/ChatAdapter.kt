@@ -7,7 +7,8 @@ import android.widget.TextView
 import com.example.falci.ChatMessage
 import com.example.falci.R
 
-class ChatAdapter(private val context: Context, private val messages: List<ChatMessage>) : BaseAdapter() {
+class ChatAdapter(private val context: Context, private val messages: List<ChatMessage>) :
+    BaseAdapter() {
 
     override fun getCount(): Int {
         return messages.size
