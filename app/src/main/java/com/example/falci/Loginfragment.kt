@@ -137,7 +137,6 @@ class Loginfragment : Fragment() {
         }
     }
 
-
     private fun navigateToMainActivity() {
         requireActivity().finish()
         val intent = Intent(requireContext(), MainActivity::class.java)
@@ -157,7 +156,7 @@ class Loginfragment : Fragment() {
             val account = task.getResult(ApiException::class.java)
 
             if (account != null) {
-                val idToken = account.idToken
+                val idToken = account.serverAuthCode
                 println("AL SANA TOKEN $idToken")
             }
             navigateToMainActivity()

@@ -3,6 +3,7 @@ package com.example.falci
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
+import androidx.cardview.widget.CardView
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -33,6 +35,25 @@ class BirthLocationPickFragment : Fragment() {
 
         autoCompleteTextView = v.findViewById(R.id.cityInput)
 
+        val locationfragmentcardview = v.findViewById<CardView>(R.id.locationFragmentCardView)
+        val chooseyourcity = v.findViewById<AppCompatButton>(R.id.chooseyourcity)
+        val relationshipStatusPickFragment = RelationshipStatusPickFragment()
+        val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
+
+        chooseyourcity.setOnClickListener{
+            autoCompleteTextView.visibility = View.VISIBLE
+            locationfragmentcardview.visibility = View.VISIBLE
+            chooseyourcity.visibility = View.INVISIBLE
+            birthLocationPickFragmentnextbutton.visibility = View.INVISIBLE
+        }
+
+        autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
+            // AutoCompleteTextView'dan bir öğe seçildiğinde burada çalışacak kodu ekleyin
+            locationfragmentcardview.visibility = View.INVISIBLE
+            chooseyourcity.visibility = View.VISIBLE
+            birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
+        }
+
 
         Places.initialize(requireContext(), "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo") // Google Places API başlatma TODO/apikeyi boyle aciktan verme
         placesClient = Places.createClient(requireContext())
@@ -54,10 +75,6 @@ class BirthLocationPickFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {}
         })
-
-        val birthLocationPickFragmentnextbutton =
-            v.findViewById<AppCompatButton>(R.id.birthlocationpickfragmentnextbutton)
-        val relationshipStatusPickFragment = RelationshipStatusPickFragment()
 
         birthLocationPickFragmentnextbutton.setOnClickListener {
 

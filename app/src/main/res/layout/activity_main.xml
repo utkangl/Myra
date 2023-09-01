@@ -20,13 +20,12 @@
         android:layout_height="65dp"
 
         android:layout_centerInParent="true"
-
         android:layout_marginLeft="75dp"
+
         android:layout_marginTop="40dp"
 
         android:layout_marginRight="75dp"
-
-        android:background="@drawable/nextbuttonbackground"
+        android:background="@drawable/common_button"
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Chat with Mira"
         android:textAllCaps="false"

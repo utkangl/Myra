@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack(null)
                         .commit()
 
-                    // Hide the MainPage content
-                    chatwithmiraButton.visibility = View.GONE
                 }
             }
 
@@ -40,10 +38,10 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack(null)
                         .commit()
 
-                    // Hide the MainPage content
-                    chatwithmiraButton.visibility = View.GONE
                 }
             }
+
+            chatwithmiraButton.visibility = View.GONE
 
         }
     }
@@ -52,8 +50,11 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
-        // Show the button again when navigating back
-        chatwithmiraButton.visibility = View.VISIBLE
+        // Check if there are fragments in the back stack
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            // No fragments in the back stack, show the button again
+            chatwithmiraButton.visibility = View.VISIBLE
+        }
     }
 
 }
