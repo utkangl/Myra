@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ChatFragment"
-    android:id="@+id/chat_fragment">
-
-
-
+    tools:context=".ChatFragment">
 
 
     <RelativeLayout
@@ -25,13 +22,11 @@
             android:divider="@android:color/white"
             android:dividerHeight="0dp"
             android:stackFromBottom="true"
-            android:transcriptMode="normal"
-           >
+            android:transcriptMode="normal">
 
         </ListView>
 
     </RelativeLayout>
-
 
 
     <androidx.cardview.widget.CardView
@@ -41,8 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
 
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
 
         app:cardCornerRadius="25dp">
@@ -57,23 +52,22 @@
 
             android:drawableLeft="@drawable/write_icon"
             android:drawablePadding="10dp"
-            android:paddingLeft="20dp"
-
             android:fontFamily="@font/arima_madurai_light"
-            android:text = ""
-            android:textSize="24sp"
-            android:textAlignment="center"
-            android:paddingRight="35dp"
-
-            android:inputType="text"
-            android:imeOptions="actionSend"
 
             android:hint="Message to Mira"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:paddingLeft="20dp"
+            android:paddingRight="35dp"
+
+            android:text=""
+            android:textAlignment="center"
+
+            android:textSize="24sp"
 
             tools:ignore="HardcodedText" />
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

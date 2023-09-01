@@ -6,16 +6,15 @@
     tools:context=".GenderPickFragment">
 
 
-
     <TextView
+        android:id="@+id/genderpickfragmentstep2of6"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
 
-        android:id="@+id/genderpickfragmentstep2of6"
+        android:layout_centerHorizontal="true"
 
         android:layout_marginTop="30dp"
-
-        android:layout_centerHorizontal="true"
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Step 2 of 6"
@@ -24,7 +23,6 @@
         tools:ignore="HardcodedText">
 
     </TextView>
-
 
 
     <Spinner
@@ -44,30 +42,28 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/genderpickfragmentnextbutton"
         android:layout_width="match_parent"
+
         android:layout_height="75dp"
 
-        android:id="@+id/genderpickfragmentnextbutton"
-
         android:layout_below="@+id/genderpick_spinner"
-        android:layout_marginTop="100dp"
-
-
         android:layout_marginLeft="75dp"
+
+
+        android:layout_marginTop="100dp"
         android:layout_marginRight="75dp"
 
         android:background="@drawable/nextbuttonbackground"
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Devam"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="24sp"
-        android:textAllCaps="false"
         tools:ignore="HardcodedText">
 
     </androidx.appcompat.widget.AppCompatButton>
-
-
 
 
 </RelativeLayout>
