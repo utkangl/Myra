@@ -11,6 +11,7 @@ import android.widget.EditText
 
 class NamePickFragment : Fragment() {
 
+    private lateinit var nameInput: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,22 +20,17 @@ class NamePickFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_name_pick, container, false)
 
+        nameInput = v.findViewById<EditText>(R.id.namepickfragmentnameinputtext)
 
         val namepickfragmentnextbutton = v.findViewById<Button>(R.id.namepickfragmentnextbutton)
-
-        val namepickfragmentnameinputtext =
-            v.findViewById<EditText>(R.id.namepickfragmentnameinputtext).text
-
-        NameObject.name = namepickfragmentnameinputtext
-
         val genderPickFragment = GenderPickFragment()
 
         namepickfragmentnextbutton.setOnClickListener {
+            val name = nameInput.text.toString().trim() // Kullanıcının girdiği adı al
 
+            if (name.isNotEmpty()) {
+                NameObject.name = name // NameObject.name'i güncelle
 
-            println(NameObject.name)
-
-            if (namepickfragmentnameinputtext.toString().isNotEmpty()) {
                 parentFragmentManager.beginTransaction().apply {
                     setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                     replace(R.id.main_fragment_container, genderPickFragment)
@@ -47,9 +43,7 @@ class NamePickFragment : Fragment() {
         return v
     }
 
-
     object NameObject {
-        lateinit var name: Editable
+        var name: String = ""
     }
-
 }

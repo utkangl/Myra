@@ -24,6 +24,24 @@
 
     </TextView>
 
+    <TextView
+        android:id="@+id/genderpickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_above="@+id/genderpick_spinner"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="120dp"
+
+        android:textAlignment="center"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Cinsiyetiniz Seçiniz"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+
+    </TextView>
+
 
     <Spinner
         android:id="@+id/genderpick_spinner"
@@ -32,12 +50,12 @@
         android:layout_height="75dp"
 
         android:layout_centerInParent="true"
+
         android:layout_marginLeft="55dp"
 
         android:layout_marginRight="55dp"
 
         android:background="@drawable/common_text_input_field"
-
         android:textAlignment="center" />
 
 

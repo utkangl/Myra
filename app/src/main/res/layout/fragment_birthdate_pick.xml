@@ -5,12 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".BirthdatePickFragment">
 
+
+    <TextView
+        android:id="@+id/nbirthdatepickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_above="@+id/datepicker"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="82.5dp"
+
+        android:textAlignment="center"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Dogum Tarihinizi Secin"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+    </TextView>
+
     <DatePicker
 
         android:id="@+id/datepicker"
 
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
 
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"

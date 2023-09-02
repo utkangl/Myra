@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,9 +9,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.google.android.libraries.places.api.Places
@@ -27,6 +30,7 @@ class BirthLocationPickFragment : Fragment() {
     private var currentQuery: String = ""
     private var isCitySelected: Boolean = false
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,12 +43,14 @@ class BirthLocationPickFragment : Fragment() {
         val chooseyourcity = v.findViewById<AppCompatButton>(R.id.chooseyourcity)
         val relationshipStatusPickFragment = RelationshipStatusPickFragment()
         val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
+        val birthlocationpickfragmenttitle = v.findViewById<TextView>(R.id.birthlocationpickfragmenttitle)
 
         chooseyourcity.setOnClickListener{
             autoCompleteTextView.visibility = View.VISIBLE
             locationfragmentcardview.visibility = View.VISIBLE
             chooseyourcity.visibility = View.INVISIBLE
             birthLocationPickFragmentnextbutton.visibility = View.INVISIBLE
+            birthlocationpickfragmenttitle.visibility = View.INVISIBLE
         }
 
         autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
@@ -52,8 +58,12 @@ class BirthLocationPickFragment : Fragment() {
             locationfragmentcardview.visibility = View.INVISIBLE
             chooseyourcity.visibility = View.VISIBLE
             birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
+            birthlocationpickfragmenttitle.visibility = View.VISIBLE
 
             chooseyourcity.text = autoCompleteTextView.text.toString()
+
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(autoCompleteTextView.windowToken, 0)
         }
 
 

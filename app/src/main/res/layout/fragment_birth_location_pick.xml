@@ -6,6 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BirthLocationPickFragment">
 
+
+
+    <TextView
+        android:id="@+id/birthlocationpickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_above="@+id/chooseyourcity"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="120dp"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Dogum Yerinizi Seciniz"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+    </TextView>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/chooseyourcity"
         android:layout_width="match_parent"
@@ -23,9 +41,7 @@
         android:text="Sehrini Sec"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        >
-
+        android:textSize="24sp">
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.cardview.widget.CardView

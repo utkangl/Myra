@@ -6,18 +6,33 @@
     tools:context=".BirthTimePickFragment">
 
 
+    <TextView
+        android:id="@+id/birthtimepickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_above="@+id/timepicker"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="82.5dp"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Dagum Saatinizi Seciniz"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+
+    </TextView>
+
     <TimePicker
 
         android:id="@+id/timepicker"
 
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
 
         android:layout_centerInParent="true"
 
-        android:timePickerMode="spinner"
-
-        >
+        android:timePickerMode="spinner">
 
     </TimePicker>
 

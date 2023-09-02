@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".OccupationPickFragment">
 
+
+    <TextView
+        android:id="@+id/occupationpickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_above="@+id/occupation_spinner"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="120dp"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Mesleginizi Secin"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+    </TextView>
+
     <Spinner
         android:id="@+id/occupation_spinner"
 

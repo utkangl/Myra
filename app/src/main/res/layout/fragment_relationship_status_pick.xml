@@ -6,6 +6,22 @@
     tools:context=".RelationshipStatusPickFragment">
 
 
+    <TextView
+        android:id="@+id/relationshipstatuspickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
+        android:layout_above="@+id/marital_status_spinner"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="120dp"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Iliski Durumunuzu Secin"
+        android:textColor="@color/white"
+        android:textSize="32sp">
+    </TextView>
+
     <Spinner
         android:id="@+id/marital_status_spinner"
 

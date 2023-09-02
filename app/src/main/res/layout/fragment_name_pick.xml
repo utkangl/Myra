@@ -57,6 +57,7 @@
 
         android:layout_marginBottom="120dp"
 
+        android:textAlignment="center"
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Isminiz ile Baslayalim"
         android:textColor="@color/white"
