@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,8 @@ class Loginfragment : Fragment() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
 
+    private lateinit var loginMenuMira: ImageView
+
 
     private val resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -57,11 +60,11 @@ class Loginfragment : Fragment() {
 
         usernameEditText = v.findViewById(R.id.loginfragmentusername)
         passwordEditText = v.findViewById(R.id.loginfragmentpassword)
+        loginMenuMira = v.findViewById(R.id.loginMenuMira)
 
         val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginfragmentnextbutton)
         val loginfragmentloginwithgooglebutton =
             v.findViewById<AppCompatButton>(R.id.loginfragmentloginwithgooglebutton)
-        val logoutfromgooglebutton = v.findViewById<Button>(R.id.logoutfromgoogle)
 
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -111,11 +114,9 @@ class Loginfragment : Fragment() {
             }
         }
 
-
-        logoutfromgooglebutton.setOnClickListener {
+        loginMenuMira.setOnClickListener {
             signOut()
         }
-
 
         if (!savedUsername.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
             usernameEditText.setText(savedUsername)
@@ -156,8 +157,8 @@ class Loginfragment : Fragment() {
             val account = task.getResult(ApiException::class.java)
 
             if (account != null) {
-                val idToken = account.serverAuthCode
-                println("AL SANA TOKEN $idToken")
+                val idToken = account.idToken
+                println(idToken)
             }
             navigateToMainActivity()
         } catch (e: ApiException) {

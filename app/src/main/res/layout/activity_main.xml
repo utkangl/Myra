@@ -1,37 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <!--    container for fragments-->
     <FrameLayout
+        android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/falcibackground"
-        android:id="@+id/main_fragment_container">
-    </FrameLayout>
+        android:background="@drawable/falcibackground"></FrameLayout>
+
+    <ImageView
+        android:id="@+id/mainMenuMira"
+        android:layout_width="200dp"
+
+        android:layout_height="200dp"
+
+        android:layout_above="@+id/empty"
+
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="164dp"
+        android:src="@drawable/character">
+
+    </ImageView>
+
+    <!--    empty view to align components-->
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+    </TextView>
+
+    <!--    burc card-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/burcCard"
+        android:layout_width="340dp"
+
+        android:layout_height="250dp"
+
+        android:layout_above="@+id/empty"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginBottom="-190dp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+
+        app:cardBackgroundColor="#1c1444"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/zodiac_sign"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/gemini">
+                </ImageView>
+            </androidx.cardview.widget.CardView>
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/chatwithmira"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
 
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@+id/zodiac_sign"
 
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="75dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="Burc"
+                android:textColor="@color/white"
+                android:textSize="30sp">
 
-        android:layout_marginTop="40dp"
+            </TextView>
 
-        android:layout_marginRight="75dp"
-        android:background="@drawable/common_button"
-        android:fontFamily="@font/arima_madurai_bold"
-        android:text="Chat with Mira"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="24sp">
 
-    </androidx.appcompat.widget.AppCompatButton>
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_below="@+id/zodiac_sign"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+
+                android:fontFamily="@font/arima_madurai_light"
+                android:text="Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. "
+                android:textColor="@color/white"
+                android:textSize="13sp">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--    tarot card-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tarotFali"
+        android:layout_width="150dp"
+
+        android:layout_height="150dp"
+
+        android:layout_below="@+id/empty"
+
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/empty"
+
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        app:cardBackgroundColor="#1c1444"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_alignParentTop="true"
+
+                    android:padding="4dp"
+
+                    android:src="@drawable/tarot_card"></ImageView>
+
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:fontFamily="@font/arima_madurai_light"
+
+                android:outlineAmbientShadowColor="@color/white"
+
+                android:outlineSpotShadowColor="@color/white"
+                android:text="Tarot Fali"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+    <!--    cookie fortune card-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fortuneCookie"
+        android:layout_width="150dp"
+
+        android:layout_height="150dp"
+
+        android:layout_below="@+id/empty"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+
+        android:layout_toRightOf="@+id/empty"
+
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        app:cardBackgroundColor="#1c1444"
+
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white"
+                    android:padding="4dp"
+                    android:src="@drawable/fortune_cookie" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:fontFamily="@font/arima_madurai_light"
+
+                android:outlineAmbientShadowColor="@color/white"
+
+                android:outlineSpotShadowColor="@color/white"
+                android:text="Sans Kurabiyesi"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp">
+
+            </TextView>
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

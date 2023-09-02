@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 
-
 class RelationshipStatusPickFragment : Fragment() {
 
     private lateinit var selectedMaritalStatus: String

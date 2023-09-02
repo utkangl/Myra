@@ -29,7 +29,6 @@
 
 
         <androidx.cardview.widget.CardView
-
             android:id="@+id/signupfragmentusername"
 
             android:layout_width="match_parent"
@@ -37,10 +36,14 @@
 
             android:layout_centerVertical="true"
 
+            app:cardElevation="8dp"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
+
             android:layout_marginLeft="55dp"
             android:layout_marginRight="55dp"
 
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="20dp">
 
             <EditText
                 android:id="@+id/signupfragmentusernametext"
@@ -48,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:background="@drawable/loginfragmentusernamebackground"
+                android:background="@drawable/common_text_input_field"
 
                 android:drawableLeft="@drawable/write_icon"
                 android:drawablePadding="10dp"
@@ -71,11 +74,15 @@
 
             android:layout_below="@+id/signupfragmentusername"
 
+            app:cardElevation="8dp"
+            android:outlineAmbientShadowColor="@color/black"
+            android:outlineSpotShadowColor="@color/black"
+
             android:layout_marginLeft="55dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="55dp"
 
-            app:cardCornerRadius="15dp">
+            app:cardCornerRadius="20dp">
 
             <EditText
                 android:id="@+id/signupfragmentpasswordtext"
@@ -83,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:background="@drawable/loginfragmentusernamebackground"
+                android:background="@drawable/common_text_input_field"
 
                 android:drawableLeft="@drawable/write_icon"
                 android:drawablePadding="10dp"
@@ -109,7 +116,7 @@
             android:layout_marginTop="110dp"
             android:layout_marginRight="75dp"
 
-            android:background="@drawable/common_button"
+            android:background="@drawable/common_next_button"
 
             android:fontFamily="@font/arima_madurai_bold"
             android:text="Kayit Ol"

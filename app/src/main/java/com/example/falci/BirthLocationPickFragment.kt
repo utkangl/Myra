@@ -52,6 +52,8 @@ class BirthLocationPickFragment : Fragment() {
             locationfragmentcardview.visibility = View.INVISIBLE
             chooseyourcity.visibility = View.VISIBLE
             birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
+
+            chooseyourcity.text = autoCompleteTextView.text.toString()
         }
 
 
@@ -93,9 +95,8 @@ class BirthLocationPickFragment : Fragment() {
         return v
     }
 
-
     object LocationObject {
-        lateinit var location: String
+        var location: String = ""
     }
 
     private fun fetchPredictions() {
@@ -129,6 +130,5 @@ class BirthLocationPickFragment : Fragment() {
                 }
             }
     }
-
 
 }

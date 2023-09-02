@@ -17,13 +17,14 @@
         android:layout_marginLeft="75dp"
         android:layout_marginRight="75dp"
 
-        android:background="@drawable/common_button"
+        android:background="@drawable/common_next_button"
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Sehrini Sec"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="24sp">
+        android:textSize="24sp"
+        >
 
     </androidx.appcompat.widget.AppCompatButton>
 
@@ -47,15 +48,17 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="40dp"
+            android:fontFamily="@font/arima_madurai_light"
+
             android:hint="Enter a city"
 
             android:imeOptions="actionSend"
 
             android:textAlignment="center"
-
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:visibility="invisible" />
+
     </androidx.cardview.widget.CardView>
 
 

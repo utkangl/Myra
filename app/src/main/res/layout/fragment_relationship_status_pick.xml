@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
 
-        android:background="@drawable/nameinputbackground"
+        android:background="@drawable/common_text_input_field"
 
         android:textAlignment="center"
 
@@ -33,7 +33,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginRight="75dp"
 
-        android:background="@drawable/common_button"
+        android:background="@drawable/common_next_button"
 
         android:fontFamily="@font/arima_madurai_bold"
         android:text="Devam"
