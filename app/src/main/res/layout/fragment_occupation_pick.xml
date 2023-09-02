@@ -9,8 +9,11 @@
     <Spinner
         android:id="@+id/occupation_spinner"
 
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
 
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             if (isLoggedin) {
                 if (savedInstanceState == null) {
                     supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.main_fragment_container, ChatFragment())
                         .addToBackStack(null)
                         .commit()
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             if (!isLoggedin) {
                 if (savedInstanceState == null) {
                     supportFragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                         .replace(R.id.main_fragment_container, Loginfragment())
                         .addToBackStack(null)
                         .commit()
@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
+
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         // Check if there are fragments in the back stack
         if (supportFragmentManager.backStackEntryCount == 0) {

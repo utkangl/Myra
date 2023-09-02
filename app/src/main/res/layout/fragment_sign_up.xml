@@ -14,11 +14,11 @@
             android:id="@+id/loginfragmenttitletextview"
 
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
 
             android:layout_above="@+id/signupfragmentusername"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="120dp"
 
             android:fontFamily="@font/arima_madurai_bold"
             android:text="Bilgilerinizi Girin Lutfen"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
 
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
 
             app:cardElevation="8dp"
             android:outlineAmbientShadowColor="@color/black"

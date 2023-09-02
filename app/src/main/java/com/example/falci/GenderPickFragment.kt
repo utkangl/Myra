@@ -11,11 +11,9 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 
-
 class GenderPickFragment : Fragment() {
 
     private lateinit var selectedGender: String
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +67,7 @@ class GenderPickFragment : Fragment() {
                 println(selectedGender)
 
                 parentFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                     replace(R.id.main_fragment_container, birthdatepickfragment)
                     addToBackStack(null)
                     commit()
@@ -80,14 +79,19 @@ class GenderPickFragment : Fragment() {
 
         }
 
+
+
         return v
     }
+
+
 
     object GenderObject {
 
         lateinit var gender: String
 
     }
+
 
 
 }

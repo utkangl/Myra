@@ -35,6 +35,7 @@ class BirthdatePickFragment : Fragment() {
             println(selectedDate)
 
             parentFragmentManager.beginTransaction().apply {
+                setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                 replace(R.id.main_fragment_container, birthTimePickFragment)
                 addToBackStack(null)
                 commit()
