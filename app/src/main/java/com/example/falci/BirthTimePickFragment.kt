@@ -37,7 +37,12 @@ class BirthTimePickFragment : Fragment() {
             TimeObject.time = selectedTime
 
             parentFragmentManager.beginTransaction().apply {
-                setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
                 replace(R.id.main_fragment_container, birthLocationPickFragment)
                 addToBackStack(null)
                 commit()

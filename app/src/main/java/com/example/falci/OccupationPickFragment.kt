@@ -94,7 +94,12 @@ class OccupationPickFragment : Fragment() {
                     println("Response: $responseBody")
 
                     parentFragmentManager.beginTransaction().apply {
-                        setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                        setCustomAnimations(
+                            R.anim.fade_in,
+                            R.anim.fade_out,
+                            R.anim.fade_in,
+                            R.anim.fade_out
+                        )
                         replace(R.id.main_fragment_container, loginFragment)
                         addToBackStack(null)
                         commit()

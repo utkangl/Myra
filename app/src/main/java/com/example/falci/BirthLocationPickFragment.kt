@@ -42,9 +42,12 @@ class BirthLocationPickFragment : Fragment() {
         val locationfragmentcardview = v.findViewById<CardView>(R.id.locationFragmentCardView)
         val chooseyourcity = v.findViewById<AppCompatButton>(R.id.chooseyourcity)
         val relationshipStatusPickFragment = RelationshipStatusPickFragment()
-        val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
-        val birthlocationpickfragmenttitle = v.findViewById<TextView>(R.id.birthlocationpickfragmenttitle)
-        val birthlocationpickfragmentstep5of7 = v.findViewById<TextView>(R.id.birthlocationpickfragmentstep5of7)
+        val birthLocationPickFragmentnextbutton =
+            v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
+        val birthlocationpickfragmenttitle =
+            v.findViewById<TextView>(R.id.birthlocationpickfragmenttitle)
+        val birthlocationpickfragmentstep5of7 =
+            v.findViewById<TextView>(R.id.birthlocationpickfragmentstep5of7)
         val star1 = v.findViewById<StarShape>(R.id.star1)
         val star2 = v.findViewById<StarShape>(R.id.star2)
         val star3 = v.findViewById<StarShape>(R.id.star3)
@@ -53,7 +56,7 @@ class BirthLocationPickFragment : Fragment() {
         val star6 = v.findViewById<StarShape>(R.id.star6)
         val star7 = v.findViewById<StarShape>(R.id.star7)
 
-        chooseyourcity.setOnClickListener{
+        chooseyourcity.setOnClickListener {
             autoCompleteTextView.visibility = View.VISIBLE
             locationfragmentcardview.visibility = View.VISIBLE
             chooseyourcity.visibility = View.INVISIBLE
@@ -86,12 +89,16 @@ class BirthLocationPickFragment : Fragment() {
 
             chooseyourcity.text = autoCompleteTextView.text.toString()
 
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(autoCompleteTextView.windowToken, 0)
         }
 
 
-        Places.initialize(requireContext(), "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo") // Google Places API başlatma TODO/apikeyi boyle aciktan verme
+        Places.initialize(
+            requireContext(),
+            "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo"
+        ) // Google Places API başlatma TODO/apikeyi boyle aciktan verme
         placesClient = Places.createClient(requireContext())
 
         val adapter = ArrayAdapter(
@@ -119,7 +126,12 @@ class BirthLocationPickFragment : Fragment() {
             if (isCitySelected) {
 
                 parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
                     replace(R.id.main_fragment_container, relationshipStatusPickFragment)
                     addToBackStack(null)
                     commit()

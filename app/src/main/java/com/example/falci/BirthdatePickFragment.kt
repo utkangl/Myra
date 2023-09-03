@@ -24,18 +24,24 @@ class BirthdatePickFragment : Fragment() {
         val birthTimePickFragment = BirthTimePickFragment()
 
         datepickfragmentnextbutton.setOnClickListener {
-            val selectedYear  = datepicker.year
-            val selectedMonth = datepicker.month + 1 // DatePicker'da aylar 0-11 arasında indekslenir
-            val selectedDay   = datepicker.dayOfMonth
+            val selectedYear = datepicker.year
+            val selectedMonth =
+                datepicker.month + 1 // DatePicker'da aylar 0-11 arasında indekslenir
+            val selectedDay = datepicker.dayOfMonth
 
 
             val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
-            DateObject.date  = selectedDate
+            DateObject.date = selectedDate
 
             println(selectedDate)
 
             parentFragmentManager.beginTransaction().apply {
-                setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
                 replace(R.id.main_fragment_container, birthTimePickFragment)
                 addToBackStack(null)
                 commit()

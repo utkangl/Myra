@@ -32,7 +32,12 @@ class NamePickFragment : Fragment() {
                 NameObject.name = name // NameObject.name'i güncelle
 
                 parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
                     replace(R.id.main_fragment_container, genderPickFragment)
                     addToBackStack(null)
                     commit()

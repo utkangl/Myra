@@ -37,7 +37,12 @@ class SignUpFragment : Fragment() {
             println(" password $password")
 
             parentFragmentManager.beginTransaction().apply {
-                setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                setCustomAnimations(
+                    R.anim.fade_in,
+                    R.anim.fade_out,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
                 replace(R.id.main_fragment_container, namePickFragment)
                 addToBackStack(null)
                 commit()

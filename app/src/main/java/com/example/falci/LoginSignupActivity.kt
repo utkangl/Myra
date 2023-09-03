@@ -24,14 +24,14 @@ class LoginSignupActivity : AppCompatActivity() {
 
     object RegistrationFunctions {
         fun createRegistrationJSON(
-            username:            String,
-            password:            String,
-            name:                String,
-            gender:              String,
-            birthDay:            String,
-            location:            String,
-            relationshipStatus:  String,
-            occupation:          String
+            username: String,
+            password: String,
+            name: String,
+            gender: String,
+            birthDay: String,
+            location: String,
+            relationshipStatus: String,
+            occupation: String
         ): JSONObject {
 
             val registerjsonObject = JSONObject()
@@ -40,14 +40,14 @@ class LoginSignupActivity : AppCompatActivity() {
 
 
             val zodiacInfo = JSONObject()
-            zodiacInfo.put("name",       name)
-            zodiacInfo.put("location",   location)
-            zodiacInfo.put("birthDay",   birthDay)
-            zodiacInfo.put("gender",     gender)
+            zodiacInfo.put("name", name)
+            zodiacInfo.put("location", location)
+            zodiacInfo.put("birthDay", birthDay)
+            zodiacInfo.put("gender", gender)
             zodiacInfo.put("occupation", occupation)
 
             val registerInfo = JSONObject()
-            registerInfo.put("zodiacInfo",         zodiacInfo)
+            registerInfo.put("zodiacInfo", zodiacInfo)
             registerInfo.put("relationshipStatus", relationshipStatus)
 
             registerjsonObject.put("registerInfo", registerInfo)

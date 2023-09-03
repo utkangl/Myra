@@ -67,7 +67,12 @@ class GenderPickFragment : Fragment() {
                 println(selectedGender)
 
                 parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                    setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
                     replace(R.id.main_fragment_container, birthdatepickfragment)
                     addToBackStack(null)
                     commit()
@@ -85,13 +90,11 @@ class GenderPickFragment : Fragment() {
     }
 
 
-
     object GenderObject {
 
         lateinit var gender: String
 
     }
-
 
 
 }
