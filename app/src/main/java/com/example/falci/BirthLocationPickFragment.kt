@@ -44,6 +44,14 @@ class BirthLocationPickFragment : Fragment() {
         val relationshipStatusPickFragment = RelationshipStatusPickFragment()
         val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
         val birthlocationpickfragmenttitle = v.findViewById<TextView>(R.id.birthlocationpickfragmenttitle)
+        val birthlocationpickfragmentstep5of7 = v.findViewById<TextView>(R.id.birthlocationpickfragmentstep5of7)
+        val star1 = v.findViewById<StarShape>(R.id.star1)
+        val star2 = v.findViewById<StarShape>(R.id.star2)
+        val star3 = v.findViewById<StarShape>(R.id.star3)
+        val star4 = v.findViewById<StarShape>(R.id.star4)
+        val star5 = v.findViewById<StarShape>(R.id.star5)
+        val star6 = v.findViewById<StarShape>(R.id.star6)
+        val star7 = v.findViewById<StarShape>(R.id.star7)
 
         chooseyourcity.setOnClickListener{
             autoCompleteTextView.visibility = View.VISIBLE
@@ -51,6 +59,14 @@ class BirthLocationPickFragment : Fragment() {
             chooseyourcity.visibility = View.INVISIBLE
             birthLocationPickFragmentnextbutton.visibility = View.INVISIBLE
             birthlocationpickfragmenttitle.visibility = View.INVISIBLE
+            birthlocationpickfragmentstep5of7.visibility = View.INVISIBLE
+            star1.visibility = View.INVISIBLE
+            star2.visibility = View.INVISIBLE
+            star3.visibility = View.INVISIBLE
+            star4.visibility = View.INVISIBLE
+            star5.visibility = View.INVISIBLE
+            star6.visibility = View.INVISIBLE
+            star7.visibility = View.INVISIBLE
         }
 
         autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
@@ -59,6 +75,14 @@ class BirthLocationPickFragment : Fragment() {
             chooseyourcity.visibility = View.VISIBLE
             birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
             birthlocationpickfragmenttitle.visibility = View.VISIBLE
+            birthlocationpickfragmentstep5of7.visibility = View.VISIBLE
+            star1.visibility = View.VISIBLE
+            star2.visibility = View.VISIBLE
+            star3.visibility = View.VISIBLE
+            star4.visibility = View.VISIBLE
+            star5.visibility = View.VISIBLE
+            star6.visibility = View.VISIBLE
+            star7.visibility = View.VISIBLE
 
             chooseyourcity.text = autoCompleteTextView.text.toString()
 

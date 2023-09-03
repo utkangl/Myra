@@ -7,7 +7,100 @@
 
 
     <TextView
-        android:id="@+id/nbirthdatepickfragmenttitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/empty">
+    </TextView>
+
+    <TextView
+        android:id="@+id/birthdatepickfragmentstep3of7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="30dp"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Step 3 of 7"
+        android:textColor="@color/white"
+        android:textSize="20sp">
+
+    </TextView>
+
+    <com.example.falci.StarShape
+        android:id="@+id/star1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toLeftOf="@+id/star2"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <com.example.falci.StarShape
+        android:id="@+id/star2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toLeftOf="@+id/star3"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <com.example.falci.StarShape
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/star3"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toLeftOf="@+id/empty"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <com.example.falci.StarShape
+        android:id="@+id/star4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toRightOf="@+id/empty"
+        android:layout_marginStart="-20dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <com.example.falci.StarShape
+        android:id="@+id/star5"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toRightOf="@+id/star4"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <com.example.falci.StarShape
+        android:id="@+id/star6"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toRightOf="@+id/star5"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <com.example.falci.StarShape
+        android:id="@+id/star7"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/birthdatepickfragmenttitle"
+        android:layout_toRightOf="@+id/star6"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp">
+    </com.example.falci.StarShape>
+
+    <TextView
+        android:id="@+id/birthdatepickfragmenttitle"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
 
