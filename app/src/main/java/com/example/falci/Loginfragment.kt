@@ -1,11 +1,11 @@
 package com.example.falci
 
+import android.animation.AnimatorInflater
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -75,7 +75,6 @@ class Loginfragment : Fragment() {
 //        if (acct != null) {
 //            navigateToSecondActivity()
 //        }
-
 
         loginfragmentloginbutton.setOnClickListener {
             val enteredUsername = usernameEditText.text.toString()

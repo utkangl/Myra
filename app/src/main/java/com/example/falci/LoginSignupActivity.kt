@@ -136,11 +136,11 @@ class LoginSignupActivity : AppCompatActivity() {
                             responseBody
                         )
 
-                        println("Token 1: $refreshToken")
+                        println("Refresh Token: $refreshToken")
                         if (refreshToken != null) {
                             RefreshToken = refreshToken
                         }
-                        println("Token 2: $accessToken")
+                        println("Access Token: $accessToken")
                         if (accessToken != null) {
                             AccessToken = accessToken
                         }

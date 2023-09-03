@@ -145,6 +145,7 @@
             android:drawablePadding="10dp"
             android:fontFamily="@font/arima_madurai_light"
             android:hint="Isminiz"
+            android:textColorHint="@color/white"
             android:paddingLeft="10dp"
             android:text=""
             android:textSize="24sp" />

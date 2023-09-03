@@ -110,15 +110,12 @@
             android:layout_below="@id/loginfragmentpassword"
 
             android:layout_centerInParent="true"
-
             android:layout_marginLeft="75dp"
 
             android:layout_marginTop="40dp"
+
             android:layout_marginRight="75dp"
-
             android:background="@drawable/common_next_button"
-
-
             android:fontFamily="@font/arima_madurai_bold"
             android:text="Devam"
             android:textAllCaps="false"
@@ -136,14 +133,14 @@
             android:layout_below="@id/loginfragmentnextbutton"
 
             android:layout_centerInParent="true"
+
             android:layout_marginLeft="40dp"
 
             android:layout_marginTop="40dp"
-
             android:layout_marginRight="40dp"
             android:background="@drawable/loginwithgooglebuttonbackground"
-            android:drawableLeft="@drawable/write_icon"
 
+            android:drawableLeft="@drawable/write_icon"
             android:drawablePadding="10dp"
             android:fontFamily="@font/arima_madurai_bold"
             android:paddingStart="10dp"
@@ -164,15 +161,12 @@
             android:layout_below="@id/loginfragmentloginwithgooglebutton"
 
             android:layout_centerInParent="true"
-
             android:layout_marginLeft="40dp"
-
             android:layout_marginTop="20dp"
 
             android:layout_marginRight="40dp"
             android:background="@drawable/loginwithfacebookbuttonbackground"
             android:drawableLeft="@drawable/write_icon"
-
             android:drawablePadding="10dp"
             android:fontFamily="@font/arima_madurai_bold"
             android:paddingStart="10dp"

@@ -74,11 +74,6 @@ class BirthLocationPickFragment : Fragment() {
 
         autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
             // AutoCompleteTextView'dan bir öğe seçildiğinde burada çalışacak kodu ekleyin
-            locationfragmentcardview.visibility = View.INVISIBLE
-            chooseyourcity.visibility = View.VISIBLE
-            birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
-            birthlocationpickfragmenttitle.visibility = View.VISIBLE
-            birthlocationpickfragmentstep5of7.visibility = View.VISIBLE
             star1.visibility = View.VISIBLE
             star2.visibility = View.VISIBLE
             star3.visibility = View.VISIBLE
@@ -86,6 +81,11 @@ class BirthLocationPickFragment : Fragment() {
             star5.visibility = View.VISIBLE
             star6.visibility = View.VISIBLE
             star7.visibility = View.VISIBLE
+            locationfragmentcardview.visibility = View.INVISIBLE
+            chooseyourcity.visibility = View.VISIBLE
+            birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
+            birthlocationpickfragmenttitle.visibility = View.VISIBLE
+            birthlocationpickfragmentstep5of7.visibility = View.VISIBLE
 
             chooseyourcity.text = autoCompleteTextView.text.toString()
 
