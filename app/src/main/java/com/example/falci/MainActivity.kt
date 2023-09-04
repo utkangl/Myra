@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var dailyButton: AppCompatButton
     lateinit var monthlyButton: AppCompatButton
     lateinit var yearlyButton: AppCompatButton
+    lateinit var learnyourburcButton: AppCompatButton
 
     val loginfragment = Loginfragment()
 
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         dailyButton = findViewById(R.id.dailyButton)
         monthlyButton = findViewById(R.id.monthlyButton)
         yearlyButton = findViewById(R.id.yearlyButton)
+        learnyourburcButton = findViewById(R.id.learnyourburcButton)
 
 
         chatwithmiraButton.setOnClickListener {
@@ -98,29 +100,22 @@ class MainActivity : AppCompatActivity() {
         burcCard.setOnClickListener {
 
             val scale = resources.displayMetrics.density
+            val newWidth = (370 * scale + 0.5f).toInt()
+            val newHeight = (550 * scale + 0.5f).toInt()
 
-            val dpValueWidth = 370
-            val newWidth = (dpValueWidth * scale + 0.5f).toInt()
+            val burcCardMarginBottom = (-190 * scale + 0.5f).toInt()
 
-            val dpValueHeight = 550
-            val newHeight = (dpValueHeight * scale + 0.5f).toInt()
-
-            val dpValueMarginTop = 150 // Yatayda ortalanmanın yukarısında olacak şekilde ayarlayın
-            val newMarginTop = (dpValueMarginTop * scale + 0.5f).toInt()
 
             val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
-            // Yatayda ortalanmış
-            params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
 
-            // Yatayda biraz yukarıda
-            params.addRule(
-                RelativeLayout.ABOVE,
-                R.id.empty
-            ) // Yüksekliği yukarıdaki view'a göre ayarlayın
 
-            // MarginTop değerini ayarla
-            params.topMargin = newMarginTop
+//            // Yatayda biraz yukarıda
+//            params.addRule(
+//                RelativeLayout.ABOVE,
+//                R.id.empty
+//            ) // Yüksekliği yukarıdaki view'a göre ayarlayın
+
 
             // Genişlik ve yüksekliği ayarla
             val animatorWidth = ValueAnimator.ofInt(burcCard.width, newWidth)
@@ -134,12 +129,15 @@ class MainActivity : AppCompatActivity() {
             animatorHeight.addUpdateListener { animation ->
                 val value = animation.animatedValue as Int
                 params.height = value
+                params.bottomMargin = burcCardMarginBottom
                 burcCard.layoutParams = params
+
             }
+
 
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 800 // Animasyon süresi (ms)
+            animatorSet.duration = 500 // Animasyon süresi (ms)
 
             // Animasyon tamamlandığında çalışacak bir Listener ekleyin
             animatorSet.addListener(object : AnimatorListenerAdapter() {
@@ -154,12 +152,16 @@ class MainActivity : AppCompatActivity() {
 
                     // Diğer bileşenleri gizle
                     chatwithmiraButton.visibility = View.GONE
-                    empty.visibility = View.GONE
                     tarotFali.visibility = View.GONE
                     fortuneCookie.visibility = View.GONE
                     dailyButton.visibility = View.GONE
                     monthlyButton.visibility = View.GONE
                     yearlyButton.visibility = View.GONE
+                    learnyourburcButton.visibility = View.GONE
+
+                    // Yatayda ortalanmış
+                    params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
+
                 }
 
             })
@@ -187,7 +189,8 @@ class MainActivity : AppCompatActivity() {
 
             val scale = resources.displayMetrics.density
             val oldWidth = (340 * scale + 0.5f).toInt()
-            val oldHeight = (250 * scale + 0.5f).toInt()
+            val oldHeight = (200 * scale + 0.5f).toInt()
+            val burcCardMarginBottom = (-190 * scale + 0.5f).toInt()
 
             val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
@@ -196,6 +199,7 @@ class MainActivity : AppCompatActivity() {
             animatorWidth.addUpdateListener { animation ->
                 val value = animation.animatedValue as Int
                 params.width = value
+                params.bottomMargin = burcCardMarginBottom
                 burcCard.layoutParams = params
             }
 
@@ -208,7 +212,7 @@ class MainActivity : AppCompatActivity() {
 
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 800 // Animasyon süresi (ms)
+            animatorSet.duration = 500 // Animasyon süresi (ms)
 
             // Animasyon tamamlandığında çalışacak bir Listener ekleyin
             animatorSet.addListener(object : AnimatorListenerAdapter() {
@@ -228,6 +232,7 @@ class MainActivity : AppCompatActivity() {
                     chatwithmiraButton.visibility = View.VISIBLE
                     tarotFali.visibility = View.VISIBLE
                     fortuneCookie.visibility = View.VISIBLE
+                    backarrowcard.visibility = View.GONE
                 }
             })
 
@@ -261,19 +266,27 @@ class MainActivity : AppCompatActivity() {
 
             val scale = resources.displayMetrics.density
 
-            val dpValueHeight = 630
-            val newHeight = (dpValueHeight * scale + 0.5f).toInt()
-
-            val dpMarginBottom = 105
-            val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
+            val newHeight = (630 * scale + 0.5f).toInt()
+            val newMarginBottom = (105 * scale + 0.5f).toInt()
+            val burcCardMarginBottom = (-270 * scale + 0.5f).toInt()
+            val dailyButtonMarginBottom = (25 * scale + 0.5f).toInt()
 
             val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
 
             val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
             val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
             val careerSignCardparams = careerSign.layoutParams as RelativeLayout.LayoutParams
+            val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
+            val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
+            val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
 
+            burcCardparams.bottomMargin = burcCardMarginBottom
+
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
             burcCardparams.height = newHeight
+
             burcCard.layoutParams = burcCardparams
 
             generalSignCardparams.bottomMargin = newMarginBottom
@@ -283,6 +296,9 @@ class MainActivity : AppCompatActivity() {
             generalSign.layoutParams = generalSignCardparams
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
+            dailyButton.layoutParams = dailyButtonParams
+            monthlyButton.layoutParams = monthlyButtonParams
+            yearlyButton.layoutParams = yearlyButtonParams
 
             generalSign.setCardBackgroundColor(getColor(R.color.nameinputbackground))
             loveSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
@@ -291,7 +307,6 @@ class MainActivity : AppCompatActivity() {
             dailyButton.setBackgroundResource(R.drawable.button_passive)
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
-
         }
 
 
@@ -303,20 +318,31 @@ class MainActivity : AppCompatActivity() {
 
             val scale = resources.displayMetrics.density
 
-            val dpValueHeight = 630
-            val newHeight = (dpValueHeight * scale + 0.5f).toInt()
+            val newHeight = (630 * scale + 0.5f).toInt()
 
-            val dpMarginBottom = 105
-            val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
+            val newMarginBottom = (105 * scale + 0.5f).toInt()
+            val burcCardMarginBottom = (-270 * scale + 0.5f).toInt()
+            val dailyButtonMarginBottom = (25 * scale + 0.5f).toInt()
 
             val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
 
             val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
             val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
             val careerSignCardparams = careerSign.layoutParams as RelativeLayout.LayoutParams
+            val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
+            val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
+            val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
 
             burcCardparams.height = newHeight
+
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+
+
             burcCard.layoutParams = burcCardparams
+
+            burcCardparams.bottomMargin = burcCardMarginBottom
 
             generalSignCardparams.bottomMargin = newMarginBottom
             loveSignCardparams.bottomMargin = newMarginBottom
@@ -325,6 +351,9 @@ class MainActivity : AppCompatActivity() {
             generalSign.layoutParams = generalSignCardparams
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
+            dailyButton.layoutParams = dailyButtonParams
+            monthlyButton.layoutParams = monthlyButtonParams
+            yearlyButton.layoutParams = yearlyButtonParams
 
             generalSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
             loveSign.setCardBackgroundColor(getColor(R.color.nameinputbackground))
@@ -333,8 +362,6 @@ class MainActivity : AppCompatActivity() {
             dailyButton.setBackgroundResource(R.drawable.button_passive)
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
-
-
         }
 
 
@@ -346,17 +373,21 @@ class MainActivity : AppCompatActivity() {
 
             val scale = resources.displayMetrics.density
 
-            val dpValueHeight = 630
-            val newHeight = (dpValueHeight * scale + 0.5f).toInt()
-
-            val dpMarginBottom = 105
-            val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
+            val newHeight = (630 * scale + 0.5f).toInt()
+            val newMarginBottom = (105 * scale + 0.5f).toInt()
+            val burcCardMarginBottom = (-270 * scale + 0.5f).toInt()
+            val dailyButtonMarginBottom = (25 * scale + 0.5f).toInt()
 
             val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
 
             val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
             val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
             val careerSignCardparams = careerSign.layoutParams as RelativeLayout.LayoutParams
+            val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
+            val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
+            val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
+
+            burcCardparams.bottomMargin = burcCardMarginBottom
 
             burcCardparams.height = newHeight
             burcCard.layoutParams = burcCardparams
@@ -365,9 +396,16 @@ class MainActivity : AppCompatActivity() {
             loveSignCardparams.bottomMargin = newMarginBottom
             careerSignCardparams.bottomMargin = newMarginBottom
 
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+
             generalSign.layoutParams = generalSignCardparams
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
+            dailyButton.layoutParams = dailyButtonParams
+            monthlyButton.layoutParams = monthlyButtonParams
+            yearlyButton.layoutParams = yearlyButtonParams
 
             generalSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
             loveSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
@@ -376,25 +414,129 @@ class MainActivity : AppCompatActivity() {
             dailyButton.setBackgroundResource(R.drawable.button_passive)
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
-
         }
 
         dailyButton.setOnClickListener {
+
+            val scale = resources.displayMetrics.density
+
+            val newHeight =               (730 * scale + 0.5f).toInt()
+            val burcCardMarginBottom =    (-370 * scale + 0.5f).toInt()
+            val dailyButtonMarginBottom = (125 * scale + 0.5f).toInt()
+            val signsMarginBottom =       (205 * scale + 0.5f).toInt()
+
+            val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
+            val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
+            val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
+            val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
+            val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
+            val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
+            val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
+
+            burcCardparams.height = newHeight
+            burcCardparams.bottomMargin = burcCardMarginBottom
+
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            generalSignParams.bottomMargin = signsMarginBottom
+            loveSignParams.bottomMargin = signsMarginBottom
+            careerSignParams.bottomMargin = signsMarginBottom
+
+            burcCard.layoutParams = burcCardparams
+            dailyButton.layoutParams = dailyButtonParams
+            generalSign.layoutParams = generalSignParams
+            loveSign.layoutParams = loveSignParams
+            careerSign.layoutParams = careerSignParams
+
             dailyButton.setBackgroundResource(R.drawable.common_next_button)
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
+
+            learnyourburcButton.visibility = View.VISIBLE
+
         }
 
         monthlyButton.setOnClickListener {
-            monthlyButton.setBackgroundResource(R.drawable.common_next_button)
+
+            val scale = resources.displayMetrics.density
+
+            val newHeight =               (730 * scale + 0.5f).toInt()
+            val burcCardMarginBottom =    (-370 * scale + 0.5f).toInt()
+            val dailyButtonMarginBottom = (125 * scale + 0.5f).toInt()
+            val signsMarginBottom =       (205 * scale + 0.5f).toInt()
+
+            val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
+            val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
+            val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
+            val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
+            val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
+            val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
+            val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
+
+            burcCardparams.height = newHeight
+            burcCardparams.bottomMargin = burcCardMarginBottom
+
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            generalSignParams.bottomMargin = signsMarginBottom
+            loveSignParams.bottomMargin = signsMarginBottom
+            careerSignParams.bottomMargin = signsMarginBottom
+
+            burcCard.layoutParams = burcCardparams
+            dailyButton.layoutParams = dailyButtonParams
+            generalSign.layoutParams = generalSignParams
+            loveSign.layoutParams = loveSignParams
+            careerSign.layoutParams = careerSignParams
+
             dailyButton.setBackgroundResource(R.drawable.button_passive)
+            monthlyButton.setBackgroundResource(R.drawable.common_next_button)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
+
+            learnyourburcButton.visibility = View.VISIBLE
+
         }
 
         yearlyButton.setOnClickListener {
-            yearlyButton.setBackgroundResource(R.drawable.common_next_button)
+
+            val scale = resources.displayMetrics.density
+
+            val newHeight =               (730 * scale + 0.5f).toInt()
+            val burcCardMarginBottom =    (-370 * scale + 0.5f).toInt()
+            val dailyButtonMarginBottom = (125 * scale + 0.5f).toInt()
+            val signsMarginBottom =       (205 * scale + 0.5f).toInt()
+
+            val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
+            val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
+            val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
+            val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
+            val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
+            val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
+            val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
+
+            burcCardparams.height = newHeight
+            burcCardparams.bottomMargin = burcCardMarginBottom
+
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            generalSignParams.bottomMargin = signsMarginBottom
+            loveSignParams.bottomMargin = signsMarginBottom
+            careerSignParams.bottomMargin = signsMarginBottom
+
+            burcCard.layoutParams = burcCardparams
+            dailyButton.layoutParams = dailyButtonParams
+            generalSign.layoutParams = generalSignParams
+            loveSign.layoutParams = loveSignParams
+            careerSign.layoutParams = careerSignParams
+
             dailyButton.setBackgroundResource(R.drawable.button_passive)
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
+            yearlyButton.setBackgroundResource(R.drawable.common_next_button)
+
+            learnyourburcButton.visibility = View.VISIBLE
+
         }
 
     }
@@ -415,5 +557,4 @@ class MainActivity : AppCompatActivity() {
             fortuneCookie.visibility = View.VISIBLE
         }
     }
-
 }
