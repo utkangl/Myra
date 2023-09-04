@@ -1,5 +1,9 @@
 package com.example.falci
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -92,19 +96,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         burcCard.setOnClickListener {
-            // Diğer bileşenleri gizle
-            chatwithmiraButton.visibility = View.GONE
-            empty.visibility = View.GONE
-            tarotFali.visibility = View.GONE
-            fortuneCookie.visibility = View.GONE
-            dailyButton.visibility = View.GONE
-            monthlyButton.visibility = View.GONE
-            yearlyButton.visibility = View.GONE
-
-            backarrowcard.visibility = View.VISIBLE
-            generalSign.visibility = View.VISIBLE
-            loveSign.visibility = View.VISIBLE
-            careerSign.visibility = View.VISIBLE
 
             val scale = resources.displayMetrics.density
 
@@ -128,15 +119,52 @@ class MainActivity : AppCompatActivity() {
                 R.id.empty
             ) // Yüksekliği yukarıdaki view'a göre ayarlayın
 
-            // Genişlik ve yüksekliği ayarla
-            params.width = newWidth
-            params.height = newHeight
-
-            // MarginTop ayarla
+            // MarginTop değerini ayarla
             params.topMargin = newMarginTop
 
-            // Layout parametrelerini güncelle
-            burcCard.layoutParams = params
+            // Genişlik ve yüksekliği ayarla
+            val animatorWidth = ValueAnimator.ofInt(burcCard.width, newWidth)
+            animatorWidth.addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                params.width = value
+                burcCard.layoutParams = params
+            }
+
+            val animatorHeight = ValueAnimator.ofInt(burcCard.height, newHeight)
+            animatorHeight.addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                params.height = value
+                burcCard.layoutParams = params
+            }
+
+            val animatorSet = AnimatorSet()
+            animatorSet.playTogether(animatorWidth, animatorHeight)
+            animatorSet.duration = 800 // Animasyon süresi (ms)
+
+            // Animasyon tamamlandığında çalışacak bir Listener ekleyin
+            animatorSet.addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    backarrowcard.visibility = View.VISIBLE
+                    generalSign.visibility = View.VISIBLE
+                    loveSign.visibility = View.VISIBLE
+                    careerSign.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationStart(animation: Animator) {
+
+                    // Diğer bileşenleri gizle
+                    chatwithmiraButton.visibility = View.GONE
+                    empty.visibility = View.GONE
+                    tarotFali.visibility = View.GONE
+                    fortuneCookie.visibility = View.GONE
+                    dailyButton.visibility = View.GONE
+                    monthlyButton.visibility = View.GONE
+                    yearlyButton.visibility = View.GONE
+                }
+
+            })
+
+            animatorSet.start()
 
             val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
             val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
@@ -152,23 +180,9 @@ class MainActivity : AppCompatActivity() {
             generalSign.layoutParams = generalSignCardparams
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
-
         }
 
         backArrow.setOnClickListener {
-
-            chatwithmiraButton.visibility = View.VISIBLE
-            empty.visibility = View.VISIBLE
-            tarotFali.visibility = View.VISIBLE
-            fortuneCookie.visibility = View.VISIBLE
-
-            backarrowcard.visibility = View.GONE
-            generalSign.visibility = View.GONE
-            loveSign.visibility = View.GONE
-            careerSign.visibility = View.GONE
-            dailyButton.visibility = View.GONE
-            monthlyButton.visibility = View.GONE
-            yearlyButton.visibility = View.GONE
 
 
             val scale = resources.displayMetrics.density
@@ -177,9 +191,47 @@ class MainActivity : AppCompatActivity() {
 
             val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
-            params.width = oldWidth
-            params.height = oldHeight
+            // Genişlik ve yüksekliği animasyonlu olarak değiştirin
+            val animatorWidth = ValueAnimator.ofInt(params.width, oldWidth)
+            animatorWidth.addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                params.width = value
+                burcCard.layoutParams = params
+            }
 
+            val animatorHeight = ValueAnimator.ofInt(params.height, oldHeight)
+            animatorHeight.addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                params.height = value
+                burcCard.layoutParams = params
+            }
+
+            val animatorSet = AnimatorSet()
+            animatorSet.playTogether(animatorWidth, animatorHeight)
+            animatorSet.duration = 800 // Animasyon süresi (ms)
+
+            // Animasyon tamamlandığında çalışacak bir Listener ekleyin
+            animatorSet.addListener(object : AnimatorListenerAdapter() {
+
+                override fun onAnimationStart(animation: Animator) {
+                    generalSign.visibility = View.GONE
+                    loveSign.visibility = View.GONE
+                    careerSign.visibility = View.GONE
+                    dailyButton.visibility = View.GONE
+                    monthlyButton.visibility = View.GONE
+                    yearlyButton.visibility = View.GONE
+                    empty.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationEnd(animation: Animator) {
+                    // Animasyon tamamlandığında görünür öğeleri etkinleştirin
+                    chatwithmiraButton.visibility = View.VISIBLE
+                    tarotFali.visibility = View.VISIBLE
+                    fortuneCookie.visibility = View.VISIBLE
+                }
+            })
+
+            animatorSet.start()
 
             val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
             val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
@@ -199,7 +251,6 @@ class MainActivity : AppCompatActivity() {
             generalSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
             loveSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
             careerSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
-
         }
 
         generalSign.setOnClickListener {
@@ -240,7 +291,6 @@ class MainActivity : AppCompatActivity() {
             dailyButton.setBackgroundResource(R.drawable.button_passive)
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
-
 
         }
 
