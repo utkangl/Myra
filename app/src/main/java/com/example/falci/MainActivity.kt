@@ -233,6 +233,7 @@ class MainActivity : AppCompatActivity() {
                     tarotFali.visibility = View.VISIBLE
                     fortuneCookie.visibility = View.VISIBLE
                     backarrowcard.visibility = View.GONE
+                    learnyourburcButton.visibility = View.GONE
                 }
             })
 
@@ -263,6 +264,7 @@ class MainActivity : AppCompatActivity() {
             dailyButton.visibility = View.VISIBLE
             monthlyButton.visibility = View.VISIBLE
             yearlyButton.visibility = View.VISIBLE
+            learnyourburcButton.visibility = View.GONE
 
             val scale = resources.displayMetrics.density
 
@@ -315,6 +317,7 @@ class MainActivity : AppCompatActivity() {
             dailyButton.visibility = View.VISIBLE
             monthlyButton.visibility = View.VISIBLE
             yearlyButton.visibility = View.VISIBLE
+            learnyourburcButton.visibility = View.GONE
 
             val scale = resources.displayMetrics.density
 
@@ -370,6 +373,7 @@ class MainActivity : AppCompatActivity() {
             dailyButton.visibility = View.VISIBLE
             monthlyButton.visibility = View.VISIBLE
             yearlyButton.visibility = View.VISIBLE
+            learnyourburcButton.visibility = View.GONE
 
             val scale = resources.displayMetrics.density
 
