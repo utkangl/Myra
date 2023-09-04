@@ -155,9 +155,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        backArrow.setOnClickListener{
+        backArrow.setOnClickListener {
 
-            println("annen")
             chatwithmiraButton.visibility = View.VISIBLE
             empty.visibility = View.VISIBLE
             tarotFali.visibility = View.VISIBLE
@@ -167,6 +166,9 @@ class MainActivity : AppCompatActivity() {
             generalSign.visibility = View.GONE
             loveSign.visibility = View.GONE
             careerSign.visibility = View.GONE
+            dailyButton.visibility = View.GONE
+            monthlyButton.visibility = View.GONE
+            yearlyButton.visibility = View.GONE
 
 
             val scale = resources.displayMetrics.density
@@ -194,9 +196,13 @@ class MainActivity : AppCompatActivity() {
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
 
+            generalSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+            loveSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+            careerSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+
         }
 
-        generalSign.setOnClickListener{
+        generalSign.setOnClickListener {
 
             dailyButton.visibility = View.VISIBLE
             monthlyButton.visibility = View.VISIBLE
@@ -204,10 +210,10 @@ class MainActivity : AppCompatActivity() {
 
             val scale = resources.displayMetrics.density
 
-            val dpValueHeight = 600
+            val dpValueHeight = 630
             val newHeight = (dpValueHeight * scale + 0.5f).toInt()
 
-            val dpMarginBottom = 75
+            val dpMarginBottom = 105
             val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
 
             val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
@@ -227,17 +233,30 @@ class MainActivity : AppCompatActivity() {
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
 
+            generalSign.setCardBackgroundColor(getColor(R.color.nameinputbackground))
+            loveSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+            careerSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+
+            dailyButton.setBackgroundResource(R.drawable.button_passive)
+            monthlyButton.setBackgroundResource(R.drawable.button_passive)
+            yearlyButton.setBackgroundResource(R.drawable.button_passive)
+
+
         }
 
 
-        loveSign.setOnClickListener{
+        loveSign.setOnClickListener {
+
+            dailyButton.visibility = View.VISIBLE
+            monthlyButton.visibility = View.VISIBLE
+            yearlyButton.visibility = View.VISIBLE
 
             val scale = resources.displayMetrics.density
 
-            val dpValueHeight = 600
+            val dpValueHeight = 630
             val newHeight = (dpValueHeight * scale + 0.5f).toInt()
 
-            val dpMarginBottom = 75
+            val dpMarginBottom = 105
             val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
 
             val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
@@ -257,17 +276,30 @@ class MainActivity : AppCompatActivity() {
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
 
+            generalSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+            loveSign.setCardBackgroundColor(getColor(R.color.nameinputbackground))
+            careerSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+
+            dailyButton.setBackgroundResource(R.drawable.button_passive)
+            monthlyButton.setBackgroundResource(R.drawable.button_passive)
+            yearlyButton.setBackgroundResource(R.drawable.button_passive)
+
+
         }
 
 
-        careerSign.setOnClickListener{
+        careerSign.setOnClickListener {
+
+            dailyButton.visibility = View.VISIBLE
+            monthlyButton.visibility = View.VISIBLE
+            yearlyButton.visibility = View.VISIBLE
 
             val scale = resources.displayMetrics.density
 
-            val dpValueHeight = 600
+            val dpValueHeight = 630
             val newHeight = (dpValueHeight * scale + 0.5f).toInt()
 
-            val dpMarginBottom = 75
+            val dpMarginBottom = 105
             val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
 
             val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
@@ -287,8 +319,33 @@ class MainActivity : AppCompatActivity() {
             loveSign.layoutParams = loveSignCardparams
             careerSign.layoutParams = careerSignCardparams
 
+            generalSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+            loveSign.setCardBackgroundColor(getColor(R.color.passivesigncard))
+            careerSign.setCardBackgroundColor(getColor(R.color.nameinputbackground))
+
+            dailyButton.setBackgroundResource(R.drawable.button_passive)
+            monthlyButton.setBackgroundResource(R.drawable.button_passive)
+            yearlyButton.setBackgroundResource(R.drawable.button_passive)
+
         }
 
+        dailyButton.setOnClickListener {
+            dailyButton.setBackgroundResource(R.drawable.common_next_button)
+            monthlyButton.setBackgroundResource(R.drawable.button_passive)
+            yearlyButton.setBackgroundResource(R.drawable.button_passive)
+        }
+
+        monthlyButton.setOnClickListener {
+            monthlyButton.setBackgroundResource(R.drawable.common_next_button)
+            dailyButton.setBackgroundResource(R.drawable.button_passive)
+            yearlyButton.setBackgroundResource(R.drawable.button_passive)
+        }
+
+        yearlyButton.setOnClickListener {
+            yearlyButton.setBackgroundResource(R.drawable.common_next_button)
+            dailyButton.setBackgroundResource(R.drawable.button_passive)
+            monthlyButton.setBackgroundResource(R.drawable.button_passive)
+        }
 
     }
 

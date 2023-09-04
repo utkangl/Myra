@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="nameinputbackground">#47386F</color>
+    <color name="passivesigncard">#808c8c8c</color>
 </resources>
