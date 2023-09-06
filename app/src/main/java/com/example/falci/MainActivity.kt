@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var monthlyButton: AppCompatButton
     lateinit var yearlyButton: AppCompatButton
     lateinit var learnyourburcButton: AppCompatButton
+    lateinit var settingsbuttoncard: CardView
+    lateinit var settingsbutton: ImageButton
 
     val loginfragment = Loginfragment()
 
@@ -52,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         monthlyButton = findViewById(R.id.monthlyButton)
         yearlyButton = findViewById(R.id.yearlyButton)
         learnyourburcButton = findViewById(R.id.learnyourburcButton)
+        settingsbuttoncard = findViewById(R.id.settingsbuttoncard)
+        settingsbutton = findViewById(R.id.settingsbutton)
 
 
         chatwithmiraButton.setOnClickListener {
@@ -95,6 +99,7 @@ class MainActivity : AppCompatActivity() {
             burcCard.visibility = View.GONE
             tarotFali.visibility = View.GONE
             fortuneCookie.visibility = View.GONE
+            settingsbuttoncard.visibility = View.GONE
         }
 
         burcCard.setOnClickListener {
@@ -186,7 +191,6 @@ class MainActivity : AppCompatActivity() {
 
         backArrow.setOnClickListener {
 
-
             val scale = resources.displayMetrics.density
             val oldWidth = (340 * scale + 0.5f).toInt()
             val oldHeight = (200 * scale + 0.5f).toInt()
@@ -224,6 +228,7 @@ class MainActivity : AppCompatActivity() {
                     dailyButton.visibility = View.GONE
                     monthlyButton.visibility = View.GONE
                     yearlyButton.visibility = View.GONE
+                    learnyourburcButton.visibility = View.GONE
                     empty.visibility = View.VISIBLE
                 }
 
@@ -233,7 +238,6 @@ class MainActivity : AppCompatActivity() {
                     tarotFali.visibility = View.VISIBLE
                     fortuneCookie.visibility = View.VISIBLE
                     backarrowcard.visibility = View.GONE
-                    learnyourburcButton.visibility = View.GONE
                 }
             })
 
@@ -543,6 +547,35 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        val profileFragment = ProfileFragment()
+
+        settingsbutton.setOnClickListener{
+
+            println("annen")
+
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.fade_in,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fade_out
+                    )
+                    .replace(R.id.main_fragment_container, profileFragment)
+                    .addToBackStack(null)
+                    .commit()
+
+            }
+
+            chatwithmiraButton.visibility = View.GONE
+            empty.visibility = View.GONE
+            burcCard.visibility = View.GONE
+            tarotFali.visibility = View.GONE
+            fortuneCookie.visibility = View.GONE
+            settingsbuttoncard.visibility = View.GONE
+
+
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -559,6 +592,7 @@ class MainActivity : AppCompatActivity() {
             burcCard.visibility = View.VISIBLE
             tarotFali.visibility = View.VISIBLE
             fortuneCookie.visibility = View.VISIBLE
+            settingsbuttoncard.visibility = View.VISIBLE
         }
     }
 }

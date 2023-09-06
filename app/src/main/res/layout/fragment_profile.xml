@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ProfileFragment"
+    android:background="@drawable/gradientbackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/profilecard"
+        android:layout_marginBottom="10dp"
+
+        android:fontFamily="@font/arima_madurai_bold"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="Profile"
+        android:layout_centerHorizontal="true">
+
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+
+        android:id="@+id/profilecard"
+
+        android:layout_above="@+id/zodiaccard"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginStart="40dp"
+
+        android:elevation="5dp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+
+        app:cardBackgroundColor="#292859"
+        app:cardCornerRadius="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/profilephotocard"
+                app:cardCornerRadius="50dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="#6B66CF"
+                    android:id="@+id/profilephoto">
+                </ImageView>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toEndOf="@+id/profilephotocard"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="20dp"
+
+                android:text="Doga"
+                android:textSize="24sp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:textColor="@color/white">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toEndOf="@+id/profilephotocard"
+                android:layout_marginTop="85dp"
+                android:layout_marginStart="20dp"
+
+                android:text="Ikizler"
+                android:textSize="20sp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/white"
+
+                >
+            </TextView>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@drawable/editprofile"
+
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+
+                android:text="Profilini Düzenle"
+                android:textSize="13sp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/white"
+                android:textAllCaps="false">
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </RelativeLayout>
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/zodiaccard"
+
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+
+        android:layout_centerInParent="true"
+
+        android:layout_marginLeft="40dp"
+
+        android:elevation="5dp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        app:cardBackgroundColor="#292859"
+        app:cardCornerRadius="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/horizontalscrollview"
+                android:scrollbars="none"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Kova"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Balik"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Koc"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Boga"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Ikizler"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Yengec"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Aslan"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Basak"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Terazi"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Akrep"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Yay"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="15dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="50dp"
+                            android:text="Oglak"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp">
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/scrollviewseperator"
+                android:layout_below="@+id/horizontalscrollview"
+                android:layout_width="350dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/seperator_line">
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/scrollviewseperator">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/zodiac_sign"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="12dp"
+                    app:contentPadding="5dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/gemini">
+                    </ImageView>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zodiac_sign"
+                    android:layout_marginTop="2dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="30dp"
+
+                    android:text="Ikizler"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/arima_madurai_light"
+                    android:textSize="15sp"
+                    >
+
+                </TextView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/burcexplanationplanet"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="35dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/moon">
+                    </ImageView>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/burcexplanationplanet"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginStart="10dp"
+
+                    android:text="PLANET"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:textSize="25sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/burcexplanationplanet"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
+
+
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/arima_madurai_light"
+                    android:textSize="15sp"
+                    android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol lsadkafsk jbsdkjdfkv kjbdasjknsldv laksdvkalsdlf lasdk kjfsdf çdfvmsdfmsdlf lgbmlfk kdmfgkfgmlfg dfkgmdkmklm dkfdl kfldkfdlkfk snfjnsdfsj fjngdsgnd fdjgfjjjjjsdf"
+                    >
+                </TextView>
+
+            </RelativeLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:id="@+id/profileviewbottomcard"
+        android:elevation="5dp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/zodiaccard"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="#292859"
+        app:cardCornerRadius="15dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bottomcardseperator"
+                android:layout_width="350dp"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                app:cardBackgroundColor="@color/white">
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/star_icon"
+                android:layout_above="@+id/bottomcardseperator"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="50dp">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bottomcardseperator"
+                android:layout_marginBottom="8dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Favori Burcların"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/arima_madurai_bold">
+            </TextView>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseline_currency_bitcoin_24"
+                android:layout_below="@+id/bottomcardseperator"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="50dp">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bottomcardseperator"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Coin Satin Al"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/arima_madurai_bold">
+            </TextView>
+
+        </RelativeLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="170dp"
+        android:layout_height="45dp"
+        android:background="@drawable/common_next_button"
+
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+
+        android:text="Hesap Değiştir"
+        android:textSize="17sp"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:textColor="@color/white"
+        android:textAllCaps="false">
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+</RelativeLayout>
