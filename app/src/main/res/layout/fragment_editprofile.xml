@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradientbackground"
+    tools:context=".EditProfileFragment">
+
+
+    <EditText
+        android:id="@+id/nameedittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/genderedittext"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginBottom="45dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold">
+    </EditText>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/genderedittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_above="@+id/birthdateedittext"
+        android:layout_marginBottom="45dp"
+        android:textColor="@color/white">
+    </EditText>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/birthdateedittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_above="@+id/birthtimeedittext"
+        android:layout_marginBottom="45dp"
+        android:textColor="@color/white">
+    </EditText>
+
+
+    <EditText
+        android:id="@+id/birthtimeedittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="100dp"
+        android:textColor="@color/white">
+    </EditText>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationedittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_below="@+id/birthtimeedittext"
+        android:layout_marginTop="45dp"
+        android:textColor="@color/white">
+    </EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/occupationedittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_below="@+id/locationedittext"
+        android:layout_marginTop="45dp"
+        android:textColor="@color/white">
+    </EditText>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relationshipstatusedittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_below="@+id/occupationedittext"
+        android:layout_marginTop="45dp"
+        android:textColor="@color/white">
+    </EditText>
+
+</RelativeLayout>
