@@ -16,23 +16,22 @@ import androidx.cardview.widget.CardView
 
 class ProfileFragment : Fragment() {
 
-
-    lateinit var jupyterlayout: RelativeLayout
-    lateinit var marslayout: RelativeLayout
-    lateinit var mercurylayout: RelativeLayout
-    lateinit var neptunlayout: RelativeLayout
-    lateinit var saturnlayout: RelativeLayout
-    lateinit var sunlayout: RelativeLayout
-    lateinit var uranuslayout: RelativeLayout
-    lateinit var venuslayout: RelativeLayout
-    lateinit var zodiacCard: CardView
-    lateinit var profileCard: CardView
-    lateinit var profileViewBottomCard: CardView
-    lateinit var profileTitle: TextView
-    lateinit var changeAccountButton: AppCompatButton
-    lateinit var backArrowCard: CardView
-    lateinit var backArrow: ImageView
-
+    private lateinit var jupyterlayout: RelativeLayout
+    private lateinit var marslayout: RelativeLayout
+    private lateinit var mercurylayout: RelativeLayout
+    private lateinit var neptunlayout: RelativeLayout
+    private lateinit var saturnlayout: RelativeLayout
+    private lateinit var sunlayout: RelativeLayout
+    private lateinit var uranuslayout: RelativeLayout
+    private lateinit var venuslayout: RelativeLayout
+    private lateinit var moonlayout : RelativeLayout
+    private lateinit var zodiacCard: CardView
+    private lateinit var profileCard: CardView
+    private lateinit var profileViewBottomCard: CardView
+    private lateinit var profileTitle: TextView
+    private lateinit var changeAccountButton: AppCompatButton
+    private lateinit var backArrowCard: CardView
+    private lateinit var backArrow: ImageView
 
 
     @SuppressLint("SetTextI18n")
@@ -43,7 +42,8 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
+        val editprofilebutton =
+            v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
         jupyterlayout = v.findViewById(R.id.scrollviewjupyterlayout)
         marslayout = v.findViewById(R.id.marslayout)
@@ -53,6 +53,7 @@ class ProfileFragment : Fragment() {
         sunlayout = v.findViewById(R.id.sunlayout)
         uranuslayout = v.findViewById(R.id.uranuslayout)
         venuslayout = v.findViewById(R.id.venuslayout)
+        moonlayout = v.findViewById(R.id.moonlayout)
         zodiacCard = v.findViewById(R.id.zodiaccard)
         profileCard = v.findViewById(R.id.profilecard)
         profileViewBottomCard = v.findViewById(R.id.profileviewbottomcard)
@@ -67,7 +68,7 @@ class ProfileFragment : Fragment() {
 
 
 
-        zodiacCard.setOnClickListener{
+        zodiacCard.setOnClickListener {
 
             profileCard.visibility = View.GONE
             profileViewBottomCard.visibility = View.GONE
@@ -82,7 +83,6 @@ class ProfileFragment : Fragment() {
             val params = zodiacCard.layoutParams as RelativeLayout.LayoutParams
 
 
-            // Genişlik ve yüksekliği ayarla
             val animatorWidth = ValueAnimator.ofInt(zodiacCard.width, newWidth)
             animatorWidth.addUpdateListener { animation ->
                 val value = animation.animatedValue as Int
@@ -100,12 +100,12 @@ class ProfileFragment : Fragment() {
 
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 500 // Animasyon süresi (ms)
+            animatorSet.duration = 300
 
             animatorSet.start()
         }
 
-        backArrow.setOnClickListener{
+        backArrow.setOnClickListener {
 
             profileCard.visibility = View.VISIBLE
             profileViewBottomCard.visibility = View.VISIBLE
@@ -135,13 +135,13 @@ class ProfileFragment : Fragment() {
 
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 500
+            animatorSet.duration = 300
 
             animatorSet.start()
 
         }
 
-        editprofilebutton.setOnClickListener{
+        editprofilebutton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
                     R.anim.fade_in,
@@ -155,71 +155,88 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        jupyterlayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        jupyterlayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.jupiter)
             burcexplanationplanettext.text = "Jupiter"
         }
 
-        marslayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        marslayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.mars)
             burcexplanationplanettext.text = "Mars"
         }
 
-        mercurylayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        mercurylayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.mercury)
             burcexplanationplanettext.text = "Merkur"
         }
 
-        neptunlayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        neptunlayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.neptun)
             burcexplanationplanettext.text = "Neptun"
         }
 
-        saturnlayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        saturnlayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.saturn)
             burcexplanationplanettext.text = "Saturn"
         }
 
-        sunlayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        sunlayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.sun)
             burcexplanationplanettext.text = "Sun"
         }
 
-        uranuslayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        uranuslayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.uranus)
             burcexplanationplanettext.text = "Uranus"
         }
 
-        venuslayout.setOnClickListener{
-            val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+        venuslayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.venus)
             burcexplanationplanettext.text = "Venus"
         }
-
-
-
-
-
+        moonlayout.setOnClickListener {
+            val burcexplanationplanetimage =
+                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+            val burcexplanationplanettext =
+                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
+            burcexplanationplanetimage.setImageResource(R.drawable.moon)
+            burcexplanationplanettext.text = "Moon"
+        }
 
         return v
 
     }
-
-
 
 }

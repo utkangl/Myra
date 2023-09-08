@@ -17,7 +17,8 @@
         android:textSize="30sp"
         android:textColor="@color/white"
         android:text="Profile"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText">
 
     </TextView>
 
@@ -73,7 +74,8 @@
                 android:text="Doga"
                 android:textSize="24sp"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:textColor="@color/white">
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText">
             </TextView>
 
             <TextView
@@ -89,7 +91,7 @@
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white"
 
-                >
+                tools:ignore="HardcodedText">
             </TextView>
 
 
@@ -109,7 +111,8 @@
                 android:textSize="13sp"
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white"
-                android:textAllCaps="false">
+                android:textAllCaps="false"
+                tools:ignore="HardcodedText">
             </androidx.appcompat.widget.AppCompatButton>
 
         </RelativeLayout>
@@ -140,7 +143,7 @@
                 android:fillViewport="true">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -433,6 +436,44 @@
 
                     </RelativeLayout>
 
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="2dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        app:cardBackgroundColor="@color/white">
+
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/moonlayout"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="2dp">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="5dp"
+                            android:src="@drawable/moon"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp">
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="40dp"
+                            android:text="Moon"
+                            android:textSize="20sp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/arima_madurai_light">
+                        </TextView>
+
+                    </RelativeLayout>
+
+
                 </LinearLayout>
 
             </HorizontalScrollView>
@@ -528,7 +569,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/burcexplanationplanet"
                     android:layout_marginTop="25dp"
-                    android:layout_marginBottom="25dp"
+                    android:layout_marginBottom="30dp"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
 
@@ -536,8 +577,8 @@
                     android:textColor="@color/white"
                     android:fontFamily="@font/arima_madurai_light"
                     android:textSize="15sp"
-                    android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol lsadkafsk jbsdkjdfkv kjbdasjknsldv laksdvkalsdlf lasdk kjfsdf çdfvmsdfmsdlf lgbmlfk kdmfgkfgmlfg dfkgmdkmklm dkfdl kfldkfdlkfk snfjnsdfsj fjngdsgnd fdjgfjjjjjsdf"
-                    >
+                    android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol "
+                    tools:ignore="HardcodedText">
                 </TextView>
 
                 <androidx.cardview.widget.CardView
@@ -625,7 +666,8 @@
                 android:text="Favori Burcların"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/arima_madurai_bold">
+                android:fontFamily="@font/arima_madurai_bold"
+                tools:ignore="HardcodedText">
             </TextView>
 
             <ImageView
@@ -647,7 +689,8 @@
                 android:text="Coin Satin Al"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/arima_madurai_bold">
+                android:fontFamily="@font/arima_madurai_bold"
+                tools:ignore="HardcodedText">
             </TextView>
 
         </RelativeLayout>

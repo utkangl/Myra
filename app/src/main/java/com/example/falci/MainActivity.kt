@@ -163,6 +163,7 @@ class MainActivity : AppCompatActivity() {
                     monthlyButton.visibility = View.GONE
                     yearlyButton.visibility = View.GONE
                     learnyourburcButton.visibility = View.GONE
+                    settingsbuttoncard.visibility = View.GONE
 
                     // Yatayda ortalanmış
                     params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
@@ -230,6 +231,7 @@ class MainActivity : AppCompatActivity() {
                     yearlyButton.visibility = View.GONE
                     learnyourburcButton.visibility = View.GONE
                     empty.visibility = View.VISIBLE
+                    settingsbuttoncard.visibility = View.VISIBLE
                 }
 
                 override fun onAnimationEnd(animation: Animator) {
