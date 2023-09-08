@@ -2,6 +2,7 @@ package com.example.falci
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -207,6 +208,50 @@ class LoginSignupActivity : AppCompatActivity() {
                             AccessToken = accessToken
                         }
 
+                    }
+
+                    callback(responseBody, null)
+
+                }
+            })
+
+        }
+
+    }
+
+    object logoutFunctions{
+
+        fun makeLogoutRequest(url: String, callback: (String?, Exception?) -> Unit) {
+
+            val logoutclient = OkHttpClient()
+
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                Loginfunctions.RefreshToken
+            )
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .header("Authorization", "Bearer ${Loginfunctions.AccessToken}")
+                .build()
+
+
+            logoutclient.newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {
+                    callback(null, e)
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+
+                    Loginfunctions.StatusCode = response.code()
+
+                    if (responseBody != null) {
+
+                        println(responseBody)
                     }
 
                     callback(responseBody, null)

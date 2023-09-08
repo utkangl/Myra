@@ -705,7 +705,7 @@
         android:layout_marginBottom="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="Hesap Değiştir"
+        android:text="Cikis Yap"
         android:textSize="17sp"
         android:fontFamily="@font/arima_madurai_bold"
         android:textColor="@color/white"

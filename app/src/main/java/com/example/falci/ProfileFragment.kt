@@ -3,6 +3,7 @@ package com.example.falci
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.example.falci.LoginSignupActivity.logoutFunctions
+import com.example.falci.Loginfragment
 
 class ProfileFragment : Fragment() {
 
@@ -233,6 +236,30 @@ class ProfileFragment : Fragment() {
                 zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
             burcexplanationplanetimage.setImageResource(R.drawable.moon)
             burcexplanationplanettext.text = "Moon"
+        }
+
+        changeAccountButton.setOnClickListener{
+
+            if (isLoggedin){
+
+                logoutFunctions.makeLogoutRequest("31.210.43.174:1337/auth/logout/")
+                { responseBody, exception ->
+                    if (exception != null) {
+                        println("Error: ${exception.message}")
+                    } else {
+                        println("Response: $responseBody")
+                        println("cikis yaptin")
+
+                    }
+                }
+
+            }
+
+            else{
+                println("Hele once bi giris yap sonra cikis yaparsin")
+            }
+
+
         }
 
         return v
