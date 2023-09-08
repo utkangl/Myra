@@ -25,8 +25,7 @@ class BirthdatePickFragment : Fragment() {
 
         datepickfragmentnextbutton.setOnClickListener {
             val selectedYear = datepicker.year
-            val selectedMonth =
-                datepicker.month + 1 // DatePicker'da aylar 0-11 arasında indekslenir
+            val selectedMonth =  datepicker.month + 1
             val selectedDay = datepicker.dayOfMonth
 
 

@@ -115,7 +115,7 @@ class OccupationPickFragment : Fragment() {
     }
 
     private fun formatDateAndTime(date: String, time: String): String {
-        return ("$date $time PM +0000")
+        return ("$date $time +0000")
     }
 
 }
