@@ -3,12 +3,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradientbackground"
     tools:context=".EditProfileFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/backarrowcard"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="75dp"
+        app:cardBackgroundColor="#47386F"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/editprofiletitle"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="25dp"
+        android:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/back_arrow"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:background="@drawable/back_arrow"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp">
+        </ImageButton>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/editprofiletitle"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/namefieldhint"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:text="Profilini Duzenle">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/namefieldhint"
         android:layout_above="@id/nameedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
@@ -167,5 +205,16 @@
         android:layout_marginTop="40dp"
         android:textColor="@color/white">
     </EditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/savebutton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="25dp"
+        android:background="@drawable/save_icon"
+        android:visibility="invisible">
+    </androidx.appcompat.widget.AppCompatButton>
 
 </RelativeLayout>
