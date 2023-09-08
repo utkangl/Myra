@@ -12,15 +12,13 @@ import androidx.fragment.app.Fragment
 
 import com.example.falci.LoginSignupActivity.RegistrationFunctions
 
-
 import com.example.falci.NamePickFragment.NameObject.name
 import com.example.falci.GenderPickFragment.GenderObject.gender
 import com.example.falci.BirthdatePickFragment.DateObject.date
 import com.example.falci.BirthTimePickFragment.TimeObject.time
 import com.example.falci.BirthLocationPickFragment.LocationObject.location
 import com.example.falci.RelationshipStatusPickFragment.MaritalStatusObject.maritalStatu
-import com.example.falci.SignUpFragment.Usernameandpasswordobject.username
-import com.example.falci.SignUpFragment.Usernameandpasswordobject.password
+
 
 
 class OccupationPickFragment : Fragment() {
@@ -67,15 +65,14 @@ class OccupationPickFragment : Fragment() {
             }
         }
 
-        val registerposturl = "http://31.210.43.174:1337/auth/register/"
+        val registerposturl = "http://31.210.43.174:1337/auth/profile/complete/"
 
         occupationPickFragmentnextbutton.setOnClickListener {
 
             val formattedDate = formatDateAndTime(date, time)
+            println(formattedDate)
 
-            val registrationJSON = RegistrationFunctions.createRegistrationJSON(
-                username,
-                password,
+            val completeProfileJSON = RegistrationFunctions.createCompleteProfileJSON(
                 name.toString(),
                 gender,
                 formattedDate,
@@ -84,9 +81,11 @@ class OccupationPickFragment : Fragment() {
                 selectedOccupation
             )
 
-            RegistrationFunctions.postsignupJson(
+            println("complete profile bilgileri jsonu: $completeProfileJSON")
+
+            RegistrationFunctions.postCompleteProfileJson(
                 registerposturl,
-                registrationJSON
+                completeProfileJSON
             ) { responseBody, exception ->
                 if (exception != null) {
                     println("Error: ${exception.message}")

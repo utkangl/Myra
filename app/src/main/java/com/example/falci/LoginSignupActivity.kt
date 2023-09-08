@@ -23,9 +23,12 @@ class LoginSignupActivity : AppCompatActivity() {
     }
 
     object RegistrationFunctions {
-        fun createRegistrationJSON(
-            username: String,
-            password: String,
+
+        lateinit var RefreshToken: String
+        lateinit var AccessToken: String
+        var StatusCode by Delegates.notNull<Int>()
+
+        fun createCompleteProfileJSON(
             name: String,
             gender: String,
             birthDay: String,
@@ -34,11 +37,8 @@ class LoginSignupActivity : AppCompatActivity() {
             occupation: String
         ): JSONObject {
 
-            val registerjsonObject = JSONObject()
-            registerjsonObject.put("username", username)
-            registerjsonObject.put("password", password)
-
-
+            val completeProfileJsonObject = JSONObject()
+            val info = JSONObject()
             val zodiacInfo = JSONObject()
             zodiacInfo.put("name", name)
             zodiacInfo.put("location", location)
@@ -46,14 +46,27 @@ class LoginSignupActivity : AppCompatActivity() {
             zodiacInfo.put("gender", gender)
             zodiacInfo.put("occupation", occupation)
 
-            val registerInfo = JSONObject()
-            registerInfo.put("zodiacInfo", zodiacInfo)
-            registerInfo.put("relationshipStatus", relationshipStatus)
-
-            registerjsonObject.put("registerInfo", registerInfo)
-
-            return registerjsonObject
+            info.put("zodiacInfo", zodiacInfo)
+            info.put("relationshipStatus", relationshipStatus)
+            completeProfileJsonObject.put("info", info)
+            return completeProfileJsonObject
         }
+
+
+        fun createRegisterJSON(
+            email: String,
+            password: String,
+
+        ): JSONObject {
+
+            val registerJSON = JSONObject()
+
+            registerJSON.put("email", email)
+            registerJSON.put("password", password)
+
+            return registerJSON
+        }
+
 
 
         fun postsignupJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
@@ -67,6 +80,55 @@ class LoginSignupActivity : AppCompatActivity() {
             val request = Request.Builder()
                 .url(url)
                 .post(requestBody)
+                .build()
+
+            signupclient.newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {
+                    callback(null, e)
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+
+                    RegistrationFunctions.StatusCode = response.code()
+
+                    if (responseBody != null) {
+
+                        val (refreshToken, accessToken) = JwtTokenFunctions.parseJWTTokens(
+                            responseBody
+                        )
+
+                        println("Refresh Token: $refreshToken")
+                        if (refreshToken != null) {
+                            RegistrationFunctions.RefreshToken = refreshToken
+                        }
+                        println("Access Token: $accessToken")
+                        if (accessToken != null) {
+                            RegistrationFunctions.AccessToken = accessToken
+                        }
+
+                    }
+
+                    callback(responseBody, null)
+
+                }
+
+            })
+        }
+
+        fun postCompleteProfileJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+            val signupclient = OkHttpClient()
+
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                json.toString()
+            )
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .header("Authorization", "Bearer ${RegistrationFunctions.AccessToken}")
                 .build()
 
             signupclient.newCall(request).enqueue(object : Callback {

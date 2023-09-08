@@ -134,8 +134,11 @@ class ChatFragment : Fragment() {
         val requestBody =
             RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
 
-        val request = Request.Builder().url(url).post(requestBody)
-            .header("Authorization", "Bearer $AccessToken").build()
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .header("Authorization", "Bearer $AccessToken")
+            .build()
 
 
         chatclient.newCall(request).enqueue(object : Callback {

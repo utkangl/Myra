@@ -53,12 +53,11 @@
 
                 android:background="@drawable/common_text_input_field"
 
-                android:drawableLeft="@drawable/write_icon"
-                android:drawablePadding="10dp"
-
                 android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/white"
                 android:hint="Kullanici Adi"
-                android:paddingLeft="10dp"
+                android:textColorHint="@color/white"
+                android:paddingLeft="30dp"
                 android:text=""
                 android:textSize="24sp" />
 
@@ -92,12 +91,11 @@
 
                 android:background="@drawable/common_text_input_field"
 
-                android:drawableLeft="@drawable/write_icon"
-                android:drawablePadding="10dp"
-
                 android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/white"
                 android:hint="Sifre"
-                android:paddingLeft="10dp"
+                android:textColorHint="@color/white"
+                android:paddingLeft="30dp"
                 android:text=""
                 android:textSize="24sp" />
 

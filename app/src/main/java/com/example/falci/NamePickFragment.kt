@@ -20,16 +20,15 @@ class NamePickFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_name_pick, container, false)
 
-        nameInput = v.findViewById<EditText>(R.id.namepickfragmentnameinputtext)
-
         val namepickfragmentnextbutton = v.findViewById<Button>(R.id.namepickfragmentnextbutton)
         val genderPickFragment = GenderPickFragment()
 
         namepickfragmentnextbutton.setOnClickListener {
-            val name = nameInput.text.toString().trim() // Kullanıcının girdiği adı al
+            nameInput = v.findViewById(R.id.namepickfragmentnameinputtext)
 
-            if (name.isNotEmpty()) {
-                NameObject.name = name // NameObject.name'i güncelle
+            if (nameInput.text.isNotEmpty()) {
+                NameObject.name = nameInput.text.toString()
+                println(NameObject.name)
 
                 parentFragmentManager.beginTransaction().apply {
                     setCustomAnimations(
@@ -49,6 +48,6 @@ class NamePickFragment : Fragment() {
     }
 
     object NameObject {
-        var name: String = ""
+        lateinit var name: String
     }
 }
