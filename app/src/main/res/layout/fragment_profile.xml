@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/profilecard"
         android:layout_marginBottom="10dp"
-
+        android:id="@+id/profileTitle"
         android:fontFamily="@font/arima_madurai_bold"
         android:textSize="30sp"
         android:textColor="@color/white"
@@ -95,7 +95,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:id="@+id/profilefragmenteditprofilebutton"
                 android:background="@drawable/editprofile"
 
@@ -118,14 +118,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/zodiaccard"
-
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="330dp"
-
         android:layout_centerInParent="true"
-
-        android:layout_marginLeft="40dp"
-
         android:elevation="5dp"
         android:outlineAmbientShadowColor="@color/white"
         android:outlineSpotShadowColor="@color/white"
@@ -189,6 +184,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/marslayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -224,6 +220,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/mercurylayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -260,6 +257,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/neptunlayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -296,6 +294,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/saturnlayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -333,6 +332,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/sunlayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -369,6 +369,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/uranuslayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -406,6 +407,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
+                        android:id="@+id/venuslayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
@@ -494,7 +496,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="12dp"
 
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="#242854"
                     app:cardCornerRadius="35dp">
 
                     <ImageView
@@ -537,6 +539,29 @@
                     android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol lsadkafsk jbsdkjdfkv kjbdasjknsldv laksdvkalsdlf lasdk kjfsdf çdfvmsdfmsdlf lgbmlfk kdmfgkfgmlfg dfkgmdkmklm dkfdl kfldkfdlkfk snfjnsdfsj fjngdsgnd fdjgfjjjjjsdf"
                     >
                 </TextView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/backarrowcard"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="75dp"
+                    app:cardBackgroundColor="#47386F"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:visibility="invisible">
+
+                    <ImageButton
+                        android:id="@+id/back_arrow"
+                        android:layout_width="45dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/back_arrow"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp">
+                    </ImageButton>
+
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
@@ -627,20 +652,16 @@
 
         </RelativeLayout>
 
-
-
-
     </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="170dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:background="@drawable/common_next_button"
-
-        android:layout_marginBottom="20dp"
+        android:id="@+id/changeaccountbutton"
+        android:layout_marginBottom="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-
         android:text="Hesap Değiştir"
         android:textSize="17sp"
         android:fontFamily="@font/arima_madurai_bold"
