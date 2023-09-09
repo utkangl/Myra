@@ -1,7 +1,6 @@
 package com.example.falci
 
 import android.os.Bundle
-import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,10 +31,10 @@ class NamePickFragment : Fragment() {
 
                 parentFragmentManager.beginTransaction().apply {
                     setCustomAnimations(
-                        R.anim.fade_in,
-                        R.anim.fade_out,
-                        R.anim.fade_in,
-                        R.anim.fade_out
+                        R.anim.slide_down,
+                        R.anim.slide_up,
+                        R.anim.slide_down,
+                        R.anim.slide_up
                     )
                     replace(R.id.main_fragment_container, genderPickFragment)
                     addToBackStack(null)

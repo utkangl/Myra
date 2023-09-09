@@ -3,7 +3,6 @@ package com.example.falci
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.logoutFunctions
-import com.example.falci.Loginfragment
 
 class ProfileFragment : Fragment() {
 
@@ -147,10 +145,10 @@ class ProfileFragment : Fragment() {
         editprofilebutton.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up
                 )
                 replace(R.id.main_fragment_container, EditProfileFragment())
                 addToBackStack(null)
@@ -242,14 +240,15 @@ class ProfileFragment : Fragment() {
 
             if (isLoggedin){
 
-                logoutFunctions.makeLogoutRequest("31.210.43.174:1337/auth/logout/")
+                val refreshTokenJSON = logoutFunctions.createLogoutJSON(LoginSignupActivity.Loginfunctions.RefreshToken)
+
+                logoutFunctions.makeLogoutRequest("http://31.210.43.174:1337/auth/logout/", LoginSignupActivity.Loginfunctions.AccessToken, refreshTokenJSON)
                 { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")
                     } else {
                         println("Response: $responseBody")
                         println("cikis yaptin")
-
                     }
                 }
 
@@ -258,7 +257,6 @@ class ProfileFragment : Fragment() {
             else{
                 println("Hele once bi giris yap sonra cikis yaparsin")
             }
-
 
         }
 

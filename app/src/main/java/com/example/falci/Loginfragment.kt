@@ -1,6 +1,5 @@
 package com.example.falci
 
-import android.animation.AnimatorInflater
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -103,15 +102,16 @@ class Loginfragment : Fragment() {
 
         loginfragmentloginwithgooglebutton.setOnClickListener {
             signIn()
+            isLoggedin = true
         }
 
         loginfragmentsignuplinkedtext.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
-                    R.anim.fade_in,
-                    R.anim.fade_out,
-                    R.anim.fade_in,
-                    R.anim.fade_out
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up
                 )
                 replace(R.id.main_fragment_container, signUpFragment)
                 addToBackStack(null)

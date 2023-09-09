@@ -159,7 +159,7 @@ class LoginSignupActivity : AppCompatActivity() {
 
             val loginjsonObject = JSONObject()
 
-            loginjsonObject.put("username", username)
+            loginjsonObject.put("email", username)
             loginjsonObject.put("password", password)
 
             return loginjsonObject
@@ -221,45 +221,55 @@ class LoginSignupActivity : AppCompatActivity() {
 
     object logoutFunctions{
 
-        fun makeLogoutRequest(url: String, callback: (String?, Exception?) -> Unit) {
+        var StatusCode by Delegates.notNull<Int>()
 
-            val logoutclient = OkHttpClient()
+        fun createLogoutJSON(refreshToken: String): JSONObject {
 
-            val requestBody = RequestBody.create(
-                MediaType.parse("application/json; charset=utf-8"),
-                Loginfunctions.RefreshToken
-            )
+            val logoutJsonObject = JSONObject()
+            logoutJsonObject.put("refresh_token", refreshToken)
+            return logoutJsonObject
+        }
 
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .header("Authorization", "Bearer ${Loginfunctions.AccessToken}")
-                .build()
+            fun makeLogoutRequest(url: String, accessToken: String, logoutJson: JSONObject, callback: (String?, Exception?) -> Unit) {
+
+                val logoutClient = OkHttpClient()
+
+                val requestBody = RequestBody.create(
+                    MediaType.parse("application/json; charset=utf-8"),
+                    logoutJson.toString()
+                )
+
+                val request = Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .header("Authorization", "Bearer $accessToken")
+                    .build()
 
 
-            logoutclient.newCall(request).enqueue(object : Callback {
+                logoutClient.newCall(request).enqueue(object : Callback {
 
-                override fun onFailure(call: Call, e: IOException) {
-                    callback(null, e)
-
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    val responseBody = response.body()?.string()
-
-                    Loginfunctions.StatusCode = response.code()
-
-                    if (responseBody != null) {
-
-                        println(responseBody)
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback(null, e)
+                        println("sa yaram")
                     }
 
-                    callback(responseBody, null)
+                    override fun onResponse(call: Call, response: Response) {
+                        val responseBody = response.body()?.string()
 
-                }
-            })
+                        logoutFunctions.StatusCode = response.code()
+                        println("statu kodu $StatusCode")
 
-        }
+                        if (responseBody != null) {
+
+                            println(responseBody)
+                        }
+
+                        callback(responseBody, null)
+
+                    }
+                })
+
+            }
 
     }
 

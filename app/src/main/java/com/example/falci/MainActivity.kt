@@ -7,7 +7,6 @@ import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -66,10 +65,10 @@ class MainActivity : AppCompatActivity() {
                 if (savedInstanceState == null) {
                     supportFragmentManager.beginTransaction()
                         .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.fade_out
+                            R.anim.slide_down,
+                            R.anim.slide_up,
+                            R.anim.slide_down,
+                            R.anim.slide_up
                         )
                         .replace(R.id.main_fragment_container, ChatFragment())
                         .addToBackStack(null)
@@ -82,10 +81,10 @@ class MainActivity : AppCompatActivity() {
                 if (savedInstanceState == null) {
                     supportFragmentManager.beginTransaction()
                         .setCustomAnimations(
-                            R.anim.fade_in,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.fade_out
+                            R.anim.slide_down,
+                            R.anim.slide_up,
+                            R.anim.slide_down,
+                            R.anim.slide_up
                         )
                         .replace(R.id.main_fragment_container, Loginfragment())
                         .addToBackStack(null)
@@ -317,7 +316,6 @@ class MainActivity : AppCompatActivity() {
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
         }
 
-
         loveSign.setOnClickListener {
 
             dailyButton.visibility = View.VISIBLE
@@ -372,7 +370,6 @@ class MainActivity : AppCompatActivity() {
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
         }
-
 
         careerSign.setOnClickListener {
 
@@ -553,42 +550,63 @@ class MainActivity : AppCompatActivity() {
 
         settingsbutton.setOnClickListener{
 
-            println("annen")
+            if(isLoggedin){
+                if (savedInstanceState == null) {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_down,
+                            R.anim.slide_up,
+                            R.anim.slide_down,
+                            R.anim.slide_up
+                        )
+                        .replace(R.id.main_fragment_container, profileFragment)
+                        .addToBackStack(null)
+                        .commit()
 
-            if (savedInstanceState == null) {
-                supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.fade_in,
-                        R.anim.fade_out,
-                        R.anim.fade_in,
-                        R.anim.fade_out
-                    )
-                    .replace(R.id.main_fragment_container, profileFragment)
-                    .addToBackStack(null)
-                    .commit()
+                }
 
+                chatwithmiraButton.visibility = View.GONE
+                empty.visibility = View.GONE
+                burcCard.visibility = View.GONE
+                tarotFali.visibility = View.GONE
+                fortuneCookie.visibility = View.GONE
+                settingsbuttoncard.visibility = View.GONE
             }
 
-            chatwithmiraButton.visibility = View.GONE
-            empty.visibility = View.GONE
-            burcCard.visibility = View.GONE
-            tarotFali.visibility = View.GONE
-            fortuneCookie.visibility = View.GONE
-            settingsbuttoncard.visibility = View.GONE
+            if (!isLoggedin) {
+                if (savedInstanceState == null) {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                            R.anim.slide_down,
+                            R.anim.slide_up,
+                            R.anim.slide_down,
+                            R.anim.slide_up
+                        )
+                        .replace(R.id.main_fragment_container, Loginfragment())
+                        .addToBackStack(null)
+                        .commit()
 
+                }
+                chatwithmiraButton.visibility = View.GONE
+                empty.visibility = View.GONE
+                burcCard.visibility = View.GONE
+                tarotFali.visibility = View.GONE
+                fortuneCookie.visibility = View.GONE
+                settingsbuttoncard.visibility = View.GONE
+            }
 
         }
+
     }
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
 
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
         // Check if there are fragments in the back stack
         if (supportFragmentManager.backStackEntryCount == 0) {
-            // No fragments in the back stack, show the button again
+            overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
+
             chatwithmiraButton.visibility = View.VISIBLE
             empty.visibility = View.VISIBLE
             burcCard.visibility = View.VISIBLE
