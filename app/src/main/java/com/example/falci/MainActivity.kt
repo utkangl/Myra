@@ -13,6 +13,9 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.example.falci.LoginSignupActivity.ProfileFunctions.makeGetProfileRequest as ProfileRequestFunc
+import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -551,6 +554,33 @@ class MainActivity : AppCompatActivity() {
         settingsbutton.setOnClickListener{
 
             if(isLoggedin){
+
+                ProfileRequestFunc(url = "http://31.210.43.174:1337/auth/profile/", accessToken = AccessToken)
+                { responseBody, exception ->
+                    if (exception != null) {
+                        println("Error: ${exception.message}")
+                    } else {
+                        println("Response: $responseBody")
+
+                        val responseJson = JSONObject(responseBody)
+                        val first_Name = responseJson.optString("first_name")
+                        val birth_place = responseJson.optString("birth_place")
+                        val birth_day = responseJson.optString("birth_day")
+                        val relationship_status = responseJson.optString("relationship_status")
+                        val gender = responseJson.optString("gender")
+                        val occupation = responseJson.optString("occupation")
+                        
+                        profileFirst_name = first_Name
+                        profileBirth_place = birth_place
+                        profileBirth_day = birth_day
+                        profileRelationship_status = relationship_status
+                        profileGender = gender
+                        profileOccupation = occupation
+
+
+                    }
+                }
+
                 if (savedInstanceState == null) {
                     supportFragmentManager.beginTransaction()
                         .setCustomAnimations(

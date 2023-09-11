@@ -61,11 +61,31 @@
                     android:id="@+id/profilephoto">
                 </ImageView>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileFragmentFirstLetter"
+                    android:layout_gravity="center"
+
+                    android:paddingTop="8dp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:textColor="@color/white"
+                    android:textSize="45sp"
+                    android:textAlignment="center"
+                    android:text="D"
+
+                    >
+
+                </TextView>
+
+
+
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/profileFragmentName"
 
                 android:layout_toEndOf="@+id/profilephotocard"
                 android:layout_marginTop="35dp"

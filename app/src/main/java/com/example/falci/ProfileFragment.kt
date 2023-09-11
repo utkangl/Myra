@@ -15,6 +15,19 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.logoutFunctions
 
+
+var firstLetter = "A"
+
+var profileUsername = ""
+var profileFirst_name = ""
+var profileBirth_place = ""
+var profileBirth_day = ""
+var profileBirth_time = ""
+var profileRelationship_status = ""
+var profileGender = ""
+var profileOccupation = ""
+
+
 class ProfileFragment : Fragment() {
 
     private lateinit var jupyterlayout: RelativeLayout
@@ -42,6 +55,15 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
+
+
+        firstLetter = profileFirst_name.first().toString().uppercase()
+
+        val firstletter = v.findViewById<TextView>(R.id.profileFragmentFirstLetter)
+        val profilefragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
+
+        firstletter.text = firstLetter
+        profilefragmentName.text = profileFirst_name
 
         val editprofilebutton =
             v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
@@ -102,7 +124,6 @@ class ProfileFragment : Fragment() {
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
             animatorSet.duration = 300
-
             animatorSet.start()
         }
 
@@ -143,17 +164,24 @@ class ProfileFragment : Fragment() {
         }
 
         editprofilebutton.setOnClickListener {
-            parentFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
-                replace(R.id.main_fragment_container, EditProfileFragment())
-                addToBackStack(null)
-                commit()
+
+            if (isLoggedin){
+                println("name $profileFirst_name")
+                println("locate $profileBirth_place")
+
+                parentFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(
+                        R.anim.slide_down,
+                        R.anim.slide_up,
+                        R.anim.slide_down,
+                        R.anim.slide_up
+                    )
+                    replace(R.id.main_fragment_container, EditProfileFragment())
+                    addToBackStack(null)
+                    commit()
+                }
             }
+
         }
 
         jupyterlayout.setOnClickListener {
@@ -247,8 +275,23 @@ class ProfileFragment : Fragment() {
                     if (exception != null) {
                         println("Error: ${exception.message}")
                     } else {
+
                         println("Response: $responseBody")
-                        println("cikis yaptin")
+                        isLoggedin = false
+
+                        parentFragmentManager.beginTransaction().apply {
+                            setCustomAnimations(
+                                R.anim.slide_down,
+                                R.anim.slide_up,
+                                R.anim.slide_down,
+                                R.anim.slide_up
+                            )
+                            replace(R.id.main_fragment_container, Loginfragment())
+                            addToBackStack(null)
+                            commit()
+                        }
+
+
                     }
                 }
 

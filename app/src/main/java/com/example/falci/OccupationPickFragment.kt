@@ -70,7 +70,6 @@ class OccupationPickFragment : Fragment() {
         occupationPickFragmentnextbutton.setOnClickListener {
 
             val formattedDate = formatDateAndTime(date, time)
-            println(formattedDate)
 
             val completeProfileJSON = RegistrationFunctions.createCompleteProfileJSON(
                 name.toString(),

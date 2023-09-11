@@ -148,7 +148,6 @@ class LoginSignupActivity : AppCompatActivity() {
 
     }
 
-
     object Loginfunctions {
 
         lateinit var RefreshToken: String
@@ -230,49 +229,47 @@ class LoginSignupActivity : AppCompatActivity() {
             return logoutJsonObject
         }
 
-            fun makeLogoutRequest(url: String, accessToken: String, logoutJson: JSONObject, callback: (String?, Exception?) -> Unit) {
+        fun makeLogoutRequest(url: String, accessToken: String, logoutJson: JSONObject, callback: (String?, Exception?) -> Unit) {
+            val logoutClient = OkHttpClient()
 
-                val logoutClient = OkHttpClient()
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                logoutJson.toString()
+            )
 
-                val requestBody = RequestBody.create(
-                    MediaType.parse("application/json; charset=utf-8"),
-                    logoutJson.toString()
-                )
-
-                val request = Request.Builder()
-                    .url(url)
-                    .post(requestBody)
-                    .header("Authorization", "Bearer $accessToken")
-                    .build()
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .header("Authorization", "Bearer $accessToken")
+                .build()
 
 
-                logoutClient.newCall(request).enqueue(object : Callback {
+            logoutClient.newCall(request).enqueue(object : Callback {
 
-                    override fun onFailure(call: Call, e: IOException) {
-                        callback(null, e)
-                        println("sa yaram")
+                override fun onFailure(call: Call, e: IOException) {
+                    callback(null, e)
+                    println("logout basarisiz")
+                    println("qwewgc ${call.apply {  }}")
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+
+                    logoutFunctions.StatusCode = response.code()
+                    println("statu kodu $StatusCode")
+
+                    if (responseBody != null) {
+
+                        println(responseBody)
                     }
+                    callback(responseBody, null)
 
-                    override fun onResponse(call: Call, response: Response) {
-                        val responseBody = response.body()?.string()
+                }
+            })
 
-                        logoutFunctions.StatusCode = response.code()
-                        println("statu kodu $StatusCode")
-
-                        if (responseBody != null) {
-
-                            println(responseBody)
-                        }
-
-                        callback(responseBody, null)
-
-                    }
-                })
-
-            }
+        }
 
     }
-
 
     object JwtTokenFunctions {
         fun parseJWTTokens(responseBody: String): Pair<String?, String?> {
@@ -346,5 +343,88 @@ class LoginSignupActivity : AppCompatActivity() {
 
     }
 
+    object ProfileFunctions{
+
+        var StatusCode by Delegates.notNull<Int>()
+
+        fun makeGetProfileRequest(url: String, accessToken: String, callback: (String?, Exception?) -> Unit) {
+
+            val getProfileClient = OkHttpClient()
+
+
+            val request = Request.Builder()
+                .url(url)
+                .header("Authorization", "Bearer $accessToken")
+                .build()
+
+
+            getProfileClient.newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {
+                    callback(null, e)
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+
+                    ProfileFunctions.StatusCode = response.code()
+
+                    if (responseBody != null) {
+
+                        println(responseBody)
+
+                    }
+
+                    callback(responseBody, null)
+
+                }
+            })
+
+        }
+
+
+
+        fun putEditProfileJson(url: String, json: JSONObject, accessToken: String, callback: (String?, Exception?) -> Unit) {
+
+            val editProfileClient = OkHttpClient()
+
+            val requestBody = RequestBody.create(
+                MediaType.parse("application/json; charset=utf-8"),
+                json.toString()
+            )
+
+            val request = Request.Builder()
+                .url(url)
+                .put(requestBody)
+                .header("Authorization", "Bearer $accessToken")
+                .build()
+
+
+            editProfileClient.newCall(request).enqueue(object : Callback {
+
+                override fun onFailure(call: Call, e: IOException) {
+                    callback(null, e)
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+
+                    ProfileFunctions.StatusCode = response.code()
+
+                    if (responseBody != null) {
+                        println(responseBody)
+                        println(StatusCode)
+                    }
+
+                    callback(responseBody, null)
+
+                }
+            })
+
+        }
+
+    }
 
 }

@@ -31,10 +31,10 @@ class BirthTimePickFragment : Fragment() {
             val selectedMinute = timepicker.minute
 
             val selectedTime = "$selectedHour:$selectedMinute:00"
+            TimeObject.time = selectedTime
 
             println(selectedTime)
 
-            TimeObject.time = selectedTime
 
             parentFragmentManager.beginTransaction().apply {
                 setCustomAnimations(
