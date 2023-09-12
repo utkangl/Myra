@@ -294,12 +294,29 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/savebutton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/savebutton"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/save_icon"
+        android:visibility="invisible">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/savedatebutton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="175dp"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/save_icon"
         android:visibility="invisible">
     </androidx.appcompat.widget.AppCompatButton>
@@ -350,5 +367,39 @@
         android:textAlignment="center"
         android:visibility="invisible"/>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/editProfileLocationCardView"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_centerInParent="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="75dp"
+        android:text="card view bu"
+        android:visibility="invisible"
+        app:cardBackgroundColor="#80000000"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/annen"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/arima_madurai_light"
+
+            android:hint="Enter a city"
+
+            android:imeOptions="actionSend"
+
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:visibility="invisible" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

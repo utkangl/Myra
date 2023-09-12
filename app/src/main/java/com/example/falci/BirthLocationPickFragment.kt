@@ -143,7 +143,7 @@ class BirthLocationPickFragment : Fragment() {
         var location: String = ""
     }
 
-    private fun fetchPredictions() {
+    fun fetchPredictions() {
         val token = AutocompleteSessionToken.newInstance()
         val request = FindAutocompletePredictionsRequest.builder()
             .setSessionToken(token)

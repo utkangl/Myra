@@ -15,6 +15,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.ProfileFunctions.makeGetProfileRequest as ProfileRequestFunc
 import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
+import com.example.falci.LoginSignupActivity.timeformatfuncs.seperateBirthTime
+import com.example.falci.LoginSignupActivity.timeformatfuncs.seperateBirthDate
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
@@ -572,7 +574,8 @@ class MainActivity : AppCompatActivity() {
                         
                         profileFirst_name = first_Name
                         profileBirth_place = birth_place
-                        profileBirth_day = birth_day
+                        profileBirth_day = seperateBirthDate(birth_day)
+                        profileBirth_time = seperateBirthTime(birth_day)
                         profileRelationshipStatus = relationship_status
                         profileGender = gender
                         profileOccupation = occupation
@@ -645,4 +648,5 @@ class MainActivity : AppCompatActivity() {
             settingsbuttoncard.visibility = View.VISIBLE
         }
     }
+
 }
