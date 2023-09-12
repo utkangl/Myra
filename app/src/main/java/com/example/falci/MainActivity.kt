@@ -573,7 +573,7 @@ class MainActivity : AppCompatActivity() {
                         profileFirst_name = first_Name
                         profileBirth_place = birth_place
                         profileBirth_day = birth_day
-                        profileRelationship_status = relationship_status
+                        profileRelationshipStatus = relationship_status
                         profileGender = gender
                         profileOccupation = occupation
 

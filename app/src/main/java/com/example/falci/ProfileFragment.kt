@@ -23,7 +23,7 @@ var profileFirst_name = ""
 var profileBirth_place = ""
 var profileBirth_day = ""
 var profileBirth_time = ""
-var profileRelationship_status = ""
+var profileRelationshipStatus = ""
 var profileGender = ""
 var profileOccupation = ""
 

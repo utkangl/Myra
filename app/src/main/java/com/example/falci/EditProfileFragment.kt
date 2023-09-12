@@ -7,24 +7,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.*
 import org.json.JSONObject
 import com.example.falci.LoginSignupActivity.ProfileFunctions.putEditProfileJson
     val editProfileJson = JSONObject()
 
 class EditProfileFragment : Fragment() {
 
-    lateinit var nameField: EditText
-    lateinit var genderField: EditText
-    lateinit var birthDateField: EditText
-    lateinit var birthTimeField: EditText
-    lateinit var locationField: EditText
-    lateinit var occupationField: EditText
-    lateinit var relationShipStatusField: EditText
+    lateinit var nameField: TextView
+    lateinit var genderField: TextView
+    lateinit var birthDateField: TextView
+    lateinit var birthTimeField: TextView
+    lateinit var locationField: TextView
+    lateinit var occupationField: TextView
+    lateinit var relationShipStatusField: TextView
     lateinit var savebutton: Button
     lateinit var backArrow: ImageView
+    lateinit var editProfileDatePicker: DatePicker
+    lateinit var editProfileTimePicker: TimePicker
+    lateinit var genderPickSpinner: Spinner
+    lateinit var occupationSpinner: Spinner
+    lateinit var maritalstatusSpinner: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,21 @@ class EditProfileFragment : Fragment() {
         relationShipStatusField = v.findViewById(R.id.relationshipstatusedittext)
         savebutton = v.findViewById(R.id.savebutton)
         backArrow = v.findViewById(R.id.back_arrow)
+        editProfileDatePicker = v.findViewById(R.id.editprofiledatepicker)
+        editProfileTimePicker = v.findViewById(R.id.editprofiletimepicker)
+        genderPickSpinner = v.findViewById(R.id.editProfile_genderpick_spinner)
+        occupationSpinner = v.findViewById(R.id.editProfile_occupationpick_spinner)
+        maritalstatusSpinner = v.findViewById(R.id.editProfile_marital_status_spinner)
+
+        val nameFieldHint               = v.findViewById<TextView>(R.id.namefieldhint)
+        val genderFieldHint             = v.findViewById<TextView>(R.id.genderfieldhint)
+        val birthDateFieldHint          = v.findViewById<TextView>(R.id.birthdatefieldhint)
+        val birthTimeFieldHint          = v.findViewById<TextView>(R.id.birthtimefieldhint)
+        val locationFieldHint           = v.findViewById<TextView>(R.id.locationfieldhint)
+        val occupationFieldHint         = v.findViewById<TextView>(R.id.occupationfieldhint)
+        val relationshipStatusFieldHint = v.findViewById<TextView>(R.id.relationshipstatusfieldhint)
+        val editProfileTitle = v.findViewById<TextView>(R.id.editprofiletitle)
+
 
         // Set initial values
         nameField.setText(profileFirst_name)
@@ -50,7 +68,7 @@ class EditProfileFragment : Fragment() {
         birthTimeField.setText(profileBirth_day)
         locationField.setText(profileBirth_place)
         occupationField.setText(profileOccupation)
-        relationShipStatusField.setText(profileRelationship_status)
+        relationShipStatusField.setText(profileRelationshipStatus)
 
         savebutton.visibility = View.INVISIBLE
 
@@ -99,8 +117,8 @@ class EditProfileFragment : Fragment() {
             if (occupationField.text.toString() != profileOccupation) {
                 editProfileJson.put("occupation", occupationField.text.toString())
             }
-            if (relationShipStatusField.text.toString() != profileRelationship_status) {
-                editProfileJson.put("relationship_status", relationShipStatusField.text.toString())
+            if (relationShipStatusField.text.toString() != profileRelationshipStatus) {
+                editProfileJson.put("relationshipStatus", relationShipStatusField.text.toString())
             }
 
             // Save changes
@@ -110,7 +128,7 @@ class EditProfileFragment : Fragment() {
             profileBirth_time = birthTimeField.text.toString()
             profileBirth_place = locationField.text.toString()
             profileOccupation = occupationField.text.toString()
-            profileRelationship_status = relationShipStatusField.text.toString()
+            profileRelationshipStatus = relationShipStatusField.text.toString()
 
             savebutton.visibility = View.INVISIBLE
 
@@ -141,6 +159,122 @@ class EditProfileFragment : Fragment() {
 
         backArrow.setOnClickListener{
             fragmentManager?.popBackStack()
+        }
+
+        birthDateField.setOnClickListener{
+            editProfileDatePicker.visibility = View.VISIBLE
+            nameField.visibility = View.GONE
+            genderField.visibility = View.GONE
+            birthDateField.visibility = View.GONE
+            birthTimeField.visibility = View.GONE
+            locationField.visibility = View.GONE
+            occupationField.visibility = View.GONE
+            relationShipStatusField.visibility = View.GONE
+
+            nameFieldHint.visibility = View.GONE
+            genderFieldHint.visibility = View.GONE
+            birthDateFieldHint.visibility = View.GONE
+            birthTimeFieldHint.visibility = View.GONE
+            locationFieldHint.visibility = View.GONE
+            occupationFieldHint.visibility = View.GONE
+            relationshipStatusFieldHint.visibility = View.GONE
+            editProfileTitle.visibility = View.GONE
+        }
+
+        genderField.setOnClickListener{
+            genderPickSpinner.visibility = View.VISIBLE
+            genderFieldHint.visibility = View.GONE
+        }
+        val genderAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.genders, android.R.layout.simple_spinner_item)
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        genderPickSpinner.adapter = genderAdapter
+        genderPickSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedgender = parent?.getItemAtPosition(position) as? String
+                genderField.text = selectedgender
+                genderPickSpinner.visibility = View.GONE
+                genderFieldHint.visibility = View.VISIBLE
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                println("Nothing Selected for Gender")
+            }
+        }
+
+
+        occupationField.setOnClickListener{
+            occupationSpinner.visibility = View.VISIBLE
+            occupationFieldHint.visibility = View.GONE
+        }
+        val occupationAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.occupations, android.R.layout.simple_spinner_item)
+        occupationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        occupationSpinner.adapter = occupationAdapter
+        occupationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedStatus = parent?.getItemAtPosition(position) as? String
+                if (selectedStatus != null) {
+                    occupationField.text = selectedStatus
+                }
+                occupationSpinner.visibility = View.GONE
+                occupationFieldHint.visibility = View.VISIBLE
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                println("Nothing Selected for Occupation")
+            }
+        }
+
+
+        relationShipStatusField.setOnClickListener{
+            maritalstatusSpinner.visibility = View.VISIBLE
+            relationshipStatusFieldHint.visibility = View.GONE
+        }
+        val maritalStatusAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, android.R.layout.simple_spinner_item)
+        maritalStatusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        maritalstatusSpinner.adapter = maritalStatusAdapter
+        maritalstatusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedStatus = parent?.getItemAtPosition(position) as? String
+                if (selectedStatus != null) {
+                    relationShipStatusField.text = selectedStatus
+                    maritalstatusSpinner.visibility = View.GONE
+                    relationshipStatusFieldHint.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                genderField.setText(profileGender)
+                println("Nothing Selected for Marital Status")
+            }
+        }
+
+
+        editProfileDatePicker.setOnClickListener {
+            val selectedYear = editProfileDatePicker.year
+            val selectedMonth =  editProfileDatePicker.month + 1
+            val selectedDay = editProfileDatePicker.dayOfMonth
+
+            val editProfileSelectedDate = "$selectedYear-$selectedMonth-$selectedDay"
+            birthDateField.setText(editProfileSelectedDate)
+
+            println(editProfileSelectedDate)
+
         }
 
         return v

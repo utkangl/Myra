@@ -13,9 +13,7 @@
         android:layout_height="50dp"
         app:cardCornerRadius="75dp"
         app:cardBackgroundColor="#47386F"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/editprofiletitle"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="25dp"
         android:visibility="visible">
 
@@ -59,7 +57,7 @@
     <EditText
         android:id="@+id/nameedittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_above="@+id/genderedittext"
         android:layout_centerInParent="true"
         android:layout_marginStart="100dp"
@@ -72,6 +70,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/genderfieldhint"
         android:layout_above="@id/genderedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
@@ -81,20 +80,43 @@
         android:textSize="18sp">
     </TextView>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:id="@+id/genderedittext"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_above="@+id/birthdateedittext"
         android:layout_marginBottom="40dp"
-        android:textColor="@color/white">
-    </EditText>
+
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp">
+    </TextView>
+
+    <Spinner
+        android:id="@+id/editProfile_genderpick_spinner"
+
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_above="@+id/birthdateedittext"
+        android:layout_marginBottom="40dp"
+
+        android:layout_marginRight="55dp"
+        android:background="@drawable/common_text_input_field"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/birthdatefieldhint"
         android:layout_above="@id/birthdateedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
@@ -104,20 +126,28 @@
         android:textSize="18sp">
     </TextView>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:id="@+id/birthdateedittext"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_above="@+id/birthtimeedittext"
         android:layout_marginBottom="40dp"
-        android:textColor="@color/white">
-    </EditText>
+
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp"
+        >
+    </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/birthtimefieldhint"
         android:layout_above="@id/birthtimeedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
@@ -127,19 +157,26 @@
         android:textSize="18sp">
     </TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/birthtimeedittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="100dp"
-        android:textColor="@color/white">
 
-    </EditText>
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp">>
+
+    </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/locationfieldhint"
         android:layout_above="@id/locationedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
@@ -149,20 +186,27 @@
         android:textSize="18sp">
     </TextView>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:id="@+id/locationedittext"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_below="@+id/birthtimeedittext"
         android:layout_marginTop="40dp"
-        android:textColor="@color/white">
-    </EditText>
+
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp">>
+    </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/occupationfieldhint"
         android:layout_above="@id/occupationedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
@@ -172,20 +216,41 @@
         android:textSize="18sp">
     </TextView>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:id="@+id/occupationedittext"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_below="@+id/locationedittext"
         android:layout_marginTop="40dp"
-        android:textColor="@color/white">
-    </EditText>
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp">
+    </TextView>
+
+    <Spinner
+        android:id="@+id/editProfile_occupationpick_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_below="@+id/locationedittext"
+        android:layout_marginTop="40dp"
+
+        android:background="@drawable/common_text_input_field"
+
+        android:maxHeight="200dp"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/relationshipstatusfieldhint"
         android:layout_above="@id/relationshipstatusedittext"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
@@ -195,16 +260,38 @@
         android:textSize="18sp">
     </TextView>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:id="@+id/relationshipstatusedittext"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_below="@+id/occupationedittext"
         android:layout_marginTop="40dp"
-        android:textColor="@color/white">
-    </EditText>
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center_vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp">
+    </TextView>
+
+    <Spinner
+        android:id="@+id/editProfile_marital_status_spinner"
+
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
+        android:layout_below="@+id/occupationedittext"
+        android:layout_marginTop="40dp"
+
+        android:background="@drawable/common_text_input_field"
+
+        android:textAlignment="center"
+        android:visibility="invisible"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="50dp"
@@ -216,5 +303,52 @@
         android:background="@drawable/save_icon"
         android:visibility="invisible">
     </androidx.appcompat.widget.AppCompatButton>
+
+    <DatePicker
+
+        android:id="@+id/editprofiledatepicker"
+
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:calendarTextColor="@color/white"
+
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:visibility="invisible">
+
+    </DatePicker>
+
+    <TimePicker
+
+        android:id="@+id/editprofiletimepicker"
+
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+
+        android:layout_centerInParent="true"
+        android:timePickerMode="spinner"
+        android:visibility="invisible">
+
+    </TimePicker>
+
+    <Spinner
+        android:id="@+id/editProfile_genderpick_spinner"
+
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+
+        android:layout_centerInParent="true"
+
+        android:layout_marginLeft="55dp"
+
+        android:layout_marginRight="55dp"
+        android:background="@drawable/common_text_input_field"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
+
 
 </RelativeLayout>

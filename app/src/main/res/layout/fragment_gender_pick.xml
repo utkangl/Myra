@@ -131,7 +131,6 @@
         android:layout_marginLeft="55dp"
 
         android:layout_marginRight="55dp"
-
         android:background="@drawable/common_text_input_field"
         android:textAlignment="center" />
 

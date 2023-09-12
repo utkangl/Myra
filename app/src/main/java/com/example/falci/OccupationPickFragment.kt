@@ -44,7 +44,6 @@ class OccupationPickFragment : Fragment() {
             android.R.layout.simple_spinner_item
         )
 
-        //adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item)
         occupationspinner.adapter = adapter
 
         occupationspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
