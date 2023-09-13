@@ -1,10 +1,13 @@
 package com.example.falci.internalClasses
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
+import android.content.Context
 import android.text.TextWatcher
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import org.json.JSONObject
@@ -37,8 +40,8 @@ class InternalFunctions {
         fun updateBirthDayIfChanged(jsonField: String, birthDateField: TextView, birthTimeField: TextView, userProfile: UserProfileDataClass, editProfileJson: JSONObject) {
             val newBirthDate = birthDateField.text.toString()
             val newBirthTime = birthTimeField.text.toString()
-            val currentBirthDay = userProfile.profileBirth_day
-            val currentBirthTime = userProfile.profileBirth_time
+            val currentBirthDay = userProfile.birthDay
+            val currentBirthTime = userProfile.birthTime
 
             if (newBirthDate != currentBirthDay || newBirthTime != currentBirthTime) {
                 val combinedBirthDay = "$newBirthDate $newBirthTime +0000"
@@ -79,14 +82,66 @@ class InternalFunctions {
             }
         }
     }
+    object SetupFieldClickListener{
+        fun setupFieldClickListener(field: TextView, spinner: Spinner, hintView: View) {
+            field.setOnClickListener {
+                setViewVisible(spinner)
+                setViewGone(hintView)
+            }
+        }
+    }
 
     object TimeFormatFunctions{
-        fun seperateBirthTime(birthDay: String): String {
+        fun separateBirthTime(birthDay: String): String {
             return birthDay.split("T")[1].substring(0,8)
         }
 
-        fun seperateBirthDate(birthDay: String): String {
+        fun separateBirthDate(birthDay: String): String {
             return birthDay.split("T")[0]
+        }
+    }
+
+    object AnimateCardSize{
+        fun animateCardSize(context: Context, targetWidthDp: Int, targetHeightDp: Int, targetCard: View) {
+            val scale = context.resources.displayMetrics.density
+            val newWidth = (targetWidthDp * scale + 0.5f).toInt()
+            val newHeight = (targetHeightDp * scale + 0.5f).toInt()
+            val params = targetCard.layoutParams as RelativeLayout.LayoutParams
+
+            val animatorWidth = ValueAnimator.ofInt(targetCard.width, newWidth)
+            animatorWidth.addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                params.width = value
+                targetCard.layoutParams = params
+            }
+
+            val animatorHeight = ValueAnimator.ofInt(targetCard.height, newHeight)
+            animatorHeight.addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                params.height = value
+                targetCard.layoutParams = params
+            }
+
+            val animatorSet = AnimatorSet()
+            animatorSet.playTogether(animatorWidth, animatorHeight)
+            animatorSet.duration = 300
+            animatorSet.start()
+        }
+    }
+
+    object ReplaceFragmentWithAnimation{
+        fun replaceFragmentWithAnimation(fragmentManager: FragmentManager, targetFragment: Fragment) {
+            fragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up
+                )
+                replace(R.id.main_fragment_container, targetFragment)
+                addToBackStack(null)
+                commit()
+            }
         }
     }
 

@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:id="@+id/editProfileGeneralLayout">
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/backarrowcard"
         android:layout_width="50dp"
@@ -395,7 +394,7 @@
         app:cardElevation="0dp">
 
         <AutoCompleteTextView
-            android:id="@+id/annen"
+            android:id="@+id/searchCity"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

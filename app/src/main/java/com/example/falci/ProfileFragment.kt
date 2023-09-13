@@ -1,7 +1,5 @@
 package com.example.falci
 
-import android.animation.AnimatorSet
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,27 +12,12 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.logoutFunctions
+import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
+import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 
 class ProfileFragment : Fragment() {
-
-    private lateinit var jupyterlayout: RelativeLayout
-    private lateinit var marslayout: RelativeLayout
-    private lateinit var mercurylayout: RelativeLayout
-    private lateinit var neptunlayout: RelativeLayout
-    private lateinit var saturnlayout: RelativeLayout
-    private lateinit var sunlayout: RelativeLayout
-    private lateinit var uranuslayout: RelativeLayout
-    private lateinit var venuslayout: RelativeLayout
-    private lateinit var moonlayout : RelativeLayout
-    private lateinit var zodiacCard: CardView
-    private lateinit var profileCard: CardView
-    private lateinit var profileViewBottomCard: CardView
-    private lateinit var profileTitle: TextView
-    private lateinit var changeAccountButton: AppCompatButton
-    private lateinit var backArrowCard: CardView
-    private lateinit var backArrow: ImageView
-
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -48,257 +31,91 @@ class ProfileFragment : Fragment() {
         val profileFragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
         val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
-        val firstLetter = userProfile.profileFirst_name.first().toString().uppercase()
+        val firstLetter = userProfile.firstName.first().toString().uppercase()
         firstLetterView.text = firstLetter
-        profileFragmentName.text = userProfile.profileFirst_name
+        profileFragmentName.text = userProfile.firstName
 
 
-        jupyterlayout = v.findViewById(R.id.scrollviewjupyterlayout)
-        marslayout = v.findViewById(R.id.marslayout)
-        mercurylayout = v.findViewById(R.id.mercurylayout)
-        neptunlayout = v.findViewById(R.id.neptunlayout)
-        saturnlayout = v.findViewById(R.id.saturnlayout)
-        sunlayout = v.findViewById(R.id.sunlayout)
-        uranuslayout = v.findViewById(R.id.uranuslayout)
-        venuslayout = v.findViewById(R.id.venuslayout)
-        moonlayout = v.findViewById(R.id.moonlayout)
-        zodiacCard = v.findViewById(R.id.zodiaccard)
-        profileCard = v.findViewById(R.id.profilecard)
-        profileViewBottomCard = v.findViewById(R.id.profileviewbottomcard)
-        profileTitle = v.findViewById(R.id.profileTitle)
-        changeAccountButton = v.findViewById(R.id.changeaccountbutton)
-        backArrowCard = v.findViewById(R.id.backarrowcard)
-        backArrow = v.findViewById(R.id.back_arrow)
-
-
+        val jupyterlayout = v.findViewById<RelativeLayout>(R.id.scrollviewjupyterlayout)
+        val marslayout = v.findViewById<RelativeLayout>(R.id.marslayout)
+        val mercurylayout = v.findViewById<RelativeLayout>(R.id.mercurylayout)
+        val neptunlayout = v.findViewById<RelativeLayout>(R.id.neptunlayout)
+        val saturnlayout = v.findViewById<RelativeLayout>(R.id.saturnlayout)
+        val sunlayout = v.findViewById<RelativeLayout>(R.id.sunlayout)
+        val uranuslayout = v.findViewById<RelativeLayout>(R.id.uranuslayout)
+        val venuslayout = v.findViewById<RelativeLayout>(R.id.venuslayout)
+        val moonlayout = v.findViewById<RelativeLayout>(R.id.moonlayout)
+        val zodiacCard = v.findViewById<CardView>(R.id.zodiaccard)
+        val profileCard = v.findViewById<CardView>(R.id.profilecard)
+        val profileViewBottomCard = v.findViewById<CardView>(R.id.profileviewbottomcard)
+        val profileTitle = v.findViewById<TextView>(R.id.profileTitle)
+        val changeAccountButton = v.findViewById<AppCompatButton>(R.id.changeaccountbutton)
+        val backArrowCard = v.findViewById<CardView>(R.id.backarrowcard)
+        val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
         val burcexplanationplanet = v.findViewById<CardView>(R.id.burcexplanationplanet)
         val zodiacexplanationcard = v.findViewById<RelativeLayout>(R.id.zodiacexplanationcard)
-
+        val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
+        val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
 
 
         zodiacCard.setOnClickListener {
-
-            profileCard.visibility = View.GONE
-            profileViewBottomCard.visibility = View.GONE
-            profileTitle.visibility = View.GONE
-            changeAccountButton.visibility = View.GONE
-
-            backArrowCard.visibility = View.VISIBLE
-
-            val scale = resources.displayMetrics.density
-            val newWidth = (370 * scale + 0.5f).toInt()
-            val newHeight = (550 * scale + 0.5f).toInt()
-            val params = zodiacCard.layoutParams as RelativeLayout.LayoutParams
-
-
-            val animatorWidth = ValueAnimator.ofInt(zodiacCard.width, newWidth)
-            animatorWidth.addUpdateListener { animation ->
-                val value = animation.animatedValue as Int
-                params.width = value
-                zodiacCard.layoutParams = params
-            }
-
-            val animatorHeight = ValueAnimator.ofInt(zodiacCard.height, newHeight)
-            animatorHeight.addUpdateListener { animation ->
-                val value = animation.animatedValue as Int
-                params.height = value
-                zodiacCard.layoutParams = params
-            }
-
-
-            val animatorSet = AnimatorSet()
-            animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 300
-            animatorSet.start()
+            setViewGone(profileCard, profileViewBottomCard, profileTitle, changeAccountButton)
+            setViewVisible(backArrowCard)
+            animateCardSize(requireContext(), 370, 550, zodiacCard)
         }
 
         backArrow.setOnClickListener {
-
-            profileCard.visibility = View.VISIBLE
-            profileViewBottomCard.visibility = View.VISIBLE
-            profileTitle.visibility = View.VISIBLE
-            changeAccountButton.visibility = View.VISIBLE
-            setViewVisible(profileCard, )
-            backArrowCard.visibility = View.GONE
-
-            val scale = resources.displayMetrics.density
-            val newWidth = (370 * scale + 0.5f).toInt()
-            val newHeight = (330 * scale + 0.5f).toInt()
-            val params = zodiacCard.layoutParams as RelativeLayout.LayoutParams
-
-            val animatorWidth = ValueAnimator.ofInt(zodiacCard.width, newWidth)
-            animatorWidth.addUpdateListener { animation ->
-                val value = animation.animatedValue as Int
-                params.width = value
-                zodiacCard.layoutParams = params
-            }
-
-            val animatorHeight = ValueAnimator.ofInt(zodiacCard.height, newHeight)
-            animatorHeight.addUpdateListener { animation ->
-                val value = animation.animatedValue as Int
-                params.height = value
-                zodiacCard.layoutParams = params
-            }
-
-            val animatorSet = AnimatorSet()
-            animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 300
-
-            animatorSet.start()
-
+            setViewVisible(profileCard, profileViewBottomCard, profileTitle, changeAccountButton)
+            setViewGone(backArrowCard)
+            animateCardSize(requireContext(), 370, 330, zodiacCard)
         }
 
         editprofilebutton.setOnClickListener {
-
             // change to editProfile screen if user is logged in
-            if (isLoggedin){
-                parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_down,
-                        R.anim.slide_up,
-                        R.anim.slide_down,
-                        R.anim.slide_up
-                    )
-                    replace(R.id.main_fragment_container, EditProfileFragment())
-                    addToBackStack(null)
-                    commit()
-                }
-            }
+            if (isLoggedin){ replaceFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
 
             // change to Login screen if user is not logged in
-            if (!isLoggedin){
-                parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_down,
-                        R.anim.slide_up,
-                        R.anim.slide_down,
-                        R.anim.slide_up
-                    )
-                    replace(R.id.main_fragment_container, Loginfragment())
-                    addToBackStack(null)
-                    commit()
-                }
+            if (!isLoggedin){ replaceFragmentWithAnimation(parentFragmentManager, Loginfragment()) }
+        }
+
+        val planetLayouts = listOf(
+            jupyterlayout, marslayout, mercurylayout, neptunlayout,
+            saturnlayout, sunlayout, uranuslayout, venuslayout, moonlayout
+        )
+
+        val planetImages = listOf(
+            R.drawable.jupiter, R.drawable.mars, R.drawable.mercury,
+            R.drawable.neptun, R.drawable.saturn, R.drawable.sun,
+            R.drawable.uranus, R.drawable.venus, R.drawable.moon
+        )
+
+        val planetNames = listOf(
+            "Jupiter", "Mars", "Merkur", "Neptun",
+            "Saturn", "Sun", "Uranus", "Venus", "Moon")
+
+        planetLayouts.forEachIndexed { index, layout ->
+            layout.setOnClickListener {
+                burcexplanationplanetimage.setImageResource(planetImages[index])
+                burcexplanationplanettext.text = planetNames[index]
             }
-
-        }
-
-        jupyterlayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.jupiter)
-            burcexplanationplanettext.text = "Jupiter"
-        }
-
-        marslayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.mars)
-            burcexplanationplanettext.text = "Mars"
-        }
-
-        mercurylayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.mercury)
-            burcexplanationplanettext.text = "Merkur"
-        }
-
-        neptunlayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.neptun)
-            burcexplanationplanettext.text = "Neptun"
-        }
-
-        saturnlayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.saturn)
-            burcexplanationplanettext.text = "Saturn"
-        }
-
-        sunlayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.sun)
-            burcexplanationplanettext.text = "Sun"
-        }
-
-        uranuslayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.uranus)
-            burcexplanationplanettext.text = "Uranus"
-        }
-
-        venuslayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.venus)
-            burcexplanationplanettext.text = "Venus"
-        }
-        moonlayout.setOnClickListener {
-            val burcexplanationplanetimage =
-                burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
-            val burcexplanationplanettext =
-                zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-            burcexplanationplanetimage.setImageResource(R.drawable.moon)
-            burcexplanationplanettext.text = "Moon"
         }
 
         changeAccountButton.setOnClickListener{
-
             if (isLoggedin){
-
                 val refreshTokenJSON = logoutFunctions.createLogoutJSON(LoginSignupActivity.Loginfunctions.RefreshToken)
 
                 logoutFunctions.makeLogoutRequest("http://31.210.43.174:1337/auth/logout/", LoginSignupActivity.Loginfunctions.AccessToken, refreshTokenJSON)
-                { responseBody, exception ->
-                    if (exception != null) {
-                        println("Error: ${exception.message}")
-                    } else {
-
-                        println("Response: $responseBody")
+                { _, exception ->
+                    if (exception == null) {
                         isLoggedin = false
-
-                        parentFragmentManager.beginTransaction().apply {
-                            setCustomAnimations(
-                                R.anim.slide_down,
-                                R.anim.slide_up,
-                                R.anim.slide_down,
-                                R.anim.slide_up
-                            )
-                            replace(R.id.main_fragment_container, Loginfragment())
-                            addToBackStack(null)
-                            commit()
-                        }
-
-
+                        replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
                     }
                 }
 
             }
-
             else{
                 println("Hele once bi giris yap sonra cikis yaparsin")
             }
-
         }
 
         return v

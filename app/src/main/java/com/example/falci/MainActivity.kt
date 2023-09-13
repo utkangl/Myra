@@ -17,8 +17,8 @@ import com.example.falci.LoginSignupActivity.ProfileFunctions.makeGetProfileRequ
 import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.seperateBirthDate
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.seperateBirthTime
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.UserProfileDataClass
 import org.json.JSONObject
 
@@ -530,14 +530,14 @@ class MainActivity : AppCompatActivity() {
                         val responseJson = JSONObject(responseBody)
 
                         userProfile = UserProfileDataClass(
-                            profileUsername = responseJson.optString("username"),
-                            profileFirst_name = responseJson.optString("first_name"),
-                            profileBirth_place = responseJson.optString("birth_place"),
-                            profileBirth_day = seperateBirthDate(responseJson.optString("birth_day")),
-                            profileBirth_time = seperateBirthTime(responseJson.optString("birth_day")),
-                            profileRelationshipStatus = responseJson.optString("relationship_status"),
-                            profileGender = responseJson.optString("gender"),
-                            profileOccupation = responseJson.optString("occupation")
+                            username = responseJson.optString("username"),
+                            firstName = responseJson.optString("first_name"),
+                            birthPlace = responseJson.optString("birth_place"),
+                            birthDay = separateBirthDate(responseJson.optString("birth_day")),
+                            birthTime = separateBirthTime(responseJson.optString("birth_day")),
+                            relationshipStatus = responseJson.optString("relationship_status"),
+                            gender = responseJson.optString("gender"),
+                            occupation = responseJson.optString("occupation")
                         )
 
                     }

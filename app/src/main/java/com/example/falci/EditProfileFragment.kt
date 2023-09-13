@@ -1,6 +1,7 @@
 package com.example.falci
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContentProviderCompat
 import org.json.JSONObject
 import com.example.falci.LoginSignupActivity.ProfileFunctions.putEditProfileJson
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateProfileFieldIfChanged
@@ -24,6 +25,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
+import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 
@@ -36,6 +38,7 @@ class EditProfileFragment : Fragment() {
     private var currentQuery: String = ""
     private var isCitySelected: Boolean = false
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +56,6 @@ class EditProfileFragment : Fragment() {
         val savebutton = v.findViewById<AppCompatButton>(R.id.savebutton)
         val savedatebutton = v.findViewById<AppCompatButton>(R.id.savedatebutton)
         val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
-        val backArrowCard = v.findViewById<CardView>(R.id.backarrowcard)
         val editProfileDatePicker = v.findViewById<DatePicker>(R.id.editprofiledatepicker)
         val editProfileTimePicker = v.findViewById<TimePicker>(R.id.editprofiletimepicker)
         val genderPickSpinner = v.findViewById<Spinner>(R.id.editProfile_genderpick_spinner)
@@ -65,13 +67,13 @@ class EditProfileFragment : Fragment() {
         val relationshipStatusFieldHint = v.findViewById<TextView>(R.id.relationshipstatusfieldhint)
         val editProfileGeneralLayout = v.findViewById<RelativeLayout>(R.id.editProfileGeneralLayout)
 
-        nameField.text = userProfile.profileFirst_name
-        genderField.text = userProfile.profileGender
-        birthDateField.text = userProfile.profileBirth_day
-        birthTimeField.text = userProfile.profileBirth_time
-        locationField.text = userProfile.profileBirth_place
-        occupationField.text = userProfile.profileOccupation
-        relationShipStatusField.text = userProfile.profileRelationshipStatus
+        nameField.text = userProfile.firstName
+        genderField.text = userProfile.gender
+        birthDateField.text = userProfile.birthDay
+        birthTimeField.text = userProfile.birthTime
+        locationField.text = userProfile.birthPlace
+        occupationField.text = userProfile.occupation
+        relationShipStatusField.text = userProfile.relationshipStatus
 
         setViewGone(savebutton)
 
@@ -91,23 +93,23 @@ class EditProfileFragment : Fragment() {
         savebutton.setOnClickListener {
 
             // Add values to EditProfileJson if changed
-            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.profileFirst_name)
-            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.profileGender)
+            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.firstName)
+            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender)
             updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
-            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.profileBirth_place)
-            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.profileOccupation)
-            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.profileRelationshipStatus)
-
-
+            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birthPlace)
+            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation)
+            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationshipStatus)
 
             // Save changes
-            userProfile.profileFirst_name = nameField.text.toString()
-            userProfile.profileGender = genderField.text.toString()
-            userProfile.profileBirth_day = birthDateField.text.toString()
-            userProfile.profileBirth_time = birthTimeField.text.toString()
-            userProfile.profileBirth_place = locationField.text.toString()
-            userProfile.profileOccupation = occupationField.text.toString()
-            userProfile.profileRelationshipStatus = relationShipStatusField.text.toString()
+            userProfile.apply {
+                firstName = nameField.text.toString()
+                gender = genderField.text.toString()
+                birthDay = birthDateField.text.toString()
+                birthTime = birthTimeField.text.toString()
+                birthPlace = locationField.text.toString()
+                occupation = occupationField.text.toString()
+                relationshipStatus = relationShipStatusField.text.toString()
+            }
 
             putEditProfileJson(
                 url = "http://31.210.43.174:1337/auth/profile/edit/",
@@ -138,7 +140,6 @@ class EditProfileFragment : Fragment() {
             }
 
         }
-
         birthTimeField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)
             setViewVisible(editProfileTimePicker,savedatebutton)
@@ -155,37 +156,24 @@ class EditProfileFragment : Fragment() {
             }
         }
 
-        genderField.setOnClickListener {
-            setViewVisible(genderPickSpinner)
-            setViewGone(genderFieldHint)
-        }
+        setupFieldClickListener(genderField, genderPickSpinner, genderFieldHint)
+        setupFieldClickListener(occupationField, occupationSpinner, occupationFieldHint)
+        setupFieldClickListener(relationShipStatusField, maritalStatusSpinner, relationshipStatusFieldHint)
 
         val genderAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.genders, android.R.layout.simple_spinner_item)
         val isUserInteractedGender = false
         setupSpinnerAndField(genderPickSpinner, genderFieldHint,genderAdapter,isUserInteractedGender){selectedGender -> genderField.text = selectedGender}
 
-
-        occupationField.setOnClickListener {
-            setViewVisible(occupationSpinner)
-            setViewGone(occupationFieldHint)
-        }
-
         val occupationAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.occupations, android.R.layout.simple_spinner_item)
         val isUserInteractedOccupation = false
         setupSpinnerAndField(occupationSpinner, occupationFieldHint,occupationAdapter,isUserInteractedOccupation){selectedOccupation -> occupationField.text = selectedOccupation}
 
-
-        relationShipStatusField.setOnClickListener {
-            setViewVisible(maritalStatusSpinner)
-            setViewGone(relationshipStatusFieldHint)
-        }
         val maritalStatusAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, android.R.layout.simple_spinner_item)
         val isUserInteractedMarital = false
         setupSpinnerAndField(maritalStatusSpinner, relationshipStatusFieldHint,maritalStatusAdapter,isUserInteractedMarital){selectedMaritalStatus -> occupationField.text = selectedMaritalStatus}
 
 
-
-        autoCompleteTextView = v.findViewById(R.id.annen)
+        autoCompleteTextView = v.findViewById(R.id.searchCity)
         val editProfileLocationCardView = v.findViewById<CardView>(R.id.editProfileLocationCardView)
 
         locationField.setOnClickListener {
