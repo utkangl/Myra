@@ -15,9 +15,14 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.ProfileFunctions.makeGetProfileRequest as ProfileRequestFunc
 import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
-import com.example.falci.LoginSignupActivity.timeformatfuncs.seperateBirthTime
-import com.example.falci.LoginSignupActivity.timeformatfuncs.seperateBirthDate
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.seperateBirthDate
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.seperateBirthTime
+import com.example.falci.internalClasses.UserProfileDataClass
 import org.json.JSONObject
+
+    lateinit var userProfile: UserProfileDataClass
 
 class MainActivity : AppCompatActivity() {
 
@@ -98,12 +103,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            chatwithmiraButton.visibility = View.GONE
-            empty.visibility = View.GONE
-            burcCard.visibility = View.GONE
-            tarotFali.visibility = View.GONE
-            fortuneCookie.visibility = View.GONE
-            settingsbuttoncard.visibility = View.GONE
+            setViewGone(chatwithmiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsbuttoncard)
         }
 
         burcCard.setOnClickListener {
@@ -111,22 +111,10 @@ class MainActivity : AppCompatActivity() {
             val scale = resources.displayMetrics.density
             val newWidth = (370 * scale + 0.5f).toInt()
             val newHeight = (550 * scale + 0.5f).toInt()
-
             val burcCardMarginBottom = (-190 * scale + 0.5f).toInt()
-
 
             val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
-
-
-//            // Yatayda biraz yukarıda
-//            params.addRule(
-//                RelativeLayout.ABOVE,
-//                R.id.empty
-//            ) // Yüksekliği yukarıdaki view'a göre ayarlayın
-
-
-            // Genişlik ve yüksekliği ayarla
             val animatorWidth = ValueAnimator.ofInt(burcCard.width, newWidth)
             animatorWidth.addUpdateListener { animation ->
                 val value = animation.animatedValue as Int
@@ -140,9 +128,7 @@ class MainActivity : AppCompatActivity() {
                 params.height = value
                 params.bottomMargin = burcCardMarginBottom
                 burcCard.layoutParams = params
-
             }
-
 
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
@@ -151,27 +137,12 @@ class MainActivity : AppCompatActivity() {
             // Animasyon tamamlandığında çalışacak bir Listener ekleyin
             animatorSet.addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    backarrowcard.visibility = View.VISIBLE
-                    generalSign.visibility = View.VISIBLE
-                    loveSign.visibility = View.VISIBLE
-                    careerSign.visibility = View.VISIBLE
+                    setViewVisible(backarrowcard, generalSign, loveSign, careerSign)
                 }
 
                 override fun onAnimationStart(animation: Animator) {
-
-                    // Diğer bileşenleri gizle
-                    chatwithmiraButton.visibility = View.GONE
-                    tarotFali.visibility = View.GONE
-                    fortuneCookie.visibility = View.GONE
-                    dailyButton.visibility = View.GONE
-                    monthlyButton.visibility = View.GONE
-                    yearlyButton.visibility = View.GONE
-                    learnyourburcButton.visibility = View.GONE
-                    settingsbuttoncard.visibility = View.GONE
-
-                    // Yatayda ortalanmış
+                    setViewGone(chatwithmiraButton, tarotFali, fortuneCookie, dailyButton, monthlyButton, yearlyButton, learnyourburcButton, settingsbuttoncard)
                     params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
-
                 }
 
             })
@@ -227,15 +198,10 @@ class MainActivity : AppCompatActivity() {
             animatorSet.addListener(object : AnimatorListenerAdapter() {
 
                 override fun onAnimationStart(animation: Animator) {
-                    generalSign.visibility = View.GONE
-                    loveSign.visibility = View.GONE
-                    careerSign.visibility = View.GONE
-                    dailyButton.visibility = View.GONE
-                    monthlyButton.visibility = View.GONE
-                    yearlyButton.visibility = View.GONE
-                    learnyourburcButton.visibility = View.GONE
-                    empty.visibility = View.VISIBLE
-                    settingsbuttoncard.visibility = View.VISIBLE
+
+                    setViewGone(generalSign, loveSign, careerSign, dailyButton, monthlyButton, yearlyButton, learnyourburcButton)
+                    setViewVisible(empty, settingsbuttoncard)
+
                 }
 
                 override fun onAnimationEnd(animation: Animator) {
@@ -271,10 +237,9 @@ class MainActivity : AppCompatActivity() {
 
         generalSign.setOnClickListener {
 
-            dailyButton.visibility = View.VISIBLE
-            monthlyButton.visibility = View.VISIBLE
-            yearlyButton.visibility = View.VISIBLE
-            learnyourburcButton.visibility = View.GONE
+            setViewVisible(dailyButton, monthlyButton, yearlyButton)
+            setViewGone(learnyourburcButton)
+
 
             val scale = resources.displayMetrics.density
 
@@ -323,10 +288,8 @@ class MainActivity : AppCompatActivity() {
 
         loveSign.setOnClickListener {
 
-            dailyButton.visibility = View.VISIBLE
-            monthlyButton.visibility = View.VISIBLE
-            yearlyButton.visibility = View.VISIBLE
-            learnyourburcButton.visibility = View.GONE
+            setViewVisible(dailyButton, monthlyButton, yearlyButton)
+            setViewGone(learnyourburcButton)
 
             val scale = resources.displayMetrics.density
 
@@ -378,10 +341,8 @@ class MainActivity : AppCompatActivity() {
 
         careerSign.setOnClickListener {
 
-            dailyButton.visibility = View.VISIBLE
-            monthlyButton.visibility = View.VISIBLE
-            yearlyButton.visibility = View.VISIBLE
-            learnyourburcButton.visibility = View.GONE
+            setViewVisible(dailyButton, monthlyButton, yearlyButton)
+            setViewGone(learnyourburcButton)
 
             val scale = resources.displayMetrics.density
 
@@ -465,7 +426,7 @@ class MainActivity : AppCompatActivity() {
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
 
-            learnyourburcButton.visibility = View.VISIBLE
+            setViewVisible(learnyourburcButton)
 
         }
 
@@ -506,7 +467,8 @@ class MainActivity : AppCompatActivity() {
             monthlyButton.setBackgroundResource(R.drawable.common_next_button)
             yearlyButton.setBackgroundResource(R.drawable.button_passive)
 
-            learnyourburcButton.visibility = View.VISIBLE
+            setViewVisible(learnyourburcButton)
+
 
         }
 
@@ -547,7 +509,8 @@ class MainActivity : AppCompatActivity() {
             monthlyButton.setBackgroundResource(R.drawable.button_passive)
             yearlyButton.setBackgroundResource(R.drawable.common_next_button)
 
-            learnyourburcButton.visibility = View.VISIBLE
+            //learnyourburcButton.visibility = View.VISIBLE
+            setViewVisible(learnyourburcButton)
 
         }
 
@@ -565,21 +528,17 @@ class MainActivity : AppCompatActivity() {
                         println("Response: $responseBody")
 
                         val responseJson = JSONObject(responseBody)
-                        val first_Name = responseJson.optString("first_name")
-                        val birth_place = responseJson.optString("birth_place")
-                        val birth_day = responseJson.optString("birth_day")
-                        val relationship_status = responseJson.optString("relationship_status")
-                        val gender = responseJson.optString("gender")
-                        val occupation = responseJson.optString("occupation")
-                        
-                        profileFirst_name = first_Name
-                        profileBirth_place = birth_place
-                        profileBirth_day = seperateBirthDate(birth_day)
-                        profileBirth_time = seperateBirthTime(birth_day)
-                        profileRelationshipStatus = relationship_status
-                        profileGender = gender
-                        profileOccupation = occupation
 
+                        userProfile = UserProfileDataClass(
+                            profileUsername = responseJson.optString("username"),
+                            profileFirst_name = responseJson.optString("first_name"),
+                            profileBirth_place = responseJson.optString("birth_place"),
+                            profileBirth_day = seperateBirthDate(responseJson.optString("birth_day")),
+                            profileBirth_time = seperateBirthTime(responseJson.optString("birth_day")),
+                            profileRelationshipStatus = responseJson.optString("relationship_status"),
+                            profileGender = responseJson.optString("gender"),
+                            profileOccupation = responseJson.optString("occupation")
+                        )
 
                     }
                 }
@@ -598,12 +557,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
 
-                chatwithmiraButton.visibility = View.GONE
-                empty.visibility = View.GONE
-                burcCard.visibility = View.GONE
-                tarotFali.visibility = View.GONE
-                fortuneCookie.visibility = View.GONE
-                settingsbuttoncard.visibility = View.GONE
+                setViewGone(chatwithmiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsbuttoncard)
             }
 
             if (!isLoggedin) {
@@ -626,6 +580,8 @@ class MainActivity : AppCompatActivity() {
                 tarotFali.visibility = View.GONE
                 fortuneCookie.visibility = View.GONE
                 settingsbuttoncard.visibility = View.GONE
+                setViewGone(chatwithmiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsbuttoncard)
+
             }
 
         }
@@ -640,12 +596,8 @@ class MainActivity : AppCompatActivity() {
         if (supportFragmentManager.backStackEntryCount == 0) {
             overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
 
-            chatwithmiraButton.visibility = View.VISIBLE
-            empty.visibility = View.VISIBLE
-            burcCard.visibility = View.VISIBLE
-            tarotFali.visibility = View.VISIBLE
-            fortuneCookie.visibility = View.VISIBLE
-            settingsbuttoncard.visibility = View.VISIBLE
+            setViewVisible(chatwithmiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsbuttoncard)
+
         }
     }
 

@@ -89,10 +89,8 @@ class ChatFragment : Fragment() {
                                 }
                             }
 
-// Adaptörü güncelle
                             chatAdapter.notifyDataSetChanged()
 
-// ListView'i en alt pozisyona kaydır
                             chatListView.smoothScrollToPosition(messages.size - 1)
                         }
 

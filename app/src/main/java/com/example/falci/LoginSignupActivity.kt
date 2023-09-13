@@ -411,7 +411,7 @@ class LoginSignupActivity : AppCompatActivity() {
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
 
-                    ProfileFunctions.StatusCode = response.code()
+                    StatusCode = response.code()
 
                     if (responseBody != null) {
                         println(responseBody)
@@ -426,16 +426,6 @@ class LoginSignupActivity : AppCompatActivity() {
 
         }
 
-    }
-
-    object timeformatfuncs{
-        fun seperateBirthTime(birthDay: String): String {
-            return birthDay.split("T")[1].substring(0,8)
-        }
-
-        fun seperateBirthDate(birthDay: String): String {
-            return birthDay.split("T")[0]
-        }
     }
 
 }

@@ -14,19 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.logoutFunctions
-
-
-var firstLetter = "A"
-
-var profileUsername = ""
-var profileFirst_name = ""
-var profileBirth_place = ""
-var profileBirth_day = ""
-var profileBirth_time = ""
-var profileRelationshipStatus = ""
-var profileGender = ""
-var profileOccupation = ""
-
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 
 class ProfileFragment : Fragment() {
 
@@ -56,17 +44,14 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_profile, container, false)
 
+        val firstLetterView = v.findViewById<TextView>(R.id.profileFragmentFirstLetter)
+        val profileFragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
+        val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
-        firstLetter = profileFirst_name.first().toString().uppercase()
+        val firstLetter = userProfile.profileFirst_name.first().toString().uppercase()
+        firstLetterView.text = firstLetter
+        profileFragmentName.text = userProfile.profileFirst_name
 
-        val firstletter = v.findViewById<TextView>(R.id.profileFragmentFirstLetter)
-        val profilefragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
-
-        firstletter.text = firstLetter
-        profilefragmentName.text = profileFirst_name
-
-        val editprofilebutton =
-            v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
         jupyterlayout = v.findViewById(R.id.scrollviewjupyterlayout)
         marslayout = v.findViewById(R.id.marslayout)
@@ -133,6 +118,7 @@ class ProfileFragment : Fragment() {
             profileViewBottomCard.visibility = View.VISIBLE
             profileTitle.visibility = View.VISIBLE
             changeAccountButton.visibility = View.VISIBLE
+            setViewVisible(profileCard, )
             backArrowCard.visibility = View.GONE
 
             val scale = resources.displayMetrics.density
@@ -154,7 +140,6 @@ class ProfileFragment : Fragment() {
                 zodiacCard.layoutParams = params
             }
 
-
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
             animatorSet.duration = 300
@@ -165,10 +150,8 @@ class ProfileFragment : Fragment() {
 
         editprofilebutton.setOnClickListener {
 
+            // change to editProfile screen if user is logged in
             if (isLoggedin){
-                println("name $profileFirst_name")
-                println("locate $profileBirth_place")
-
                 parentFragmentManager.beginTransaction().apply {
                     setCustomAnimations(
                         R.anim.slide_down,
@@ -177,6 +160,21 @@ class ProfileFragment : Fragment() {
                         R.anim.slide_up
                     )
                     replace(R.id.main_fragment_container, EditProfileFragment())
+                    addToBackStack(null)
+                    commit()
+                }
+            }
+
+            // change to Login screen if user is not logged in
+            if (!isLoggedin){
+                parentFragmentManager.beginTransaction().apply {
+                    setCustomAnimations(
+                        R.anim.slide_down,
+                        R.anim.slide_up,
+                        R.anim.slide_down,
+                        R.anim.slide_up
+                    )
+                    replace(R.id.main_fragment_container, Loginfragment())
                     addToBackStack(null)
                     commit()
                 }

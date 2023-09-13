@@ -7,6 +7,12 @@
     android:background="@drawable/gradientbackground"
     tools:context=".EditProfileFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/editProfileGeneralLayout">
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/backarrowcard"
         android:layout_width="50dp"
@@ -307,6 +313,12 @@
         android:visibility="invisible">
     </androidx.appcompat.widget.AppCompatButton>
 
+    </RelativeLayout>
+
+
+
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/savedatebutton"
         android:layout_width="50dp"
@@ -397,8 +409,7 @@
 
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:visibility="invisible" />
+            android:textColorHint="@color/white"    />
 
     </androidx.cardview.widget.CardView>
 
