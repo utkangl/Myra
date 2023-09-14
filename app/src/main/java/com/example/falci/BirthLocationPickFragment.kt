@@ -11,9 +11,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -26,8 +29,7 @@ class BirthLocationPickFragment : Fragment() {
     private lateinit var autoCompleteTextView: AutoCompleteTextView
     private var currentQuery: String = ""
     private var isCitySelected: Boolean = false
-
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,58 +38,25 @@ class BirthLocationPickFragment : Fragment() {
 
         autoCompleteTextView = v.findViewById(R.id.cityInput)
 
-        val locationfragmentcardview = v.findViewById<CardView>(R.id.locationFragmentCardView)
         val chooseyourcity = v.findViewById<AppCompatButton>(R.id.chooseyourcity)
         val relationshipStatusPickFragment = RelationshipStatusPickFragment()
-        val birthLocationPickFragmentnextbutton =
-            v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
-        val birthlocationpickfragmenttitle =
-            v.findViewById<TextView>(R.id.birthlocationpickfragmenttitle)
-        val birthlocationpickfragmentstep5of7 =
-            v.findViewById<TextView>(R.id.birthlocationpickfragmentstep5of7)
-        val star1 = v.findViewById<StarShape>(R.id.star1)
-        val star2 = v.findViewById<StarShape>(R.id.star2)
-        val star3 = v.findViewById<StarShape>(R.id.star3)
-        val star4 = v.findViewById<StarShape>(R.id.star4)
-        val star5 = v.findViewById<StarShape>(R.id.star5)
-        val star6 = v.findViewById<StarShape>(R.id.star6)
-        val star7 = v.findViewById<StarShape>(R.id.star7)
+        val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
+        val firstLayout = v.findViewById<RelativeLayout>(R.id.locationFragmentFirstLayout)
+        val secondLayout = v.findViewById<RelativeLayout>(R.id.locationFragmentSecondLayout)
 
         chooseyourcity.setOnClickListener {
-            autoCompleteTextView.visibility = View.VISIBLE
-            locationfragmentcardview.visibility = View.VISIBLE
-            chooseyourcity.visibility = View.INVISIBLE
-            birthLocationPickFragmentnextbutton.visibility = View.INVISIBLE
-            birthlocationpickfragmenttitle.visibility = View.INVISIBLE
-            birthlocationpickfragmentstep5of7.visibility = View.INVISIBLE
-            star1.visibility = View.INVISIBLE
-            star2.visibility = View.INVISIBLE
-            star3.visibility = View.INVISIBLE
-            star4.visibility = View.INVISIBLE
-            star5.visibility = View.INVISIBLE
-            star6.visibility = View.INVISIBLE
-            star7.visibility = View.INVISIBLE
+            setViewVisible(secondLayout)
+            setViewGone(firstLayout)
         }
 
         autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
             // AutoCompleteTextView'dan bir öğe seçildiğinde burada çalışacak kodu ekleyin
-            star1.visibility = View.VISIBLE
-            star2.visibility = View.VISIBLE
-            star3.visibility = View.VISIBLE
-            star4.visibility = View.VISIBLE
-            star5.visibility = View.VISIBLE
-            star6.visibility = View.VISIBLE
-            star7.visibility = View.VISIBLE
-            locationfragmentcardview.visibility = View.INVISIBLE
-            chooseyourcity.visibility = View.VISIBLE
-            birthLocationPickFragmentnextbutton.visibility = View.VISIBLE
-            birthlocationpickfragmenttitle.visibility = View.VISIBLE
-            birthlocationpickfragmentstep5of7.visibility = View.VISIBLE
+            setViewVisible(firstLayout)
+            setViewGone(secondLayout)
 
             chooseyourcity.text = autoCompleteTextView.text.toString()
 
-            val inputMethodManager =
-                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(autoCompleteTextView.windowToken, 0)
         }
 

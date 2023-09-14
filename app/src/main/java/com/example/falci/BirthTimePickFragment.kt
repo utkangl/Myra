@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.appcompat.widget.AppCompatButton
-
-
+import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 class BirthTimePickFragment : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,29 +22,13 @@ class BirthTimePickFragment : Fragment() {
         val timepickfragmentnextbutton =
             v.findViewById<AppCompatButton>(R.id.timepickfragmentnextbutton)
 
-        val birthLocationPickFragment = BirthLocationPickFragment()
 
         timepickfragmentnextbutton.setOnClickListener {
             val selectedHour = timepicker.hour
             val selectedMinute = timepicker.minute
-
             val selectedTime = "$selectedHour:$selectedMinute:00"
             TimeObject.time = selectedTime
-
-            println(selectedTime)
-
-
-            parentFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
-                replace(R.id.main_fragment_container, birthLocationPickFragment)
-                addToBackStack(null)
-                commit()
-            }
+            replaceFragmentWithAnimation(parentFragmentManager, BirthLocationPickFragment())
         }
 
         return v

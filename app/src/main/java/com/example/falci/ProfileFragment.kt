@@ -112,10 +112,7 @@ class ProfileFragment : Fragment() {
                     }
                 }
 
-            }
-            else{
-                println("Hele once bi giris yap sonra cikis yaparsin")
-            }
+            } else{ println("Hele once bi giris yap sonra cikis yaparsin") }
         }
 
         return v

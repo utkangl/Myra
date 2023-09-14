@@ -6,194 +6,207 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BirthLocationPickFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/empty">
-    </TextView>
-
-    <TextView
-        android:id="@+id/birthlocationpickfragmentstep5of7"
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        android:layout_centerHorizontal="true"
-
-        android:layout_marginTop="30dp"
-
-        android:fontFamily="@font/arima_madurai_bold"
-        android:text="Step 5 of 7"
-        android:textColor="@color/white"
-        android:textSize="20sp">
-
-    </TextView>
-
-    <com.example.falci.StarShape
-        android:id="@+id/star1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toLeftOf="@+id/star2"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-    <com.example.falci.StarShape
-        android:id="@+id/star2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toLeftOf="@+id/star3"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-    <com.example.falci.StarShape
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/star3"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toLeftOf="@+id/empty"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-    <com.example.falci.StarShape
-        android:id="@+id/star4"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toRightOf="@+id/empty"
-        android:layout_marginStart="-20dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-    <com.example.falci.StarShape
-        android:id="@+id/star5"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toRightOf="@+id/star4"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-    <com.example.falci.StarShape
-        android:id="@+id/star6"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toRightOf="@+id/star5"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-    <com.example.falci.StarShape
-        android:id="@+id/star7"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/birthlocationpickfragmenttitle"
-        android:layout_toRightOf="@+id/star6"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="20dp">
-    </com.example.falci.StarShape>
-
-
-    <TextView
-        android:id="@+id/birthlocationpickfragmenttitle"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-
-        android:layout_above="@+id/chooseyourcity"
-        android:layout_centerHorizontal="true"
-
-        android:layout_marginBottom="120dp"
-
-        android:fontFamily="@font/arima_madurai_bold"
-        android:text="Dogum Yerinizi Seciniz"
-        android:textColor="@color/white"
-        android:textSize="32sp">
-    </TextView>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/chooseyourcity"
-        android:layout_width="match_parent"
-
-        android:layout_height="75dp"
-
-        android:layout_centerInParent="true"
-
-        android:layout_marginLeft="55dp"
-        android:layout_marginRight="55dp"
-
-        android:background="@drawable/common_next_button"
-
-        android:fontFamily="@font/arima_madurai_bold"
-        android:text="Sehrini Sec"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="24sp">
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/locationFragmentCardView"
-
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/locationFragmentFirstLayout">
 
-        android:layout_centerInParent="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="75dp"
-        android:text="card view bu"
-        android:visibility="invisible"
-        app:cardBackgroundColor="#80000000"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="0dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/empty">
+        </TextView>
 
-        <AutoCompleteTextView
-            android:id="@+id/cityInput"
+        <TextView
+            android:id="@+id/birthlocationpickfragmentstep5of7"
+            android:layout_width="wrap_content"
 
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="40dp"
-            android:fontFamily="@font/arima_madurai_light"
+            android:layout_centerHorizontal="true"
 
-            android:hint="Enter a city"
+            android:layout_marginTop="30dp"
 
-            android:imeOptions="actionSend"
-
-            android:textAlignment="center"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="Step 5 of 7"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:visibility="invisible" />
+            android:textSize="20sp">
 
-    </androidx.cardview.widget.CardView>
+        </TextView>
+
+        <com.example.falci.StarShape
+            android:id="@+id/star1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toLeftOf="@+id/star2"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
+
+        <com.example.falci.StarShape
+            android:id="@+id/star2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toLeftOf="@+id/star3"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
+
+        <com.example.falci.StarShape
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/star3"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toLeftOf="@+id/empty"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
+
+        <com.example.falci.StarShape
+            android:id="@+id/star4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toRightOf="@+id/empty"
+            android:layout_marginStart="-20dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
+
+        <com.example.falci.StarShape
+            android:id="@+id/star5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toRightOf="@+id/star4"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
+
+        <com.example.falci.StarShape
+            android:id="@+id/star6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toRightOf="@+id/star5"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
+
+        <com.example.falci.StarShape
+            android:id="@+id/star7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/birthlocationpickfragmenttitle"
+            android:layout_toRightOf="@+id/star6"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="20dp">
+        </com.example.falci.StarShape>
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/birthLocationPickFragmentnextbutton"
+        <TextView
+            android:id="@+id/birthlocationpickfragmenttitle"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+
+            android:layout_above="@+id/chooseyourcity"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginBottom="120dp"
+
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="Dogum Yerinizi Seciniz"
+            android:textColor="@color/white"
+            android:textSize="32sp">
+        </TextView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/chooseyourcity"
+            android:layout_width="match_parent"
+
+            android:layout_height="75dp"
+
+            android:layout_centerInParent="true"
+
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+
+            android:background="@drawable/common_next_button"
+
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="Sehrini Sec"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/birthLocationPickFragmentnextbutton"
+            android:layout_width="match_parent"
+
+            android:layout_height="65dp"
+
+            android:layout_below="@+id/chooseyourcity"
+
+            android:layout_marginLeft="75dp"
+            android:layout_marginRight="75dp"
+            android:layout_marginTop="100dp"
+
+            android:background="@drawable/common_next_button"
+
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="Devam"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="24sp">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/locationFragmentSecondLayout">
 
-        android:layout_height="65dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/locationFragmentCardView"
 
-        android:layout_below="@+id/chooseyourcity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        android:layout_marginLeft="75dp"
-        android:layout_marginRight="75dp"
-        android:layout_marginTop="100dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="75dp"
+            android:text="card view bu"
+            android:visibility="invisible"
+            app:cardBackgroundColor="#80000000"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
 
-        android:background="@drawable/common_next_button"
+            <AutoCompleteTextView
+                android:id="@+id/cityInput"
 
-        android:fontFamily="@font/arima_madurai_bold"
-        android:text="Devam"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="24sp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    </androidx.appcompat.widget.AppCompatButton>
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/arima_madurai_light"
 
+                android:hint="Enter a city"
+
+                android:imeOptions="actionSend"
+
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:visibility="invisible" />
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 
     </RelativeLayout>

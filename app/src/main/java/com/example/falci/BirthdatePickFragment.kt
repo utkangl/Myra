@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatButton
+import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 class BirthdatePickFragment : Fragment() {
 
@@ -17,34 +18,15 @@ class BirthdatePickFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_birthdate_pick, container, false)
 
         val datepicker = v.findViewById<DatePicker>(R.id.datepicker)
-
-        val datepickfragmentnextbutton =
-            v.findViewById<AppCompatButton>(R.id.datepickfragmentnextbutton)
-
-        val birthTimePickFragment = BirthTimePickFragment()
+        val datepickfragmentnextbutton = v.findViewById<AppCompatButton>(R.id.datepickfragmentnextbutton)
 
         datepickfragmentnextbutton.setOnClickListener {
             val selectedYear = datepicker.year
             val selectedMonth =  datepicker.month + 1
             val selectedDay = datepicker.dayOfMonth
-
-
             val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
             DateObject.date = selectedDate
-
-            println(selectedDate)
-
-            parentFragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
-                replace(R.id.main_fragment_container, birthTimePickFragment)
-                addToBackStack(null)
-                commit()
-            }
+            replaceFragmentWithAnimation(parentFragmentManager, BirthTimePickFragment())
         }
 
         return v
@@ -53,5 +35,4 @@ class BirthdatePickFragment : Fragment() {
     object DateObject {
         lateinit var date: String
     }
-
 }
