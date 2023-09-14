@@ -170,7 +170,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/locationFragmentSecondLayout">
+        android:id="@+id/locationFragmentSecondLayout"
+        android:visibility="gone">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/locationFragmentCardView"
@@ -182,7 +183,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginTop="75dp"
             android:text="card view bu"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:cardBackgroundColor="#80000000"
             app:cardCornerRadius="15dp"
             app:cardElevation="0dp">
@@ -203,7 +204,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
         </androidx.cardview.widget.CardView>
 

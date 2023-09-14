@@ -31,7 +31,7 @@ class SignUpFragment : Fragment() {
             usernameField = v.findViewById(R.id.signupfragmentusernametext)
             passwordField = v.findViewById(R.id.signupfragmentpasswordtext)
 
-            val registerposturl = "http://31.210.43.174:1337/auth/register/"
+            val registerposturl = "http://192.168.1.22:8000/auth/register/"
 
             val registerJSON = LoginSignupActivity.RegistrationFunctions.createRegisterJSON(
                 usernameField.text.toString(),

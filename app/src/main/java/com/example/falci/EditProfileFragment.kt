@@ -28,15 +28,15 @@ import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTex
 import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
+import com.example.falci.internalClasses.LocationService
+import com.example.falci.internalClasses.TransitionToFragment
 
 val editProfileJson = JSONObject()
 
 class EditProfileFragment : Fragment() {
 
-    private lateinit var placesClient: PlacesClient
-    private lateinit var autoCompleteTextView: AutoCompleteTextView
-    private var currentQuery: String = ""
-    private var isCitySelected: Boolean = false
+    private lateinit var locationService: LocationService
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -173,83 +173,27 @@ class EditProfileFragment : Fragment() {
         setupSpinnerAndField(maritalStatusSpinner, relationshipStatusFieldHint,maritalStatusAdapter,isUserInteractedMarital){selectedMaritalStatus -> occupationField.text = selectedMaritalStatus}
 
 
-        autoCompleteTextView = v.findViewById(R.id.searchCity)
+        val cityInput = v.findViewById<AutoCompleteTextView>(R.id.searchCity)
         val editProfileLocationCardView = v.findViewById<CardView>(R.id.editProfileLocationCardView)
+
+        this.locationService = LocationService(requireContext())
+        locationService.initializeAutoCompleteTextView(cityInput)
 
         locationField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)
             setViewVisible(editProfileLocationCardView)
         }
 
-        autoCompleteTextView.setOnItemClickListener { _, _, _, _ ->
-
+        cityInput.setOnItemClickListener { _, _, _, _ ->
             setViewGone(editProfileLocationCardView)
             setViewVisible(editProfileGeneralLayout)
-
-            locationField.text = autoCompleteTextView.text.toString()
-
-            val inputMethodManager =
-                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(autoCompleteTextView.windowToken, 0)
+            locationField.text = cityInput.text.toString()
+            locationService.hideKeyboard(requireView())
         }
-
-        Places.initialize(
-            requireContext(),
-            "AIzaSyA5EjVol_is8EPaAprlzCmp20_gEK9X9vo"
-        ) // Google Places API başlatma TODO/apikeyi boyle aciktan verme
-        placesClient = Places.createClient(requireContext())
-
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            mutableListOf<String>()
-        )
-        autoCompleteTextView.setAdapter(adapter)
-
-        autoCompleteTextView.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                currentQuery = s.toString()
-                fetchPredictions()
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
-
-
-
 
         return v
     }
 
-    fun fetchPredictions() {
-        val token = AutocompleteSessionToken.newInstance()
-        val request = FindAutocompletePredictionsRequest.builder()
-            .setSessionToken(token)
-            .setQuery(currentQuery)
-            .build()
 
-        placesClient.findAutocompletePredictions(request)
-            .addOnSuccessListener { response ->
-                val adapter = autoCompleteTextView.adapter as? ArrayAdapter<String>
-                adapter?.clear()
-                for (prediction in response.autocompletePredictions) {
-                    adapter?.add(prediction.getFullText(null).toString())
-                }
 
-                val selectedCity = autoCompleteTextView.text.toString()
-
-                isCitySelected = selectedCity in response.autocompletePredictions.map {
-                    it.getFullText(null).toString()
-                }
-
-            }
-            .addOnFailureListener { exception ->
-                val statusCode = (exception as? ApiException)?.statusCode
-                if (statusCode != null) {
-                    println(statusCode)
-                }
-            }
-    }
 }

@@ -62,7 +62,7 @@ class OccupationPickFragment : Fragment() {
             }
         }
 
-        val registerposturl = "http://31.210.43.174:1337/auth/profile/complete/"
+        val registerposturl = "http://192.168.1.22:8000/auth/profile/complete/"
 
         occupationPickFragmentnextbutton.setOnClickListener {
 
@@ -77,7 +77,7 @@ class OccupationPickFragment : Fragment() {
                 selectedOccupation
             )
 
-            println("complete profile bilgileri jsonu: $completeProfileJSON")
+            println("complete profile bilgileri jsonu: ${completeProfileJSON.toString()}")
 
             RegistrationFunctions.postCompleteProfileJson(
                 registerposturl,
