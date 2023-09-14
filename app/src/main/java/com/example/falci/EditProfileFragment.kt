@@ -1,6 +1,5 @@
 package com.example.falci
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -9,19 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import org.json.JSONObject
-import com.example.falci.LoginSignupActivity.ProfileFunctions.putEditProfileJson
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateProfileFieldIfChanged
-import com.google.android.gms.common.api.ApiException
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
-import com.google.android.libraries.places.api.net.PlacesClient
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
@@ -29,7 +21,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListen
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
-import com.example.falci.internalClasses.TransitionToFragment
+import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
 
 val editProfileJson = JSONObject()
 
@@ -114,7 +106,7 @@ class EditProfileFragment : Fragment() {
             putEditProfileJson(
                 url = "http://31.210.43.174:1337/auth/profile/edit/",
                 json = editProfileJson,
-                accessToken = LoginSignupActivity.Loginfunctions.AccessToken
+                accessToken = loginTokens.loginAccessToken
             )
             {_,_->}
 

@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
+import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
+import com.example.falci.internalClasses.RegisterTokens
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
-import org.json.JSONException
-import org.json.JSONObject
+
+
+lateinit var registerTokens: RegisterTokens
 
 class SignUpFragment : Fragment() {
 
@@ -31,36 +35,19 @@ class SignUpFragment : Fragment() {
             usernameField = v.findViewById(R.id.signupfragmentusernametext)
             passwordField = v.findViewById(R.id.signupfragmentpasswordtext)
 
-            val registerposturl = "http://192.168.1.22:8000/auth/register/"
+            val registerposturl = "http://31.210.43.174:1337/auth/register/"
 
-            val registerJSON = LoginSignupActivity.RegistrationFunctions.createRegisterJSON(
-                usernameField.text.toString(),
-                passwordField.text.toString(),
+            val registerJSON = createJsonObject(
+                "email" to usernameField.text.toString(),
+                "password" to passwordField.text.toString()
             )
 
-            LoginSignupActivity.RegistrationFunctions.postsignupJson(
-                registerposturl,
-                registerJSON
-            ) { responseBody, exception ->
-                if (exception != null) {
-                    println("Error: ${exception.message}")
-                } else {
-                    try {
-                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                        val detail = responseJson?.optString("detail")
-
-                        if (detail != null && detail.isNotEmpty()) {
-                            println("Hata: $detail")
-                        } else {
-
-                            println(responseBody)
-                            replaceFragmentWithAnimation(parentFragmentManager, NamePickFragment())
-                        }
-                    } catch (e: JSONException) {
-                        println("JSON Analiz Hatasi: ${e.message}")
-                    }
-                }
+            postJsonNoHeader(registerposturl, registerJSON, "register") { responseBody, exception ->
+                println(responseBody)
+                if (exception != null) { println("Error: ${exception.message}") }
+                else { replaceFragmentWithAnimation(parentFragmentManager, NamePickFragment()) }
             }
+
 
         }
 

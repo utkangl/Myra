@@ -13,7 +13,6 @@ import android.widget.ListView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
 
 class ChatFragment : Fragment() {
 
@@ -135,7 +134,7 @@ class ChatFragment : Fragment() {
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
-            .header("Authorization", "Bearer $AccessToken")
+            .header("Authorization", "Bearer ${loginTokens.loginAccessToken}")
             .build()
 
 
@@ -150,8 +149,6 @@ class ChatFragment : Fragment() {
                 val responseBody = response.body()?.string()
 
                 println("response from mira $responseBody")
-
-                println(AccessToken)
 
                 callback(responseBody, null)
 

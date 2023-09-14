@@ -10,15 +10,16 @@ import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 
-import com.example.falci.LoginSignupActivity.RegistrationFunctions
-
 import com.example.falci.NamePickFragment.NameObject.name
 import com.example.falci.GenderPickFragment.GenderObject.gender
 import com.example.falci.BirthdatePickFragment.DateObject.date
 import com.example.falci.BirthTimePickFragment.TimeObject.time
 import com.example.falci.BirthLocationPickFragment.LocationObject.location
 import com.example.falci.RelationshipStatusPickFragment.MaritalStatusObject.maritalStatu
+import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import org.json.JSONObject
 
 
 class OccupationPickFragment : Fragment() {
@@ -62,38 +63,42 @@ class OccupationPickFragment : Fragment() {
             }
         }
 
-        val registerposturl = "http://192.168.1.22:8000/auth/profile/complete/"
+        val registerposturl = "http://31.210.43.174:1337/auth/profile/complete/"
 
         occupationPickFragmentnextbutton.setOnClickListener {
 
             val formattedDate = formatDateAndTime(date, time)
 
-            val completeProfileJSON = RegistrationFunctions.createCompleteProfileJSON(
-                name,
-                gender,
-                formattedDate,
-                location,
-                maritalStatu,
-                selectedOccupation
+            val zodiacInfoJson = createJsonObject(
+                "name" to name,
+                "location" to location,
+                "birthDay" to formattedDate,
+                "gender" to gender,
+                "occupation" to selectedOccupation
             )
 
-            println("complete profile bilgileri jsonu: ${completeProfileJSON.toString()}")
+            val infoJson = createJsonObject(
+                "zodiacInfo" to zodiacInfoJson,
+                "relationshipStatus" to maritalStatu
+            )
 
-            RegistrationFunctions.postCompleteProfileJson(
-                registerposturl,
-                completeProfileJSON
-            ) { responseBody, exception ->
+            val completeProfileJSON = createJsonObject(
+                "info" to infoJson
+            )
+
+            println("complete profile bilgileri jsonu: $completeProfileJSON")
+
+            postJsonWithHeader(registerposturl, completeProfileJSON, registerTokens.registerAccessToken)
+            { responseBody, exception ->
                 if (exception != null) {
                     println("Error: ${exception.message}")
                 } else {
-                    println("Response: $responseBody")
-
+                    val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                    val detail = responseJson?.optString("detail")
+                    println(detail)
                     replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
-
-
                 }
             }
-
         }
 
         return v

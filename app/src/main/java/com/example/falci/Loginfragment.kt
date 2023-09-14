@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.example.falci.LoginSignupActivity.Loginfunctions.StatusCode
-import com.example.falci.LoginSignupActivity.Loginfunctions.createLoginJSON
-import com.example.falci.LoginSignupActivity.Loginfunctions.postloginJson
+import com.example.falci.internalClasses.AuthenticationFunctions
+import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
+import com.example.falci.internalClasses.LoginTokens
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.statusCode
 
 var isLoggedin = false
+lateinit var loginTokens: LoginTokens
 
 class Loginfragment : Fragment() {
 
@@ -41,23 +43,24 @@ class Loginfragment : Fragment() {
             val enteredUsername = usernameEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-            val loginJson = createLoginJSON(enteredUsername, enteredPassword)
+//            val loginJson = createLoginJSON(enteredUsername, enteredPassword)
+
+            val loginJson = createJsonObject(
+                "email" to enteredUsername,
+                "password" to enteredPassword
+            )
 
             val loginposturl = "http://31.210.43.174:1337/auth/token/"
 
-            postloginJson(loginposturl, loginJson) { responseBody, exception ->
-                if (exception != null) {
-                    println("Error: ${exception.message}")
+            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(loginposturl, loginJson, "login") { responseBody, exception ->
+                println(responseBody)
+                if (exception != null) { println("Error: ${exception.message}") }
+                if (statusCode == 200) {
+                    isLoggedin = true
+                    val intent = Intent(requireActivity(), MainActivity::class.java)
+                    startActivity(intent)
                 } else {
-                    println("Response: $responseBody")
-
-                    if (StatusCode == 200) {
-                        isLoggedin = true
-                        val intent = Intent(requireActivity(), MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        println("Error Code: $StatusCode")
-                    }
+                    println("Error Code: $statusCode")
                 }
             }
         }

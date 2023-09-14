@@ -11,7 +11,8 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import com.example.falci.LoginSignupActivity.logoutFunctions
+import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
@@ -102,14 +103,16 @@ class ProfileFragment : Fragment() {
 
         changeAccountButton.setOnClickListener{
             if (isLoggedin){
-                val refreshTokenJSON = logoutFunctions.createLogoutJSON(LoginSignupActivity.Loginfunctions.RefreshToken)
+                val refreshTokenJSON = createJsonObject("refresh_token" to loginTokens.loginRefreshToken)
+                val logOutUrl = "http://31.210.43.174:1337/auth/logout/"
 
-                logoutFunctions.makeLogoutRequest("http://31.210.43.174:1337/auth/logout/", LoginSignupActivity.Loginfunctions.AccessToken, refreshTokenJSON)
+                postJsonWithHeader(logOutUrl,refreshTokenJSON, loginTokens.loginAccessToken)
                 { _, exception ->
                     if (exception == null) {
-                        isLoggedin = false
-                        replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
+                            isLoggedin = false
+                            replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
                     }
+                    else println(exception)
                 }
 
             } else{ println("Hele once bi giris yap sonra cikis yaparsin") }

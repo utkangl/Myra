@@ -7,14 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import com.example.falci.LoginSignupActivity.ProfileFunctions.makeGetProfileRequest as ProfileRequestFunc
-import com.example.falci.LoginSignupActivity.Loginfunctions.AccessToken
 import com.example.falci.internalClasses.AnimationHelper
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.PeriodButtonViewUpdater
+import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.UserProfileDataClass
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
 import org.json.JSONObject
@@ -100,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
             if(isLoggedin){
 
-                ProfileRequestFunc(url = "http://31.210.43.174:1337/auth/profile/", accessToken = AccessToken)
+                makeGetProfileRequest("http://31.210.43.174:1337/auth/profile/", loginTokens.loginAccessToken)
                 { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")
