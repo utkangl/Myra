@@ -10,12 +10,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
-import com.example.falci.internalClasses.LoginTokens
+import com.example.falci.internalClasses.LoginTokensDataClass
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import com.example.falci.internalClasses.statusCode
+import com.example.falci.internalClasses.urls
 
 var isLoggedin = false
-lateinit var loginTokens: LoginTokens
+lateinit var loginTokens: LoginTokensDataClass
 
 class Loginfragment : Fragment() {
 
@@ -50,9 +51,7 @@ class Loginfragment : Fragment() {
                 "password" to enteredPassword
             )
 
-            val loginposturl = "http://31.210.43.174:1337/auth/token/"
-
-            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(loginposturl, loginJson, "login") { responseBody, exception ->
+            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson, "login") { responseBody, exception ->
                 println(responseBody)
                 if (exception != null) { println("Error: ${exception.message}") }
                 if (statusCode == 200) {

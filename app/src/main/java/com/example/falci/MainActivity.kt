@@ -16,6 +16,7 @@ import com.example.falci.internalClasses.PeriodButtonViewUpdater
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.UserProfileDataClass
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
+import com.example.falci.internalClasses.urls
 import org.json.JSONObject
 
 lateinit var userProfile: UserProfileDataClass
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
             if(isLoggedin){
 
-                makeGetProfileRequest("http://31.210.43.174:1337/auth/profile/", loginTokens.loginAccessToken)
+                makeGetProfileRequest(urls.getProfileURL, loginTokens.loginAccessToken)
                 { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")

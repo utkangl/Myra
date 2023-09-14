@@ -9,11 +9,12 @@ import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
-import com.example.falci.internalClasses.RegisterTokens
+import com.example.falci.internalClasses.RegisterTokensDataClass
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.urls
 
 
-lateinit var registerTokens: RegisterTokens
+lateinit var registerTokensDataClass: RegisterTokensDataClass
 
 class SignUpFragment : Fragment() {
 
@@ -35,14 +36,12 @@ class SignUpFragment : Fragment() {
             usernameField = v.findViewById(R.id.signupfragmentusernametext)
             passwordField = v.findViewById(R.id.signupfragmentpasswordtext)
 
-            val registerposturl = "http://31.210.43.174:1337/auth/register/"
-
             val registerJSON = createJsonObject(
                 "email" to usernameField.text.toString(),
                 "password" to passwordField.text.toString()
             )
 
-            postJsonNoHeader(registerposturl, registerJSON, "register") { responseBody, exception ->
+            postJsonNoHeader(urls.signUpURL, registerJSON, "register") { responseBody, exception ->
                 println(responseBody)
                 if (exception != null) { println("Error: ${exception.message}") }
                 else { replaceFragmentWithAnimation(parentFragmentManager, NamePickFragment()) }

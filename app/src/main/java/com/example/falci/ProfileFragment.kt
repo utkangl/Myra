@@ -17,6 +17,7 @@ import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.anima
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.urls
 
 class ProfileFragment : Fragment() {
 
@@ -104,9 +105,7 @@ class ProfileFragment : Fragment() {
         changeAccountButton.setOnClickListener{
             if (isLoggedin){
                 val refreshTokenJSON = createJsonObject("refresh_token" to loginTokens.loginRefreshToken)
-                val logOutUrl = "http://31.210.43.174:1337/auth/logout/"
-
-                postJsonWithHeader(logOutUrl,refreshTokenJSON, loginTokens.loginAccessToken)
+                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, loginTokens.loginAccessToken)
                 { _, exception ->
                     if (exception == null) {
                             isLoggedin = false

@@ -19,6 +19,7 @@ import com.example.falci.RelationshipStatusPickFragment.MaritalStatusObject.mari
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.urls
 import org.json.JSONObject
 
 
@@ -63,8 +64,6 @@ class OccupationPickFragment : Fragment() {
             }
         }
 
-        val registerposturl = "http://31.210.43.174:1337/auth/profile/complete/"
-
         occupationPickFragmentnextbutton.setOnClickListener {
 
             val formattedDate = formatDateAndTime(date, time)
@@ -88,7 +87,7 @@ class OccupationPickFragment : Fragment() {
 
             println("complete profile bilgileri jsonu: $completeProfileJSON")
 
-            postJsonWithHeader(registerposturl, completeProfileJSON, registerTokens.registerAccessToken)
+            postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, registerTokensDataClass.registerAccessToken)
             { responseBody, exception ->
                 if (exception != null) {
                     println("Error: ${exception.message}")

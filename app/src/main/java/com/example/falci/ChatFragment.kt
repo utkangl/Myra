@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ListView
+import com.example.falci.internalClasses.urls
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -57,10 +58,9 @@ class ChatFragment : Fragment() {
                 chatListView.smoothScrollToPosition(messages.size - 1)
 
                 val chatJson = createChatJSON(usermessagetomira, threadNumber)
-                val gptchatUrl = "http://31.210.43.174:1337/gpt/chat/"
 
                 postChatJson(
-                    gptchatUrl, chatJson
+                    urls.chatGptURL, chatJson
                 ) { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")

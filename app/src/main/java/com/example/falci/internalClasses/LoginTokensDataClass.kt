@@ -1,6 +1,6 @@
 package com.example.falci.internalClasses
 
-data class LoginTokens(
+data class LoginTokensDataClass(
     var loginAccessToken: String,
     var loginRefreshToken: String,
 )

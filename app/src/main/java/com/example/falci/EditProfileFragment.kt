@@ -22,13 +22,13 @@ import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
+import com.example.falci.internalClasses.urls
 
 val editProfileJson = JSONObject()
 
 class EditProfileFragment : Fragment() {
 
     private lateinit var locationService: LocationService
-
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
@@ -104,7 +104,7 @@ class EditProfileFragment : Fragment() {
             }
 
             putEditProfileJson(
-                url = "http://31.210.43.174:1337/auth/profile/edit/",
+                url = urls.editProfileURL,
                 json = editProfileJson,
                 accessToken = loginTokens.loginAccessToken
             )

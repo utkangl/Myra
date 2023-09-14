@@ -1,7 +1,7 @@
 package com.example.falci.internalClasses
 
 import com.example.falci.loginTokens
-import com.example.falci.registerTokens
+import com.example.falci.registerTokensDataClass
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -47,10 +47,10 @@ class AuthenticationFunctions {
                     if (accessToken != null || refreshToken != null) {
 
                         if (type == "register"){
-                            registerTokens = RegisterTokens(registerAccessToken = accessToken.toString(), registerRefreshToken = refreshToken.toString())
+                            registerTokensDataClass = RegisterTokensDataClass(registerAccessToken = accessToken.toString(), registerRefreshToken = refreshToken.toString())
                         }
                         if (type == "login"){
-                            loginTokens = LoginTokens(loginAccessToken = accessToken.toString(), loginRefreshToken = refreshToken.toString())
+                            loginTokens = LoginTokensDataClass(loginAccessToken = accessToken.toString(), loginRefreshToken = refreshToken.toString())
                         }
 
                     }
