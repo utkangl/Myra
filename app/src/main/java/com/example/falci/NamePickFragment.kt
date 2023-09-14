@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.userRegister
 
 class NamePickFragment : Fragment() {
 
@@ -25,7 +26,7 @@ class NamePickFragment : Fragment() {
             nameInput = v.findViewById(R.id.namepickfragmentnameinputtext)
 
             if (nameInput.text.isNotEmpty()) {
-                NameObject.name = nameInput.text.toString()
+                userRegister.name = nameInput.text.toString()
                 replaceFragmentWithAnimation(parentFragmentManager, GenderPickFragment())
             }
         }
@@ -33,7 +34,4 @@ class NamePickFragment : Fragment() {
         return v
     }
 
-    object NameObject {
-        lateinit var name: String
-    }
 }

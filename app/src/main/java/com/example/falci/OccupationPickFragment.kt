@@ -9,23 +9,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-
-import com.example.falci.NamePickFragment.NameObject.name
-import com.example.falci.GenderPickFragment.GenderObject.gender
-import com.example.falci.BirthdatePickFragment.DateObject.date
-import com.example.falci.BirthTimePickFragment.TimeObject.time
-import com.example.falci.BirthLocationPickFragment.LocationObject.location
-import com.example.falci.RelationshipStatusPickFragment.MaritalStatusObject.maritalStatu
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import com.example.falci.internalClasses.urls
+import com.example.falci.internalClasses.userRegister
 import org.json.JSONObject
 
-
 class OccupationPickFragment : Fragment() {
-
-    private lateinit var selectedOccupation: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +46,7 @@ class OccupationPickFragment : Fragment() {
             ) {
                 val selectedStatus = parent?.getItemAtPosition(position) as? String
                 if (selectedStatus != null) {
-                    selectedOccupation = selectedStatus
+                    userRegister.occupation = selectedStatus
                 }
             }
 
@@ -65,20 +56,19 @@ class OccupationPickFragment : Fragment() {
         }
 
         occupationPickFragmentnextbutton.setOnClickListener {
-
-            val formattedDate = formatDateAndTime(date, time)
+            val formattedDate = formatDateAndTime(userRegister.date, userRegister.time)
 
             val zodiacInfoJson = createJsonObject(
-                "name" to name,
-                "location" to location,
+                "name" to userRegister.name,
+                "location" to userRegister.location,
                 "birthDay" to formattedDate,
-                "gender" to gender,
-                "occupation" to selectedOccupation
+                "gender" to userRegister.gender,
+                "occupation" to userRegister.occupation
             )
 
             val infoJson = createJsonObject(
                 "zodiacInfo" to zodiacInfoJson,
-                "relationshipStatus" to maritalStatu
+                "relationshipStatus" to userRegister.relation
             )
 
             val completeProfileJSON = createJsonObject(
@@ -101,14 +91,9 @@ class OccupationPickFragment : Fragment() {
         }
 
         return v
-
     }
-
     private fun formatDateAndTime(date: String, time: String): String {
         return ("$date $time +0000")
     }
 
 }
-
-
-

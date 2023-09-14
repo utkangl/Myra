@@ -12,6 +12,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.userRegister
 
 class BirthLocationPickFragment : Fragment() {
 
@@ -45,7 +46,7 @@ class BirthLocationPickFragment : Fragment() {
         }
 
         birthLocationPickFragmentnextbutton.setOnClickListener {
-            print("location: ${LocationObject.location}")
+            print("location: ${userRegister.location}")
             if (locationService.isCitySelected) {
                 replaceFragmentWithAnimation(parentFragmentManager, RelationshipStatusPickFragment())
             }
@@ -54,9 +55,5 @@ class BirthLocationPickFragment : Fragment() {
         return v
 
     }
-    object LocationObject {
-        var location: String = ""
-    }
-
 }
 

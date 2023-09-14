@@ -10,6 +10,7 @@ import android.widget.TimePicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.userRegister
 
 class BirthTimePickFragment : Fragment() {
 
@@ -31,16 +32,11 @@ class BirthTimePickFragment : Fragment() {
             val selectedHour = timepicker.hour
             val selectedMinute = timepicker.minute
             val selectedTime = "$selectedHour:$selectedMinute:00"
-            TimeObject.time = selectedTime
+            userRegister.time = selectedTime
             replaceFragmentWithAnimation(parentFragmentManager, BirthLocationPickFragment())
         }
 
         return v
-    }
-
-
-    object TimeObject {
-        lateinit var time: String
     }
 
 }

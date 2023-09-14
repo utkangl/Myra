@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.userRegister
 
 class GenderPickFragment : Fragment() {
 
@@ -33,7 +34,7 @@ class GenderPickFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 val selectedgender = parent?.getItemAtPosition(position) as? String
-                if (selectedgender != null) { selectedGender = selectedgender; GenderObject.gender = selectedGender }
+                if (selectedgender != null) { selectedGender = selectedgender; userRegister.gender = selectedGender }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -49,5 +50,4 @@ class GenderPickFragment : Fragment() {
 
         return v
     }
-    object GenderObject { lateinit var gender: String }
 }

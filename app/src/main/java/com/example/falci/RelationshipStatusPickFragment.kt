@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.userRegister
 
 class RelationshipStatusPickFragment : Fragment() {
 
@@ -59,7 +60,7 @@ class RelationshipStatusPickFragment : Fragment() {
             println("marital statu: $selectedMaritalStatus")
 
             if (selectedMaritalStatus != "Medeni durumunuzu Seciniz") {
-                MaritalStatusObject.maritalStatu = selectedMaritalStatus
+                userRegister.relation = selectedMaritalStatus
                 replaceFragmentWithAnimation(parentFragmentManager, OccupationPickFragment())
             } else {
                 println("you must select your marital status before go on")
@@ -68,10 +69,6 @@ class RelationshipStatusPickFragment : Fragment() {
         }
 
         return v
-    }
-
-    object MaritalStatusObject {
-        lateinit var maritalStatu: String
     }
 
 }

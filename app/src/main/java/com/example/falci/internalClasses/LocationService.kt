@@ -7,7 +7,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import com.example.falci.BirthLocationPickFragment
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
@@ -72,7 +71,7 @@ class LocationService(private val context: Context) {
 
                 val selectedCity = autoCompleteTextView.text.toString()
 
-                BirthLocationPickFragment.LocationObject.location = selectedCity
+                userRegister.location = selectedCity
                 isCitySelected = selectedCity in response.autocompletePredictions.map {
                     it.getFullText(null).toString()
                 }

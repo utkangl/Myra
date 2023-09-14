@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.userRegister
 
 class BirthdatePickFragment : Fragment() {
 
@@ -25,14 +26,11 @@ class BirthdatePickFragment : Fragment() {
             val selectedMonth =  datepicker.month + 1
             val selectedDay = datepicker.dayOfMonth
             val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
-            DateObject.date = selectedDate
+            userRegister.date = selectedDate
             replaceFragmentWithAnimation(parentFragmentManager, BirthTimePickFragment())
         }
 
         return v
     }
 
-    object DateObject {
-        lateinit var date: String
-    }
 }
