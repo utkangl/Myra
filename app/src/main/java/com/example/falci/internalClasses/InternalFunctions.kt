@@ -1,16 +1,10 @@
 package com.example.falci.internalClasses
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Context
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
-import androidx.appcompat.widget.AppCompatButton
-import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import org.json.JSONObject
@@ -132,36 +126,7 @@ class InternalFunctions {
         }
     }
 
-    object ReplaceFragmentWithAnimation{
-        fun replaceFragmentWithAnimation(fragmentManager: FragmentManager, targetFragment: Fragment) {
-            fragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
-                replace(R.id.main_fragment_container, targetFragment)
-                addToBackStack(null)
-                commit()
-            }
-        }
-    }
 
-    object ReplaceActivityToFragment{
-        fun replaceActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
-            fragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
-                .replace(R.id.main_fragment_container, targetFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-    }
 
 }
 

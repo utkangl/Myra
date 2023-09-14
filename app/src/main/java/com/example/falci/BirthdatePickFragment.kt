@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatButton
-import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 class BirthdatePickFragment : Fragment() {
 

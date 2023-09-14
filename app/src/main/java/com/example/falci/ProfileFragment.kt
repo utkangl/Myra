@@ -13,9 +13,9 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.LoginSignupActivity.logoutFunctions
 import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
-import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 class ProfileFragment : Fragment() {
 

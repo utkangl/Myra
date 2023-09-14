@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 class RelationshipStatusPickFragment : Fragment() {
 
@@ -52,8 +53,6 @@ class RelationshipStatusPickFragment : Fragment() {
 
         val relationshipStatusPickFragmentnextbutton =
             v.findViewById<AppCompatButton>(R.id.relationshipstatuspickfragmentnextbutton)
-        val occupationPickFragment = OccupationPickFragment()
-
 
         relationshipStatusPickFragmentnextbutton.setOnClickListener {
 
@@ -61,19 +60,7 @@ class RelationshipStatusPickFragment : Fragment() {
 
             if (selectedMaritalStatus != "Medeni durumunuzu Seciniz") {
                 MaritalStatusObject.maritalStatu = selectedMaritalStatus
-
-                parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_down,
-                        R.anim.slide_up,
-                        R.anim.slide_down,
-                        R.anim.slide_up
-                    )
-                    replace(R.id.main_fragment_container, occupationPickFragment)
-                    addToBackStack(null)
-                    commit()
-                }
-
+                replaceFragmentWithAnimation(parentFragmentManager, OccupationPickFragment())
             } else {
                 println("you must select your marital status before go on")
             }

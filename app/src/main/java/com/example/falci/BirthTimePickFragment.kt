@@ -1,15 +1,19 @@
 package com.example.falci
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
-import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+
 class BirthTimePickFragment : Fragment() {
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

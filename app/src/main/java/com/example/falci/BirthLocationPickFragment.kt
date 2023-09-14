@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -39,7 +40,6 @@ class BirthLocationPickFragment : Fragment() {
         autoCompleteTextView = v.findViewById(R.id.cityInput)
 
         val chooseyourcity = v.findViewById<AppCompatButton>(R.id.chooseyourcity)
-        val relationshipStatusPickFragment = RelationshipStatusPickFragment()
         val birthLocationPickFragmentnextbutton = v.findViewById<AppCompatButton>(R.id.birthLocationPickFragmentnextbutton)
         val firstLayout = v.findViewById<RelativeLayout>(R.id.locationFragmentFirstLayout)
         val secondLayout = v.findViewById<RelativeLayout>(R.id.locationFragmentSecondLayout)
@@ -86,23 +86,8 @@ class BirthLocationPickFragment : Fragment() {
         })
 
         birthLocationPickFragmentnextbutton.setOnClickListener {
-
             print("location: ${LocationObject.location}")
-
-            if (isCitySelected) {
-
-                parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_down,
-                        R.anim.slide_up,
-                        R.anim.slide_down,
-                        R.anim.slide_up
-                    )
-                    replace(R.id.main_fragment_container, relationshipStatusPickFragment)
-                    addToBackStack(null)
-                    commit()
-                }
-            }
+            if (isCitySelected) { replaceFragmentWithAnimation(parentFragmentManager, RelationshipStatusPickFragment()) }
         }
 
         return v

@@ -18,7 +18,7 @@ import com.example.falci.BirthdatePickFragment.DateObject.date
 import com.example.falci.BirthTimePickFragment.TimeObject.time
 import com.example.falci.BirthLocationPickFragment.LocationObject.location
 import com.example.falci.RelationshipStatusPickFragment.MaritalStatusObject.maritalStatu
-
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 
 class OccupationPickFragment : Fragment() {
@@ -31,8 +31,6 @@ class OccupationPickFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_occupation_pick, container, false)
-
-        val loginFragment = Loginfragment()
 
         val occupationPickFragmentnextbutton =
             v.findViewById<AppCompatButton>(R.id.occupationpickfragmentnextbutton)
@@ -71,7 +69,7 @@ class OccupationPickFragment : Fragment() {
             val formattedDate = formatDateAndTime(date, time)
 
             val completeProfileJSON = RegistrationFunctions.createCompleteProfileJSON(
-                name.toString(),
+                name,
                 gender,
                 formattedDate,
                 location,
@@ -90,17 +88,7 @@ class OccupationPickFragment : Fragment() {
                 } else {
                     println("Response: $responseBody")
 
-                    parentFragmentManager.beginTransaction().apply {
-                        setCustomAnimations(
-                            R.anim.slide_down,
-                            R.anim.slide_up,
-                            R.anim.slide_down,
-                            R.anim.slide_up
-                        )
-                        replace(R.id.main_fragment_container, loginFragment)
-                        addToBackStack(null)
-                        commit()
-                    }
+                    replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
 
 
                 }

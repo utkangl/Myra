@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -22,11 +23,8 @@ class SignUpFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
-
         val signupfragmentsignupbutton =
             v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
-        val namePickFragment = NamePickFragment()
-
 
         signupfragmentsignupbutton.setOnClickListener {
 
@@ -48,41 +46,26 @@ class SignUpFragment : Fragment() {
                     println("Error: ${exception.message}")
                 } else {
                     try {
-                        val responseJson = JSONObject(responseBody)
-                        val detail = responseJson.optString("detail")
+                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                        val detail = responseJson?.optString("detail")
 
                         if (detail != null && detail.isNotEmpty()) {
-                            // API yanıtında bir hata ayrıntısı var, burada işlem yapabilirsiniz.
-                            println("API Hata: $detail")
+                            println("Hata: $detail")
                         } else {
-                            // Hata ayrıntısı yok, başarılı işlem
-                            println("Başarılı İşlem")
+
                             println(responseBody)
-                            parentFragmentManager.beginTransaction().apply {
-                                setCustomAnimations(
-                                    R.anim.slide_down,
-                                    R.anim.slide_up,
-                                    R.anim.slide_down,
-                                    R.anim.slide_up
-                                )
-                                replace(R.id.main_fragment_container, namePickFragment)
-                                addToBackStack(null)
-                                commit()
-                            }
+                            replaceFragmentWithAnimation(parentFragmentManager, NamePickFragment())
                         }
                     } catch (e: JSONException) {
-                        println("JSON Analiz Hatası: ${e.message}")
+                        println("JSON Analiz Hatasi: ${e.message}")
                     }
                 }
             }
-
 
         }
 
         return v
     }
-
-
 
 }
 

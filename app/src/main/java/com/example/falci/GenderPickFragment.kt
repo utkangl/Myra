@@ -10,8 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatButton
-import com.example.falci.internalClasses.InternalFunctions
-import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 class GenderPickFragment : Fragment() {
 

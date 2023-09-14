@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.example.falci.LoginSignupActivity.Loginfunctions.StatusCode
 import com.example.falci.LoginSignupActivity.Loginfunctions.createLoginJSON
 import com.example.falci.LoginSignupActivity.Loginfunctions.postloginJson
-import com.example.falci.internalClasses.InternalFunctions.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 var isLoggedin = false
 

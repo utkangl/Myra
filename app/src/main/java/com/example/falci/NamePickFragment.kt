@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 class NamePickFragment : Fragment() {
 
     private lateinit var nameInput: EditText
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,26 +20,13 @@ class NamePickFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_name_pick, container, false)
 
         val namepickfragmentnextbutton = v.findViewById<Button>(R.id.namepickfragmentnextbutton)
-        val genderPickFragment = GenderPickFragment()
 
         namepickfragmentnextbutton.setOnClickListener {
             nameInput = v.findViewById(R.id.namepickfragmentnameinputtext)
 
             if (nameInput.text.isNotEmpty()) {
                 NameObject.name = nameInput.text.toString()
-                println(NameObject.name)
-
-                parentFragmentManager.beginTransaction().apply {
-                    setCustomAnimations(
-                        R.anim.slide_down,
-                        R.anim.slide_up,
-                        R.anim.slide_down,
-                        R.anim.slide_up
-                    )
-                    replace(R.id.main_fragment_container, genderPickFragment)
-                    addToBackStack(null)
-                    commit()
-                }
+                replaceFragmentWithAnimation(parentFragmentManager, GenderPickFragment())
             }
         }
 
