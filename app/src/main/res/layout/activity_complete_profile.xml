@@ -118,6 +118,7 @@
                                     android:fontFamily="@font/arima_madurai_light"
                                     android:hint="@string/isminiz"
                                     android:textColorHint="@color/white"
+                                    android:textColor="@color/white"
                                     android:text=""
                                     android:textSize="24sp"
                                     android:autofillHints="name"
@@ -156,7 +157,9 @@
                             android:layout_marginLeft="55dp"
                             android:layout_marginRight="55dp"
                             android:background="@drawable/common_text_input_field"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:theme="@style/CardView.Dark" />
+
                 </RelativeLayout>
 
                 <!--locationPick container-->
@@ -376,6 +379,83 @@
                             android:background="@drawable/common_text_input_field"
                             android:textAlignment="center" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/starcontainer"
+                    android:layout_centerHorizontal="true">
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star1"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp">
+                        </com.example.falci.StarShape>
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star2"
+                            android:layout_toEndOf="@+id/star1"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp"
+                            android:layout_marginStart="10dp">
+                        </com.example.falci.StarShape>
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star3"
+                            android:layout_toEndOf="@+id/star2"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp"
+                            android:layout_marginStart="10dp">
+                        </com.example.falci.StarShape>
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star4"
+                            android:layout_toEndOf="@+id/star3"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp"
+                            android:layout_marginStart="10dp">
+                        </com.example.falci.StarShape>
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star5"
+                            android:layout_toEndOf="@+id/star4"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp"
+                            android:layout_marginStart="10dp">
+                        </com.example.falci.StarShape>
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star6"
+                            android:layout_toEndOf="@+id/star5"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp"
+                            android:layout_marginStart="10dp">
+                        </com.example.falci.StarShape>
+
+                        <com.example.falci.StarShape
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/star7"
+                            android:layout_toEndOf="@+id/star6"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="210dp"
+                            android:layout_marginStart="10dp">
+                        </com.example.falci.StarShape>
+
+                </RelativeLayout>
+
 
         </RelativeLayout>
 

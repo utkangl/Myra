@@ -67,7 +67,7 @@ class CompleteProfile : AppCompatActivity() {
             }
 
             fun setGender(){
-                val adapter = ArrayAdapter.createFromResource(this, R.array.genders, android.R.layout.simple_spinner_item)
+                val adapter = ArrayAdapter.createFromResource(this, R.array.genders, R.layout.custom_spinner_item)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 genderPick.adapter = adapter
 
