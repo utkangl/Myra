@@ -71,7 +71,7 @@ class LocationService(private val context: Context) {
 
                 val selectedCity = autoCompleteTextView.text.toString()
 
-                userRegister.location = selectedCity
+                userCompleteProfile.location = selectedCity
                 isCitySelected = selectedCity in response.autocompletePredictions.map {
                     it.getFullText(null).toString()
                 }

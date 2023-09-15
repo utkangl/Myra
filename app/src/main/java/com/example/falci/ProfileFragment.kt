@@ -17,6 +17,7 @@ import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.anima
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.authenticated
 import com.example.falci.internalClasses.urls
 
 class ProfileFragment : Fragment() {
@@ -74,10 +75,10 @@ class ProfileFragment : Fragment() {
 
         editprofilebutton.setOnClickListener {
             // change to editProfile screen if user is logged in
-            if (isLoggedin){ replaceFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
+            if (authenticated.isLoggedIn){ replaceFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
 
             // change to Login screen if user is not logged in
-            if (!isLoggedin){ replaceFragmentWithAnimation(parentFragmentManager, Loginfragment()) }
+            if (!authenticated.isLoggedIn){ replaceFragmentWithAnimation(parentFragmentManager, Loginfragment()) }
         }
 
         val planetLayouts = listOf(
@@ -103,12 +104,12 @@ class ProfileFragment : Fragment() {
         }
 
         changeAccountButton.setOnClickListener{
-            if (isLoggedin){
+            if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to loginTokens.loginRefreshToken)
                 postJsonWithHeader(urls.logoutURL,refreshTokenJSON, loginTokens.loginAccessToken)
                 { _, exception ->
                     if (exception == null) {
-                            isLoggedin = false
+                            authenticated.isLoggedIn = false
                             replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
                     }
                     else println(exception)

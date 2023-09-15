@@ -1,10 +1,12 @@
 package com.example.falci.internalClasses
+import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import org.json.JSONObject
@@ -17,10 +19,26 @@ class InternalFunctions {
                 component.visibility = View.VISIBLE
             }
         }
+        fun <T : View> setViewVisibleWithAnimation(context: Context, vararg components: T) {
+            for (component in components) {
+                val fadeOut = AnimatorInflater.loadAnimator(context, R.animator.fade_in)
+                fadeOut.setTarget(component)
+                fadeOut.start()
+                component.visibility = View.VISIBLE
+            }
+        }
 
         fun <T : View> setViewGone(vararg components: T) {
             for (component in components) {
                 component.visibility = View.GONE
+            }
+        }
+        fun <T : View> setViewGoneWithAnimation(context: Context, vararg components: T) {
+            for (component in components) {
+                component.visibility = View.GONE
+                val fadeIn = AnimatorInflater.loadAnimator(context, R.animator.fade_out)
+                fadeIn.setTarget(component)
+                fadeIn.start()
             }
         }
     }

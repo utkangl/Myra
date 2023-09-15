@@ -10,7 +10,7 @@ data class CompleteProfileUserDataClass(
     var occupation: String,
 )
 
-val userRegister = CompleteProfileUserDataClass(
+val userCompleteProfile = CompleteProfileUserDataClass(
     name = "",
     gender = "",
     date = "",

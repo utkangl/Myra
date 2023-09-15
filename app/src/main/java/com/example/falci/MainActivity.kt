@@ -7,16 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import com.example.falci.internalClasses.AnimationHelper
+import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
-import com.example.falci.internalClasses.PeriodButtonViewUpdater
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
-import com.example.falci.internalClasses.UserProfileDataClass
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
-import com.example.falci.internalClasses.urls
 import org.json.JSONObject
 
 lateinit var userProfile: UserProfileDataClass
@@ -58,6 +55,11 @@ class MainActivity : AppCompatActivity() {
         val animationHelper = AnimationHelper(this)
         val signCardViewUpdater = SignCardViewUpdater(this)
 
+        if (authenticated.isFromSignIn){
+            replaceActivityToFragment(supportFragmentManager, Loginfragment())
+            setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
+        }
+
         animationHelper.initializeViews(
             burcCard, generalSign, loveSign, careerSign, dailyButton,
             monthlyButton, yearlyButton, learnYourBurcButton, backArrowCard, fortuneCookie,
@@ -72,12 +74,12 @@ class MainActivity : AppCompatActivity() {
 
             // change to chat screen if loggedin
             if (savedInstanceState == null){
-                if (isLoggedin) { replaceActivityToFragment(supportFragmentManager, chatFragment)}
+                if (authenticated.isLoggedIn) { replaceActivityToFragment(supportFragmentManager, chatFragment)}
             }
 
             // change to login screen if not loggedin
             if (savedInstanceState == null){
-                if (!isLoggedin) { replaceActivityToFragment(supportFragmentManager, loginFragment)}
+                if (!authenticated.isLoggedIn) { replaceActivityToFragment(supportFragmentManager, loginFragment)}
             }
 
             setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
@@ -98,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
         settingsButton.setOnClickListener{
 
-            if(isLoggedin){
+            if(authenticated.isLoggedIn){
 
                 makeGetProfileRequest(urls.getProfileURL, loginTokens.loginAccessToken)
                 { responseBody, exception ->
@@ -133,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
             }
 
-            if (!isLoggedin) {
+            if (!authenticated.isLoggedIn) {
                 if (savedInstanceState == null) {
                     replaceActivityToFragment(supportFragmentManager, loginFragment)
                 }

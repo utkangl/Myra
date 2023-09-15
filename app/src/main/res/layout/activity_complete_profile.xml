@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CompleteProfile"
+    android:background="@color/black"
+    android:id="@+id/complete_profile_fragment_container">
+
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/complete_profile_fragment_container">-->
+<!--        </FrameLayout>-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/empty"
+            android:layout_centerInParent="true">
+        </TextView>
+        
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="280dp"
+            android:id="@+id/mira_speech_bubble_container">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+                    android:id="@+id/complete_profile_mira"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="80dp"
+                    android:src="@drawable/complete_profile_mira">
+                </ImageView>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/speech_bubble_triangle"
+                    android:layout_toLeftOf="@+id/complete_profile_mira"
+                    android:layout_marginEnd="-10dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/speech_bubble_triangle">
+                </ImageView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    app:cardBackgroundColor="#46376E"
+                    app:cardCornerRadius="15dp"
+                    android:layout_toLeftOf="@+id/speech_bubble_triangle"
+                    android:layout_centerVertical="true">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxWidth="180dp"
+                            android:maxHeight="180dp"
+                            android:padding="6dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:textSize="15sp"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"
+                            android:text="şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf">
+
+                        </TextView>
+                </androidx.cardview.widget.CardView>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <!--namePick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/namePickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/namePick_next_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+
+                        <androidx.cardview.widget.CardView
+
+                            android:id="@+id/namePickCard"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+
+                            android:layout_centerVertical="true"
+
+                            android:layout_marginLeft="55dp"
+                            android:layout_marginRight="55dp"
+
+                            app:cardCornerRadius="25dp">
+
+                                <EditText
+                                    android:id="@+id/namePick"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/common_text_input_field"
+                                    android:drawablePadding="10dp"
+                                    android:paddingStart="30dp"
+                                    android:paddingEnd="30dp"
+                                    android:fontFamily="@font/arima_madurai_light"
+                                    android:hint="Isminiz"
+                                    android:textColorHint="@color/white"
+                                    android:text=""
+                                    android:textSize="24sp"
+                                    android:autofillHints="name" />
+
+                        </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+                <!--genderPick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/genderPickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/genderPick_next_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+                        <Spinner
+                            android:id="@+id/genderPick"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="55dp"
+                            android:layout_marginRight="55dp"
+                            android:background="@drawable/common_text_input_field"
+                            android:textAlignment="center" />
+                </RelativeLayout>
+
+                <!--locationPick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/locationPickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/locationPickFirstLayout">
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/locationPick_next_button"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="75dp"
+                                    android:layout_marginStart="150dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_marginBottom="120dp"
+                                    android:background="@drawable/common_next_button"
+                                    android:fontFamily="@font/arima_madurai_bold"
+                                    android:text="@string/devam"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="24sp">
+                                </androidx.appcompat.widget.AppCompatButton>
+
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/locationPick"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="75dp"
+
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="55dp"
+                                    android:layout_marginRight="55dp"
+
+                                    android:background="@drawable/common_next_button"
+
+                                    android:fontFamily="@font/arima_madurai_bold"
+                                    android:text="Sehrini Sec"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="24sp">
+                                </androidx.appcompat.widget.AppCompatButton>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/locationPickSecondLayout"
+                            android:visibility="gone">
+
+                                <androidx.cardview.widget.CardView
+                                    android:id="@+id/locationPickCardView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginStart="100dp"
+                                    android:layout_marginTop="75dp"
+                                    android:visibility="visible"
+                                    app:cardBackgroundColor="#80000000"
+                                    app:cardCornerRadius="15dp"
+                                    app:cardElevation="0dp">
+
+                                        <AutoCompleteTextView
+                                            android:id="@+id/cityInput"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="40dp"
+                                            android:fontFamily="@font/arima_madurai_light"
+                                            android:hint="Enter a city"
+                                            android:imeOptions="actionSend"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/white"
+                                            android:textColorHint="@color/white" />
+                                </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
+
+                </RelativeLayout>
+
+                <!--birthTimePick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/birthTimePickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/timePick_next_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+
+                        <TimePicker
+                            android:id="@+id/timePick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true"
+                            android:numbersTextColor="@color/white"
+                            android:timePickerMode="spinner">
+                        </TimePicker>
+
+                </RelativeLayout>
+
+                <!--birthDatePick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/birthDatePickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/datePick_next_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+                        <DatePicker
+                            android:id="@+id/datePick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true"
+                            android:calendarTextColor="@color/white"
+                            android:calendarViewShown="false"
+                            android:datePickerMode="spinner">
+                        </DatePicker>
+
+                </RelativeLayout>
+
+                <!--relationShipStatusPick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/relationPickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/relationPick_next_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+                        <Spinner
+                            android:id="@+id/relationPick"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="55dp"
+                            android:layout_marginRight="55dp"
+                            android:background="@drawable/common_text_input_field"
+                            android:textAlignment="center" />
+                </RelativeLayout>
+
+                <!--occupationPick container-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/occupationPickContainer"
+                    android:visibility="gone"
+                    android:animateLayoutChanges="true">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/occupationPick_next_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+                        <Spinner
+                            android:id="@+id/occupationPick"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="55dp"
+                            android:layout_marginRight="55dp"
+                            android:background="@drawable/common_text_input_field"
+                            android:textAlignment="center" />
+                </RelativeLayout>
+
+        </RelativeLayout>
+
+
+</RelativeLayout>

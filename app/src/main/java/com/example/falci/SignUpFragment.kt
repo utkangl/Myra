@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,15 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
+import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
-import com.example.falci.internalClasses.RegisterTokensDataClass
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
-import com.example.falci.internalClasses.urls
-
 
 lateinit var registerTokensDataClass: RegisterTokensDataClass
-
 class SignUpFragment : Fragment() {
 
     private lateinit var usernameField: EditText
@@ -41,42 +38,17 @@ class SignUpFragment : Fragment() {
                 "password" to passwordField.text.toString()
             )
 
+            userRegister.email = usernameField.text.toString()
+            userRegister.password = passwordField.text.toString()
+
             postJsonNoHeader(urls.signUpURL, registerJSON, "register") { responseBody, exception ->
                 println(responseBody)
-                if (exception != null) { println("Error: ${exception.message}") }
-                else { replaceFragmentWithAnimation(parentFragmentManager, NamePickFragment()) }
+                if (statusCode == 201){val intent = Intent(requireActivity(), CompleteProfile::class.java); startActivity(intent)}
+                else { println("Error: ${exception?.message}") }
             }
-
-
         }
 
         return v
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

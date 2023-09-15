@@ -8,14 +8,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
-import com.example.falci.internalClasses.AuthenticationFunctions
+import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
-import com.example.falci.internalClasses.LoginTokensDataClass
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
-import com.example.falci.internalClasses.statusCode
-import com.example.falci.internalClasses.urls
 
-var isLoggedin = false
 lateinit var loginTokens: LoginTokensDataClass
 
 class Loginfragment : Fragment() {
@@ -38,13 +34,17 @@ class Loginfragment : Fragment() {
         usernameEditText = v.findViewById(R.id.loginfragmentusername)
         passwordEditText = v.findViewById(R.id.loginfragmentpassword)
 
+        if (authenticated.isFromSignIn){
+            usernameEditText.setText(userRegister.email)
+            passwordEditText.setText(userRegister.password)
+        }
+
         val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginfragmentnextbutton)
 
         loginfragmentloginbutton.setOnClickListener {
             val enteredUsername = usernameEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-//            val loginJson = createLoginJSON(enteredUsername, enteredPassword)
 
             val loginJson = createJsonObject(
                 "email" to enteredUsername,
@@ -55,7 +55,8 @@ class Loginfragment : Fragment() {
                 println(responseBody)
                 if (exception != null) { println("Error: ${exception.message}") }
                 if (statusCode == 200) {
-                    isLoggedin = true
+                    authenticated.isLoggedIn = true
+                    authenticated.isFromSignIn = false
                     val intent = Intent(requireActivity(), MainActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -64,7 +65,10 @@ class Loginfragment : Fragment() {
             }
         }
 
-        changeToSignUp.setOnClickListener { replaceFragmentWithAnimation(parentFragmentManager, SignUpFragment()) }
+
+        changeToSignUp.setOnClickListener {
+            replaceFragmentWithAnimation(parentFragmentManager, SignUpFragment())
+        }
 
         if (!savedUsername.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
             usernameEditText.setText(savedUsername)
