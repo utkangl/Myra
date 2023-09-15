@@ -22,7 +22,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
-import com.example.falci.internalClasses.urls
+import com.example.falci.internalClasses.dataClasses.urls
 
 val editProfileJson = JSONObject()
 

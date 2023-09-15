@@ -3,6 +3,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="devam">Devam</string>
+    <string name="enter_a_city">Enter a city</string>
+    <string name="isminiz">Isminiz</string>
+    <string name="sehrini_sec">Sehrini Sec</string>
 
     <string-array name="marital_status">
         <item>Medeni durumunuzu Seciniz</item>

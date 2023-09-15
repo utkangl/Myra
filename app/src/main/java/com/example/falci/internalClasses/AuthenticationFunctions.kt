@@ -1,5 +1,7 @@
 package com.example.falci.internalClasses
 
+import com.example.falci.internalClasses.dataClasses.LoginTokensDataClass
+import com.example.falci.internalClasses.dataClasses.RegisterTokensDataClass
 import com.example.falci.loginTokens
 import com.example.falci.registerTokensDataClass
 import okhttp3.*
@@ -94,7 +96,6 @@ class AuthenticationFunctions {
         }
     }
 
-
     object CreateJsonObject{
         fun createJsonObject(vararg pairs: Pair<String, Any>): JSONObject {
             val jsonObject = JSONObject()
@@ -102,6 +103,5 @@ class AuthenticationFunctions {
             return jsonObject
         }
     }
-
 
 }

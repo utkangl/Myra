@@ -8,19 +8,12 @@
     android:background="@color/black"
     android:id="@+id/complete_profile_fragment_container">
 
-<!--        <FrameLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/complete_profile_fragment_container">-->
-<!--        </FrameLayout>-->
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/empty"
             android:layout_centerInParent="true">
         </TextView>
-        
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -42,7 +35,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:id="@+id/speech_bubble_triangle"
-                    android:layout_toLeftOf="@+id/complete_profile_mira"
+                    android:layout_toStartOf="@+id/complete_profile_mira"
                     android:layout_marginEnd="-10dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/speech_bubble_triangle">
@@ -54,12 +47,13 @@
                     android:layout_marginStart="30dp"
                     app:cardBackgroundColor="#46376E"
                     app:cardCornerRadius="15dp"
-                    android:layout_toLeftOf="@+id/speech_bubble_triangle"
+                    android:layout_toStartOf="@+id/speech_bubble_triangle"
                     android:layout_centerVertical="true">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/mira_complete_profile_chat"
                             android:maxWidth="180dp"
                             android:maxHeight="180dp"
                             android:padding="6dp"
@@ -67,7 +61,8 @@
                             android:textSize="15sp"
                             android:textColor="@color/white"
                             android:textAlignment="center"
-                            android:text="şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf">
+                            android:text="şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf"
+                            tools:ignore="HardcodedText">
 
                         </TextView>
                 </androidx.cardview.widget.CardView>
@@ -105,19 +100,13 @@
                         </androidx.appcompat.widget.AppCompatButton>
 
                         <androidx.cardview.widget.CardView
-
                             android:id="@+id/namePickCard"
-
                             android:layout_width="match_parent"
                             android:layout_height="75dp"
-
                             android:layout_centerVertical="true"
-
                             android:layout_marginLeft="55dp"
                             android:layout_marginRight="55dp"
-
                             app:cardCornerRadius="25dp">
-
                                 <EditText
                                     android:id="@+id/namePick"
                                     android:layout_width="match_parent"
@@ -127,12 +116,12 @@
                                     android:paddingStart="30dp"
                                     android:paddingEnd="30dp"
                                     android:fontFamily="@font/arima_madurai_light"
-                                    android:hint="Isminiz"
+                                    android:hint="@string/isminiz"
                                     android:textColorHint="@color/white"
                                     android:text=""
                                     android:textSize="24sp"
-                                    android:autofillHints="name" />
-
+                                    android:autofillHints="name"
+                                    android:inputType="textMultiLine" />
                         </androidx.cardview.widget.CardView>
 
                 </RelativeLayout>
@@ -211,7 +200,7 @@
                                     android:background="@drawable/common_next_button"
 
                                     android:fontFamily="@font/arima_madurai_bold"
-                                    android:text="Sehrini Sec"
+                                    android:text="@string/sehrini_sec"
                                     android:textAllCaps="false"
                                     android:textColor="@color/white"
                                     android:textSize="24sp">
@@ -243,7 +232,7 @@
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="40dp"
                                             android:fontFamily="@font/arima_madurai_light"
-                                            android:hint="Enter a city"
+                                            android:hint="@string/enter_a_city"
                                             android:imeOptions="actionSend"
                                             android:textAlignment="center"
                                             android:textColor="@color/white"

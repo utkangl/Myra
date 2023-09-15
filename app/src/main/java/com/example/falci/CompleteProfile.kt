@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
+import com.example.falci.internalClasses.dataClasses.authenticated
+import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.userCompleteProfile
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
@@ -17,9 +20,6 @@ class CompleteProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complete_profile)
-
-
-            var containerIndex = 1
 
             val nameNextButton = findViewById<AppCompatButton>(R.id.namePick_next_button)
             val genderNextButton = findViewById<AppCompatButton>(R.id.genderPick_next_button)
@@ -50,8 +50,8 @@ class CompleteProfile : AppCompatActivity() {
             val cityInput= findViewById<AutoCompleteTextView>(R.id.cityInput)
 
 
-            var selectedGender = "Pick your gender"
-            var selectedRelation = "Medeni durumunuzu Seciniz"
+        var selectedGender: String
+        var selectedRelation: String
 
             var isNextName = false
             var isNextGender = false
@@ -61,7 +61,7 @@ class CompleteProfile : AppCompatActivity() {
 
             fun setName(){
                 if (namePick.text.isNotEmpty()) {
-                    com.example.falci.internalClasses.userCompleteProfile.name = namePick.text.toString()
+                    userCompleteProfile.name = namePick.text.toString()
                     isNextName = true
                 }
             }
@@ -78,7 +78,7 @@ class CompleteProfile : AppCompatActivity() {
                         if (selectedgender != null) {
                             selectedGender = selectedgender
                             if (selectedgender != "Pick your gender"){
-                                com.example.falci.internalClasses.userCompleteProfile.gender = selectedGender
+                                userCompleteProfile.gender = selectedGender
                                 isNextGender = true
                             }
                         }
@@ -96,7 +96,7 @@ class CompleteProfile : AppCompatActivity() {
                 val selectedMonth =  datePick.month + 1
                 val selectedDay = datePick.dayOfMonth
                 val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
-                com.example.falci.internalClasses.userCompleteProfile.date = selectedDate
+                userCompleteProfile.date = selectedDate
                 setViewGoneWithAnimation(this@CompleteProfile,datePickContainer)
                 setViewVisibleWithAnimation(this@CompleteProfile,timePickContainer)
             }
@@ -105,7 +105,7 @@ class CompleteProfile : AppCompatActivity() {
                 val selectedHour = timePick.hour
                 val selectedMinute = timePick.minute
                 val selectedTime = "$selectedHour:$selectedMinute:00"
-                com.example.falci.internalClasses.userCompleteProfile.time = selectedTime
+                userCompleteProfile.time = selectedTime
                 setViewGoneWithAnimation(this@CompleteProfile,timePickContainer)
                 setViewVisibleWithAnimation(this@CompleteProfile,locationPickContainer)
             }
@@ -141,7 +141,7 @@ class CompleteProfile : AppCompatActivity() {
                     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         val selectedStatus = parent?.getItemAtPosition(position) as? String
                         if (selectedStatus != null) {
-                            com.example.falci.internalClasses.userCompleteProfile.occupation = selectedStatus
+                            userCompleteProfile.occupation = selectedStatus
                             isNextOccupation = true
                         }
                     }
@@ -170,7 +170,7 @@ class CompleteProfile : AppCompatActivity() {
                         val selectedStatus = parent?.getItemAtPosition(position) as? String
                         if (selectedStatus != null && selectedStatus != "Medeni durumunuzu Seciniz") {
                             selectedRelation = selectedStatus
-                            com.example.falci.internalClasses.userCompleteProfile.relation = selectedRelation
+                            userCompleteProfile.relation = selectedRelation
                             isNextRelation = true
                         }
 
@@ -186,19 +186,19 @@ class CompleteProfile : AppCompatActivity() {
             return ("$date $time +0000")
         }
         fun completeProfile(){
-            val formattedDate = formatDateAndTime(com.example.falci.internalClasses.userCompleteProfile.date, com.example.falci.internalClasses.userCompleteProfile.time)
+            val formattedDate = formatDateAndTime(userCompleteProfile.date, userCompleteProfile.time)
 
             val zodiacInfoJson = AuthenticationFunctions.CreateJsonObject.createJsonObject(
-                "name" to com.example.falci.internalClasses.userCompleteProfile.name,
-                "location" to com.example.falci.internalClasses.userCompleteProfile.location,
+                "name" to userCompleteProfile.name,
+                "location" to userCompleteProfile.location,
                 "birthDay" to formattedDate,
-                "gender" to com.example.falci.internalClasses.userCompleteProfile.gender,
-                "occupation" to com.example.falci.internalClasses.userCompleteProfile.occupation
+                "gender" to userCompleteProfile.gender,
+                "occupation" to userCompleteProfile.occupation
             )
 
             val infoJson = AuthenticationFunctions.CreateJsonObject.createJsonObject(
                 "zodiacInfo" to zodiacInfoJson,
-                "relationshipStatus" to com.example.falci.internalClasses.userCompleteProfile.relation
+                "relationshipStatus" to userCompleteProfile.relation
             )
 
             val completeProfileJSON = AuthenticationFunctions.CreateJsonObject.createJsonObject(
@@ -272,10 +272,9 @@ class CompleteProfile : AppCompatActivity() {
         }
 
         relationNextButton.setOnClickListener{
-            println(com.example.falci.internalClasses.userCompleteProfile)
+            println(userCompleteProfile)
             if (isNextRelation){
                 completeProfile()
-                val loginFragment = Loginfragment()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 authenticated.isFromSignIn = true

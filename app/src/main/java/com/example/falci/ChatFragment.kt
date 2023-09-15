@@ -10,7 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ListView
-import com.example.falci.internalClasses.urls
+import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException

@@ -1,4 +1,4 @@
-package com.example.falci.internalClasses
+package com.example.falci.internalClasses.dataClasses
 
 data class CompleteProfileUserDataClass(
     var name: String,

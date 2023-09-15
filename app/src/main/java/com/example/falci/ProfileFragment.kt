@@ -17,8 +17,8 @@ import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.anima
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
-import com.example.falci.internalClasses.authenticated
-import com.example.falci.internalClasses.urls
+import com.example.falci.internalClasses.dataClasses.authenticated
+import com.example.falci.internalClasses.dataClasses.urls
 
 class ProfileFragment : Fragment() {
 

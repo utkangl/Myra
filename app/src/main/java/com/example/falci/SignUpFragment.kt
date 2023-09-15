@@ -11,6 +11,9 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
+import com.example.falci.internalClasses.dataClasses.RegisterTokensDataClass
+import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.userRegister
 
 lateinit var registerTokensDataClass: RegisterTokensDataClass
 class SignUpFragment : Fragment() {

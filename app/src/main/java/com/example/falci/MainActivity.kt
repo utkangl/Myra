@@ -8,12 +8,15 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.*
+import com.example.falci.internalClasses.dataClasses.authenticated
+import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
+import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import org.json.JSONObject
 
 lateinit var userProfile: UserProfileDataClass

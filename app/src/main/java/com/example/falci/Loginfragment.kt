@@ -10,6 +10,10 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
+import com.example.falci.internalClasses.dataClasses.LoginTokensDataClass
+import com.example.falci.internalClasses.dataClasses.authenticated
+import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.userRegister
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 lateinit var loginTokens: LoginTokensDataClass

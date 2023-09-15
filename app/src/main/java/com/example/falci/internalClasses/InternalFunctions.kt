@@ -9,6 +9,7 @@ import android.widget.*
 import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import org.json.JSONObject
 
 class InternalFunctions {
