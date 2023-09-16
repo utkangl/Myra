@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userCompleteProfile
@@ -177,7 +178,7 @@ class CompleteProfile : AppCompatActivity() {
 
             println("complete profile bilgileri jsonu: $completeProfileJSON")
 
-            AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
+            postJsonWithHeader(
                 urls.completeProfileURL,
                 completeProfileJSON,
                 registerTokensDataClass.registerAccessToken

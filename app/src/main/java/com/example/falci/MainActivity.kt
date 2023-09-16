@@ -8,32 +8,30 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.*
-import com.example.falci.internalClasses.dataClasses.authenticated
-import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
-import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
+import com.example.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
 lateinit var userProfile: UserProfileDataClass
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var chatWithMiraButton: ImageView
-    lateinit var empty: TextView
-    lateinit var burcCard: CardView
-    lateinit var tarotFali: CardView
-    lateinit var fortuneCookie: CardView
-    lateinit var settingsButtonCard: CardView
+    private lateinit var chatWithMiraButton: ImageView
+    private lateinit var empty: TextView
+    private lateinit var burcCard: CardView
+    private lateinit var tarotFali: CardView
+    private lateinit var fortuneCookie: CardView
+    private lateinit var settingsButtonCard: CardView
 
     private val loginFragment = Loginfragment()
     private val chatFragment = ChatFragment()
     private val profileFragment = ProfileFragment()
-        private val horoscopeDetailFragment = HoroscopeDetailFragment()
+    private val horoscopeDetailFragment = HoroscopeDetailFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,14 +91,14 @@ class MainActivity : AppCompatActivity() {
 
         backArrow.setOnClickListener { animationHelper.animateBurcCardOut() }
 
-        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign) }
-        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign) }
-        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign) }
+        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"}
+        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"}
+        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign); postHoroscopeData.type ="career"}
 
         val periodButtonViewUpdater = PeriodButtonViewUpdater(this)
-        dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton) }
-        monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton) }
-        yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton) }
+        dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton); postHoroscopeData.time_interval ="daily" }
+        monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton); postHoroscopeData.time_interval ="monthly"  }
+        yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton); postHoroscopeData.time_interval ="yearly"  }
 
         settingsButton.setOnClickListener{
 
@@ -152,8 +150,15 @@ class MainActivity : AppCompatActivity() {
 
         learnYourBurcButton.setOnClickListener{
             animationHelper.animateBurcCardOutt()
-            replaceActivityToFragment(supportFragmentManager, horoscopeDetailFragment)
-            setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
+            if (authenticated.isLoggedIn){
+                replaceActivityToFragment(supportFragmentManager, horoscopeDetailFragment)
+                setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
+                HoroscopeFunctions.getHoroscope()
+            }else{
+                replaceActivityToFragment(supportFragmentManager, Loginfragment())
+                setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
+            }
+
         }
     }
 

@@ -7,14 +7,16 @@ import com.example.falci.registerTokensDataClass
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import kotlin.properties.Delegates
+
 
 var statusCode by Delegates.notNull<Int>()
 
 class AuthenticationFunctions {
 
     object PostJsonFunctions{
-        private val client = OkHttpClient()
+        private lateinit var client : OkHttpClient
 
         fun postJsonNoHeader(
             url: String,
@@ -22,6 +24,16 @@ class AuthenticationFunctions {
             type: String,
             callback: (String?, Exception?) -> Unit,
         ) {
+
+//            client.setConnectTimeout(30, TimeUnit.SECONDS); // connect timeout
+//            client.setReadTimeout(30, TimeUnit.SECONDS);
+
+            client = OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
+
             val requestBody = RequestBody.create(
                 MediaType.parse("application/json; charset=utf-8"),
                 json.toString()
@@ -70,6 +82,12 @@ class AuthenticationFunctions {
             accessToken: String,
             callback: (String?, Exception?) -> Unit
         ) {
+            client = OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build()
+
             val requestBody = RequestBody.create(
                 MediaType.parse("application/json; charset=utf-8"),
                 json.toString()

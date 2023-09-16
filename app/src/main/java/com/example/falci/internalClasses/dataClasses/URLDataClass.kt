@@ -9,6 +9,7 @@ data class URLDataClass(
     var getProfileURL: String,
     var editProfileURL: String,
     var chatGptURL: String,
+    var getHoroscopeURL: String,
 )
 
 
@@ -21,4 +22,5 @@ val urls = URLDataClass(
     getProfileURL= "http://31.210.43.174:1337/auth/profile/",
     editProfileURL= "http://31.210.43.174:1337/auth/profile/edit/",
     chatGptURL= "http://31.210.43.174:1337/gpt/chat/",
+    getHoroscopeURL= "http://31.210.43.174:1337/api/fortune/",
 )
