@@ -181,4 +181,64 @@ class AnimationHelper(private val context: Context) {
         loveSign.setCardBackgroundColor(getColor(context,R.color.passivesigncard))
         careerSign.setCardBackgroundColor(getColor(context,R.color.passivesigncard))
     }
+
+    fun animateBurcCardOutt() {
+        val scale = context.resources.displayMetrics.density
+        val oldWidth = (340 * scale + 0.5f).toInt()
+        val oldHeight = (200 * scale + 0.5f).toInt()
+        val burcCardMarginBottom = (-190 * scale + 0.5f).toInt()
+
+        val params = burcCard.layoutParams as RelativeLayout.LayoutParams
+
+        val animatorWidth = ValueAnimator.ofInt(params.width, oldWidth)
+        animatorWidth.addUpdateListener { animation ->
+            val value = animation.animatedValue as Int
+            params.width = value
+            params.bottomMargin = burcCardMarginBottom
+            burcCard.layoutParams = params
+        }
+
+        val animatorHeight = ValueAnimator.ofInt(params.height, oldHeight)
+        animatorHeight.addUpdateListener { animation ->
+            val value = animation.animatedValue as Int
+            params.height = value
+            burcCard.layoutParams = params
+        }
+
+        val animatorSet = AnimatorSet()
+        animatorSet.playTogether(animatorWidth, animatorHeight)
+        animatorSet.duration = 500
+
+        animatorSet.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator) {
+                setViewGone(generalSign, loveSign, careerSign, dailyButton, monthlyButton, yearlyButton, learnyourburcButton)
+                setViewVisible(empty, settingsbuttoncard)
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                setViewGone(backarrowcard)
+            }
+        })
+
+        animatorSet.start()
+
+        val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
+        val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
+        val careerSignCardparams = careerSign.layoutParams as RelativeLayout.LayoutParams
+
+        val dpMarginBottom = 25
+        val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
+
+        generalSignCardparams.bottomMargin = newMarginBottom
+        loveSignCardparams.bottomMargin = newMarginBottom
+        careerSignCardparams.bottomMargin = newMarginBottom
+
+        generalSign.layoutParams = generalSignCardparams
+        loveSign.layoutParams = loveSignCardparams
+        careerSign.layoutParams = careerSignCardparams
+
+        generalSign.setCardBackgroundColor(getColor(context, R.color.passivesigncard))
+        loveSign.setCardBackgroundColor(getColor(context,R.color.passivesigncard))
+        careerSign.setCardBackgroundColor(getColor(context,R.color.passivesigncard))
+    }
 }

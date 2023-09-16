@@ -21,6 +21,7 @@
     </string-array>
 
     <string-array name="occupations">
+        <item>Pick your occupation</item>
         <item>Healthcare and Medicine</item>
         <item>Education and Teaching</item>
         <item>Information Technology (IT)</item>

@@ -152,15 +152,15 @@ class EditProfileFragment : Fragment() {
         setupFieldClickListener(occupationField, occupationSpinner, occupationFieldHint)
         setupFieldClickListener(relationShipStatusField, maritalStatusSpinner, relationshipStatusFieldHint)
 
-        val genderAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.genders, android.R.layout.simple_spinner_item)
+        val genderAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.genders, R.layout.custom_spinner_item)
         val isUserInteractedGender = false
         setupSpinnerAndField(genderPickSpinner, genderFieldHint,genderAdapter,isUserInteractedGender){selectedGender -> genderField.text = selectedGender}
 
-        val occupationAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.occupations, android.R.layout.simple_spinner_item)
+        val occupationAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.occupations, R.layout.custom_spinner_item)
         val isUserInteractedOccupation = false
         setupSpinnerAndField(occupationSpinner, occupationFieldHint,occupationAdapter,isUserInteractedOccupation){selectedOccupation -> occupationField.text = selectedOccupation}
 
-        val maritalStatusAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, android.R.layout.simple_spinner_item)
+        val maritalStatusAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, R.layout.custom_spinner_item)
         val isUserInteractedMarital = false
         setupSpinnerAndField(maritalStatusSpinner, relationshipStatusFieldHint,maritalStatusAdapter,isUserInteractedMarital){selectedMaritalStatus -> occupationField.text = selectedMaritalStatus}
 

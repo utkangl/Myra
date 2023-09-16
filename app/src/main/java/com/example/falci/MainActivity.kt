@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val loginFragment = Loginfragment()
     private val chatFragment = ChatFragment()
     private val profileFragment = ProfileFragment()
+        private val horoscopeDetailFragment = HoroscopeDetailFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,12 +78,12 @@ class MainActivity : AppCompatActivity() {
 
             // change to chat screen if loggedin
             if (savedInstanceState == null){
-                if (authenticated.isLoggedIn) { replaceActivityToFragment(supportFragmentManager, chatFragment)}
+                if (authenticated.isLoggedIn) {animationHelper.animateBurcCardOut();  replaceActivityToFragment(supportFragmentManager, chatFragment)}
             }
 
             // change to login screen if not loggedin
             if (savedInstanceState == null){
-                if (!authenticated.isLoggedIn) { replaceActivityToFragment(supportFragmentManager, loginFragment)}
+                if (!authenticated.isLoggedIn) { animationHelper.animateBurcCardOut(); replaceActivityToFragment(supportFragmentManager, loginFragment)}
             }
 
             setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
@@ -145,6 +146,14 @@ class MainActivity : AppCompatActivity() {
 
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
             }
+
+
+        }
+
+        learnYourBurcButton.setOnClickListener{
+            animationHelper.animateBurcCardOutt()
+            replaceActivityToFragment(supportFragmentManager, horoscopeDetailFragment)
+            setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
         }
     }
 
@@ -155,7 +164,6 @@ class MainActivity : AppCompatActivity() {
         // Check if there are fragments in the back stack
         if (supportFragmentManager.backStackEntryCount == 0) {
             overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
-
             setViewVisible(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
 
         }

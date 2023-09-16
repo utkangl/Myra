@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HoroscopeDetailFragment"
+    android:background="@color/black">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:id="@+id/mira_horoscopedetailtop"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/mira_horoscopedetailtop">
+            </ImageView>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:layout_above="@id/horoscope_detail_card"
+                android:src="@drawable/horoscopedetailcardtriangle"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="25dp">
+            </ImageView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/horoscope_detail_card"
+                app:cardCornerRadius="25dp"
+                app:cardBackgroundColor="#313131"
+                android:layout_below="@id/mira_horoscopedetailtop"
+                android:layout_marginTop="-48dp">
+                <TextView
+                    android:padding="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Astroloji, gökyüzü görünümleriyle yaşanan anın genel şartlarına ışık tutar ve esaslarını “gökyüzünde ne varsa, yeryüzünde o vardır” felsefi görüşünden alır. Astroloji gerek bireysel psikoloji anlamında gerekse de toplumsal ilişkiler, meslek ve kariyer açısından önemli bir destek aracı olarak görülmektedir. Günlük burç yorumları ise astrologların gezegenlerin günlük hareketlerini inceleyip bu hareketlerin burçlara etkilerini yorumlamasıdır. Günlük haritalarda yükselen burç yaklaşık iki saatlik zaman diliminin genel havasını gösterir. Bu burç içinde yer alan gezegenlerin nitelikleri ve özellikle de bu gezegenlerin iyicil, kötücül yönleri belirleyicidir. Zodyağın (burçlar kuşağı) 12 burcu için gezegen hareketleri incelenip oluşturulan günlük burç yorumları “Elle Astroloji” sayfasında sizleri bekliyor. Astrolog Pınar Atmaca’nın her gün burçlara özel olarak hazırlayıp yorumladığı günlük burç yorumlarını astroloji sayfasından okuyabilirsiniz. Astroloji, gökyüzü görünümleriyle yaşanan anın genel şartlarına ışık tutar ve esaslarını “gökyüzünde ne varsa, yeryüzünde o vardır” felsefi görüşünden alır. Astroloji gerek bireysel psikoloji anlamında gerekse de toplumsal ilişkiler, meslek ve kariyer açısından önemli bir destek aracı olarak görülmektedir. Günlük burç yorumları ise astrologların gezegenlerin günlük hareketlerini inceleyip bu hareketlerin burçlara etkilerini yorumlamasıdır. Günlük haritalarda yükselen burç yaklaşık iki saatlik zaman diliminin genel havasını gösterir. Bu burç içinde yer alan gezegenlerin nitelikleri ve özellikle de bu gezegenlerin iyicil, kötücül yönleri belirleyicidir."
+                    android:fontFamily="@font/arima_madurai_light"
+                    android:textSize="16sp"
+                    android:textColor="@color/white">
+                </TextView>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/horoscope_detail_startchattextcard"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="#313131"
+                android:layout_below="@id/horoscope_detail_card"
+                android:layout_marginTop="50dp">
+                <TextView
+                    android:padding="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/arima_madurai_light"
+                    android:textSize="16sp"
+                    android:textColor="@color/white">
+
+                </TextView>
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_below="@id/horoscope_detail_startchattextcard"
+                android:src="@drawable/startchatcardtriangle"
+                android:layout_marginTop="-18dp"
+                android:layout_marginStart="95dp">
+            </ImageView>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/horoscope_detail_startchattextcard"
+                android:src="@drawable/mira_horoscopedetailbottom">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
