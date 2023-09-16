@@ -11,7 +11,7 @@
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/falcibackground">
+        android:background="@drawable/falci_background">
     </FrameLayout>
 
     <RelativeLayout
@@ -19,13 +19,24 @@
         android:layout_height="match_parent"
         android:id="@+id/mainMenuGeneralLayout">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/thinkingAnimation"
+            android:layout_centerInParent="true"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/thinking_animation"
+            tools:layout_editor_absoluteY="0dp"
+            android:visibility="gone">
+        </com.airbnb.lottie.LottieAnimationView>
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/settingsbuttoncard"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/settingsButtonCard"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="15dp"
-            app:contentPadding="2dp"
-            app:cardCornerRadius="20dp"
+            app:contentPadding="5dp"
+            app:cardCornerRadius="25dp"
             app:cardBackgroundColor="#1c1444"
             android:elevation="5dp"
             android:outlineAmbientShadowColor="@color/white"
@@ -36,8 +47,8 @@
             <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/settingsbutton"
-                android:background="@drawable/settingsbutton">
+                android:id="@+id/settingsButton"
+                android:background="@drawable/person_icon">
             </ImageButton>
 
         </androidx.cardview.widget.CardView>
@@ -94,7 +105,7 @@
                 android:layout_height="match_parent">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/backarrowcard"
+                    android:id="@+id/backArrowCard"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:cardCornerRadius="75dp"
@@ -316,7 +327,7 @@
                 </androidx.appcompat.widget.AppCompatButton>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/learnyourburcButton"
+                    android:id="@+id/learnYourBurcButton"
                     android:layout_width="match_parent"
 
                     android:layout_height="75dp"
@@ -334,7 +345,8 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="24sp"
-                    android:visibility="invisible">
+                    android:visibility="invisible"
+                    tools:ignore="HardcodedText">
 
                 </androidx.appcompat.widget.AppCompatButton>
 
@@ -509,10 +521,10 @@
 
             android:layout_below="@+id/empty"
 
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="200dp"
 
-            android:layout_toRightOf="@+id/empty"
+            android:layout_toEndOf="@+id/empty"
 
             android:outlineAmbientShadowColor="@color/white"
             android:outlineSpotShadowColor="@color/white"

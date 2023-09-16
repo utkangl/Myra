@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     private val loginFragment = Loginfragment()
     private val chatFragment = ChatFragment()
     private val profileFragment = ProfileFragment()
-    private val horoscopeDetailFragment = HoroscopeDetailFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         burcCard = findViewById<CardView>(R.id.burcCard)
         tarotFali = findViewById<CardView>(R.id.tarotFali)
         fortuneCookie = findViewById<CardView>(R.id.fortuneCookie)
-        val backArrowCard = findViewById<CardView>(R.id.backarrowcard)
+        val backArrowCard = findViewById<CardView>(R.id.backArrowCard)
         val generalSign = findViewById<CardView>(R.id.generalSign)
         val loveSign = findViewById<CardView>(R.id.loveSign)
         val careerSign = findViewById<CardView>(R.id.careerSign)
@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity() {
         val dailyButton = findViewById<AppCompatButton>(R.id.dailyButton)
         val monthlyButton = findViewById<AppCompatButton>(R.id.monthlyButton)
         val yearlyButton = findViewById<AppCompatButton>(R.id.yearlyButton)
-        val learnYourBurcButton = findViewById<AppCompatButton>(R.id.learnyourburcButton)
-        settingsButtonCard = findViewById<CardView>(R.id.settingsbuttoncard)
-        val settingsButton = findViewById<ImageButton>(R.id.settingsbutton)
+        val learnYourBurcButton = findViewById<AppCompatButton>(R.id.learnYourBurcButton)
+        settingsButtonCard = findViewById<CardView>(R.id.settingsButtonCard)
+        val settingsButton = findViewById<ImageButton>(R.id.settingsButton)
 
         val animationHelper = AnimationHelper(this)
         val signCardViewUpdater = SignCardViewUpdater(this)
@@ -125,7 +125,6 @@ class MainActivity : AppCompatActivity() {
                                 occupation = responseJson.optString("occupation")
                             )
                         }
-
                     }
                 }
 
@@ -144,21 +143,19 @@ class MainActivity : AppCompatActivity() {
 
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
             }
-
-
         }
 
+        val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
         learnYourBurcButton.setOnClickListener{
             animationHelper.animateBurcCardOutt()
             if (authenticated.isLoggedIn){
-                replaceActivityToFragment(supportFragmentManager, horoscopeDetailFragment)
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
-                HoroscopeFunctions.getHoroscope()
+                HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager)
+
             }else{
                 replaceActivityToFragment(supportFragmentManager, Loginfragment())
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
             }
-
         }
     }
 
