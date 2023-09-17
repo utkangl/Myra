@@ -18,6 +18,7 @@ import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.anima
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.urls
 
@@ -76,7 +77,7 @@ class ProfileFragment : Fragment() {
 
         editprofilebutton.setOnClickListener {
             // change to editProfile screen if user is logged in
-            if (authenticated.isLoggedIn){ replaceFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
+            if (authenticated.isLoggedIn){ replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
 
             // change to Login screen if user is not logged in
             if (!authenticated.isLoggedIn){

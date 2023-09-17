@@ -20,6 +20,21 @@ class TransitionToFragment {
                 commit()
             }
         }
+
+        fun replaceProfileFragmentWithAnimation(fragmentManager: FragmentManager, targetFragment: Fragment) {
+            fragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up
+                )
+                replace(R.id.profile_fragment_container, targetFragment)
+                addToBackStack(null)
+                commit()
+            }
+        }
+
     }
 
     object ReplaceActivityToFragment{
@@ -45,9 +60,21 @@ class TransitionToFragment {
                     R.anim.slide_up
                 )
                 .replace(R.id.login_signup_container, targetFragment)
-//                .addToBackStack(null)
+                .addToBackStack(null)
                 .commit()
         }
 
+        fun replaceProfileActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
+            fragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up
+                )
+                .replace(R.id.profile_fragment_container, targetFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }

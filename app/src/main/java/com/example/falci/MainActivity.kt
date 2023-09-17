@@ -134,7 +134,9 @@ class MainActivity : AppCompatActivity() {
 
                 // change to profile screen if loggedin
                 if (savedInstanceState == null) {
-                    replaceMainActivityToFragment(supportFragmentManager, profileFragment)
+//                    replaceMainActivityToFragment(supportFragmentManager, profileFragment)
+                    val intent = Intent(this, ProfileActivity::class.java);startActivity(intent)
+
                 }
 
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
