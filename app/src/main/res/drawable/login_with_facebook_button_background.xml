@@ -1,7 +1,5 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Dikdörtgen şeklinde arka plan -->
 
-    <!-- Gölgeli dikdörtgen -->
     <item  android:bottom="2dp">
         <shape android:shape="rectangle">
             <solid android:color="#89CFF0" />
@@ -16,7 +14,6 @@
         </shape>
     </item>
 
-    <!-- Üstteki düğme katmanı -->
     <item android:top="2dp" android:bottom="3dp">
         <shape android:shape="rectangle">
             <solid android:color="#1877F2 " />
