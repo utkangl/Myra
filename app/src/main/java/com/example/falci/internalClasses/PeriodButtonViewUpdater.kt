@@ -26,9 +26,9 @@ class PeriodButtonViewUpdater(private val context: Context) {
         val loveSign = context.findViewById<CardView>(R.id.loveSign)
         val careerSign = context.findViewById<CardView>(R.id.careerSign)
 
-        val learnyourburcButton = context.findViewById<AppCompatButton>(R.id.learnyourburcButton)
+        val learnYourBurcButton = context.findViewById<AppCompatButton>(R.id.learnYourBurcButton)
 
-        val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
+        val burcCardParams = burcCard.layoutParams as RelativeLayout.LayoutParams
         val dailyButtonParams = dailyButton.layoutParams as RelativeLayout.LayoutParams
         val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
         val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
@@ -36,8 +36,8 @@ class PeriodButtonViewUpdater(private val context: Context) {
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
         val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
 
-        burcCardparams.height = newHeight
-        burcCardparams.bottomMargin = burcCardMarginBottom
+        burcCardParams.height = newHeight
+        burcCardParams.bottomMargin = burcCardMarginBottom
 
         dailyButtonParams.bottomMargin = dailyButtonMarginBottom
         monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
@@ -46,7 +46,7 @@ class PeriodButtonViewUpdater(private val context: Context) {
         loveSignParams.bottomMargin = signsMarginBottom
         careerSignParams.bottomMargin = signsMarginBottom
 
-        burcCard.layoutParams = burcCardparams
+        burcCard.layoutParams = burcCardParams
         dailyButton.layoutParams = dailyButtonParams
         generalSign.layoutParams = generalSignParams
         loveSign.layoutParams = loveSignParams
@@ -56,6 +56,6 @@ class PeriodButtonViewUpdater(private val context: Context) {
         monthlyButton.setBackgroundResource(if (button == monthlyButton) R.drawable.common_next_button else R.drawable.button_passive)
         yearlyButton.setBackgroundResource(if (button == yearlyButton) R.drawable.common_next_button else R.drawable.button_passive)
 
-        setViewVisible(learnyourburcButton)
+        setViewVisible(learnYourBurcButton)
     }
 }

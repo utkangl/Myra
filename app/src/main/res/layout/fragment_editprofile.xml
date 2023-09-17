@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/gradientbackground"
+    android:background="@drawable/gradient_background"
     tools:context=".EditProfileFragment">
 
     <RelativeLayout
@@ -13,7 +13,7 @@
         android:id="@+id/editProfileGeneralLayout">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/backarrowcard"
+        android:id="@+id/backArrowCard"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:cardCornerRadius="75dp"
@@ -36,62 +36,69 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editprofiletitle"
+        android:id="@+id/editProfileTitle"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/namefieldhint"
+        android:layout_above="@+id/nameFieldHint"
         android:layout_marginBottom="25dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:textSize="28sp"
         android:textColor="@color/white"
-        android:text="Profilini Duzenle">
+        android:text="Profilini Duzenle"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/namefieldhint"
-        android:layout_above="@id/nameedittext"
+        android:id="@+id/nameFieldHint"
+        android:layout_above="@id/nameEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
         android:text="Adin"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <EditText
-        android:id="@+id/nameedittext"
+        android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_above="@+id/genderedittext"
+        android:layout_above="@+id/genderEditText"
         android:layout_centerInParent="true"
         android:layout_marginStart="100dp"
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/arima_madurai_bold"
-        android:textColor="@color/white">
+        android:textColor="@color/white"
+        android:inputType="textPersonName"
+        android:autofillHints="name"
+        android:hint=" "
+        tools:ignore="HardcodedText">
 
     </EditText>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/genderfieldhint"
-        android:layout_above="@id/genderedittext"
+        android:id="@+id/genderFieldHint"
+        android:layout_above="@id/genderEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
         android:text="Cinsiyet"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/genderedittext"
+        android:id="@+id/genderEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_above="@+id/birthdateedittext"
+        android:layout_above="@+id/birthDateEditText"
         android:layout_marginBottom="40dp"
 
         android:textSize="18sp"
@@ -99,6 +106,7 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:paddingTop="3dp">
     </TextView>
 
@@ -110,34 +118,36 @@
 
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_above="@+id/birthdateedittext"
+        android:layout_above="@+id/birthDateEditText"
         android:layout_marginBottom="40dp"
 
         android:layout_marginRight="55dp"
         android:background="@drawable/common_text_input_field"
         android:textAlignment="center"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/birthdatefieldhint"
-        android:layout_above="@id/birthdateedittext"
+        android:id="@+id/birthDateFieldHint"
+        android:layout_above="@id/birthDateEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
         android:text="Dogum Tarihi"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/birthdateedittext"
+        android:id="@+id/birthDateEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_above="@+id/birthtimeedittext"
+        android:layout_above="@+id/birthTimeEditText"
         android:layout_marginBottom="40dp"
 
         android:textSize="18sp"
@@ -145,6 +155,7 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:paddingTop="3dp"
         >
     </TextView>
@@ -152,18 +163,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/birthtimefieldhint"
-        android:layout_above="@id/birthtimeedittext"
+        android:id="@+id/birthTimeFieldHint"
+        android:layout_above="@id/birthTimeEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
         android:text="Dogum Saati"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
-        android:id="@+id/birthtimeedittext"
+        android:id="@+id/birthTimeEditText"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_centerInParent="true"
@@ -174,30 +186,32 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
         android:paddingStart="5dp"
-        android:paddingTop="3dp">>
+        android:paddingEnd="5dp"
+        android:paddingTop="3dp">
 
     </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/locationfieldhint"
-        android:layout_above="@id/locationedittext"
+        android:id="@+id/locationFieldHint"
+        android:layout_above="@id/locationEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
         android:text="Dogum Yeri"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/locationedittext"
+        android:id="@+id/locationEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_below="@+id/birthtimeedittext"
+        android:layout_below="@+id/birthTimeEditText"
         android:layout_marginTop="40dp"
 
         android:textSize="18sp"
@@ -205,45 +219,48 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
         android:paddingStart="5dp"
-        android:paddingTop="3dp">>
+        android:paddingEnd="5dp"
+        android:paddingTop="3dp">
     </TextView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/occupationfieldhint"
-        android:layout_above="@id/occupationedittext"
+        android:id="@+id/occupationFieldHint"
+        android:layout_above="@id/occupationEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
         android:text="Is"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/occupationedittext"
+        android:id="@+id/occupationEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_below="@+id/locationedittext"
+        android:layout_below="@+id/locationEditText"
         android:layout_marginTop="40dp"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:paddingTop="3dp">
     </TextView>
 
     <Spinner
-        android:id="@+id/editProfile_occupationpick_spinner"
+        android:id="@+id/editProfile_OccupationPickSpinner"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_below="@+id/locationedittext"
+        android:layout_below="@+id/locationEditText"
         android:layout_marginTop="40dp"
 
         android:background="@drawable/common_text_input_field"
@@ -255,29 +272,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/relationshipstatusfieldhint"
-        android:layout_above="@id/relationshipstatusedittext"
+        android:id="@+id/relationshipStatusFieldHint"
+        android:layout_above="@id/relationshipStatusEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
         android:text="Iliski Durumu"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp">
+        android:textSize="18sp"
+        tools:ignore="HardcodedText">
     </TextView>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/relationshipstatusedittext"
+        android:id="@+id/relationshipStatusEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_below="@+id/occupationedittext"
+        android:layout_below="@+id/occupationEditText"
         android:layout_marginTop="40dp"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
         android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:paddingTop="3dp">
     </TextView>
 
@@ -289,7 +308,7 @@
 
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
-        android:layout_below="@+id/occupationedittext"
+        android:layout_below="@+id/occupationEditText"
         android:layout_marginTop="40dp"
 
         android:background="@drawable/common_text_input_field"
@@ -334,7 +353,7 @@
 
     <DatePicker
 
-        android:id="@+id/editprofiledatepicker"
+        android:id="@+id/editProfileDatePicker"
 
         android:layout_width="250dp"
         android:layout_height="200dp"
@@ -352,7 +371,7 @@
 
     <TimePicker
 
-        android:id="@+id/editprofiletimepicker"
+        android:id="@+id/editProfileTimePicker"
 
         android:layout_width="wrap_content"
         android:layout_height="150dp"
@@ -363,20 +382,20 @@
 
     </TimePicker>
 
-    <Spinner
-        android:id="@+id/editProfile_genderpick_spinner"
+<!--    <Spinner-->
+<!--        android:id="@+id/editProfile_genderpick_spinner"-->
 
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="75dp"-->
 
-        android:layout_centerInParent="true"
+<!--        android:layout_centerInParent="true"-->
 
-        android:layout_marginLeft="55dp"
+<!--        android:layout_marginLeft="55dp"-->
 
-        android:layout_marginRight="55dp"
-        android:background="@drawable/common_text_input_field"
-        android:textAlignment="center"
-        android:visibility="invisible"/>
+<!--        android:layout_marginRight="55dp"-->
+<!--        android:background="@drawable/common_text_input_field"-->
+<!--        android:textAlignment="center"-->
+<!--        android:visibility="invisible"/>-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/editProfileLocationCardView"
@@ -391,7 +410,8 @@
         android:visibility="invisible"
         app:cardBackgroundColor="#80000000"
         app:cardCornerRadius="15dp"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        tools:ignore="HardcodedText">
 
         <AutoCompleteTextView
             android:id="@+id/searchCity"

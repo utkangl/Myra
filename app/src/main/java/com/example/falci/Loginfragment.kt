@@ -35,15 +35,15 @@ class Loginfragment : Fragment() {
 
         val changeToSignUp = v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
 
-        usernameEditText = v.findViewById(R.id.loginfragmentusername)
-        passwordEditText = v.findViewById(R.id.loginfragmentpassword)
+        usernameEditText = v.findViewById(R.id.loginFragmentUsername)
+        passwordEditText = v.findViewById(R.id.loginFragmentPassword)
 
         if (authenticated.isFromSignIn){
             usernameEditText.setText(userRegister.email)
             passwordEditText.setText(userRegister.password)
         }
 
-        val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginfragmentnextbutton)
+        val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginFragmentNextButton)
 
         loginfragmentloginbutton.setOnClickListener {
             val enteredUsername = usernameEditText.text.toString()

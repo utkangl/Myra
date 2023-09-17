@@ -39,7 +39,7 @@ class ProfileFragment : Fragment() {
         profileFragmentName.text = userProfile.firstName
 
 
-        val jupyterlayout = v.findViewById<RelativeLayout>(R.id.scrollviewjupyterlayout)
+        val jupyterlayout = v.findViewById<RelativeLayout>(R.id.scrollViewJupyterLayout)
         val marslayout = v.findViewById<RelativeLayout>(R.id.marslayout)
         val mercurylayout = v.findViewById<RelativeLayout>(R.id.mercurylayout)
         val neptunlayout = v.findViewById<RelativeLayout>(R.id.neptunlayout)
@@ -50,10 +50,10 @@ class ProfileFragment : Fragment() {
         val moonlayout = v.findViewById<RelativeLayout>(R.id.moonlayout)
         val zodiacCard = v.findViewById<CardView>(R.id.zodiaccard)
         val profileCard = v.findViewById<CardView>(R.id.profilecard)
-        val profileViewBottomCard = v.findViewById<CardView>(R.id.profileviewbottomcard)
+        val profileViewBottomCard = v.findViewById<CardView>(R.id.profileViewBottomCard)
         val profileTitle = v.findViewById<TextView>(R.id.profileTitle)
-        val changeAccountButton = v.findViewById<AppCompatButton>(R.id.changeaccountbutton)
-        val backArrowCard = v.findViewById<CardView>(R.id.backarrowcard)
+        val changeAccountButton = v.findViewById<AppCompatButton>(R.id.changeAccountButton)
+        val backArrowCard = v.findViewById<CardView>(R.id.backArrowCard)
         val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
         val burcexplanationplanet = v.findViewById<CardView>(R.id.burcexplanationplanet)
         val zodiacexplanationcard = v.findViewById<RelativeLayout>(R.id.zodiacexplanationcard)

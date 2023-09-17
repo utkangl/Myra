@@ -33,8 +33,8 @@ class SignUpFragment : Fragment() {
 
         signupfragmentsignupbutton.setOnClickListener {
 
-            usernameField = v.findViewById(R.id.signupfragmentusernametext)
-            passwordField = v.findViewById(R.id.signupfragmentpasswordtext)
+            usernameField = v.findViewById(R.id.signUpFragmentUsernameText)
+            passwordField = v.findViewById(R.id.signUpFragmentPasswordText)
 
             val registerJSON = createJsonObject(
                 "email" to usernameField.text.toString(),

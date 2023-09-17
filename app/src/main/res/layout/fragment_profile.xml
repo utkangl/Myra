@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
-    android:background="@drawable/gradientbackground">
+    android:background="@drawable/gradient_background">
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +39,8 @@
         android:outlineSpotShadowColor="@color/white"
 
         app:cardBackgroundColor="#242854"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        tools:targetApi="p">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -72,9 +73,8 @@
                     android:textColor="@color/white"
                     android:textSize="45sp"
                     android:textAlignment="center"
-                    android:text="D"
-
-                    >
+                    android:text=" "
+                    tools:ignore="HardcodedText">
 
                 </TextView>
 
@@ -148,7 +148,8 @@
         android:outlineAmbientShadowColor="@color/white"
         android:outlineSpotShadowColor="@color/white"
         app:cardBackgroundColor="#242854"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        tools:targetApi="p">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -170,7 +171,7 @@
                     <RelativeLayout
                         android:layout_width="115dp"
                         android:layout_height="60dp"
-                        android:id="@+id/scrollviewjupyterlayout"
+                        android:id="@+id/scrollViewJupyterLayout"
                         android:layout_marginStart="9dp"
                         android:layout_marginEnd="2dp">
 
@@ -191,7 +192,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -228,7 +230,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -264,7 +267,8 @@
                             android:textSize="18sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -301,7 +305,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -338,7 +343,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -376,7 +382,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -413,7 +420,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -451,7 +459,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -488,7 +497,8 @@
                             android:textSize="20sp"
                             android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light">
+                            android:fontFamily="@font/arima_madurai_light"
+                            tools:ignore="HardcodedText">
                         </TextView>
 
                     </RelativeLayout>
@@ -499,21 +509,21 @@
             </HorizontalScrollView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/scrollviewseperator"
+                android:id="@+id/scrollViewSeparator"
                 android:layout_below="@+id/horizontalscrollview"
                 android:layout_width="350dp"
                 android:layout_height="2dp"
                 android:layout_marginTop="5dp"
                 app:cardBackgroundColor="@color/white"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/seperator_line">
+                android:background="@drawable/separator_line">
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/zodiacexplanationcard"
-                android:layout_below="@id/scrollviewseperator">
+                android:layout_below="@id/scrollViewSeparator">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/zodiac_sign"
@@ -546,7 +556,7 @@
                     android:textColor="@color/white"
                     android:fontFamily="@font/arima_madurai_light"
                     android:textSize="15sp"
-                    >
+                    tools:ignore="HardcodedText">
 
                 </TextView>
 
@@ -573,14 +583,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/burcexplanationplanettext"
-                    android:layout_toRightOf="@+id/burcexplanationplanet"
+                    android:layout_toEndOf="@+id/burcexplanationplanet"
                     android:layout_marginTop="28dp"
                     android:layout_marginStart="10dp"
 
                     android:text="PLANET"
                     android:textColor="@color/white"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:textSize="25sp">
+                    android:textSize="25sp"
+                    tools:ignore="HardcodedText">
 
                 </TextView>
 
@@ -602,7 +613,7 @@
                 </TextView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/backarrowcard"
+                    android:id="@+id/backArrowCard"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:cardCornerRadius="75dp"
@@ -642,16 +653,17 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:id="@+id/profileviewbottomcard"
+        android:id="@+id/profileViewBottomCard"
         android:elevation="5dp"
         android:outlineAmbientShadowColor="@color/white"
         android:outlineSpotShadowColor="@color/white"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:layout_below="@+id/zodiaccard"
         android:layout_marginTop="20dp"
         app:cardBackgroundColor="#242854"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        tools:targetApi="p">
 
 
         <RelativeLayout
@@ -721,7 +733,7 @@
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:background="@drawable/common_next_button"
-        android:id="@+id/changeaccountbutton"
+        android:id="@+id/changeAccountButton"
         android:layout_marginBottom="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
@@ -729,7 +741,8 @@
         android:textSize="17sp"
         android:fontFamily="@font/arima_madurai_bold"
         android:textColor="@color/white"
-        android:textAllCaps="false">
+        android:textAllCaps="false"
+        tools:ignore="HardcodedText">
     </androidx.appcompat.widget.AppCompatButton>
 
 
