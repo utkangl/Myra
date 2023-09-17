@@ -5,7 +5,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.HoroscopeDetailFragment
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.loginTokens
 import com.google.gson.Gson
@@ -38,7 +38,7 @@ object HoroscopeFunctions {
                     animationView.post {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
-                        replaceActivityToFragment(fm, HoroscopeDetailFragment())
+                        replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
 
                     }
 

@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
@@ -14,7 +15,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceActivityToFragment
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fortuneCookie: CardView
     private lateinit var settingsButtonCard: CardView
 
-    private val loginFragment = Loginfragment()
     private val chatFragment = ChatFragment()
     private val profileFragment = ProfileFragment()
 
@@ -58,7 +58,8 @@ class MainActivity : AppCompatActivity() {
         val signCardViewUpdater = SignCardViewUpdater(this)
 
         if (authenticated.isFromSignIn){
-            replaceActivityToFragment(supportFragmentManager, Loginfragment())
+            //replaceMainActivityToFragment(supportFragmentManager, Loginfragment())
+            val intent = Intent(this, LoginSignupActivity::class.java);startActivity(intent)
             setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
         }
 
@@ -76,12 +77,15 @@ class MainActivity : AppCompatActivity() {
 
             // change to chat screen if loggedin
             if (savedInstanceState == null){
-                if (authenticated.isLoggedIn) {animationHelper.animateBurcCardOut();  replaceActivityToFragment(supportFragmentManager, chatFragment)}
+                if (authenticated.isLoggedIn) {animationHelper.animateBurcCardOut();  replaceMainActivityToFragment(supportFragmentManager, chatFragment)}
             }
 
             // change to login screen if not loggedin
             if (savedInstanceState == null){
-                if (!authenticated.isLoggedIn) { animationHelper.animateBurcCardOut(); replaceActivityToFragment(supportFragmentManager, loginFragment)}
+                if (!authenticated.isLoggedIn) {
+//                    animationHelper.animateBurcCardOut(); replaceMainActivityToFragment(supportFragmentManager, loginFragment)
+                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent)
+                }
             }
 
             setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
@@ -130,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
                 // change to profile screen if loggedin
                 if (savedInstanceState == null) {
-                    replaceActivityToFragment(supportFragmentManager, profileFragment)
+                    replaceMainActivityToFragment(supportFragmentManager, profileFragment)
                 }
 
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
@@ -138,7 +142,9 @@ class MainActivity : AppCompatActivity() {
 
             if (!authenticated.isLoggedIn) {
                 if (savedInstanceState == null) {
-                    replaceActivityToFragment(supportFragmentManager, loginFragment)
+//                    replaceMainActivityToFragment(supportFragmentManager, loginFragment)
+                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent)
+
                 }
 
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
@@ -153,7 +159,8 @@ class MainActivity : AppCompatActivity() {
                 HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager)
 
             }else{
-                replaceActivityToFragment(supportFragmentManager, Loginfragment())
+//                replaceMainActivityToFragment(supportFragmentManager, Loginfragment())
+                val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent)
                 setViewGone(chatWithMiraButton, empty, burcCard, tarotFali, fortuneCookie, settingsButtonCard)
             }
         }

@@ -63,17 +63,18 @@
                 </ImageView>
 
                 <TextView
+                    android:id="@+id/profileFragmentFirstLetter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/profileFragmentFirstLetter"
                     android:layout_gravity="center"
 
-                    android:paddingTop="8dp"
+                    android:contentDescription="profile name first letter"
                     android:fontFamily="@font/arima_madurai_bold"
+                    android:paddingTop="8dp"
+                    android:text=" "
+                    android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="45sp"
-                    android:textAlignment="center"
-                    android:text=" "
                     tools:ignore="HardcodedText">
 
                 </TextView>
@@ -178,10 +179,12 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/jupiter"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="jupiter image"
+                            android:src="@drawable/jupiter"
+                            tools:ignore="HardcodedText">
                         </ImageView>
 
                         <TextView

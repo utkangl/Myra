@@ -23,7 +23,7 @@ class TransitionToFragment {
     }
 
     object ReplaceActivityToFragment{
-        fun replaceActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
+        fun replaceMainActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.slide_down,
@@ -36,6 +36,18 @@ class TransitionToFragment {
                 .commit()
         }
 
+        fun replaceLoginActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
+            fragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.slide_down,
+                    R.anim.slide_up,
+                    R.anim.slide_down,
+                    R.anim.slide_up
+                )
+                .replace(R.id.login_signup_container, targetFragment)
+//                .addToBackStack(null)
+                .commit()
+        }
 
     }
 }

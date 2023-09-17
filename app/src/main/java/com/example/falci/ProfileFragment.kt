@@ -1,6 +1,7 @@
 package com.example.falci
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -78,7 +79,11 @@ class ProfileFragment : Fragment() {
             if (authenticated.isLoggedIn){ replaceFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
 
             // change to Login screen if user is not logged in
-            if (!authenticated.isLoggedIn){ replaceFragmentWithAnimation(parentFragmentManager, Loginfragment()) }
+            if (!authenticated.isLoggedIn){
+//                replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
+                val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
+
+            }
         }
 
         val planetLayouts = listOf(
@@ -110,7 +115,9 @@ class ProfileFragment : Fragment() {
                 { _, exception ->
                     if (exception == null) {
                             authenticated.isLoggedIn = false
-                            replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
+//                            replaceFragmentWithAnimation(parentFragmentManager, Loginfragment()
+                        val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
+
                     }
                     else println(exception)
                 }
