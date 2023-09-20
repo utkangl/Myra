@@ -44,15 +44,18 @@
                 android:layout_marginTop="-48dp">
                 <TextView
                     android:padding="20dp"
+                    android:paddingStart="40dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/horoscope_textView"
-                    android:gravity="center"
-                    android:text="Astroloji, gökyüzü görünümleriyle yaşanan anın genel şartlarına ışık tutar ve esaslarını “gökyüzünde ne varsa, yeryüzünde o vardır” felsefi görüşünden alır. Astroloji gerek bireysel psikoloji anlamında gerekse de toplumsal ilişkiler, meslek ve kariyer açısından önemli bir destek aracı olarak görülmektedir. Günlük burç yorumları ise astrologların gezegenlerin günlük hareketlerini inceleyip bu hareketlerin burçlara etkilerini yorumlamasıdır. Günlük haritalarda yükselen burç yaklaşık iki saatlik zaman diliminin genel havasını gösterir. Bu burç içinde yer alan gezegenlerin nitelikleri ve özellikle de bu gezegenlerin iyicil, kötücül yönleri belirleyicidir. Zodyağın (burçlar kuşağı) 12 burcu için gezegen hareketleri incelenip oluşturulan günlük burç yorumları “Elle Astroloji” sayfasında sizleri bekliyor. Astrolog Pınar Atmaca’nın her gün burçlara özel olarak hazırlayıp yorumladığı günlük burç yorumlarını astroloji sayfasından okuyabilirsiniz. Astroloji, gökyüzü görünümleriyle yaşanan anın genel şartlarına ışık tutar ve esaslarını “gökyüzünde ne varsa, yeryüzünde o vardır” felsefi görüşünden alır. Astroloji gerek bireysel psikoloji anlamında gerekse de toplumsal ilişkiler, meslek ve kariyer açısından önemli bir destek aracı olarak görülmektedir. Günlük burç yorumları ise astrologların gezegenlerin günlük hareketlerini inceleyip bu hareketlerin burçlara etkilerini yorumlamasıdır. Günlük haritalarda yükselen burç yaklaşık iki saatlik zaman diliminin genel havasını gösterir. Bu burç içinde yer alan gezegenlerin nitelikleri ve özellikle de bu gezegenlerin iyicil, kötücül yönleri belirleyicidir."
+                    android:gravity="start"
+                    android:text=""
                     android:fontFamily="@font/arima_madurai_light"
                     android:textSize="18sp"
                     android:textColor="@color/white">
                 </TextView>
+
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
