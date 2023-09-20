@@ -7,12 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.falci.internalClasses.HoroscopeFunctions
-import com.example.falci.internalClasses.dataClasses.horoscopeChatMessageData
-import com.example.falci.internalClasses.dataClasses.horoscopeMessage
+import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 
 class HoroscopeDetailFragment : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +21,7 @@ class HoroscopeDetailFragment : Fragment() {
         val horoscopeText = v.findViewById<TextView>(R.id.horoscope_textView)
 
         getfortune.setOnClickListener{
-            horoscopeText.text = horoscopeMessage.message
+            horoscopeText.text = getHoroscopeData.toString()
         }
 
         return v

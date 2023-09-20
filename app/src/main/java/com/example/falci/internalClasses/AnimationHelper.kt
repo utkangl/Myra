@@ -5,9 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
-import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.getColor
@@ -24,13 +22,10 @@ class AnimationHelper(private val context: Context) {
     private lateinit var dailyButton: AppCompatButton
     private lateinit var monthlyButton: AppCompatButton
     private lateinit var yearlyButton: AppCompatButton
-    private lateinit var learnyourburcButton: AppCompatButton
-    private lateinit var backarrowcard: CardView
-    private lateinit var tarotFali: CardView
-    private lateinit var fortuneCookie: CardView
-    private lateinit var settingsbuttoncard: CardView
-    private lateinit var chatwithmiraButton: ImageView
-    private lateinit var empty: TextView
+    private lateinit var learnYourBurcButton: AppCompatButton
+    private lateinit var backArrowCard: CardView
+    private lateinit var settingsButtonCard: CardView
+
 
     fun initializeViews(
         burcCard: CardView,
@@ -40,13 +35,9 @@ class AnimationHelper(private val context: Context) {
         dailyButton: AppCompatButton,
         monthlyButton: AppCompatButton,
         yearlyButton: AppCompatButton,
-        learnyourburcButton: AppCompatButton,
-        backarrowcard: CardView,
-        fortuneCookie: CardView,
-        tarotFali: CardView,
-        settingsbuttoncard: CardView,
-        chatwithmiraButton: ImageView,
-        empty: TextView
+        learnYourBurcButton: AppCompatButton,
+        backArrowCard: CardView,
+        settingsButtonCard: CardView,
     ) {
         this.burcCard = burcCard
         this.generalSign = generalSign
@@ -55,20 +46,15 @@ class AnimationHelper(private val context: Context) {
         this.dailyButton = dailyButton
         this.monthlyButton = monthlyButton
         this.yearlyButton = yearlyButton
-        this.learnyourburcButton = learnyourburcButton
-        this.backarrowcard = backarrowcard
-        this.tarotFali = tarotFali
-        this.fortuneCookie = fortuneCookie
-        this.settingsbuttoncard = settingsbuttoncard
-        this.chatwithmiraButton = chatwithmiraButton
-        this.empty = empty
+        this.learnYourBurcButton = learnYourBurcButton
+        this.backArrowCard = backArrowCard
+        this.settingsButtonCard = settingsButtonCard
     }
 
     fun animateBurcCardIn() {
         val scale = context.resources.displayMetrics.density
         val newWidth = (370 * scale + 0.5f).toInt()
         val newHeight = (550 * scale + 0.5f).toInt()
-        val burcCardMarginBottom = (-190 * scale + 0.5f).toInt()
 
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
@@ -83,49 +69,49 @@ class AnimationHelper(private val context: Context) {
         animatorHeight.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
             params.height = value
-            params.bottomMargin = burcCardMarginBottom
             burcCard.layoutParams = params
         }
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(animatorWidth, animatorHeight)
-        animatorSet.duration = 500
+        animatorSet.duration = 300
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
-                setViewVisible(backarrowcard, generalSign, loveSign, careerSign)
+                setViewVisible(backArrowCard, generalSign, loveSign, careerSign)
             }
 
             override fun onAnimationStart(animation: Animator) {
-                setViewGone(chatwithmiraButton, tarotFali, fortuneCookie, dailyButton, monthlyButton, yearlyButton, learnyourburcButton, settingsbuttoncard)
-                params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
+                setViewGone(dailyButton, monthlyButton, yearlyButton, learnYourBurcButton, settingsButtonCard)
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
+                params.addRule(RelativeLayout.CENTER_IN_PARENT, 1)
             }
         })
 
         animatorSet.start()
 
-        val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
-        val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
-        val careerSignCardparams = careerSign.layoutParams as RelativeLayout.LayoutParams
+        val generalSignCardParams = generalSign.layoutParams as RelativeLayout.LayoutParams
+        val loveSignCardParams = loveSign.layoutParams as RelativeLayout.LayoutParams
+        val careerSignCardParams = careerSign.layoutParams as RelativeLayout.LayoutParams
 
         val dpMarginBottom = 25
         val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
 
-        generalSignCardparams.bottomMargin = newMarginBottom
-        loveSignCardparams.bottomMargin = newMarginBottom
-        careerSignCardparams.bottomMargin = newMarginBottom
+        generalSignCardParams.bottomMargin = newMarginBottom
+        loveSignCardParams.bottomMargin = newMarginBottom
+        careerSignCardParams.bottomMargin = newMarginBottom
 
-        generalSign.layoutParams = generalSignCardparams
-        loveSign.layoutParams = loveSignCardparams
-        careerSign.layoutParams = careerSignCardparams
+        generalSign.layoutParams = generalSignCardParams
+        loveSign.layoutParams = loveSignCardParams
+        careerSign.layoutParams = careerSignCardParams
     }
 
 
     fun animateBurcCardOut() {
         val scale = context.resources.displayMetrics.density
         val oldWidth = (340 * scale + 0.5f).toInt()
-        val oldHeight = (200 * scale + 0.5f).toInt()
-        val burcCardMarginBottom = (-190 * scale + 0.5f).toInt()
+        val oldHeight = (80 * scale + 0.5f).toInt()
+        val burcCardMarginBottom = (50 * scale + 0.5f).toInt()
 
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
@@ -133,7 +119,7 @@ class AnimationHelper(private val context: Context) {
         animatorWidth.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
             params.width = value
-            params.bottomMargin = burcCardMarginBottom
+//            params.bottomMargin = burcCardMarginBottom
             burcCard.layoutParams = params
         }
 
@@ -146,36 +132,36 @@ class AnimationHelper(private val context: Context) {
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(animatorWidth, animatorHeight)
-        animatorSet.duration = 500
+        animatorSet.duration = 300
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
-                setViewGone(generalSign, loveSign, careerSign, dailyButton, monthlyButton, yearlyButton, learnyourburcButton)
-                setViewVisible(empty, settingsbuttoncard)
+                setViewGone(generalSign, loveSign, careerSign, dailyButton, monthlyButton, yearlyButton, learnYourBurcButton)
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                setViewVisible(chatwithmiraButton, tarotFali, fortuneCookie)
-                setViewGone(backarrowcard)
+                setViewVisible( settingsButtonCard)
+                setViewGone(backArrowCard)
             }
         })
 
         animatorSet.start()
 
-        val generalSignCardparams = generalSign.layoutParams as RelativeLayout.LayoutParams
-        val loveSignCardparams = loveSign.layoutParams as RelativeLayout.LayoutParams
-        val careerSignCardparams = careerSign.layoutParams as RelativeLayout.LayoutParams
+        val generalSignCardParams = generalSign.layoutParams as RelativeLayout.LayoutParams
+        val loveSignCardParams = loveSign.layoutParams as RelativeLayout.LayoutParams
+        val careerSignCardParams = careerSign.layoutParams as RelativeLayout.LayoutParams
 
         val dpMarginBottom = 25
         val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
 
-        generalSignCardparams.bottomMargin = newMarginBottom
-        loveSignCardparams.bottomMargin = newMarginBottom
-        careerSignCardparams.bottomMargin = newMarginBottom
+        generalSignCardParams.bottomMargin = newMarginBottom
+        loveSignCardParams.bottomMargin = newMarginBottom
+        careerSignCardParams.bottomMargin = newMarginBottom
 
-        generalSign.layoutParams = generalSignCardparams
-        loveSign.layoutParams = loveSignCardparams
-        careerSign.layoutParams = careerSignCardparams
+        generalSign.layoutParams = generalSignCardParams
+        loveSign.layoutParams = loveSignCardParams
+        careerSign.layoutParams = careerSignCardParams
 
         generalSign.setCardBackgroundColor(getColor(context, R.color.passivesigncard))
         loveSign.setCardBackgroundColor(getColor(context,R.color.passivesigncard))
@@ -211,12 +197,12 @@ class AnimationHelper(private val context: Context) {
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
-                setViewGone(generalSign, loveSign, careerSign, dailyButton, monthlyButton, yearlyButton, learnyourburcButton)
-                setViewVisible(empty, settingsbuttoncard)
+                setViewGone(generalSign, loveSign, careerSign, dailyButton, monthlyButton, yearlyButton, learnYourBurcButton)
+                setViewVisible(settingsButtonCard)
             }
 
             override fun onAnimationEnd(animation: Animator) {
-                setViewGone(backarrowcard)
+                setViewGone(backArrowCard)
             }
         })
 

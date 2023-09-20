@@ -21,7 +21,6 @@ class LoginSignupActivity : AppCompatActivity() {
 
         // Check if there are fragments in the back stack
         if (supportFragmentManager.backStackEntryCount == 0) {
-            //overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
             val intent = Intent(this, MainActivity::class.java);startActivity(intent)
         }
     }

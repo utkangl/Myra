@@ -43,7 +43,7 @@ class SignCardViewUpdater(private val context: Context) {
         val scale = context.resources.displayMetrics.density
         val newHeight = (630 * scale + 0.5f).toInt()
         val newMarginBottom = (105 * scale + 0.5f).toInt()
-        val burcCardMarginBottom = (-270 * scale + 0.5f).toInt()
+//        val burcCardMarginBottom = (-270 * scale + 0.5f).toInt()
         val dailyButtonMarginBottom = (25 * scale + 0.5f).toInt()
 
         val burcCardparams = burcCard.layoutParams as RelativeLayout.LayoutParams
@@ -54,8 +54,10 @@ class SignCardViewUpdater(private val context: Context) {
         val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
         val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
 
-        burcCardparams.bottomMargin = burcCardMarginBottom
+//        burcCardparams.bottomMargin = burcCardMarginBottom
         burcCardparams.height = newHeight
+        burcCardparams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+
 
         generalSignCardparams.bottomMargin = newMarginBottom
         loveSignCardparams.bottomMargin = newMarginBottom

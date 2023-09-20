@@ -214,6 +214,7 @@
         android:layout_below="@+id/birthTimeEditText"
         android:layout_marginTop="40dp"
 
+        android:inputType="textLongMessage"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"

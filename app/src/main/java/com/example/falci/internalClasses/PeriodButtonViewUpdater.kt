@@ -14,7 +14,7 @@ class PeriodButtonViewUpdater(private val context: Context) {
         val scale = context.resources.displayMetrics.density
 
         val newHeight = (730 * scale + 0.5f).toInt()
-        val burcCardMarginBottom = (-370 * scale + 0.5f).toInt()
+//        val burcCardMarginBottom = (-370 * scale + 0.5f).toInt()
         val dailyButtonMarginBottom = (125 * scale + 0.5f).toInt()
         val signsMarginBottom = (205 * scale + 0.5f).toInt()
 
@@ -37,7 +37,9 @@ class PeriodButtonViewUpdater(private val context: Context) {
         val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
 
         burcCardParams.height = newHeight
-        burcCardParams.bottomMargin = burcCardMarginBottom
+//        burcCardParams.bottomMargin = burcCardMarginBottom
+        burcCardParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+
 
         dailyButtonParams.bottomMargin = dailyButtonMarginBottom
         monthlyButtonParams.bottomMargin = dailyButtonMarginBottom

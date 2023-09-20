@@ -6,7 +6,6 @@ import java.io.IOException
 
 class ProfileFunctions {
     object ProfileFunctions{
-
         fun makeGetProfileRequest(url: String, accessToken: String, callback: (String?, Exception?) -> Unit) {
 
             val getProfileClient = OkHttpClient()
@@ -31,19 +30,13 @@ class ProfileFunctions {
                     statusCode = response.code()
 
                     if (responseBody != null) {
-
                         println(responseBody)
-
                     }
 
                     callback(responseBody, null)
-
                 }
             })
-
         }
-
-
         fun putEditProfileJson(url: String, json: JSONObject, accessToken: String, callback: (String?, Exception?) -> Unit) {
 
             val editProfileClient = OkHttpClient()
@@ -78,12 +71,8 @@ class ProfileFunctions {
                     }
 
                     callback(responseBody, null)
-
                 }
             })
-
-
         }
-
     }
 }
