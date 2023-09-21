@@ -11,10 +11,13 @@
         android:layout_height="wrap_content"
 
         android:layout_alignParentEnd="true"
-        android:layout_margin="8dp"
 
-        android:background="@drawable/chatinputbackground"
+        android:layout_marginStart="8dp"
 
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/user_chat_message_background"
         android:padding="12dp"
         android:textColor="@android:color/white"
         android:textSize="18sp" />

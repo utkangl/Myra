@@ -9,7 +9,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ListView
+import android.widget.RelativeLayout
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getSystemService
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
@@ -28,6 +35,10 @@ class ChatFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_chat, container, false)
 
         val messageInput = v.findViewById<EditText>(R.id.chatfragmentmessageinputtext)
+        val messageInputParams = messageInput.layoutParams as RelativeLayout.LayoutParams
+
+        val sendUserMessage = v.findViewById<ImageButton>(R.id.sendUserMessage)
+        val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
 
         val mainLayout = v.findViewById<View>(R.id.chat_fragment)
 
@@ -38,18 +49,44 @@ class ChatFragment : Fragment() {
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
 
-
         mainLayout.setOnClickListener {
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
 
-        messageInput.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
-                println()
-                println(messageInput.text.toString())
-                usermessagetomira = messageInput.text.toString()
+
+        messageInput.setOnClickListener{
+            val scale = requireContext().resources.displayMetrics.density
+            messageInputParams.width = (280 * scale + 0.5).toInt()
+            messageInput.layoutParams = messageInputParams
+            setViewVisible(cancelUserMessage)
+        }
+
+        cancelUserMessage.setOnClickListener{
+            val scale = requireContext().resources.displayMetrics.density
+            messageInputParams.width = (330 * scale + 0.5).toInt()
+            messageInput.layoutParams = messageInputParams
+            setViewGone(cancelUserMessage)
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(sendUserMessage.windowToken, 0)
+            messageInput.setText("")
+        }
+
+        sendUserMessage.setOnClickListener{
+
+            val scale = requireContext().resources.displayMetrics.density
+            messageInputParams.width = (330 * scale + 0.5).toInt()
+            messageInput.layoutParams = messageInputParams
+            setViewGone(cancelUserMessage)
+
+            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(sendUserMessage.windowToken, 0)
+
+            println(messageInput.text.toString())
+            usermessagetomira = messageInput.text.toString()
+
+            if (!messageInput.text.isNullOrEmpty()) {
 
                 val myMessage = ChatMessage(usermessagetomira, true)
                 messages.add(myMessage)
@@ -59,9 +96,8 @@ class ChatFragment : Fragment() {
 
                 val chatJson = createChatJSON(usermessagetomira, threadNumber)
 
-                postChatJson(
-                    urls.chatGptURL, chatJson
-                ) { responseBody, exception ->
+                postChatJson(urls.chatGptURL, chatJson)
+                { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")
                     } else {
@@ -70,7 +106,6 @@ class ChatFragment : Fragment() {
                         activity?.runOnUiThread {
                             val jsonResponse = responseBody?.let { JSONObject(it) }
                             val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
-
                             if (chatMessagesArray != null) {
                                 // En son mesaji bulmak icin chatMessagesArray'ı tersten dön
                                 for (i in chatMessagesArray.length() - 1 downTo 0) {
@@ -78,35 +113,25 @@ class ChatFragment : Fragment() {
                                     val sender = chatMessageObject.getString("owner")
                                     val message = chatMessageObject.getString("message")
                                     threadNumber = chatMessageObject.getInt("thread")
-
+                                    println(sender)
                                     val apiMessage = ChatMessage(message, false)
-                                    if (sender == "assistant") {
-                                        messages.add(apiMessage)
-                                        // En son mesajı bulduktan sonra döngüyü sonlandır
-                                        break
-                                    }
+                                    println(apiMessage)
+                                    messages.add(apiMessage)
+
+                                    // En son mesajı bulduktan sonra döngüyü sonlandır
+                                    break
                                 }
                             }
-
                             chatAdapter.notifyDataSetChanged()
-
                             chatListView.smoothScrollToPosition(messages.size - 1)
                         }
-
                     }
                 }
-
-                true
-
-            } else {
-                println("yaz bakalim")
-                false
             }
-
         }
 
-        return v
 
+        return v
     }
 
     private fun createChatJSON(message: String, thread: Int? = null): JSONObject {
@@ -122,9 +147,7 @@ class ChatFragment : Fragment() {
         return chatJsonObject
     }
 
-    private fun postChatJson(
-        url: String, json: JSONObject, callback: (String?, Exception?) -> Unit
-    ) {
+    private fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
 
         val chatclient = OkHttpClient()
 

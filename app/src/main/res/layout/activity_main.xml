@@ -58,11 +58,11 @@
         </TextView>
 
     <ImageView
+        android:id="@+id/miraMainMenu"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/mira_main__menu"
-        android:id="@+id/miraMainMenu">
+        android:src="@drawable/mira_main__menu">
 
     </ImageView>
 

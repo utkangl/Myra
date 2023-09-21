@@ -22,10 +22,7 @@ class HoroscopeDetailFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_horoscope_detail, container, false)
         val horoscopeText = v.findViewById<TextView>(R.id.horoscope_textView)
 
-
-
         val horoscope = " Welcome ${userCompleteProfile.name} \n \n Burc Ozetin: \n\n  ${getHoroscopeData.summary}  \n\n Pozitif Yonler: \n \n ${getHoroscopeData.good} \n\n Negatif Yonler: \n\n ${getHoroscopeData.bad}"
-
 
         horoscopeText.text = horoscope
 

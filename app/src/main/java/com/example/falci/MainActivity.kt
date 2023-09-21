@@ -15,6 +15,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
@@ -133,6 +134,13 @@ class MainActivity : AppCompatActivity() {
             }else{
                 val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent)
                 setViewGone(burcCard,  settingsButtonCard)
+            }
+        }
+
+        miraMainMenu.setOnClickListener{
+            if (authenticated.isLoggedIn){
+                replaceFragmentWithAnimation(supportFragmentManager, ChatFragment())
+                setViewGone(miraMainMenu, burcCard, settingsButtonCard)
             }
         }
     }

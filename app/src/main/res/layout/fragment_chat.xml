@@ -5,13 +5,14 @@
     android:id="@+id/chat_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatFragment">
+    tools:context=".ChatFragment"
+    android:background="#1c1444">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/chatfragmentmessageinput"
+        android:layout_above="@+id/chatfragmentmessageinputtext"
         android:layout_marginBottom="10dp">
 
 
@@ -29,45 +30,59 @@
     </RelativeLayout>
 
 
-    <androidx.cardview.widget.CardView
-
-        android:id="@+id/chatfragmentmessageinput"
-
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-
+    <EditText
+        android:id="@+id/chatfragmentmessageinputtext"
+        android:layout_width="333dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/chatinputbackground"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/arima_madurai_light"
+        android:hint="Message to Mira"
+        android:inputType="textImeMultiLine"
+        android:paddingStart="20dp"
+        android:paddingEnd="35dp"
+        android:text=""
 
-        app:cardCornerRadius="25dp">
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textColorHint="@color/black"
 
-        <EditText
-            android:id="@+id/chatfragmentmessageinputtext"
+        android:textSize="24sp"
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        tools:ignore="HardcodedText" />
 
-            android:background="@drawable/chatinputbackground"
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:id="@+id/cancelUserMessage"
+        android:layout_gravity="center"
+        android:layout_toEndOf="@id/sendUserMessage"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/cancel_icon"
+        android:background="#FF1c1444"
+        android:visibility="invisible">
+    </ImageButton>
 
-            android:drawableLeft="@drawable/write_icon"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/arima_madurai_light"
-
-            android:hint="Message to Mira"
-            android:imeOptions="actionSend"
-            android:inputType="text"
-            android:paddingLeft="20dp"
-            android:paddingRight="35dp"
-
-            android:text=""
-            android:textAlignment="center"
-
-            android:textSize="24sp"
-
-            tools:ignore="HardcodedText" />
-
-    </androidx.cardview.widget.CardView>
-
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:id="@+id/sendUserMessage"
+        android:layout_gravity="center"
+        android:layout_toEndOf="@id/chatfragmentmessageinputtext"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/send_icon"
+        android:background="#FF1c1444"
+        android:padding="4dp"
+        android:visibility="visible">
+    </ImageButton>
 
 </RelativeLayout>
