@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatFragment"
-    android:background="#1c1444">
+    android:background="@color/black">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/chatfragmentmessageinputtext"
-        android:layout_marginBottom="10dp">
-
+        android:layout_marginBottom="10dp"
+        android:id="@+id/chatFragmentContainer">
 
         <ListView
             android:id="@+id/chatListView"
@@ -24,11 +23,9 @@
             android:dividerHeight="0dp"
             android:stackFromBottom="true"
             android:transcriptMode="normal">
-
         </ListView>
 
     </RelativeLayout>
-
 
     <EditText
         android:id="@+id/chatfragmentmessageinputtext"
@@ -38,6 +35,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="25dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/chatinputbackground"
         android:drawablePadding="10dp"
         android:fontFamily="@font/arima_madurai_light"
@@ -66,7 +64,7 @@
         android:layout_marginBottom="25dp"
         android:layout_marginStart="4dp"
         android:src="@drawable/cancel_icon"
-        android:background="#FF1c1444"
+        android:background="@color/black"
         android:visibility="invisible">
     </ImageButton>
 
@@ -80,9 +78,15 @@
         android:layout_marginBottom="25dp"
         android:layout_marginStart="12dp"
         android:src="@drawable/send_icon"
-        android:background="#FF1c1444"
+        android:background="@color/black"
         android:padding="4dp"
         android:visibility="visible">
     </ImageButton>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/annen">
+    </RelativeLayout>
 </RelativeLayout>

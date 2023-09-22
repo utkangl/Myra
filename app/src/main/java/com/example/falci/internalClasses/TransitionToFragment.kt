@@ -60,7 +60,6 @@ class TransitionToFragment {
                     R.anim.slide_up
                 )
                 .replace(R.id.login_signup_container, targetFragment)
-                .addToBackStack(null)
                 .commit()
         }
 

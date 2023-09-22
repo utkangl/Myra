@@ -14,13 +14,13 @@ data class URLDataClass(
 
 
 val urls = URLDataClass(
-    loginURL= "http://31.210.43.174:1337/auth/token/",
-    logoutURL= "http://31.210.43.174:1337/auth/logout/",
-    signUpURL= "http://31.210.43.174:1337/auth/register/",
-    completeProfileURL= "http://31.210.43.174:1337/auth/profile/complete/",
-    refreshURL= "http://31.210.43.174:1337/auth/token/refresh/",
-    getProfileURL= "http://31.210.43.174:1337/auth/profile/",
-    editProfileURL= "http://31.210.43.174:1337/auth/profile/edit/",
-    chatGptURL= "http://31.210.43.174:1337/gpt/chat/",
-    getHoroscopeURL= "http://31.210.43.174:1337/api/fortune/",
+    loginURL= "https://api.atlasuavteam.com/auth/token/",
+    logoutURL= "https://api.atlasuavteam.com/auth/logout/",
+    signUpURL= "https://api.atlasuavteam.com/auth/register/",
+    completeProfileURL= "https://api.atlasuavteam.com/auth/profile/complete/",
+    refreshURL= "https://api.atlasuavteam.com/auth/token/refresh/",
+    getProfileURL= "https://api.atlasuavteam.com/auth/profile/",
+    editProfileURL= "https://api.atlasuavteam.com/auth/profile/edit/",
+    chatGptURL= "https://api.atlasuavteam.com/gpt/chat/",
+    getHoroscopeURL= "https://api.atlasuavteam.com/api/fortune/",
 )

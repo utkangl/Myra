@@ -83,7 +83,6 @@ class ProfileFragment : Fragment() {
             if (!authenticated.isLoggedIn){
 //                replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
                 val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
-
             }
         }
 
@@ -115,8 +114,7 @@ class ProfileFragment : Fragment() {
                 postJsonWithHeader(urls.logoutURL,refreshTokenJSON, loginTokens.loginAccessToken)
                 { _, exception ->
                     if (exception == null) {
-                            authenticated.isLoggedIn = false
-//                            replaceFragmentWithAnimation(parentFragmentManager, Loginfragment()
+                        authenticated.isLoggedIn = false
                         val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
 
                     }

@@ -1,6 +1,7 @@
 package com.example.falci
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.RelativeLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
@@ -40,7 +42,9 @@ class ChatFragment : Fragment() {
         val sendUserMessage = v.findViewById<ImageButton>(R.id.sendUserMessage)
         val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
 
-        val mainLayout = v.findViewById<View>(R.id.chat_fragment)
+        val chatFragmentContainer = v.findViewById<RelativeLayout>(R.id.chatFragmentContainer)
+        val mainLayout = v.findViewById<RelativeLayout>(R.id.chat_fragment)
+        val annen = v.findViewById<RelativeLayout>(R.id.annen)
 
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
@@ -49,11 +53,12 @@ class ChatFragment : Fragment() {
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
 
-        mainLayout.setOnClickListener {
+        annen.setOnClickListener{
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
+
 
 
         messageInput.setOnClickListener{
@@ -131,7 +136,17 @@ class ChatFragment : Fragment() {
         }
 
 
+        // if user press back button on chat fragment, load main activity
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(mainActivityIntent)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         return v
+
     }
 
     private fun createChatJSON(message: String, thread: Int? = null): JSONObject {
@@ -181,3 +196,4 @@ class ChatFragment : Fragment() {
     }
 
 }
+

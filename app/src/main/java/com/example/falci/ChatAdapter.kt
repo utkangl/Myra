@@ -22,7 +22,7 @@ class ChatAdapter(private val context: Context, private val messages: List<ChatM
         return position.toLong()
     }
 
-    private class ViewHolder(view: View) {
+    private class ViewHolder(view: View, val messageTextViewRes: Int) {
         val messageTextView: TextView = view.findViewById(R.id.messageTextView)
     }
 
@@ -39,10 +39,10 @@ class ChatAdapter(private val context: Context, private val messages: List<ChatM
         val view: View
         val viewHolder: ViewHolder
 
-        if (convertView == null) {
-            // convertView null ise yeni bir görünüm oluşturun
+        if (convertView == null || (convertView.tag as ViewHolder).messageTextViewRes != layoutRes) {
+            // convertView null ise veya görünüm türü değiştiyse yeni bir görünüm oluşturun
             view = layoutInflater.inflate(layoutRes, parent, false)
-            viewHolder = ViewHolder(view)
+            viewHolder = ViewHolder(view, layoutRes)
             view.tag = viewHolder
         } else {
             // convertView yeniden kullanılabilirse, var olan görünümü alın

@@ -20,5 +20,6 @@
         android:background="@drawable/user_chat_message_background"
         android:padding="12dp"
         android:textColor="@android:color/white"
+        android:fontFamily="@font/arima_madurai_light"
         android:textSize="18sp" />
 </RelativeLayout>

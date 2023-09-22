@@ -10,11 +10,11 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToFragment
 import com.example.falci.internalClasses.dataClasses.LoginTokensDataClass
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userRegister
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 
 lateinit var loginTokens: LoginTokensDataClass
 
@@ -63,15 +63,15 @@ class Loginfragment : Fragment() {
                     authenticated.isFromSignIn = false
                     val intent = Intent(requireActivity(), MainActivity::class.java)
                     startActivity(intent)
+
                 } else {
                     println("Error Code: $statusCode")
                 }
             }
         }
 
-
         changeToSignUp.setOnClickListener {
-            replaceFragmentWithAnimation(parentFragmentManager, SignUpFragment())
+            replaceLoginActivityToFragment(parentFragmentManager, SignUpFragment())
         }
 
         if (!savedUsername.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
@@ -81,4 +81,6 @@ class Loginfragment : Fragment() {
 
         return v
     }
+
 }
+

@@ -1,17 +1,17 @@
 package com.example.falci
 
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
-
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
-import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
@@ -145,15 +145,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        super.onBackPressed()
-
-        // Check if there are fragments in the back stack
-        if (supportFragmentManager.backStackEntryCount == 0) {
-            overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
-            setViewVisible(burcCard,settingsButtonCard)
-
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
+        if (currentFragment == null) {
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Uygulamadan çıkmak istediğinize emin misiniz?")
+            builder.setPositiveButton("Evet") { dialogInterface: DialogInterface, i: Int ->
+                moveTaskToBack(true)
+                finish()
+            }
+            builder.setNegativeButton("Hayır", null)
+            val dialog = builder.create()
+            dialog.show()
+        } else {
+            super.onBackPressed()
         }
     }
 
