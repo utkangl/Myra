@@ -5,12 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HoroscopeDetailFragment"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:ignore="ContentDescription">
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,17 +21,17 @@
             <ImageView
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:id="@+id/mira_horoscopedetailtop"
+                android:id="@+id/MiraHoroscopeDetailTop"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
-                android:src="@drawable/mira_horoscopedetailtop">
+                android:src="@drawable/mira_horoscope_detail_top">
             </ImageView>
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="110dp"
                 android:layout_above="@id/horoscope_detail_card"
-                android:src="@drawable/horoscopedetailcardtriangle"
+                android:src="@drawable/horoscope_detail_card_triangle"
                 android:layout_marginBottom="15dp"
                 android:layout_marginStart="25dp">
             </ImageView>
@@ -40,7 +42,7 @@
                 android:id="@+id/horoscope_detail_card"
                 app:cardCornerRadius="25dp"
                 app:cardBackgroundColor="#313131"
-                android:layout_below="@id/mira_horoscopedetailtop"
+                android:layout_below="@id/MiraHoroscopeDetailTop"
                 android:layout_marginTop="-48dp">
                 <TextView
                     android:padding="20dp"
@@ -52,7 +54,8 @@
                     android:text=""
                     android:fontFamily="@font/arima_madurai_light"
                     android:textSize="18sp"
-                    android:textColor="@color/white">
+                    android:textColor="@color/white"
+                    tools:ignore="RtlSymmetry">
                 </TextView>
 
 
@@ -61,7 +64,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/horoscope_detail_startchattextcard"
+                android:id="@+id/horoscopeDetailStartChatTextCard"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 app:cardCornerRadius="15dp"
@@ -83,19 +86,21 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_below="@id/horoscope_detail_startchattextcard"
-                android:src="@drawable/startchatcardtriangle"
+                android:layout_below="@id/horoscopeDetailStartChatTextCard"
+                android:layout_marginStart="95dp"
                 android:layout_marginTop="-18dp"
-                android:layout_marginStart="95dp">
+                android:src="@drawable/start_chat_card_triangle"
+                tools:ignore="ImageContrastCheck">
             </ImageView>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:id="@+id/miraHoroscopeDetailBottom"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="25dp"
-                android:layout_below="@id/horoscope_detail_startchattextcard"
-                android:src="@drawable/mira_horoscopedetailbottom">
+                android:layout_below="@id/horoscopeDetailStartChatTextCard"
+                android:src="@drawable/mira_horoscope_detail_bottom">
 
             </ImageView>
 

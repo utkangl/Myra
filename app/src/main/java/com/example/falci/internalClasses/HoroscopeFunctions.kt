@@ -39,31 +39,21 @@ object HoroscopeFunctions {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
                         replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
-
                     }
 
                     if (responseBody != null) {
-                        getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
                         val errorResponseJson = JSONObject(responseBody)
-
                         println(statusCode)
 
                         if (statusCode == 200) {
-                            getHoroscopeData.apply {
-                                val thread = thread
-                                val summary = summary
-                                val good= good
-                                val bad = bad
-                                println(getHoroscopeData)
-                            }
+                            getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
 
-                        } else {
+                        }   else {
                             val detail = errorResponseJson.optString("detail")
                             println(detail)
                         }
-                    } else if (exception != null) {
-                        exception.printStackTrace()
-                    }
+                    } else exception?.printStackTrace()
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

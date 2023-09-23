@@ -7,45 +7,20 @@ import com.example.falci.R
 class TransitionToFragment {
 
     object ReplaceFragmentWithAnimation{
-        fun replaceFragmentWithAnimation(fragmentManager: FragmentManager, targetFragment: Fragment) {
-            fragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
-                replace(R.id.main_fragment_container, targetFragment)
-                addToBackStack(null)
-                commit()
-            }
-        }
-
         fun replaceProfileFragmentWithAnimation(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction().apply {
-                setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
+                setCustomAnimations(R.anim.slide_down, 0, 0, R.anim.slide_up)
                 replace(R.id.profile_fragment_container, targetFragment)
                 addToBackStack(null)
                 commit()
             }
         }
-
     }
 
     object ReplaceActivityToFragment{
         fun replaceMainActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
+                .setCustomAnimations(R.anim.slide_down, 0, 0, R.anim.slide_up)
                 .replace(R.id.main_fragment_container, targetFragment)
                 .addToBackStack(null)
                 .commit()
@@ -53,24 +28,22 @@ class TransitionToFragment {
 
         fun replaceLoginActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
+                .setCustomAnimations(R.anim.slide_down, 0, 0, R.anim.slide_up)
+                .replace(R.id.login_signup_container, targetFragment)
+                .commit()
+        }
+
+        fun replaceLoginActivityToSignUpFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
+            fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.slide_down, 0, 0, R.anim.slide_up)
+                .addToBackStack(null)
                 .replace(R.id.login_signup_container, targetFragment)
                 .commit()
         }
 
         fun replaceProfileActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.slide_down,
-                    R.anim.slide_up,
-                    R.anim.slide_down,
-                    R.anim.slide_up
-                )
+                .setCustomAnimations(R.anim.slide_down, 0, 0, R.anim.slide_up)
                 .replace(R.id.profile_fragment_container, targetFragment)
                 .addToBackStack(null)
                 .commit()

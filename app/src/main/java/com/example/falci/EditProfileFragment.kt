@@ -111,10 +111,10 @@ class EditProfileFragment : Fragment() {
             {_,_->}
 
             setViewGone(savebutton)
-            fragmentManager?.popBackStack()
+            parentFragmentManager.popBackStack()
         }
 
-        backArrow.setOnClickListener { fragmentManager?.popBackStack() }
+        backArrow.setOnClickListener { parentFragmentManager.popBackStack() }
 
         birthDateField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)

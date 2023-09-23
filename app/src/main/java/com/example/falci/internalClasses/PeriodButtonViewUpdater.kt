@@ -13,7 +13,7 @@ class PeriodButtonViewUpdater(private val context: Context) {
     fun updateButtonView(button: Button) {
         val scale = context.resources.displayMetrics.density
 
-        val newHeight = (730 * scale + 0.5f).toInt()
+        val newHeight = (780 * scale + 0.5f).toInt()
 //        val burcCardMarginBottom = (-370 * scale + 0.5f).toInt()
         val dailyButtonMarginBottom = (125 * scale + 0.5f).toInt()
         val signsMarginBottom = (205 * scale + 0.5f).toInt()

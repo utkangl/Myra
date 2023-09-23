@@ -18,7 +18,7 @@ class LocationService(private val context: Context) {
 
     private lateinit var placesClient: PlacesClient
     private lateinit var autoCompleteTextView: AutoCompleteTextView
-    var isCitySelected = false
+    private var isCitySelected = false
 
     private var currentQuery: String = ""
 

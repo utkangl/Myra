@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:id="@+id/mainActivityGeneralLayout"
-    android:background="@drawable/main_menu_background">
+    android:background="@drawable/main_menu_background"
+    tools:ignore="HardcodedText,UnusedAttribute">
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
@@ -14,420 +15,447 @@
         android:layout_height="match_parent">
     </FrameLayout>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/thinkingAnimation"
-            android:layout_centerInParent="true"
-            android:layout_width="360dp"
-            android:layout_height="360dp"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/thinking_animation"
-            tools:layout_editor_absoluteY="0dp"
-            android:visibility="gone">
-        </com.airbnb.lottie.LottieAnimationView>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/thinkingAnimation"
+        android:layout_centerInParent="true"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/thinking_animation"
+        tools:layout_editor_absoluteY="0dp"
+        android:visibility="gone">
+    </com.airbnb.lottie.LottieAnimationView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/settingsButtonCard"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="15dp"
-            app:contentPadding="5dp"
-            app:cardCornerRadius="25dp"
-            app:cardBackgroundColor="#1c1444"
-            android:elevation="5dp"
-            android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="@color/white"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/settingsButtonCard"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+        app:contentPadding="5dp"
+        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="#1c1444"
+        android:elevation="5dp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
 
-            android:layout_alignParentEnd="true">
+        android:layout_alignParentEnd="true">
 
-            <ImageButton
-                android:id="@+id/settingsButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/person_icon"
-                android:contentDescription="imageButton of profile">
-            </ImageButton>
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/person_icon"
+            android:contentDescription="imageButton of profile"
+            tools:ignore="TouchTargetSizeCheck">
+        </ImageButton>
 
-        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
-        <!--    empty view to align components-->
-        <TextView
-            android:id="@+id/empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-        </TextView>
+    <!--    empty view to align components-->
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        tools:ignore="RelativeOverlap">
+    </TextView>
 
     <ImageView
         android:id="@+id/miraMainMenu"
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/mira_main__menu">
+        android:contentDescription="mira with table on main menu"
+        android:src="@drawable/mira_main__menu"
+        tools:ignore="ImageContrastCheck">
 
     </ImageView>
 
         <!--    burc card-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/burcCard"
-            android:layout_width="340dp"
-            android:layout_height="80dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/burcCard"
+        android:layout_width="340dp"
+        android:layout_height="80dp"
 
-            android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
 
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="@color/white"
 
-            app:cardBackgroundColor="#1c1444"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="5dp"
+        android:outlineSpotShadowColor="@color/white"
+        app:cardBackgroundColor="#1c1444"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        tools:ignore="TextSizeCheck">
 
-            android:animateLayoutChanges="true">
-
-            <RelativeLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-<!--                burcCardLayout1-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/burcCardInnerLayout1">
+            <TextView
+                android:id="@+id/ClickToGetHoroscopeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="Click to Get Horoscope"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                tools:ignore="VisualLintOverlap"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+            </TextView>
+            <!--                burcCardLayout1-->
+            <RelativeLayout
+                android:id="@+id/burcCardInnerLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="VisualLintBounds">
 
-                    <!--back arrow-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/backArrowCard"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:cardCornerRadius="75dp"
-                        app:cardBackgroundColor="#47386F"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginEnd="25dp"
-                        android:visibility="invisible">
+                <!--back arrow-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/backArrowCard"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#47386F"
+                    app:cardCornerRadius="75dp">
 
-                        <ImageButton
-                            android:id="@+id/back_arrow"
-                            android:layout_width="45dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/back_arrow"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="12dp">
-                        </ImageButton>
+                    <ImageButton
+                        android:id="@+id/back_arrow"
+                        android:layout_width="45dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/back_arrow"
+                        android:contentDescription="back arrow image button"
+                        tools:ignore="VisualLintBounds">
+                    </ImageButton>
 
-                    </androidx.cardview.widget.CardView>
-                    <!--zodiac sign image-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/zodiac_sign"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginTop="25dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="15dp"
-                        android:visibility="invisible">
+                </androidx.cardview.widget.CardView>
+                <!--zodiac sign image-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/zodiac_sign"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="25dp"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#1c1444"
+                    app:cardCornerRadius="15dp">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/gemini">
-                        </ImageView>
-                    </androidx.cardview.widget.CardView>
-                    <!--burc text-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="zodiac sign image"
+                        android:src="@drawable/gemini">
+                    </ImageView>
+                </androidx.cardview.widget.CardView>
+                <!--burc text-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
 
-                        android:layout_marginTop="40dp"
-                        android:layout_toEndOf="@+id/zodiac_sign"
+                    android:layout_marginTop="40dp"
+                    android:layout_toEndOf="@+id/zodiac_sign"
 
-                        android:fontFamily="@font/arima_madurai_bold"
-                        android:text="Burc"
-                        android:textColor="@color/white"
-                        android:textSize="30sp"
-                        tools:ignore="HardcodedText"
-                        android:visibility="invisible">
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text="Burc"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:visibility="invisible">
 
-                    </TextView>
+                </TextView>
+
+                <ScrollView
+                    android:id="@+id/burcCardExplanationTextScroll"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/zodiac_sign"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:visibility="invisible">
                     <!--burc explanation text-->
                     <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="100dp"
-                        android:layout_below="@+id/zodiac_sign"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-
-                        android:fontFamily="@font/arima_madurai_light"
-                        android:text="Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. "
-                        android:textColor="@color/white"
-                        android:textSize="13sp"
-                        tools:ignore="HardcodedText"
-                        android:visibility="invisible">
-
-                    </TextView>
-                    <!--general sign card-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/generalSign"
-                        android:layout_width="90dp"
-                        android:layout_height="110dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_toStartOf="@+id/loveSign"
-                        android:layout_marginEnd="25dp"
-                        android:layout_marginBottom="25dp"
-                        app:cardBackgroundColor="#808c8c8c"
-                        app:cardCornerRadius="15dp"
-                        android:animateLayoutChanges="true"
-                        android:visibility="invisible">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:cardCornerRadius="15dp"
-                            android:layout_gravity="center"
-                            app:cardBackgroundColor="@color/white">
-
-                            <ImageView
-                                android:layout_width="55dp"
-                                android:layout_height="55dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/gemini">
-                            </ImageView>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginBottom="4dp"
-                                android:fontFamily="@font/arima_madurai_bold"
-                                android:text="Genel"
-                                android:textAlignment="center"
-                                android:textSize="15sp"
-                                android:textColor="@color/white"
-                                tools:ignore="HardcodedText">
-                            </TextView>
-
-                        </RelativeLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <!--love sign card-->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/loveSign"
-                        android:layout_width="90dp"
-                        android:layout_height="110dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="25dp"
-                        app:cardBackgroundColor="#808c8c8c"
-                        app:cardCornerRadius="15dp"
-                        android:animateLayoutChanges="true"
-                        android:visibility="invisible">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:cardCornerRadius="15dp"
-                            android:layout_gravity="center"
-                            app:cardBackgroundColor="@color/white">
-
-                            <ImageView
-                                android:layout_width="55dp"
-                                android:layout_height="55dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/gemini">
-                            </ImageView>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginBottom="4dp"
-                                android:fontFamily="@font/arima_madurai_bold"
-                                android:text="Ask"
-                                android:textAlignment="center"
-                                android:textSize="15sp"
-                                android:textColor="@color/white"
-                                tools:ignore="HardcodedText">
-                            </TextView>
-
-                        </RelativeLayout>
-
-                    </androidx.cardview.widget.CardView>
-                    <!--learn your burc button-->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/learnYourBurcButton"
+                        android:id="@+id/burcCardExplanationText"
                         android:layout_width="match_parent"
-
-                        android:layout_height="75dp"
-
-                        android:layout_marginLeft="75dp"
-                        android:layout_marginRight="75dp"
-
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"
-
-                        android:background="@drawable/common_next_button"
-
-                        android:fontFamily="@font/arima_madurai_bold"
-                        android:text="Burcunu Ogren"
-                        android:textAllCaps="false"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:padding="10dp"
+                        android:paddingBottom="15dp"
+                        android:text="Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.  "
                         android:textColor="@color/white"
-                        android:textSize="24sp"
-                        tools:ignore="HardcodedText"
-                        android:visibility="invisible">
+                        android:textSize="15sp">
+                    </TextView>
+                </ScrollView>
 
-                    </androidx.appcompat.widget.AppCompatButton>
-                    <!--career sign card-->
+                <!--general sign card-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/generalSign"
+                    android:layout_width="90dp"
+                    android:layout_height="110dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_toStartOf="@+id/loveSign"
+                    android:animateLayoutChanges="true"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#808c8c8c"
+                    app:cardCornerRadius="15dp">
+
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/careerSign"
-                        android:layout_width="90dp"
-                        android:layout_height="110dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_toEndOf="@+id/loveSign"
-                        android:layout_marginBottom="25dp"
-                        android:layout_marginStart="25dp"
-                        app:cardBackgroundColor="#808c8c8c"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="15dp"
-                        android:animateLayoutChanges="true"
-                        android:visibility="invisible">
+                        tools:ignore="VisualLintBounds">
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            app:cardCornerRadius="15dp"
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
-                            app:cardBackgroundColor="@color/white">
-
-                            <ImageView
-                                android:layout_width="55dp"
-                                android:layout_height="55dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/gemini">
-                            </ImageView>
-
-                        </androidx.cardview.widget.CardView>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginBottom="4dp"
-                                android:fontFamily="@font/arima_madurai_bold"
-                                android:text="Kariyer"
-                                android:textAlignment="center"
-                                android:textSize="15sp"
-                                android:textColor="@color/white"
-                                tools:ignore="HardcodedText">
-                            </TextView>
-
-                        </RelativeLayout>
+                            android:contentDescription="general sign card's image"
+                            android:src="@drawable/gemini">
+                        </ImageView>
 
                     </androidx.cardview.widget.CardView>
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-<!--                burcCardLayout2-->
-                <RelativeLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="Genel"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="15sp">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+                <!--love sign card-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/loveSign"
+                    android:layout_width="90dp"
+                    android:layout_height="110dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="25dp"
+                    android:animateLayoutChanges="true"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#808c8c8c"
+                    app:cardCornerRadius="15dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="15dp"
+                        tools:ignore="VisualLintBounds">
+
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="love sign card's image"
+                            android:src="@drawable/gemini">
+                        </ImageView>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="Ask"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="15sp">
+                        </TextView>
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+                <!--learn your burc button-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/learnYourBurcButton"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/burcCardInnerLayout2">
 
-                    <!--daily button-->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
+                    android:layout_height="75dp"
 
-                        android:id="@+id/dailyButton"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="75dp"
 
-                        android:background="@drawable/button_passive"
+                    android:layout_marginRight="75dp"
+                    android:layout_marginBottom="25dp"
 
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"
-                        android:layout_marginStart="25dp"
+                    android:background="@drawable/common_next_button"
 
-                        android:text="Gunluk"
-                        android:textColor="@color/white"
-                        android:textAlignment="center"
-                        android:fontFamily="@font/arima_madurai_bold"
-                        android:textSize="18sp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text="Burcunu Ogren"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:visibility="invisible">
 
-                        android:animateLayoutChanges="true"
-                        android:visibility="invisible"
-                        tools:ignore="HardcodedText">
+                </androidx.appcompat.widget.AppCompatButton>
+                <!--career sign card-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/careerSign"
+                    android:layout_width="90dp"
+                    android:layout_height="110dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_toEndOf="@+id/loveSign"
+                    android:animateLayoutChanges="true"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#808c8c8c"
+                    app:cardCornerRadius="15dp">
 
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="15dp"
+                        tools:ignore="VisualLintBounds">
 
-                    </androidx.appcompat.widget.AppCompatButton>
-                    <!--monthly button-->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="career sign card's image"
+                            android:src="@drawable/gemini">
 
-                        android:id="@+id/monthlyButton"
+                        </ImageView>
 
-                        android:background="@drawable/button_passive"
+                    </androidx.cardview.widget.CardView>
 
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"
-                        android:layout_marginStart="140dp"
-                        android:visibility="invisible"
-                        android:text="Aylik"
-                        android:textColor="@color/white"
-                        android:textAlignment="center"
-                        android:fontFamily="@font/arima_madurai_bold"
-                        android:textSize="18sp"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        tools:ignore="HardcodedText"
-                        android:animateLayoutChanges="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="Kariyer"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="15sp">
+                        </TextView>
 
-                    </androidx.appcompat.widget.AppCompatButton>
-                    <!-- yearly button-->
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="90dp"
-                        android:layout_height="50dp"
+                    </RelativeLayout>
 
-                        android:id="@+id/yearlyButton"
-
-                        android:background="@drawable/button_passive"
-
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="25dp"
-                        android:layout_toEndOf="@+id/monthlyButton"
-                        android:layout_marginStart="25dp"
-                        android:visibility="invisible"
-                        android:text="Gunluk"
-                        android:textColor="@color/white"
-                        android:textAlignment="center"
-                        android:fontFamily="@font/arima_madurai_bold"
-                        android:textSize="18sp"
-                        android:animateLayoutChanges="true"
-                        tools:ignore="HardcodedText">
-
-                    </androidx.appcompat.widget.AppCompatButton>
-                </RelativeLayout>
+                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
-        </androidx.cardview.widget.CardView>
+            <!--                burcCardLayout2-->
+            <RelativeLayout
+                android:id="@+id/burcCardInnerLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--daily button-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/dailyButton"
+                    android:layout_width="90dp"
+
+                    android:layout_height="50dp"
+
+                    android:layout_alignParentBottom="true"
+
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:animateLayoutChanges="true"
+
+                    android:background="@drawable/button_passive"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text="Gunluk"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+
+                    android:textSize="18sp"
+                    android:visibility="invisible">
+
+
+                </androidx.appcompat.widget.AppCompatButton>
+                <!--monthly button-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/monthlyButton"
+                    android:layout_width="90dp"
+
+                    android:layout_height="50dp"
+
+                    android:layout_alignParentBottom="true"
+
+                    android:layout_marginStart="140dp"
+                    android:layout_marginBottom="25dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/button_passive"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text="Aylik"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="invisible">
+
+                </androidx.appcompat.widget.AppCompatButton>
+                <!-- yearly button-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/yearlyButton"
+                    android:layout_width="90dp"
+
+                    android:layout_height="50dp"
+
+                    android:layout_alignParentBottom="true"
+
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_toEndOf="@+id/monthlyButton"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/button_passive"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text="Gunluk"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="invisible">
+
+                </androidx.appcompat.widget.AppCompatButton>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

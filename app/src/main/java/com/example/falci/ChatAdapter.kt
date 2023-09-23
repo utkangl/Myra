@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.falci.internalClasses.dataClasses.ChatMessage
 
 class ChatAdapter(private val context: Context, private val messages: List<ChatMessage>) :
     BaseAdapter() {

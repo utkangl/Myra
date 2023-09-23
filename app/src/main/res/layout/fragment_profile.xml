@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/gradient_background"
+    tools:ignore="ContentDescription">
 
     <TextView
         android:layout_width="wrap_content"
@@ -47,19 +48,21 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/profilephotocard"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/profilephotocard"
-                app:cardCornerRadius="50dp"
-                app:cardBackgroundColor="@color/white"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="15dp">
+                android:layout_marginStart="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="50dp"
+                tools:ignore="TextSizeCheck">
 
                 <ImageView
+                    android:id="@+id/profilephoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="#6B66CF"
-                    android:id="@+id/profilephoto">
+                    tools:ignore="ImageContrastCheck">
                 </ImageView>
 
                 <TextView
@@ -78,7 +81,6 @@
                     tools:ignore="HardcodedText">
 
                 </TextView>
-
 
 
             </androidx.cardview.widget.CardView>
@@ -117,23 +119,23 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/profilefragmenteditprofilebutton"
                 android:layout_width="120dp"
                 android:layout_height="48dp"
-                android:id="@+id/profilefragmenteditprofilebutton"
-                android:background="@drawable/editprofile"
-
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
 
-                android:text="Profilini Düzenle"
-                android:textSize="13sp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="20dp"
+
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/editprofile"
+
                 android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
+                android:text="Profilini Düzenle"
                 android:textAllCaps="false"
-                tools:ignore="HardcodedText">
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,TextSizeCheck">
             </androidx.appcompat.widget.AppCompatButton>
 
         </RelativeLayout>
@@ -150,6 +152,7 @@
         android:outlineSpotShadowColor="@color/white"
         app:cardBackgroundColor="#242854"
         app:cardCornerRadius="15dp"
+        tools:ignore="TextSizeCheck"
         tools:targetApi="p">
 
         <RelativeLayout
@@ -157,22 +160,23 @@
             android:layout_height="match_parent">
 
             <HorizontalScrollView
+                android:id="@+id/horizontalscrollview"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_alignParentTop="true"
-                android:id="@+id/horizontalscrollview"
-                android:scrollbars="none"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="VisualLintBounds">
 
                     <RelativeLayout
+                        android:id="@+id/scrollViewJupyterLayout"
                         android:layout_width="115dp"
                         android:layout_height="60dp"
-                        android:id="@+id/scrollViewJupyterLayout"
                         android:layout_marginStart="9dp"
                         android:layout_marginEnd="2dp">
 
@@ -184,18 +188,18 @@
                             android:layout_marginEnd="5dp"
                             android:contentDescription="jupiter image"
                             android:src="@drawable/jupiter"
-                            tools:ignore="HardcodedText">
+                            tools:ignore="HardcodedText,ImageContrastCheck">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
                             android:text="Jupiter"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -210,30 +214,30 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
-                        android:layout_width="115dp"
-                        android:layout_height="60dp"
                         android:id="@+id/marslayout"
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/mars"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/mars">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
                             android:text="Mars"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -247,30 +251,31 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
-                        android:layout_width="115dp"
-                        android:layout_height="60dp"
                         android:id="@+id/mercurylayout"
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        tools:ignore="VisualLintBounds">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/mercury"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/mercury">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
                             android:text="Mercury"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -285,30 +290,30 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
-                        android:layout_width="115dp"
-                        android:layout_height="60dp"
                         android:id="@+id/neptunlayout"
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/neptun"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/neptun">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
                             android:text="Neptun"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -323,30 +328,30 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
+                        android:id="@+id/saturnlayout"
                         android:layout_width="115dp"
                         android:layout_height="60dp"
-                        android:id="@+id/saturnlayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/saturn"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/saturn">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
-                            android:text="Saturn"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/white"
                             android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
+                            android:text="Saturn"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -362,30 +367,30 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/sunlayout"
                         android:layout_width="115dp"
                         android:layout_height="60dp"
-                        android:id="@+id/sunlayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="15dp"
-                            android:src="@drawable/sun"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/sun">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="60dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
                             android:text="Sun"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -400,30 +405,30 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
-                        android:layout_width="115dp"
-                        android:layout_height="60dp"
                         android:id="@+id/uranuslayout"
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/uranus"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/uranus">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
+                            android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
                             android:text="Uranus"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/arima_madurai_light"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -439,30 +444,30 @@
 
 
                     <RelativeLayout
-                        android:layout_width="115dp"
-                        android:layout_height="60dp"
                         android:id="@+id/venuslayout"
+                        android:layout_width="115dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/venus"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/venus">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
-                            android:text="Venus"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/white"
                             android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
+                            android:text="Venus"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -477,30 +482,30 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
+                        android:id="@+id/moonlayout"
                         android:layout_width="115dp"
                         android:layout_height="60dp"
-                        android:id="@+id/moonlayout"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginStart="5dp"
-                            android:src="@drawable/moon"
                             android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp">
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:src="@drawable/moon">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="40dp"
-                            android:text="Moon"
-                            android:textSize="20sp"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/white"
                             android:fontFamily="@font/arima_madurai_light"
+                            android:gravity="center_vertical"
+                            android:text="Moon"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
                             tools:ignore="HardcodedText">
                         </TextView>
 
@@ -513,19 +518,19 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/scrollViewSeparator"
-                android:layout_below="@+id/horizontalscrollview"
                 android:layout_width="350dp"
                 android:layout_height="2dp"
-                android:layout_marginTop="5dp"
-                app:cardBackgroundColor="@color/white"
+                android:layout_below="@+id/horizontalscrollview"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/separator_line">
+                android:layout_marginTop="5dp"
+                android:background="@drawable/separator_line"
+                app:cardBackgroundColor="@color/white">
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
+                android:id="@+id/zodiacexplanationcard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/zodiacexplanationcard"
                 android:layout_below="@id/scrollViewSeparator">
 
                 <androidx.cardview.widget.CardView
@@ -534,11 +539,11 @@
                     android:layout_height="50dp"
 
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="25dp"
                     android:layout_marginTop="12dp"
-                    app:contentPadding="5dp"
+                    android:layout_marginEnd="25dp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="10dp">
+                    app:cardCornerRadius="10dp"
+                    app:contentPadding="5dp">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -551,22 +556,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/zodiac_sign"
-                    android:layout_marginTop="2dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginTop="2dp"
                     android:layout_marginEnd="30dp"
 
+                    android:fontFamily="@font/arima_madurai_light"
                     android:text="Ikizler"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/arima_madurai_light"
                     android:textSize="15sp"
                     tools:ignore="HardcodedText">
 
                 </TextView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/burcexplanationplanet"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:id="@+id/burcexplanationplanet"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="12dp"
 
@@ -574,25 +579,25 @@
                     app:cardCornerRadius="35dp">
 
                     <ImageView
+                        android:id="@+id/burcexplanationplanetimage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/burcexplanationplanetimage"
                         android:src="@drawable/moon">
                     </ImageView>
 
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/burcexplanationplanettext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/burcexplanationplanettext"
-                    android:layout_toEndOf="@+id/burcexplanationplanet"
-                    android:layout_marginTop="28dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_toEndOf="@+id/burcexplanationplanet"
 
+                    android:fontFamily="@font/arima_madurai_bold"
                     android:text="PLANET"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/arima_madurai_bold"
                     android:textSize="25sp"
                     tools:ignore="HardcodedText">
 
@@ -602,16 +607,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/burcexplanationplanet"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginBottom="30dp"
                     android:layout_marginStart="35dp"
+                    android:layout_marginTop="25dp"
                     android:layout_marginEnd="35dp"
+                    android:layout_marginBottom="30dp"
 
 
-                    android:textColor="@color/white"
                     android:fontFamily="@font/arima_madurai_light"
-                    android:textSize="15sp"
                     android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol "
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
                     tools:ignore="HardcodedText">
                 </TextView>
 
@@ -619,21 +624,22 @@
                     android:id="@+id/backArrowCard"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:cardCornerRadius="75dp"
-                    app:cardBackgroundColor="#47386F"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="25dp"
                     android:layout_marginEnd="25dp"
-                    android:visibility="invisible">
+                    android:layout_marginBottom="25dp"
+                    android:visibility="invisible"
+                    app:cardBackgroundColor="#47386F"
+                    app:cardCornerRadius="75dp">
 
                     <ImageButton
                         android:id="@+id/back_arrow"
                         android:layout_width="45dp"
                         android:layout_height="35dp"
-                        android:background="@drawable/back_arrow"
                         android:layout_gravity="center"
-                        android:layout_marginStart="12dp">
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/back_arrow"
+                        tools:ignore="VisualLintBounds">
                     </ImageButton>
 
                 </androidx.cardview.widget.CardView>
@@ -641,31 +647,25 @@
             </RelativeLayout>
 
 
-
-
-
         </RelativeLayout>
-
-
-
-
 
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/profileViewBottomCard"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:id="@+id/profileViewBottomCard"
+        android:layout_below="@+id/zodiaccard"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:elevation="5dp"
         android:outlineAmbientShadowColor="@color/white"
         android:outlineSpotShadowColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="40dp"
-        android:layout_below="@+id/zodiaccard"
-        android:layout_marginTop="20dp"
         app:cardBackgroundColor="#242854"
         app:cardCornerRadius="15dp"
+        tools:ignore="TextSizeCheck"
         tools:targetApi="p">
 
 
@@ -685,46 +685,46 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/star_icon"
                 android:layout_above="@+id/bottomcardseperator"
+                android:layout_marginStart="50dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginStart="50dp">
+                android:src="@drawable/star_icon">
             </ImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/bottomcardseperator"
-                android:layout_marginBottom="8dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/arima_madurai_bold"
                 android:gravity="center"
                 android:text="Favori Burcların"
-                android:textSize="20sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/arima_madurai_bold"
+                android:textSize="20sp"
                 tools:ignore="HardcodedText">
             </TextView>
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/baseline_currency_bitcoin_24"
                 android:layout_below="@+id/bottomcardseperator"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="50dp">
+                android:src="@drawable/baseline_currency_bitcoin_24">
             </ImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/bottomcardseperator"
-                android:layout_marginTop="8dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/arima_madurai_bold"
                 android:gravity="center"
                 android:text="Coin Satin Al"
-                android:textSize="20sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/arima_madurai_bold"
+                android:textSize="20sp"
                 tools:ignore="HardcodedText">
             </TextView>
 

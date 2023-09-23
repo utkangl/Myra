@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToFragment
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToSignUpFragment
 import com.example.falci.internalClasses.dataClasses.LoginTokensDataClass
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.urls
@@ -71,7 +71,7 @@ class Loginfragment : Fragment() {
         }
 
         changeToSignUp.setOnClickListener {
-            replaceLoginActivityToFragment(parentFragmentManager, SignUpFragment())
+            replaceLoginActivityToSignUpFragment(parentFragmentManager, SignUpFragment())
         }
 
         if (!savedUsername.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {

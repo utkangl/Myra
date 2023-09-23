@@ -1,6 +1,7 @@
 package com.example.falci
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -104,7 +105,11 @@ class CompleteProfile : AppCompatActivity() {
         }
 
         fun setTime(){
-            val selectedHour = timePick.hour
+            val selectedHour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                timePick.hour
+            } else {
+                TODO("VERSION.SDK_INT < M")
+            }
             val selectedMinute = timePick.minute
             val selectedTime = "$selectedHour:$selectedMinute:00"
             userCompleteProfile.time = selectedTime

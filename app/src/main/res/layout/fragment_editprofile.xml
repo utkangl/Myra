@@ -26,9 +26,10 @@
             android:id="@+id/back_arrow"
             android:layout_width="45dp"
             android:layout_height="35dp"
-            android:background="@drawable/back_arrow"
             android:layout_gravity="center"
-            android:layout_marginStart="12dp">
+            android:layout_marginStart="12dp"
+            android:background="@drawable/back_arrow"
+            tools:ignore="ContentDescription,TouchTargetSizeCheck,VisualLintBounds,SpeakableTextPresentCheck">
         </ImageButton>
 
     </androidx.cardview.widget.CardView>
@@ -61,22 +62,22 @@
         tools:ignore="HardcodedText">
     </TextView>
 
-    <EditText
-        android:id="@+id/nameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_above="@+id/genderEditText"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginBottom="40dp"
-        android:fontFamily="@font/arima_madurai_bold"
-        android:textColor="@color/white"
-        android:inputType="textPersonName"
-        android:autofillHints="name"
-        android:hint=" "
-        tools:ignore="HardcodedText">
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_above="@+id/genderEditText"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginBottom="40dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:hint=" "
+            android:inputType="textPersonName"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText,VisualLintTextFieldSize,TouchTargetSizeCheck,SpeakableTextPresentCheck">
 
-    </EditText>
+        </EditText>
 
     <TextView
         android:layout_width="wrap_content"
@@ -213,8 +214,6 @@
         android:layout_marginStart="100dp"
         android:layout_below="@+id/birthTimeEditText"
         android:layout_marginTop="40dp"
-
-        android:inputType="textLongMessage"
         android:textSize="18sp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
@@ -429,7 +428,8 @@
 
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"    />
+            android:textColorHint="@color/white"
+            tools:ignore="VisualLintTextFieldSize" />
 
     </androidx.cardview.widget.CardView>
 

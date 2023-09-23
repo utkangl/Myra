@@ -30,7 +30,7 @@
         <activity
             android:name=".LoginSignupActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

@@ -17,7 +17,6 @@ import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctio
 import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceFragmentWithAnimation
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.urls
@@ -81,7 +80,6 @@ class ProfileFragment : Fragment() {
 
             // change to Login screen if user is not logged in
             if (!authenticated.isLoggedIn){
-//                replaceFragmentWithAnimation(parentFragmentManager, Loginfragment())
                 val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
             }
         }

@@ -20,7 +20,8 @@
 
             android:layout_above="@+id/loginFragmentTitleTextview"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            tools:ignore="ContentDescription">
         </ImageView>
 
 
@@ -56,12 +57,12 @@
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="20dp"
 
+            android:autofillHints="emailAddress"
             android:hint="Kullanici Adi"
+            android:inputType="textEmailAddress"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:inputType="textEmailAddress"
-            android:autofillHints="emailAddress"
-            tools:ignore="HardcodedText">
+            tools:ignore="HardcodedText,VisualLintTextFieldSize,TouchTargetSizeCheck">
 
         </EditText>
 
@@ -72,15 +73,16 @@
 
             android:layout_height="wrap_content"
 
-            android:layout_centerInParent="true"
-
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:autofillHints="password"
             android:hint="@string/sifre"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/white">
+            android:textColorHint="@color/white"
+            tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
 
         </EditText>
 
@@ -125,7 +127,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="24sp"
-            tools:ignore="HardcodedText">
+            tools:ignore="HardcodedText,VisualLintButtonSize">
 
         </androidx.appcompat.widget.AppCompatButton>
 
@@ -136,8 +138,6 @@
             android:layout_height="65dp"
 
             android:layout_below="@id/loginFragmentNextButton"
-
-            android:layout_centerInParent="true"
 
             android:layout_marginLeft="40dp"
 
@@ -155,7 +155,9 @@
             android:textAllCaps="false"
             android:textColor="#808080"
             android:textSize="24sp"
-            tools:ignore="HardcodedText">
+            tools:ignore="HardcodedText,VisualLintButtonSize"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
 
         </androidx.appcompat.widget.AppCompatButton>
 
@@ -167,7 +169,6 @@
 
             android:layout_below="@id/loginfragmentloginwithgooglebutton"
 
-            android:layout_centerInParent="true"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="20dp"
 
@@ -183,7 +184,9 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="24sp"
-            tools:ignore="HardcodedText">
+            tools:ignore="HardcodedText,VisualLintButtonSize"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
 
         </androidx.appcompat.widget.AppCompatButton>
 
@@ -195,7 +198,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:text="ya da"
-            android:textColor="@color/white">
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText">
 
         </TextView>
 

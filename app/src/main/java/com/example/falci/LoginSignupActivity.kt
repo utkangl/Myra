@@ -12,5 +12,4 @@ class LoginSignupActivity : AppCompatActivity() {
         replaceLoginActivityToFragment(supportFragmentManager, Loginfragment())
     }
 
-
 }

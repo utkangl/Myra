@@ -7,18 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.dataClasses.ChatMessage
 import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
@@ -36,14 +33,12 @@ class ChatFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_chat, container, false)
 
-        val messageInput = v.findViewById<EditText>(R.id.chatfragmentmessageinputtext)
+        val messageInput = v.findViewById<EditText>(R.id.chatFragmentMessageInputText)
         val messageInputParams = messageInput.layoutParams as RelativeLayout.LayoutParams
 
         val sendUserMessage = v.findViewById<ImageButton>(R.id.sendUserMessage)
         val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
 
-        val chatFragmentContainer = v.findViewById<RelativeLayout>(R.id.chatFragmentContainer)
-        val mainLayout = v.findViewById<RelativeLayout>(R.id.chat_fragment)
         val annen = v.findViewById<RelativeLayout>(R.id.annen)
 
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
@@ -192,6 +187,14 @@ class ChatFragment : Fragment() {
 
             }
         })
+
+        val changeToHoroscopeDetailFragment = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val mainActivityIntent = Intent(requireContext(), ChatFragment::class.java)
+                startActivity(mainActivityIntent)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, changeToHoroscopeDetailFragment)
 
     }
 
