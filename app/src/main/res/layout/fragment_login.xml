@@ -45,36 +45,26 @@
         </TextView>
 
         <EditText
-
             android:id="@+id/loginFragmentUsername"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
-
-            android:layout_above="@+id/loginFragmentPassword"
+            android:layout_centerInParent="true"
             android:layout_marginStart="50dp"
-
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="20dp"
-
             android:autofillHints="emailAddress"
-            android:hint="Kullanici Adi"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             tools:ignore="HardcodedText,VisualLintTextFieldSize,TouchTargetSizeCheck">
-
         </EditText>
-
 
         <EditText
             android:id="@+id/loginFragmentPassword"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
-
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_below="@+id/loginFragmentUsername"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:autofillHints="password"
@@ -83,7 +73,6 @@
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
-
         </EditText>
 
         <com.example.falci.LinkTextView
@@ -113,13 +102,12 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
 
-            android:layout_below="@id/loginFragmentPassword"
+            android:layout_below="@id/loginFragmentUsername"
 
             android:layout_centerInParent="true"
+
             android:layout_marginLeft="75dp"
-
-            android:layout_marginTop="40dp"
-
+            android:layout_marginTop="190dp"
             android:layout_marginRight="75dp"
             android:background="@drawable/common_next_button"
             android:fontFamily="@font/arima_madurai_bold"
@@ -131,86 +119,12 @@
 
         </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loginfragmentloginwithgooglebutton"
-
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-
-            android:layout_below="@id/loginFragmentNextButton"
-
-            android:layout_marginLeft="40dp"
-
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/silinecek"
-
-            android:drawableStart="@drawable/write_icon"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/arima_madurai_bold"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="Google ile devam et"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="#808080"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText,VisualLintButtonSize"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
-
-        </androidx.appcompat.widget.AppCompatButton>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/budasilinecek"
-
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-
-            android:layout_below="@id/loginfragmentloginwithgooglebutton"
-
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-
-            android:layout_marginRight="40dp"
-            android:background="@drawable/login_with_facebook_button_background"
-            android:drawableStart="@drawable/write_icon"
-            android:drawablePadding="10dp"
-            android:fontFamily="@font/arima_madurai_bold"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="Facebook ile devam et"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText,VisualLintButtonSize"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true">
-
-        </androidx.appcompat.widget.AppCompatButton>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/budasilinecek"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp"
-            android:text="ya da"
-            android:textColor="@color/white"
-            tools:ignore="HardcodedText">
-
-        </TextView>
 
         <com.example.falci.LinkTextView
             android:id="@+id/loginfragmentsignuplinkedtext"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
-
-            android:layout_below="@+id/budasilinecek"
-
+            android:layout_below="@+id/loginFragmentNextButton"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/arima_madurai_bold"
@@ -218,7 +132,6 @@
             android:textColor="@color/white"
             android:textStyle="italic"
             tools:ignore="HardcodedText">
-
         </com.example.falci.LinkTextView>
 
     </RelativeLayout>

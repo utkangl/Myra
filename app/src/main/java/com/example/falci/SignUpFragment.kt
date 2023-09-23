@@ -21,7 +21,7 @@ lateinit var registerTokensDataClass: RegisterTokensDataClass
 class SignUpFragment : Fragment() {
 
      // making this fields lateInit to initialize those on button click. If we were to initialize
-    // them in onCreateView, they would not be re assignable
+    // them in onCreateView, they would not be re assignable when we came back with back button
     private lateinit var emailField: EditText
     private lateinit var passwordField: EditText
 

@@ -59,6 +59,7 @@ class CompleteProfile : AppCompatActivity() {
         var isNextRelation = false
         var isNextOccupation = false
 
+        // multiple spinner will be used in that screen, this function aims to reduce repeating code
         fun setSpinner(spinner: Spinner, dataResId: Int, defaultText: String, onItemSelectedAction: (String) -> Unit) {
             val adapter = ArrayAdapter.createFromResource(this, dataResId, R.layout.custom_spinner_item)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -78,13 +79,20 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
+         // let user to go on to genderpick if input lasts longer than 2 characters else toast error
+        // and  set name field of CompleteProfileUserDataClass's instance w/ user's name input
         fun setName(){
-            if (namePick.text.isNotEmpty()) {
+            if (namePick.text.length >= 2) {
                 userCompleteProfile.name = namePick.text.toString()
                 isNextName = true
+            } else {
+                this.runOnUiThread {
+                    Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
+        // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
         fun setGender(){
             setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
                 if (selectedGender != "Pick your gender") {
@@ -94,6 +102,7 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
+        // set date field of CompleteProfileUserDataClass's instance w/ user's date input
         fun setDate(){
             val selectedYear = datePick.year
             val selectedMonth =  datePick.month + 1
@@ -104,6 +113,7 @@ class CompleteProfile : AppCompatActivity() {
             setViewVisibleWithAnimation(this@CompleteProfile,timePickContainer)
         }
 
+        // set time field of CompleteProfileUserDataClass's instance w/ user's time input
         fun setTime(){
             val selectedHour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 timePick.hour
@@ -117,8 +127,8 @@ class CompleteProfile : AppCompatActivity() {
             setViewVisibleWithAnimation(this@CompleteProfile,locationPickContainer)
         }
 
+        // set location field of CompleteProfileUserDataClass's instance w/ user's location input
         fun setLocation(){
-
             locationPick.setOnClickListener{
                 val locationService = LocationService(this)
                 locationService.initializeAutoCompleteTextView(cityInput)
@@ -136,12 +146,7 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
-        setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedStatus ->
-            selectedRelation = selectedStatus
-            userCompleteProfile.relation = selectedRelation
-            isNextRelation = true
-        }
-
+        // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
         fun setOccupation(){
             setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedStatus ->
                 userCompleteProfile.occupation = selectedStatus
@@ -149,6 +154,7 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
+        // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
         fun setRelation(){
             setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedStatus ->
                 selectedRelation = selectedStatus
@@ -157,13 +163,18 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
+        // this function will put date and time inputs in one variable
         fun formatDateAndTime(date: String, time: String): String {
             return ("$date $time +0000")
         }
 
-        fun completeProfile(){
-            val formattedDate = formatDateAndTime(userCompleteProfile.date, userCompleteProfile.time)
 
+        // create Json, fill with inputs, post it, handle response with response code,toast detail
+        fun completeProfile(){
+
+             // create the json object that will be posted as completeProfileJson
+            //fill json with the user inputs, format date and time into one variable before fill
+            val formattedDate = formatDateAndTime(userCompleteProfile.date, userCompleteProfile.time)
             val zodiacInfoJson = AuthenticationFunctions.CreateJsonObject.createJsonObject(
                 "name" to userCompleteProfile.name,
                 "location" to userCompleteProfile.location,
@@ -181,26 +192,45 @@ class CompleteProfile : AppCompatActivity() {
                 "info" to infoJson
             )
 
-            println("complete profile bilgileri jsonu: $completeProfileJSON")
+               // post complete profile json, handle response with response codes, toast details
+              // if response code is success set isFromSignin true and navigate to main activity
+             // main activity will directly navigate user to login screen when isFromSignIn is true
+            // if response code is error just toast the error
+            postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, registerTokensDataClass.registerAccessToken)
+            { responseBody, _ ->
+                val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                val detail = responseJson?.optString("detail")
 
-            postJsonWithHeader(
-                urls.completeProfileURL,
-                completeProfileJSON,
-                registerTokensDataClass.registerAccessToken
-            )
-            { responseBody, exception ->
-                if (exception != null) {
-                    println("Error: ${exception.message}")
-                } else {
-                    val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                    val detail = responseJson?.optString("detail")
-                    println(detail)
+                if (statusCode == 200){
+                    this.runOnUiThread{
+                        Toast.makeText(this, detail, Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        authenticated.isFromSignIn = true
+                    }
+                }
+                if (statusCode == 208){
+                    this.runOnUiThread{
+                        Toast.makeText(this, detail, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                if (statusCode == 400){
+                    this.runOnUiThread{
+                        Toast.makeText(this, detail, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                if (statusCode == 503){
+                    this.runOnUiThread{
+                        Toast.makeText(this, detail, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
 
+        // when activity is created directly set namePick view visible
         setViewVisibleWithAnimation(this,namePickContainer)
 
+        // call setName if success change to genderPick, error state is handled by setName function
         nameNextButton.setOnClickListener{
             setName()
             if (isNextName){
@@ -208,60 +238,74 @@ class CompleteProfile : AppCompatActivity() {
                 setViewVisibleWithAnimation(this,genderPickContainer)
                 setGender()
             }
-
         }
 
+        // allow user to go on to datePick if gender has chosen, else wise toast error
         genderNextButton.setOnClickListener{
             if (isNextGender){
                 setViewGoneWithAnimation(this@CompleteProfile,genderPickContainer)
                 setViewVisibleWithAnimation(this@CompleteProfile,datePickContainer)
-            }else  {
-                setViewGoneWithAnimation(this,genderPick)
-                setViewVisibleWithAnimation(this,genderPick)
+            } else {
+                this.runOnUiThread {
+                    Toast.makeText(this, "You should pick a gender before you go on", Toast.LENGTH_SHORT).show()
+                    setViewGoneWithAnimation(this,genderPick)
+                    setViewVisibleWithAnimation(this,genderPick)
+                }
             }
         }
 
+        // call setDate function to set the date as user has chosen
         dateNextButton.setOnClickListener{
             setDate()
         }
 
+        // set time and location by calling functions
         timeNextButton.setOnClickListener{
             setTime()
             setLocation()
         }
 
+        // allow user to go on to occupationPick if location has chosen, else wise toast error
         locationNextButton.setOnClickListener{
             if (isNextLocation){
                 setViewGoneWithAnimation(this,locationPickContainer)
                 setViewVisibleWithAnimation(this,occupationPickContainer)
                 setOccupation()
             }else {
-                setViewGoneWithAnimation(this,locationPick)
-                setViewVisibleWithAnimation(this,locationPick)
+                this.runOnUiThread {
+                    Toast.makeText(this, "You should choose your birth location before you go on", Toast.LENGTH_SHORT).show()
+                    setViewGoneWithAnimation(this,locationPick)
+                    setViewVisibleWithAnimation(this,locationPick)
+                }
             }
         }
 
+        // allow user to go on to relationship status pick if occupation has chosen else toast error
         occupationNextButton.setOnClickListener{
             if (isNextOccupation){
                 setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
                 setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
                 setRelation()
-            }else  {
-                setViewGoneWithAnimation(this,occupationPick)
-                setViewVisibleWithAnimation(this,occupationPick)
+            }else {
+                this.runOnUiThread {
+                    Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
+                    setViewGoneWithAnimation(this,occupationPick)
+                    setViewVisibleWithAnimation(this,occupationPick)
+                }
             }
         }
 
+        // if relation has chosen, call completeProfile function else wise toast error
         relationNextButton.setOnClickListener{
             println(userCompleteProfile)
             if (isNextRelation){
                 completeProfile()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                authenticated.isFromSignIn = true
-            }else  {
-                setViewGoneWithAnimation(this,relationPick)
-                setViewVisibleWithAnimation(this,relationPick)
+            }else {
+                this.runOnUiThread {
+                    Toast.makeText(this, "You should choose your marital status before you go on", Toast.LENGTH_SHORT).show()
+                    setViewGoneWithAnimation(this,relationPick)
+                    setViewVisibleWithAnimation(this,relationPick)
+                }
             }
         }
     }
