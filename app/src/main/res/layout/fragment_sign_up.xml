@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +7,6 @@
     tools:context=".SignUpFragment"
     tools:ignore="UnusedAttribute">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/loginFragmentTitleTextview"
@@ -50,54 +46,43 @@
 
             <EditText
                 android:id="@+id/signUpFragmentUsernameText"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="@drawable/common_text_input_field"
-
+                android:maxLength="255"
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white"
-                android:hint="Kullanici Adi"
+                android:hint="Email"
                 android:textColorHint="@color/white"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
                 android:textSize="24sp"
-                android:inputType="textLongMessage"
-                android:autofillHints="username"
+                android:inputType="textEmailAddress"
+                android:autofillHints="emailAddress"
                 tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
         </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
-
             android:id="@+id/signUpFragmentPassword"
-
             android:layout_width="match_parent"
             android:layout_height="65dp"
-
             android:layout_below="@+id/signUpFragmentUsername"
-
             app:cardElevation="8dp"
             android:outlineAmbientShadowColor="@color/black"
             android:outlineSpotShadowColor="@color/black"
-
             android:layout_marginLeft="55dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="55dp"
-
             app:cardCornerRadius="20dp">
-
             <EditText
                 android:id="@+id/signUpFragmentPasswordText"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:background="@drawable/common_text_input_field"
-
+                android:maxLength="255"
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white"
                 android:hint="Sifre"
@@ -109,34 +94,24 @@
                 android:inputType="textPassword"
                 tools:ignore="HardcodedText,VisualLintTextFieldSize"
                 android:autofillHints="password" />
-
         </androidx.cardview.widget.CardView>
 
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signupfragmentsignupbutton"
             android:layout_width="match_parent"
-
             android:layout_height="65dp"
-
             android:layout_below="@+id/signUpFragmentPassword"
             android:layout_marginLeft="75dp"
-
             android:layout_marginTop="110dp"
             android:layout_marginRight="75dp"
-
             android:background="@drawable/common_next_button"
-
             android:fontFamily="@font/arima_madurai_bold"
             android:text="Kayit Ol"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="24sp"
             tools:ignore="HardcodedText,VisualLintButtonSize">
-
         </androidx.appcompat.widget.AppCompatButton>
 
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

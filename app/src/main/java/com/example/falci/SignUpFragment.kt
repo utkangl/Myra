@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
@@ -14,43 +15,60 @@ import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctio
 import com.example.falci.internalClasses.dataClasses.RegisterTokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userRegister
+import org.json.JSONObject
 
 lateinit var registerTokensDataClass: RegisterTokensDataClass
 class SignUpFragment : Fragment() {
 
-    private lateinit var usernameField: EditText
+     // making this fields lateInit to initialize those on button click. If we were to initialize
+    // them in onCreateView, they would not be re assignable
+    private lateinit var emailField: EditText
     private lateinit var passwordField: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
-        val signupfragmentsignupbutton =
-            v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
+        val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
 
         signupfragmentsignupbutton.setOnClickListener {
 
-            usernameField = v.findViewById(R.id.signUpFragmentUsernameText)
+            emailField = v.findViewById(R.id.signUpFragmentUsernameText)
             passwordField = v.findViewById(R.id.signUpFragmentPasswordText)
 
-            val registerJSON = createJsonObject(
-                "email" to usernameField.text.toString(),
-                "password" to passwordField.text.toString()
-            )
+            //creating the json object that will be posted
+            val registerJSON = createJsonObject("email" to emailField.text.toString(), "password" to passwordField.text.toString())
 
-            userRegister.email = usernameField.text.toString()
+            //setting userRegister's (an instance of UserRegisterDataClass) fields as user inputs
+            userRegister.email = emailField.text.toString()
             userRegister.password = passwordField.text.toString()
 
-            postJsonNoHeader(urls.signUpURL, registerJSON, "register") { responseBody, exception ->
-                println(responseBody)
-                if (statusCode == 201){val intent = Intent(requireActivity(), CompleteProfile::class.java); startActivity(intent)}
-                else { println("Error: ${exception?.message}") }
+            //post registerJson and let user know the error if there is one, else wise toast success
+            postJsonNoHeader(urls.signUpURL, registerJSON, "register") { responseBody, _ ->
+
+                // if response code is 201, toast success and  navigate user to CompleteProfile activity
+                if (statusCode == 201){
+                    println("status code is $statusCode sign up successful")
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(), "Basari ile kayit olundu", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(requireActivity(), CompleteProfile::class.java)
+                        startActivity(intent)
+                    }
+                }
+
+                // if response code is 400, toast the error
+                if (statusCode == 400){
+                    val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                    val detail = responseJson?.optString("detail")
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(), "$detail", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
             }
         }
-
         return v
     }
 

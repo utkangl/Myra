@@ -14,105 +14,74 @@ import kotlin.properties.Delegates
 var statusCode by Delegates.notNull<Int>()
 
 class AuthenticationFunctions {
-
-    object PostJsonFunctions{
-        private lateinit var client : OkHttpClient
-
-        fun postJsonNoHeader(
-            url: String,
-            json: JSONObject,
-            type: String,
-            callback: (String?, Exception?) -> Unit,
-        ) {
-
-//            client.setConnectTimeout(30, TimeUnit.SECONDS); // connect timeout
-//            client.setReadTimeout(30, TimeUnit.SECONDS);
-
-            client = OkHttpClient.Builder()
+        object PostJsonFunctions{
+            private val client = OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build()
 
-            val requestBody = RequestBody.create(
-                MediaType.parse("application/json; charset=utf-8"),
-                json.toString()
-            )
+            fun postJsonNoHeader(url: String, json: JSONObject, type: String, callback: (String?, Exception?) -> Unit) {
 
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build()
+                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+                val request = Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build()
 
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    callback(null, e)
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-
-                    val responseBody = response.body()?.string()
-                    val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                    val detail = responseJson?.optString("detail")
-                    val accessToken = responseJson?.optString("access")
-                    val refreshToken = responseJson?.optString("refresh")
-
-                    if (detail != null){println(detail)}
-                    if (accessToken != null || refreshToken != null) {
-
-                        if (type == "register"){
-                            registerTokensDataClass = RegisterTokensDataClass(registerAccessToken = accessToken.toString(), registerRefreshToken = refreshToken.toString())
-                        }
-                        if (type == "login"){
-                            loginTokens = LoginTokensDataClass(loginAccessToken = accessToken.toString(), loginRefreshToken = refreshToken.toString())
-                        }
-
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback(null, e)
                     }
 
-                    statusCode = response.code()
-                    println("statusCode $statusCode")
-                    callback(responseBody, null)
-                }
-            })
+                    override fun onResponse(call: Call, response: Response) {
+
+                        val responseBody = response.body()?.string()
+                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                        val accessToken = responseJson?.optString("access")
+                        val refreshToken = responseJson?.optString("refresh")
+
+                        if (accessToken != null || refreshToken != null) {
+
+                            if (type == "register"){
+                                registerTokensDataClass = RegisterTokensDataClass(registerAccessToken = accessToken.toString(), registerRefreshToken = refreshToken.toString())
+                            }
+                            if (type == "login"){
+                                loginTokens = LoginTokensDataClass(loginAccessToken = accessToken.toString(), loginRefreshToken = refreshToken.toString())
+                            }
+
+                        }
+
+                        statusCode = response.code()
+                        println("statusCode $statusCode")
+                        callback(responseBody, null)
+                    }
+                })
+            }
+
+            fun postJsonWithHeader(url: String, json: JSONObject, accessToken: String, callback: (String?, Exception?) -> Unit) {
+
+                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+                val request = Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .header("Authorization", "Bearer $accessToken")
+                    .build()
+
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback(null, e)
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        val responseBody = response.body()?.string()
+                        statusCode = response.code()
+                        println("statusCode $statusCode")
+                        callback(responseBody, null)
+                    }
+                })
+            }
         }
-
-        fun postJsonWithHeader(
-            url: String,
-            json: JSONObject,
-            accessToken: String,
-            callback: (String?, Exception?) -> Unit
-        ) {
-            client = OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .build()
-
-            val requestBody = RequestBody.create(
-                MediaType.parse("application/json; charset=utf-8"),
-                json.toString()
-            )
-
-            val request = Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .header("Authorization", "Bearer $accessToken")
-                .build()
-
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    callback(null, e)
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    val responseBody = response.body()?.string()
-                    statusCode = response.code()
-                    println("statusCode $statusCode")
-                    callback(responseBody, null)
-                }
-            })
-        }
-    }
 
     object CreateJsonObject{
         fun createJsonObject(vararg pairs: Pair<String, Any>): JSONObject {

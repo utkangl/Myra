@@ -130,30 +130,13 @@ class ChatFragment : Fragment() {
             }
         }
 
-
-        // if user press back button on chat fragment, load main activity
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(mainActivityIntent)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
         return v
-
     }
 
     private fun createChatJSON(message: String, thread: Int? = null): JSONObject {
-
         val chatJsonObject = JSONObject()
-
         chatJsonObject.put("message", message)
-
-        if (thread != null) {
-            chatJsonObject.put("thread", thread)
-        }
-
+        if (thread != null) { chatJsonObject.put("thread", thread) }
         return chatJsonObject
     }
 
@@ -188,13 +171,6 @@ class ChatFragment : Fragment() {
             }
         })
 
-        val changeToHoroscopeDetailFragment = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val mainActivityIntent = Intent(requireContext(), ChatFragment::class.java)
-                startActivity(mainActivityIntent)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, changeToHoroscopeDetailFragment)
 
     }
 
