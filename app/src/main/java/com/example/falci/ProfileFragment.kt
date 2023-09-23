@@ -35,6 +35,7 @@ class ProfileFragment : Fragment() {
         val profileFragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
         val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
+        // set firstLetter variable with the first letter of UserProfileDataClass's name field
         val firstLetter = userProfile.firstName.first().toString().uppercase()
         firstLetterView.text = firstLetter
         profileFragmentName.text = userProfile.firstName
@@ -62,12 +63,14 @@ class ProfileFragment : Fragment() {
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
 
 
+        // if user click to zodiac card, make the card larger and set other components invisible
         zodiacCard.setOnClickListener {
             setViewGone(profileCard, profileViewBottomCard, profileTitle, changeAccountButton)
             setViewVisible(backArrowCard)
             animateCardSize(requireContext(), 370, 550, zodiacCard)
         }
 
+        // if user click to back arrow, make the zodiac card smaller and set components visible
         backArrow.setOnClickListener {
             setViewVisible(profileCard, profileViewBottomCard, profileTitle, changeAccountButton)
             setViewGone(backArrowCard)
@@ -106,6 +109,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
+
         changeAccountButton.setOnClickListener{
             if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to loginTokens.loginRefreshToken)
@@ -114,7 +118,6 @@ class ProfileFragment : Fragment() {
                     if (exception == null) {
                         authenticated.isLoggedIn = false
                         val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
-
                     }
                     else println(exception)
                 }
