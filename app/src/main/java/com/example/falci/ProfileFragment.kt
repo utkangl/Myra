@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
@@ -20,6 +21,8 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.statusCode
+import org.json.JSONObject
 
 class ProfileFragment : Fragment() {
 
@@ -114,12 +117,15 @@ class ProfileFragment : Fragment() {
             if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to loginTokens.loginRefreshToken)
                 postJsonWithHeader(urls.logoutURL,refreshTokenJSON, loginTokens.loginAccessToken)
-                { _, exception ->
-                    if (exception == null) {
-                        authenticated.isLoggedIn = false
-                        val intent = Intent(requireContext(), LoginSignupActivity::class.java); startActivity(intent)
+                { responseBody, _ ->
+                    if (statusCode == 205){
+                        requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
+                        val intent = Intent(requireContext(), LoginSignupActivity::class.java);startActivity(intent)
+                    } else if (statusCode == 400){
+                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                        val detail = responseJson?.optString("detail")
+                        requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_LONG).show()}
                     }
-                    else println(exception)
                 }
 
             } else{ println("Hele once bi giris yap sonra cikis yaparsin") }
