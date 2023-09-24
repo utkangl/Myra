@@ -193,7 +193,8 @@ class ProfileFragment : Fragment() {
                 { responseBody, _ ->
                     if (statusCode == 205){
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
-                        val intent = Intent(requireContext(), LoginSignupActivity::class.java);startActivity(intent)
+                        val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent)
+                        authenticated.isLoggedIn = false
                     } else if (statusCode == 400){
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                         val detail = responseJson?.optString("detail")
