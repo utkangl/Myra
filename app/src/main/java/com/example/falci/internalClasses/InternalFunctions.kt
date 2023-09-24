@@ -9,6 +9,8 @@ import android.widget.*
 import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import org.json.JSONObject
 
@@ -56,8 +58,8 @@ class InternalFunctions {
         fun updateBirthDayIfChanged(jsonField: String, birthDateField: TextView, birthTimeField: TextView, userProfile: UserProfileDataClass, editProfileJson: JSONObject) {
             val newBirthDate = birthDateField.text.toString()
             val newBirthTime = birthTimeField.text.toString()
-            val currentBirthDay = userProfile.birthDay
-            val currentBirthTime = userProfile.birthTime
+            val currentBirthDay = separateBirthDate(userProfile.birth_day)
+            val currentBirthTime = separateBirthTime(userProfile.birth_day)
 
             if (newBirthDate != currentBirthDay || newBirthTime != currentBirthTime) {
                 val combinedBirthDay = "$newBirthDate $newBirthTime +0000"
@@ -109,7 +111,11 @@ class InternalFunctions {
 
     object TimeFormatFunctions{
         fun separateBirthTime(birthDay: String): String {
-            return birthDay.split("T")[1].substring(0,8)
+            val parts = birthDay.split("T")
+            if (parts.size > 1) {
+                return parts[1].substring(0, 8)
+            }
+            return "separating failed"
         }
 
         fun separateBirthDate(birthDay: String): String {
@@ -118,11 +124,15 @@ class InternalFunctions {
     }
 
     object AnimateCardSize{
-        fun animateCardSize(context: Context, targetWidthDp: Int, targetHeightDp: Int, targetCard: View) {
+        fun animateCardSize(context: Context, targetWidthDp: Int, targetHeightDp: Int, targetCard: View, scroll: ScrollView? = null, targetScrollBottomMargin: Int? = null) {
             val scale = context.resources.displayMetrics.density
             val newWidth = (targetWidthDp * scale + 0.5f).toInt()
             val newHeight = (targetHeightDp * scale + 0.5f).toInt()
+            val newScrollBottomMargin = (targetScrollBottomMargin!! * scale + 0.5f).toInt()
             val params = targetCard.layoutParams as RelativeLayout.LayoutParams
+            val scrollParams = scroll?.layoutParams as RelativeLayout.LayoutParams
+
+            scrollParams.bottomMargin = newScrollBottomMargin
 
             val animatorWidth = ValueAnimator.ofInt(targetCard.width, newWidth)
             animatorWidth.addUpdateListener { animation ->

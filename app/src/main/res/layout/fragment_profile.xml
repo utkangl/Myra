@@ -290,7 +290,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <RelativeLayout
-                        android:id="@+id/neptunlayout"
+                        android:id="@+id/neptuneLayout"
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
@@ -302,7 +302,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/neptun">
+                            android:src="@drawable/neptune">
                         </ImageView>
 
                         <TextView
@@ -311,7 +311,7 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Neptun"
+                            android:text="Neptune"
                             android:textColor="@color/white"
                             android:textSize="20sp"
                             tools:ignore="HardcodedText">
@@ -534,9 +534,9 @@
                 android:layout_below="@id/scrollViewSeparator">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/zodiac_sign"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:id="@+id/planet_horoscope_image_card"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
 
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="12dp"
@@ -548,24 +548,25 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/planet_horoscope_image"
                         android:src="@drawable/gemini">
                     </ImageView>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/zodiac_sign"
+                    android:id="@+id/planet_horoscope_text"
+                    android:layout_below="@+id/planet_horoscope_image_card"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="2dp"
-                    android:layout_marginEnd="30dp"
-
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:text="Ikizler"
+                    android:layout_marginEnd="25dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:text=""
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText">
-
                 </TextView>
 
                 <androidx.cardview.widget.CardView
@@ -603,22 +604,26 @@
 
                 </TextView>
 
-                <TextView
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/burcExplanationTextScroll"
                     android:layout_below="@id/burcexplanationplanet"
                     android:layout_marginStart="35dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="35dp"
                     android:layout_marginEnd="35dp"
-                    android:layout_marginBottom="30dp"
-
-
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol "
-                    android:textColor="@color/white"
-                    android:textSize="15sp"
-                    tools:ignore="HardcodedText">
-                </TextView>
+                    android:layout_marginBottom="30dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/burcExplanationText"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol. "
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        tools:ignore="HardcodedText">
+                    </TextView>
+                </ScrollView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/backArrowCard"
@@ -736,7 +741,7 @@
         android:layout_width="170dp"
         android:layout_height="48dp"
         android:background="@drawable/common_next_button"
-        android:id="@+id/changeAccountButton"
+        android:id="@+id/logoutButton"
         android:layout_marginBottom="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"

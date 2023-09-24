@@ -16,10 +16,9 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.dataClasses.*
+import com.google.gson.Gson
 import org.json.JSONObject
 
 lateinit var userProfile: UserProfileDataClass
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val learnYourBurcButton = findViewById<AppCompatButton>(R.id.learnYourBurcButton)
         val settingsButton = findViewById<ImageButton>(R.id.settingsButton)
         val miraMainMenu = findViewById<ImageView>(R.id.miraMainMenu)
-        val zodiacSign = findViewById<CardView>(R.id.zodiac_sign)
+        val zodiacSign = findViewById<CardView>(R.id.planet_horoscope_image_card)
         val burcCardExplanationTextScroll = findViewById<ScrollView>(R.id.burcCardExplanationTextScroll)
         val clickToGetHoroscopeText = findViewById<TextView>(R.id.ClickToGetHoroscopeText)
         val animationHelper = AnimationHelper(this)
@@ -84,6 +83,8 @@ class MainActivity : AppCompatActivity() {
             // when user clicks to profile button and if user is logged in, get profile informations
             // and set the response to UserProfileDataClass's instance
             if(authenticated.isLoggedIn){
+                val gson = Gson()
+
                 makeGetProfileRequest(urls.getProfileURL, loginTokens.loginAccessToken)
                 { responseBody, exception ->
                     if (exception != null) {
@@ -94,16 +95,7 @@ class MainActivity : AppCompatActivity() {
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
 
                         if (responseJson != null) {
-                            userProfile = UserProfileDataClass(
-                                username = responseJson.optString("username"),
-                                firstName = responseJson.optString("first_name"),
-                                birthPlace = responseJson.optString("birth_place"),
-                                birthDay = separateBirthDate(responseJson.optString("birth_day")),
-                                birthTime = separateBirthTime(responseJson.optString("birth_day")),
-                                relationshipStatus = responseJson.optString("relationship_status"),
-                                gender = responseJson.optString("gender"),
-                                occupation = responseJson.optString("occupation")
-                            )
+                            userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
                         }
                     }
                 }

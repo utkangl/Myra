@@ -19,6 +19,8 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
 import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
@@ -59,13 +61,13 @@ class EditProfileFragment : Fragment() {
         val relationshipStatusFieldHint = v.findViewById<TextView>(R.id.relationshipStatusFieldHint)
         val editProfileGeneralLayout = v.findViewById<RelativeLayout>(R.id.editProfileGeneralLayout)
 
-        nameField.text = userProfile.firstName
+        nameField.text = userProfile.first_name
         genderField.text = userProfile.gender
-        birthDateField.text = userProfile.birthDay
-        birthTimeField.text = userProfile.birthTime
-        locationField.text = userProfile.birthPlace
+        birthDateField.text = separateBirthDate(userProfile.birth_day)
+        birthTimeField.text = separateBirthTime(userProfile.birth_day)
+        locationField.text = userProfile.birth_place
         occupationField.text = userProfile.occupation
-        relationShipStatusField.text = userProfile.relationshipStatus
+        relationShipStatusField.text = userProfile.relationship_status
 
         setViewGone(savebutton)
 
@@ -85,22 +87,21 @@ class EditProfileFragment : Fragment() {
         savebutton.setOnClickListener {
 
             // Add values to EditProfileJson if changed
-            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.firstName)
+            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name)
             updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender)
             updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
-            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birthPlace)
+            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place)
             updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation)
-            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationshipStatus)
+            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status)
 
             // Save changes
             userProfile.apply {
-                firstName = nameField.text.toString()
+                first_name = nameField.text.toString()
                 gender = genderField.text.toString()
-                birthDay = birthDateField.text.toString()
-                birthTime = birthTimeField.text.toString()
-                birthPlace = locationField.text.toString()
+                birth_day = birthDateField.text.toString()
+                birth_place = locationField.text.toString()
                 occupation = occupationField.text.toString()
-                relationshipStatus = relationShipStatusField.text.toString()
+                relationship_status = relationShipStatusField.text.toString()
             }
 
             putEditProfileJson(

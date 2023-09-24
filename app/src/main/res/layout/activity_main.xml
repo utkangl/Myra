@@ -140,7 +140,7 @@
                 </androidx.cardview.widget.CardView>
                 <!--zodiac sign image-->
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/zodiac_sign"
+                    android:id="@+id/planet_horoscope_image_card"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginStart="25dp"
@@ -163,7 +163,7 @@
                     android:layout_marginStart="20dp"
 
                     android:layout_marginTop="40dp"
-                    android:layout_toEndOf="@+id/zodiac_sign"
+                    android:layout_toEndOf="@+id/planet_horoscope_image_card"
 
                     android:fontFamily="@font/arima_madurai_bold"
                     android:text="Burc"
@@ -177,7 +177,7 @@
                     android:id="@+id/burcCardExplanationTextScroll"
                     android:layout_width="300dp"
                     android:layout_height="300dp"
-                    android:layout_below="@+id/zodiac_sign"
+                    android:layout_below="@+id/planet_horoscope_image_card"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     android:visibility="invisible">
