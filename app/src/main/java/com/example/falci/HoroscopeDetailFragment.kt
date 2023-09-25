@@ -24,7 +24,6 @@ class HoroscopeDetailFragment : Fragment() {
         val horoscopeText = v.findViewById<TextView>(R.id.horoscope_textView)
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
 
-
         // create and format horoscope string with the instance of GetHoroscopeData's field
         val horoscope =
             " Welcome ${userCompleteProfile.name} \n \n " +

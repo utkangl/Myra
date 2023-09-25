@@ -22,6 +22,7 @@
                 android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:id="@+id/MiraHoroscopeDetailTop"
+                android:elevation="3dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="80dp"
                 android:src="@drawable/mira_horoscope_detail_top">
