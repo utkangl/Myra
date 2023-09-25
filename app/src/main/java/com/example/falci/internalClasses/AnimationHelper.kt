@@ -118,7 +118,7 @@ class AnimationHelper(private val context: Context) {
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(animatorWidth, animatorHeight)
-        animatorSet.duration = 300
+        animatorSet.duration = 200
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
