@@ -3,18 +3,24 @@ package com.example.falci
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.speech.tts.TextToSpeech
+import android.speech.tts.TextToSpeech.QUEUE_FLUSH
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 import com.example.falci.internalClasses.dataClasses.userCompleteProfile
+import java.util.*
+
 
 class HoroscopeDetailFragment : Fragment() {
+
+    private lateinit var textToSpeech: TextToSpeech
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +30,7 @@ class HoroscopeDetailFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_horoscope_detail, container, false)
         val horoscopeText = v.findViewById<TextView>(R.id.horoscope_textView)
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
+        val miraHoroscopeDetailTop = v.findViewById<ImageView>(R.id.MiraHoroscopeDetailTop)
 
         // create and format horoscope string with the instance of GetHoroscopeData's field
         val horoscope =
@@ -52,7 +59,27 @@ class HoroscopeDetailFragment : Fragment() {
         // call callback to navigate user to main activity when back button is pressed
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
+
+        textToSpeech = TextToSpeech(requireContext()) { status ->
+            if (status != TextToSpeech.ERROR) {
+                val locale = Locale("tr", "TR")
+                textToSpeech.language = locale
+
+            }
+        }
+
+        miraHoroscopeDetailTop.setOnClickListener{
+            textToSpeech.speak(horoscope, QUEUE_FLUSH, null, null)
+        }
+
         return v
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (::textToSpeech.isInitialized) {
+            textToSpeech.stop()
+            textToSpeech.shutdown()
+        }
+    }
 }
