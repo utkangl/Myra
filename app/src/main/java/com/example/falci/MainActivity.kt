@@ -9,10 +9,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
@@ -26,8 +28,15 @@ lateinit var userProfile: UserProfileDataClass
 
 class MainActivity : AppCompatActivity() {
 
+    private val splashViewModel: SplashViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().apply {
+            setKeepOnScreenCondition(){
+                splashViewModel.isLoading.value
+            }
+        }
         setContentView(R.layout.activity_main)
 
         val burcCard = findViewById<CardView>(R.id.burcCard)
