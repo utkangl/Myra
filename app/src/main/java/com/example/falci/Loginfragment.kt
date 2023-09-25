@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -71,8 +72,8 @@ class Loginfragment : Fragment() {
                         Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
                         authenticated.isLoggedIn = true
                         authenticated.isFromSignIn = false
-                        val intent = Intent(requireActivity(), MainActivity::class.java)
-                        startActivity(intent)
+                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                        val intent = Intent(requireActivity(), MainActivity::class.java);startActivity(intent, options.toBundle())
                     }
                 }
 

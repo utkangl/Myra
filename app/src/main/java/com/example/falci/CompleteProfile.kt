@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -204,8 +205,8 @@ class CompleteProfile : AppCompatActivity() {
                 if (statusCode == 200){
                     this.runOnUiThread{
                         Toast.makeText(this, detail, Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                        val intent = Intent(this, MainActivity::class.java); startActivity(intent,options.toBundle())
                         authenticated.isFromSignIn = true
                     }
                 }

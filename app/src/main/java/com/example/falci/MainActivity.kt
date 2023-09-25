@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
         // if user has came to this activity from signUp fragment, then directly navigate user to
         // loginSignUp activity to login first
         if (authenticated.isFromSignIn){
-            val intent = Intent(this, LoginSignupActivity::class.java);startActivity(intent)
+            val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+            val intent = Intent(this, LoginSignupActivity::class.java);startActivity(intent, options.toBundle())
             setViewGone(burcCard, settingsButtonCard)
         }
 
@@ -102,7 +104,8 @@ class MainActivity : AppCompatActivity() {
 
                 //and navigate user to ProfileActivity
                 if (savedInstanceState == null) {
-                    val intent = Intent(this, ProfileActivity::class.java);startActivity(intent)
+                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                    val intent = Intent(this, ProfileActivity::class.java); startActivity(intent,options.toBundle())
                 }
 
             }
@@ -110,7 +113,8 @@ class MainActivity : AppCompatActivity() {
             // when user clicks to profile button but did not login, navigate user to loginSignUp activity
             if (!authenticated.isLoggedIn) {
                 if (savedInstanceState == null) {
-                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent)
+                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
                 }
             }
         }
@@ -132,9 +136,8 @@ class MainActivity : AppCompatActivity() {
                 // to login signup activity
                 animationHelper.animateBurcCardOut()
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this, LoginSignupActivity::class.java)
-                    overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
-                    startActivity(intent)
+                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent,options.toBundle())
                 }, 300)
             }
         }

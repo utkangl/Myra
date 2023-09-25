@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -43,8 +44,9 @@ class HoroscopeDetailFragment : Fragment() {
         // create callback variable which will handle onBackPressed and navigate to main activity
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                 val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(mainActivityIntent)
+                startActivity(mainActivityIntent, options.toBundle())
             }
         }
         // call callback to navigate user to main activity when back button is pressed

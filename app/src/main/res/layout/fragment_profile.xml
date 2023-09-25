@@ -533,6 +533,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/scrollViewSeparator">
 
+<!--             zodiac image-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/planet_horoscope_image_card"
                     android:layout_width="70dp"
@@ -553,8 +554,9 @@
                     </ImageView>
                 </androidx.cardview.widget.CardView>
 
+<!--             zodiac name-->
                 <TextView
-                    android:layout_width="50dp"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/planet_horoscope_text"
                     android:layout_below="@+id/planet_horoscope_image_card"
@@ -569,6 +571,7 @@
                     tools:ignore="HardcodedText">
                 </TextView>
 
+<!--             planet image-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/burcexplanationplanet"
                     android:layout_width="70dp"
@@ -588,6 +591,7 @@
 
                 </androidx.cardview.widget.CardView>
 
+<!--             planet name-->
                 <TextView
                     android:id="@+id/burcexplanationplanettext"
                     android:layout_width="wrap_content"
@@ -604,6 +608,7 @@
 
                 </TextView>
 
+<!--             explanation text-->
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -625,6 +630,7 @@
                     </TextView>
                 </ScrollView>
 
+<!--             back button( visible only when card is open)-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/backArrowCard"
                     android:layout_width="50dp"

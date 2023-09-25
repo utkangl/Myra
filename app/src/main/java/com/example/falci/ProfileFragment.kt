@@ -1,6 +1,7 @@
 package com.example.falci
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,7 +30,7 @@ import org.json.JSONObject
 
 class ProfileFragment : Fragment() {
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,6 +98,11 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        burcExplanationTextScroll.setOnTouchListener { _,_ ->
+            zodiacCard.performClick()
+            false
+        }
+
         val planetLayouts = listOf(
             jupyterlayout, marslayout, mercurylayout, neptuneLayout,
             saturnlayout, sunlayout, uranuslayout, venuslayout, moonlayout
@@ -155,18 +161,15 @@ class ProfileFragment : Fragment() {
 
                 fadeOut.setAnimationListener(object : Animation.AnimationListener {
                     override fun onAnimationStart(animation: Animation?) {
-
                     }
 
                     override fun onAnimationEnd(animation: Animation?) {
-
                         burcexplanationplanetimage.setImageResource(planetImages[index])
                         burcexplanationplanettext.text = planetNames[index]
 
                         planetName = planetNames[index]
                         sign = planetSignMap[planetName]
                         planet_horoscope_text.text = sign
-
 
                         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
 
@@ -193,7 +196,8 @@ class ProfileFragment : Fragment() {
                 { responseBody, _ ->
                     if (statusCode == 205){
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
-                        val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent)
+                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                        val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent,options.toBundle())
                         authenticated.isLoggedIn = false
                     } else if (statusCode == 400){
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }

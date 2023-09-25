@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,7 +22,8 @@ class ProfileActivity : AppCompatActivity() {
 
         // Check if there are fragments in the back stack
         if (supportFragmentManager.backStackEntryCount == 0) {
-            val intent = Intent(this, MainActivity::class.java);startActivity(intent)
+            val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+            val intent = Intent(this, MainActivity::class.java);startActivity(intent,options.toBundle())
         }
     }
 
