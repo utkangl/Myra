@@ -88,7 +88,16 @@ class MainActivity : AppCompatActivity() {
             monthlyButton, yearlyButton, learnYourBurcButton)
 
 
-        burcCard.setOnClickListener { setViewGone(clickToGetHoroscopeText); animationHelper.animateBurcCardIn() }                           // if burcCard is clicked open the card and make the clickToGetHoroscopeText invisible
+        // if burcCard is clicked open the card and make the clickToGetHoroscopeText invisible
+        burcCard.setOnClickListener {
+            if(authenticated.isLoggedIn) {
+                setViewGone(clickToGetHoroscopeText); animationHelper.animateBurcCardIn()
+            }
+            else {
+                val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+            }
+        }
         backArrow.setOnClickListener { setViewVisible(clickToGetHoroscopeText); animationHelper.animateBurcCardOut()}                        // if backArrow is clicked close the card and make the clickToGetHoroscopeText visible
         generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"; isFromLoveHoroscope = false}//make burcCard larger and set postHoroscopeData's type to general
         loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"; isFromLoveHoroscope = true} //make burcCard larger and set postHoroscopeData's type to love

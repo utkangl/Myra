@@ -1,7 +1,6 @@
 package com.example.falci
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,10 +11,10 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.RelativeLayout
-import androidx.activity.OnBackPressedCallback
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.dataClasses.ChatMessage
+import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
@@ -44,6 +43,8 @@ class ChatFragment : Fragment() {
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
         val messages = mutableListOf<ChatMessage>()
+        val welcomeMessage = ChatMessage(getHoroscopeData.summary.toString(), false)
+        messages.add(welcomeMessage)
 
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
