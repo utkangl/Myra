@@ -63,7 +63,10 @@ class InternalFunctions {
 
             if (newBirthDate != currentBirthDay || newBirthTime != currentBirthTime) {
                 val combinedBirthDay = "$newBirthDate $newBirthTime +0000"
+                val combinedBirthDayDataModel = "${newBirthDate}T${newBirthTime}Z"
                 editProfileJson.put(jsonField, combinedBirthDay)
+                userProfile.birth_day = combinedBirthDayDataModel
+                println(combinedBirthDayDataModel)
             }
         }
 

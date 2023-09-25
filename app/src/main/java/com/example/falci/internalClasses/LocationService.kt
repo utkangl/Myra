@@ -7,6 +7,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import com.example.falci.internalClasses.dataClasses.isFromLoveHoroscope
+import com.example.falci.internalClasses.dataClasses.partnerProfile
 import com.example.falci.internalClasses.dataClasses.userCompleteProfile
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -72,7 +74,8 @@ class LocationService(private val context: Context) {
 
                 val selectedCity = autoCompleteTextView.text.toString()
 
-                userCompleteProfile.location = selectedCity
+                if (isFromLoveHoroscope) partnerProfile.partnerLocation = selectedCity; else userCompleteProfile.location = selectedCity
+
                 isCitySelected = selectedCity in response.autocompletePredictions.map {
                     it.getFullText(null).toString()
                 }

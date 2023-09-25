@@ -9,6 +9,18 @@
     android:id="@+id/complete_profile_fragment_container"
     tools:ignore="ContentDescription">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/thinkingAnimation"
+            android:layout_centerInParent="true"
+            android:layout_width="360dp"
+            android:layout_height="360dp"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/thinking_animation"
+            tools:layout_editor_absoluteY="0dp"
+            android:visibility="gone">
+        </com.airbnb.lottie.LottieAnimationView>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -16,6 +28,7 @@
             android:layout_centerInParent="true">
         </TextView>
 
+<!--        mira_speech_bubble_container-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="280dp"
@@ -73,9 +86,11 @@
 
         </RelativeLayout>
 
+<!--        completeProfilePickersContainer-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:id="@+id/completeProfilePickersContainer">
 
                 <!--namePick container-->
                 <RelativeLayout

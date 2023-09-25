@@ -8,21 +8,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
+import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
+import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
-import com.example.falci.internalClasses.dataClasses.authenticated
-import com.example.falci.internalClasses.dataClasses.urls
-import com.example.falci.internalClasses.dataClasses.userCompleteProfile
+import com.example.falci.internalClasses.HoroscopeFunctions.getLoveHoroscope
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
+import com.example.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
 class CompleteProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complete_profile)
+
+        val miraSpeechBubbleContainer = findViewById<RelativeLayout>(R.id.mira_speech_bubble_container)
+        val completeProfilePickersContainer = findViewById<RelativeLayout>(R.id.completeProfilePickersContainer)
 
         val nameNextButton = findViewById<AppCompatButton>(R.id.namePick_next_button)
         val genderNextButton = findViewById<AppCompatButton>(R.id.genderPick_next_button)
@@ -42,6 +46,8 @@ class CompleteProfile : AppCompatActivity() {
         val occupationPickContainer = findViewById<RelativeLayout>(R.id.occupationPickContainer)
         val relationPickContainer= findViewById<RelativeLayout>(R.id.relationPickContainer)
 
+        val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
+
         val namePick = findViewById<EditText>(R.id.namePick)
         val genderPick = findViewById<Spinner>(R.id.genderPick)
         val datePick = findViewById<DatePicker>(R.id.datePick)
@@ -52,7 +58,6 @@ class CompleteProfile : AppCompatActivity() {
 
         val cityInput= findViewById<AutoCompleteTextView>(R.id.cityInput)
 
-        var selectedRelation: String
 
         var isNextName = false
         var isNextGender = false
@@ -83,21 +88,32 @@ class CompleteProfile : AppCompatActivity() {
          // let user to go on to genderpick if input lasts longer than 2 characters else toast error
         // and  set name field of CompleteProfileUserDataClass's instance w/ user's name input
         fun setName(){
-            if (namePick.text.length >= 2) {
-                userCompleteProfile.name = namePick.text.toString()
-                isNextName = true
-            } else {
-                this.runOnUiThread {
-                    Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
-                }
-            }
+             if (isFromLoveHoroscope && namePick.text.length >= 2){
+                 partnerProfile.partnerName = namePick.text.toString()
+                 isNextName = true
+             }else{
+                 if (namePick.text.length >= 2) {
+                     userCompleteProfile.name = namePick.text.toString()
+                     isNextName = true
+                 } else {
+                     this.runOnUiThread {
+                         Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
+                     }
+                 }
+             }
+
+
         }
 
         // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
         fun setGender(){
             setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
                 if (selectedGender != "Pick your gender") {
-                    userCompleteProfile.gender = selectedGender
+                    if (isFromLoveHoroscope){
+                        partnerProfile.partnerGender = selectedGender
+                    }else{
+                        userCompleteProfile.gender = selectedGender
+                    }
                     isNextGender = true
                 }
             }
@@ -109,7 +125,11 @@ class CompleteProfile : AppCompatActivity() {
             val selectedMonth =  datePick.month + 1
             val selectedDay = datePick.dayOfMonth
             val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
-            userCompleteProfile.date = selectedDate
+            if (isFromLoveHoroscope){
+                partnerProfile.partnerDate = selectedDate
+            }else{
+                userCompleteProfile.date = selectedDate
+            }
             setViewGoneWithAnimation(this@CompleteProfile,datePickContainer)
             setViewVisibleWithAnimation(this@CompleteProfile,timePickContainer)
         }
@@ -123,7 +143,8 @@ class CompleteProfile : AppCompatActivity() {
             }
             val selectedMinute = timePick.minute
             val selectedTime = "$selectedHour:$selectedMinute:00"
-            userCompleteProfile.time = selectedTime
+            if (isFromLoveHoroscope)partnerProfile.partnerTime = selectedTime; else userCompleteProfile.time = selectedTime
+
             setViewGoneWithAnimation(this@CompleteProfile,timePickContainer)
             setViewVisibleWithAnimation(this@CompleteProfile,locationPickContainer)
         }
@@ -149,16 +170,16 @@ class CompleteProfile : AppCompatActivity() {
 
         // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
         fun setOccupation(){
-            setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedStatus ->
-                userCompleteProfile.occupation = selectedStatus
+            setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
+                if (isFromLoveHoroscope) {partnerProfile.partnerOccupation = selectedOccupation}
+                else {userCompleteProfile.occupation = selectedOccupation}
                 isNextOccupation = true
             }
         }
 
         // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
         fun setRelation(){
-            setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedStatus ->
-                selectedRelation = selectedStatus
+            setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
                 userCompleteProfile.relation = selectedRelation
                 isNextRelation = true
             }
@@ -176,7 +197,7 @@ class CompleteProfile : AppCompatActivity() {
              // create the json object that will be posted as completeProfileJson
             //fill json with the user inputs, format date and time into one variable before fill
             val formattedDate = formatDateAndTime(userCompleteProfile.date, userCompleteProfile.time)
-            val zodiacInfoJson = AuthenticationFunctions.CreateJsonObject.createJsonObject(
+            val zodiacInfoJson = createJsonObject(
                 "name" to userCompleteProfile.name,
                 "location" to userCompleteProfile.location,
                 "birthDay" to formattedDate,
@@ -184,12 +205,12 @@ class CompleteProfile : AppCompatActivity() {
                 "occupation" to userCompleteProfile.occupation
             )
 
-            val infoJson = AuthenticationFunctions.CreateJsonObject.createJsonObject(
+            val infoJson = createJsonObject(
                 "zodiacInfo" to zodiacInfoJson,
                 "relationshipStatus" to userCompleteProfile.relation
             )
 
-            val completeProfileJSON = AuthenticationFunctions.CreateJsonObject.createJsonObject(
+            val completeProfileJSON = createJsonObject(
                 "info" to infoJson
             )
 
@@ -226,6 +247,19 @@ class CompleteProfile : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        fun createLookupUserJson(){
+
+            val formattedDate = formatDateAndTime(partnerProfile.partnerDate, partnerProfile.partnerTime)
+            lookupUserJson = createJsonObject(
+                "name" to partnerProfile.partnerName,
+                "gender" to partnerProfile.partnerGender,
+                "birth_day" to formattedDate,
+                "birth_place" to partnerProfile.partnerLocation,
+                "occupation" to partnerProfile.partnerOccupation
+            )
+
         }
 
         // when activity is created directly set namePick view visible
@@ -283,17 +317,28 @@ class CompleteProfile : AppCompatActivity() {
 
         // allow user to go on to relationship status pick if occupation has chosen else toast error
         occupationNextButton.setOnClickListener{
-            if (isNextOccupation){
-                setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
-                setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
-                setRelation()
-            }else {
-                this.runOnUiThread {
-                    Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
-                    setViewGoneWithAnimation(this,occupationPick)
-                    setViewVisibleWithAnimation(this,occupationPick)
+            if (isFromLoveHoroscope && isNextOccupation){
+                isNextOccupation = false
+                createLookupUserJson()
+                println(lookupUserJson)
+                setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
+                getLoveHoroscope(thinkingAnimation, this)
+
+
+            }else{
+                if (isNextOccupation){
+                    setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
+                    setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
+                    setRelation()
+                }else {
+                    this.runOnUiThread {
+                        Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
+                        setViewGoneWithAnimation(this,occupationPick)
+                        setViewVisibleWithAnimation(this,occupationPick)
+                    }
                 }
             }
+
         }
 
         // if relation has chosen, call completeProfile function else wise toast error

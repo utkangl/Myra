@@ -20,6 +20,7 @@ import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
 import com.google.gson.Gson
 import org.json.JSONObject
@@ -68,6 +69,12 @@ class MainActivity : AppCompatActivity() {
             setViewGone(burcCard, settingsButtonCard)
         }
 
+        if (navigateToHoroscope){
+            replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
+            setViewGone(burcCard,settingsButtonCard, miraMainMenu)
+            navigateToHoroscope = false
+        }
+
         // initialize the views that will animation helper will use. Animation helper functions
         // use some views to set their visibility or size, and this views are declared as late init
         // so we initialize views before calling the functions that uses this views
@@ -83,9 +90,9 @@ class MainActivity : AppCompatActivity() {
 
         burcCard.setOnClickListener { setViewGone(clickToGetHoroscopeText); animationHelper.animateBurcCardIn() }                           // if burcCard is clicked open the card and make the clickToGetHoroscopeText invisible
         backArrow.setOnClickListener { setViewVisible(clickToGetHoroscopeText); animationHelper.animateBurcCardOut()}                        // if backArrow is clicked close the card and make the clickToGetHoroscopeText visible
-        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"}            //make burcCard larger and set postHoroscopeData's type to general
-        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"}                      //make burcCard larger and set postHoroscopeData's type to love
-        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign); postHoroscopeData.type ="career"}                 //make burcCard larger and set postHoroscopeData's type to career
+        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"; isFromLoveHoroscope = false}//make burcCard larger and set postHoroscopeData's type to general
+        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"; isFromLoveHoroscope = true} //make burcCard larger and set postHoroscopeData's type to love
+        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign); postHoroscopeData.type ="career"; isFromLoveHoroscope = false} //make burcCard larger and set postHoroscopeData's type to career
         dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton); postHoroscopeData.time_interval ="daily" }       //make burcCard larger and set postHoroscopeData's time interval to daily
         monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton); postHoroscopeData.time_interval ="monthly"}   //make burcCard larger and set postHoroscopeData's time interval to monthly
         yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton); postHoroscopeData.time_interval ="yearly"}       //make burcCard larger and set postHoroscopeData's time interval to yearly
@@ -134,11 +141,20 @@ class MainActivity : AppCompatActivity() {
             // to horoscope detail fragment, but until api response with horoscope
             // play thinking animation
             if (authenticated.isLoggedIn){
-                animationHelper.animateBurcCardOut()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    setViewGone(burcCard,settingsButtonCard, miraMainMenu)
-                    HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager)
-                }, 300)
+
+                if (isFromLoveHoroscope){
+                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                    val intent = Intent(this, CompleteProfile::class.java); startActivity(intent,options.toBundle())
+                }
+
+                if (!isFromLoveHoroscope){
+                    animationHelper.animateBurcCardOut()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setViewGone(burcCard,settingsButtonCard, miraMainMenu)
+                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager)
+                    }, 300)
+                }
+
 
             }else{
                 // if user is not logged in, close burcCard and then after 300ms make the transition
