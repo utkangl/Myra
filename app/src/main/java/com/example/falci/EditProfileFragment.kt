@@ -24,6 +24,7 @@ import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.s
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
+import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
 
 val editProfileJson = JSONObject()
@@ -107,7 +108,7 @@ class EditProfileFragment : Fragment() {
             putEditProfileJson(
                 url = urls.editProfileURL,
                 json = editProfileJson,
-                accessToken = loginTokens.loginAccessToken
+                accessToken = tokensDataClass.accessToken
             )
             {_,_->}
 

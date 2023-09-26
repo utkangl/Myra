@@ -96,7 +96,7 @@ class AnimationHelper(private val context: Context) {
         val dpMarginBottom = 25
         val newMarginBottom = (dpMarginBottom * scale + 0.5f).toInt()
         setMarginBottomForSigns(newMarginBottom)
-        setSignCardBackgroundColor(getColor(context, R.color.passivesigncard))
+        setSignCardBackgroundColor(getColor(context, R.color.passive_sign_card))
     }
 
     private fun animateBurcCardSize(newWidth: Int, newHeight: Int, onAnimationStart: () -> Unit, onAnimationEnd: () -> Unit) {

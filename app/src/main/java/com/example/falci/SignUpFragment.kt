@@ -12,13 +12,11 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
-import com.example.falci.internalClasses.dataClasses.RegisterTokensDataClass
 import com.example.falci.internalClasses.dataClasses.isFromLoveHoroscope
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userRegister
 import org.json.JSONObject
 
-lateinit var registerTokensDataClass: RegisterTokensDataClass
 class SignUpFragment : Fragment() {
 
      // making this fields lateInit to initialize those on button click. If we were to initialize
@@ -51,7 +49,7 @@ class SignUpFragment : Fragment() {
             // if the passwords match each other
             if (passwordField.text.contentEquals(passwordAgainField.text)){
                 //post registerJson and let user know the error if there is one, else wise toast success
-                postJsonNoHeader(urls.signUpURL, registerJSON, "register") { responseBody, _ ->
+                postJsonNoHeader(urls.signUpURL, registerJSON, ) { responseBody, _ ->
 
                     // if response code is 201, toast success and  navigate user to CompleteProfile activity
                     if (statusCode == 201){

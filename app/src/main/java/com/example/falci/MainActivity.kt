@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             if(authenticated.isLoggedIn){
                 val gson = Gson()
 
-                makeGetProfileRequest(urls.getProfileURL, loginTokens.loginAccessToken)
+                makeGetProfileRequest(urls.getProfileURL, tokensDataClass.accessToken)
                 { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")
@@ -177,7 +177,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+
+
     } // end of onCreate function
+
 
 
     // if back button is pressed in main activity, check if you are in main activity or,
@@ -201,5 +205,6 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
 
 } // end of class

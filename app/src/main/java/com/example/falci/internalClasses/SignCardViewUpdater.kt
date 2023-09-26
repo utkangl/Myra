@@ -75,19 +75,19 @@ class SignCardViewUpdater(private val context: Context) {
         monthlyButton.layoutParams = monthlyButtonParams
         yearlyButton.layoutParams = yearlyButtonParams
 
-        generalSign.setCardBackgroundColor(getColor(context, R.color.passivesigncard))
-        loveSign.setCardBackgroundColor(getColor(context, R.color.passivesigncard))
-        careerSign.setCardBackgroundColor(getColor(context, R.color.passivesigncard))
+        generalSign.setCardBackgroundColor(getColor(context, R.color.passive_sign_card))
+        loveSign.setCardBackgroundColor(getColor(context, R.color.passive_sign_card))
+        careerSign.setCardBackgroundColor(getColor(context, R.color.passive_sign_card))
 
         when (selectedCard) {
             generalSign -> generalSign.setCardBackgroundColor(getColor(context,
-                R.color.nameinputbackground
+                R.color.name_input_background
             ))
             loveSign -> loveSign.setCardBackgroundColor(getColor(context,
-                R.color.nameinputbackground
+                R.color.name_input_background
             ))
             careerSign -> careerSign.setCardBackgroundColor(getColor(context,
-                R.color.nameinputbackground
+                R.color.name_input_background
             ))
         }
 

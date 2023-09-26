@@ -1,9 +1,8 @@
 package com.example.falci.internalClasses
 
-import com.example.falci.internalClasses.dataClasses.LoginTokensDataClass
-import com.example.falci.internalClasses.dataClasses.RegisterTokensDataClass
-import com.example.falci.loginTokens
-import com.example.falci.registerTokensDataClass
+import com.example.falci.internalClasses.dataClasses.JWTTokensDataClass
+import com.example.falci.internalClasses.dataClasses.tokensDataClass
+import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -14,14 +13,17 @@ import kotlin.properties.Delegates
 var statusCode by Delegates.notNull<Int>()
 
 class AuthenticationFunctions {
-        object PostJsonFunctions{
+
+
+
+    object PostJsonFunctions{
             private val client = OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build()
 
-            fun postJsonNoHeader(url: String, json: JSONObject, type: String, callback: (String?, Exception?) -> Unit) {
+            fun postJsonNoHeader(url: String, json: JSONObject,callback: (String?, Exception?) -> Unit) {
 
                 val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
                 val request = Request.Builder()
@@ -42,13 +44,12 @@ class AuthenticationFunctions {
                         val refreshToken = responseJson?.optString("refresh")
 
                         if (accessToken != null || refreshToken != null) {
+                            tokensDataClass = JWTTokensDataClass(
+                                accessToken = accessToken.toString(),
+                                refreshToken = refreshToken.toString(),
+                                tokensCreatedAt = System.currentTimeMillis() / 1000 // in seconds
+                            )
 
-                            if (type == "register"){
-                                registerTokensDataClass = RegisterTokensDataClass(registerAccessToken = accessToken.toString(), registerRefreshToken = refreshToken.toString())
-                            }
-                            if (type == "login"){
-                                loginTokens = LoginTokensDataClass(loginAccessToken = accessToken.toString(), loginRefreshToken = refreshToken.toString())
-                            }
 
                         }
 
@@ -81,6 +82,39 @@ class AuthenticationFunctions {
                     }
                 })
             }
+
+            fun takeNewAccessToken(url: String, refreshToken: String, callback: (String?, Exception?) -> Unit) {
+
+                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), refreshToken)
+                val request = Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build()
+
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        callback(null, e)
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+
+                        val responseBody = response.body()?.string()
+                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                        val newAccessToken = responseJson?.optString("access")
+
+                        if (newAccessToken != null) {
+                            tokensDataClass.accessToken = newAccessToken
+                        }
+
+                        statusCode = response.code()
+                        println("statusCode $statusCode")
+                        callback(responseBody, null)
+                    }
+                })
+            }
+
+
+
         }
 
     object CreateJsonObject{
@@ -90,5 +124,31 @@ class AuthenticationFunctions {
             return jsonObject
         }
     }
+
+
+    fun checkIsAccessExpired(){
+        val currentTimeMillis = System.currentTimeMillis() / 1000
+        println(currentTimeMillis)
+
+        if (currentTimeMillis - tokensDataClass.tokensCreatedAt > 10) { //if the time differance between now and token's creation time is longer than a day (in seconds)
+
+            PostJsonFunctions.takeNewAccessToken(
+                urls.refreshURL,
+                tokensDataClass.refreshToken
+            ) { newAccessToken, exception ->
+                if (newAccessToken != null) {
+                    println("token is expired")
+                    tokensDataClass.accessToken = newAccessToken
+                    println(newAccessToken)
+                } else {
+                    println(exception)
+                }
+            }
+
+        } else {
+            println("token is not expired")
+        }
+    }
+
 
 }

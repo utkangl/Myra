@@ -24,6 +24,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
+import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.statusCode
 import org.json.JSONObject
@@ -207,8 +208,8 @@ class ProfileFragment : Fragment() {
         //  else if 400, toast the error, if user is not logged in, toast error
         logoutButton.setOnClickListener{
             if (authenticated.isLoggedIn){
-                val refreshTokenJSON = createJsonObject("refresh_token" to loginTokens.loginRefreshToken)
-                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, loginTokens.loginAccessToken)
+                val refreshTokenJSON = createJsonObject("refresh_token" to tokensDataClass.refreshToken)
+                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, tokensDataClass.accessToken)
                 { responseBody, _ ->
                     if (statusCode == 205){
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}

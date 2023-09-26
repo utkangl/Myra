@@ -13,13 +13,9 @@ import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToSignUpFragment
-import com.example.falci.internalClasses.dataClasses.LoginTokensDataClass
-import com.example.falci.internalClasses.dataClasses.authenticated
-import com.example.falci.internalClasses.dataClasses.urls
-import com.example.falci.internalClasses.dataClasses.userRegister
+import com.example.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
-lateinit var loginTokens: LoginTokensDataClass
 
 class Loginfragment : Fragment() {
 
@@ -60,7 +56,7 @@ class Loginfragment : Fragment() {
             )
 
             // post login json object, and handle the response for errors and success
-            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson, "login") { responseBody, _ ->
+            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson, ) { responseBody, _ ->
                 println("response $responseBody")
 
                    // if response code is 200 success, toast successfully login,
@@ -74,6 +70,7 @@ class Loginfragment : Fragment() {
                         authenticated.isFromSignIn = false
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val intent = Intent(requireActivity(), MainActivity::class.java);startActivity(intent, options.toBundle())
+
                     }
                 }
 
@@ -93,6 +90,7 @@ class Loginfragment : Fragment() {
 
         return v
     }
+
 
 }
 

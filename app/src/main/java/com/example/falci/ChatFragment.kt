@@ -15,6 +15,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.dataClasses.ChatMessage
 import com.example.falci.internalClasses.dataClasses.getHoroscopeData
+import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
@@ -151,7 +152,7 @@ class ChatFragment : Fragment() {
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
-            .header("Authorization", "Bearer ${loginTokens.loginAccessToken}")
+            .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
             .build()
 
 

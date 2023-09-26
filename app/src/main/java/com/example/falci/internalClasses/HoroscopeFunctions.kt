@@ -38,7 +38,7 @@ object HoroscopeFunctions {
                 AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
                     urls.getHoroscopeURL,
                     getHoroscopeJson,
-                    loginTokens.loginAccessToken
+                    tokensDataClass.accessToken
                 ) { responseBody, exception ->
                     animationView.post {
                         setViewGone(animationView)
@@ -85,7 +85,7 @@ object HoroscopeFunctions {
                 AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
                     urls.getHoroscopeURL,
                     getLoveHoroscopeJson,
-                    loginTokens.loginAccessToken
+                    tokensDataClass.accessToken
                 ) { responseBody, exception ->
                     animationView.post {
                         setViewGone(animationView)
