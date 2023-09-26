@@ -28,6 +28,7 @@ import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.statusCode
 import org.json.JSONObject
 
+@Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
@@ -61,6 +62,7 @@ class ProfileFragment : Fragment() {
         val profileCard = v.findViewById<CardView>(R.id.profilecard)
         val profileViewBottomCard = v.findViewById<CardView>(R.id.profileViewBottomCard)
         val profileTitle = v.findViewById<TextView>(R.id.profileTitle)
+        val profileCardZodiacName = v.findViewById<TextView>(R.id.profileCardZodiacName)
         val logoutButton = v.findViewById<AppCompatButton>(R.id.logoutButton)
         val backArrowCard = v.findViewById<CardView>(R.id.backArrowCard)
         val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
@@ -125,7 +127,6 @@ class ProfileFragment : Fragment() {
         }
 
         val planetSignToImageMap = mutableMapOf<String, Int>()
-
         planetSignToImageMap["Cap"] = R.drawable.capricorn
         planetSignToImageMap["Aqu"] = R.drawable.aquarius
         planetSignToImageMap["Pis"] = R.drawable.pisces
@@ -139,12 +140,26 @@ class ProfileFragment : Fragment() {
         planetSignToImageMap["Sco"] = R.drawable.scorpio
         planetSignToImageMap["Sag"] = R.drawable.sagittarius
 
+        val planetToColorMap = mutableMapOf<String, Int>()
+        planetToColorMap["Jupiter"] = resources.getColor(R.color.jupiter)
+        planetToColorMap["Mars"] = resources.getColor(R.color.mars)
+        planetToColorMap["Mercury"] = resources.getColor(R.color.mercury)
+        planetToColorMap["Neptune"] = resources.getColor(R.color.neptune)
+        planetToColorMap["Saturn"] = resources.getColor(R.color.saturn)
+        planetToColorMap["Sun"] = resources.getColor(R.color.sun)
+        planetToColorMap["Uranus"] = resources.getColor(R.color.uranus)
+        planetToColorMap["Venus"] = resources.getColor(R.color.venus)
+        planetToColorMap["Moon"] = resources.getColor(R.color.moon)
+
+
         burcexplanationplanetimage.setImageResource(planetImages[0])
         burcexplanationplanettext.text = planetNames[0]
         var planetName = planetNames[0]
         var sign = planetSignMap[planetName]
         planet_horoscope_text.text = sign
         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
+        planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
+        profileCardZodiacName.text = planetSignMap["Sun"]
 
         val fadeOut = AlphaAnimation(1f, 0f)
         fadeOut.duration = 150
@@ -172,6 +187,7 @@ class ProfileFragment : Fragment() {
                         planet_horoscope_text.text = sign
 
                         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
+                        planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
 
                         burcexplanationplanetimage.startAnimation(fadeIn)
                         burcexplanationplanettext.startAnimation(fadeIn)

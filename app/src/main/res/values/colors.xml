@@ -7,6 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="nameinputbackground">#47386F</color>
-    <color name="passivesigncard">#808c8c8c</color>
+
+
+    <color name="jupiter">#FAAC58</color>
+    <color name="mars">#F37043</color>
+    <color name="mercury">#BDBEC0</color>
+    <color name="neptune">#5A87C5</color>
+    <color name="saturn">#D69572</color>
+    <color name="sun">#D69572</color>
+    <color name="uranus">#5A87C5</color>
+    <color name="venus">#D69572</color>
+    <color name="moon">#BDBEC0</color>
+
+
+    <color name="name_input_background">#47386F</color>
+    <color name="passive_sign_card">#808c8c8c</color>
 </resources>

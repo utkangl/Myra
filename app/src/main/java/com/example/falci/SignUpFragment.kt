@@ -13,6 +13,7 @@ import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
 import com.example.falci.internalClasses.dataClasses.RegisterTokensDataClass
+import com.example.falci.internalClasses.dataClasses.isFromLoveHoroscope
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userRegister
 import org.json.JSONObject
@@ -57,6 +58,7 @@ class SignUpFragment : Fragment() {
                         println("status code is $statusCode sign up successful")
                         requireActivity().runOnUiThread {
                             Toast.makeText(requireContext(), "Basari ile kayit olundu", Toast.LENGTH_SHORT).show()
+                            isFromLoveHoroscope = false
                             val intent = Intent(requireActivity(), CompleteProfile::class.java)
                             startActivity(intent)
                         }

@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
             setViewGone(burcCard,settingsButtonCard, miraMainMenu)
             navigateToHoroscope = false
+            isFromLoveHoroscope = false
         }
 
         // initialize the views that will animation helper will use. Animation helper functions
