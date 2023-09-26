@@ -1,5 +1,7 @@
 package com.example.falci.internalClasses
 
+import android.content.Context
+import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.dataClasses.JWTTokensDataClass
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
@@ -12,8 +14,7 @@ import kotlin.properties.Delegates
 
 var statusCode by Delegates.notNull<Int>()
 
-class AuthenticationFunctions {
-
+class AuthenticationFunctions() {
 
 
     object PostJsonFunctions{
@@ -50,7 +51,6 @@ class AuthenticationFunctions {
                                 tokensCreatedAt = System.currentTimeMillis() / 1000 // in seconds
                             )
 
-
                         }
 
                         statusCode = response.code()
@@ -83,9 +83,10 @@ class AuthenticationFunctions {
                 })
             }
 
-            fun takeNewAccessToken(url: String, refreshToken: String, callback: (String?, Exception?) -> Unit) {
+            fun takeNewAccessToken(url: String, refreshToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
-                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), refreshToken)
+                val refreshJson = createJsonObject("refresh" to refreshToken)
+                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), refreshJson.toString())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -98,15 +99,25 @@ class AuthenticationFunctions {
 
                     override fun onResponse(call: Call, response: Response) {
 
+                        statusCode = response.code()
                         val responseBody = response.body()?.string()
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                        val newAccessToken = responseJson?.optString("access")
 
-                        if (newAccessToken != null) {
-                            tokensDataClass.accessToken = newAccessToken
+                        if (statusCode == 200){
+                            val newAccessToken = responseJson?.optString("access")
+                            val newRefreshToken = responseJson?.optString("refresh")
+                            if (newAccessToken != null && newRefreshToken!= null) {
+                                tokensDataClass.accessToken = newAccessToken
+                                tokensDataClass.refreshToken = newRefreshToken
+
+                                val sharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+                                val editor = sharedPreferences.edit()
+                                editor.putString("access_token", newAccessToken)
+                                editor.putString("refresh_token", newRefreshToken)
+                                editor.apply()
+                            }
                         }
 
-                        statusCode = response.code()
                         println("statusCode $statusCode")
                         callback(responseBody, null)
                     }
@@ -126,20 +137,16 @@ class AuthenticationFunctions {
     }
 
 
-    fun checkIsAccessExpired(){
-        val currentTimeMillis = System.currentTimeMillis() / 1000
-        println(currentTimeMillis)
+    fun checkIsAccessExpired(nowTime: Long, creationTime: Long, livingTime: Long, refreshToken: String, context: Context){
 
-        if (currentTimeMillis - tokensDataClass.tokensCreatedAt > 10) { //if the time differance between now and token's creation time is longer than a day (in seconds)
+        if (nowTime - creationTime > livingTime) {
+            println("token is expired")
 
-            PostJsonFunctions.takeNewAccessToken(
-                urls.refreshURL,
-                tokensDataClass.refreshToken
-            ) { newAccessToken, exception ->
-                if (newAccessToken != null) {
-                    println("token is expired")
-                    tokensDataClass.accessToken = newAccessToken
-                    println(newAccessToken)
+            PostJsonFunctions.takeNewAccessToken(urls.refreshURL, refreshToken, context) { responseBody, exception ->
+                if (responseBody != null) {
+
+                    println(tokensDataClass.accessToken)
+
                 } else {
                     println(exception)
                 }

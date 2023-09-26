@@ -75,6 +75,28 @@
             tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
         </EditText>
 
+        <CheckBox
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/remembermeCheckBox"
+            android:layout_below="@id/loginFragmentPassword"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="20dp">
+        </CheckBox>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/remembermeCheckBox"
+            android:layout_below="@id/loginFragmentPassword"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:textSize="15sp"
+            android:text="@string/remember_me">
+        </TextView>
+
+
         <com.example.falci.LinkTextView
             android:id="@+id/loginFragmentForgotMyPasswordLinkedText"
 

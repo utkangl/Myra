@@ -2,7 +2,9 @@ package com.example.falci
 
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,6 +33,7 @@ import org.json.JSONObject
 
 @Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
+    private lateinit var sharedPreferences: SharedPreferences
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreateView(
@@ -216,6 +219,15 @@ class ProfileFragment : Fragment() {
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent,options.toBundle())
                         authenticated.isLoggedIn = false
+
+                        sharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("access_token", "")
+                        editor.putString("refresh_token", "")
+                        editor.putLong("token_creation_time", 0)
+                        editor.putBoolean("didLogin", false)
+                        editor.apply()
+
                     } else if (statusCode == 400){
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                         val detail = responseJson?.optString("detail")

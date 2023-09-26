@@ -8,6 +8,7 @@
     <string name="sehrini_sec">Sehrini Sec</string>
     <string name="sifre">Sifre</string>
     <string name="empty" />
+    <string name="remember_me">Remember me</string>
 
     <string-array name="marital_status">
         <item>Medeni durumunuzu Seciniz</item>

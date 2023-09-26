@@ -29,6 +29,7 @@ lateinit var userProfile: UserProfileDataClass
 
 class MainActivity : AppCompatActivity() {
 
+
     private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +76,8 @@ class MainActivity : AppCompatActivity() {
             navigateToHoroscope = false
             isFromLoveHoroscope = false
         }
+
+
 
         // initialize the views that will animation helper will use. Animation helper functions
         // use some views to set their visibility or size, and this views are declared as late init

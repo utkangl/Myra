@@ -1,6 +1,5 @@
 package com.example.falci.internalClasses.dataClasses
 
-lateinit var tokensDataClass: JWTTokensDataClass
 
 data class JWTTokensDataClass(
     var accessToken: String,
@@ -8,7 +7,8 @@ data class JWTTokensDataClass(
     var tokensCreatedAt: Long,
 )
 
-data class TokensTimeRemaining(
-    var refreshTokenRemainingTime: Long,
-    var accessTokenRemainingTime: Long,
+var tokensDataClass= JWTTokensDataClass(
+    accessToken = "",
+    refreshToken = "",
+    tokensCreatedAt = 0,
     )
