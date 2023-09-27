@@ -19,32 +19,35 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
     private val sharedPreferences = application.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
     init {
 
-        val savedAccessToken = sharedPreferences.getString("access_token",null) // access token is saved if user checks the remember me checkbox
-        val savedRefreshToken = sharedPreferences.getString("refresh_token",null) // refresh token is saved in last login, does not matter if remember me is checked or not
-        val savedTokenCreationTime = sharedPreferences.getLong("token_creation_time",0) // it is set in last login, does not matter if remember me is checked or not
-        var didLogin = sharedPreferences.getBoolean("didLogin",false) // this boolean is true when user checks remember me checkbox
 
-        println("saved access token: $savedAccessToken")
+        val savedAccessToken = sharedPreferences.getString("access_token",null) // access token is saved if user checks the remember me checkbox; if not, default value is null
+        val savedRefreshToken = sharedPreferences.getString("refresh_token",null) // refresh token is saved in last login, does not matter if remember me is checked or not, saved until logout
+        val savedTokenCreationTime = sharedPreferences.getLong("token_creation_time",0) // it is set in last login, does not matter if remember me is checked or not, saved until logout
+        var didLogin = sharedPreferences.getBoolean("didLogin",false) // this boolean is true when user checks remember me checkbox
 
         val authFuncs = AuthenticationFunctions()
         val currentTime = System.currentTimeMillis() / 1000
 
-        authFuncs.checkIsAccessExpired(currentTime, savedTokenCreationTime, 86400, savedRefreshToken!!, application)
+        authFuncs.checkIsAccessExpired(currentTime, savedTokenCreationTime, 86400, savedRefreshToken!!, application)   // this function checks if the access is expired;
+                                                                                                                                // if so, takes new tokens and replaces with the old ones in dataclass and sharedPReferences
 
-        if(currentTime - savedTokenCreationTime > 604800){
+        if(currentTime - savedTokenCreationTime > 604800){  // if it has been more than a week since the tokens were created, have user login again
             didLogin = false
         }
 
-        if (didLogin){
+
+        // if didLogin is true and the token in sharedPreferences is not null or empty
+        if (didLogin && !savedAccessToken.isNullOrEmpty()){
             println("user tokens are saved in device, didLogin is true, user automatically will be logged in until logout ")
 
             tokensDataClass= JWTTokensDataClass(
-                accessToken = savedAccessToken!!,
+                accessToken = savedAccessToken,
                 refreshToken = savedRefreshToken,
                 tokensCreatedAt = savedTokenCreationTime
             )
 
 
+            // initialize data class instance with sharedPreferences
             tokensDataClass.accessToken = savedAccessToken
             tokensDataClass.refreshToken = savedRefreshToken
             tokensDataClass.tokensCreatedAt = savedTokenCreationTime

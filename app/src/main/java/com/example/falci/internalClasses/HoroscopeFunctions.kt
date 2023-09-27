@@ -91,7 +91,6 @@ object HoroscopeFunctions {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
                         navigateToHoroscope = true
-                        navigateToHoroscope = true
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                     }

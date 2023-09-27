@@ -26,13 +26,11 @@ class ProfileFunctions {
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
+                    val responseDetail = JSONObject(responseBody!!).optString("detail")
 
                     statusCode = response.code()
-
-                    if (responseBody != null) {
-                        println(responseBody)
-                    }
-
+                    println(responseDetail)
+                    println("response code $statusCode")
                     callback(responseBody, null)
                 }
             })

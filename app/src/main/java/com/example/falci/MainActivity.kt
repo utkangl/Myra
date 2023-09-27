@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen().apply {
             setKeepOnScreenCondition(){
-                splashViewModel.isLoading.value
+                splashViewModel.isLoading.value  // keep showing splash screen until launching is over
             }
         }
         setContentView(R.layout.activity_main)
@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             setViewGone(burcCard, settingsButtonCard)
         }
 
+        //navigate user directly to horoscope, when horoscope mode is love and when user is navigated to main screen from lookup user's complete profile
         if (navigateToHoroscope){
             replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
             setViewGone(burcCard,settingsButtonCard, miraMainMenu)
