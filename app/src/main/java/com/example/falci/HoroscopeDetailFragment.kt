@@ -75,36 +75,7 @@ class HoroscopeDetailFragment : Fragment() {
 //
         miraHoroscopeDetailTop.setOnClickListener{
 
-            val gson = Gson()
 
-            val client = OkHttpClient()
-            val request = Request.Builder()
-                .url(urls.favouriteHoroscopeURL)
-                .get()
-                .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                .build()
-
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    println("exception $e")
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    val responseBody = response.body()?.string()
-                    statusCode = response.code()
-                    println("get fav horoscopes response body: $responseBody")
-
-                    if (statusCode == 200) {
-                        println("get fav horoscopes response code $statusCode")
-                        println("before responseBody $listOfFavouriteHoroscopes")
-                        listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
-                        println("after responseBody $listOfFavouriteHoroscopes")
-
-
-
-                    }
-                }
-            })
         }
 
         if (createFavouriteHoroscope.isThisHoroscopeFavourite){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}

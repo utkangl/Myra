@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="15dp"
+    tools:ignore="HardcodedText"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:id="@+id/favCard"
+        app:cardCornerRadius="15dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/favCardImageBackground"
+            android:src="@drawable/fav_card_background"
+            android:contentDescription="color_of_favcard">
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/favCardTitle"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:padding="9dp"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:textSize="15sp"
+            android:gravity="start"
+            android:textColor="@color/white"
+            android:layout_gravity="top"
+            android:text="Title Of The Horoscope">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="255"
+            android:maxHeight="80dp"
+            android:id="@+id/favCardExplanation"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="7dp"
+            android:paddingStart="9dp"
+            android:paddingEnd="9dp"
+            android:paddingBottom="9dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:textSize="13sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit. ">
+        </TextView>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -9,6 +9,8 @@
     <string name="sifre">Sifre</string>
     <string name="empty" />
     <string name="remember_me">Remember me</string>
+    <string name="favorileri_ara">Favorileri ara...</string>
+    <string name="color_of_favcard">color of favCard</string>
 
     <string-array name="marital_status">
         <item>Medeni durumunuzu Seciniz</item>

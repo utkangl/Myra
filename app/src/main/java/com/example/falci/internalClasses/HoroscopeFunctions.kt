@@ -43,7 +43,6 @@ object HoroscopeFunctions {
                     animationView.post {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
-                        replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
                     }
 
                     if (responseBody != null) {
@@ -52,6 +51,7 @@ object HoroscopeFunctions {
 
                         if (statusCode == 200) {
                             getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
+                            replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
 
                         }else {
                             val errorDetail = responseJson.optString("detail")
