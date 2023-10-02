@@ -58,8 +58,8 @@ class InternalFunctions {
         fun updateBirthDayIfChanged(jsonField: String, birthDateField: TextView, birthTimeField: TextView, userProfile: UserProfileDataClass, editProfileJson: JSONObject) {
             val newBirthDate = birthDateField.text.toString()
             val newBirthTime = birthTimeField.text.toString()
-            val currentBirthDay = separateBirthDate(userProfile.birth_day)
-            val currentBirthTime = separateBirthTime(userProfile.birth_day)
+            val currentBirthDay = separateBirthDate(userProfile.birth_day!!)
+            val currentBirthTime = separateBirthTime(userProfile.birth_day!!)
 
             if (newBirthDate != currentBirthDay || newBirthTime != currentBirthTime) {
                 val combinedBirthDay = "$newBirthDate $newBirthTime +0000"
@@ -157,6 +157,7 @@ class InternalFunctions {
             animatorSet.start()
         }
     }
+
 
 
 

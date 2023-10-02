@@ -249,8 +249,8 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
+        // fill partner profile json with partner's data class
         fun createLookupUserJson(){
-
             val formattedDate = formatDateAndTime(partnerProfile.partnerDate, partnerProfile.partnerTime)
             lookupUserJson = createJsonObject(
                 "name" to partnerProfile.partnerName,
@@ -259,7 +259,6 @@ class CompleteProfile : AppCompatActivity() {
                 "birth_place" to partnerProfile.partnerLocation,
                 "occupation" to partnerProfile.partnerOccupation
             )
-
         }
 
         // when activity is created directly set namePick view visible
@@ -317,6 +316,7 @@ class CompleteProfile : AppCompatActivity() {
 
         // allow user to go on to relationship status pick if occupation has chosen else toast error
         occupationNextButton.setOnClickListener{
+            // if completing the profile of lookup user, call get horoscope function for love
             if (isFromLoveHoroscope && isNextOccupation){
                 isNextOccupation = false
                 createLookupUserJson()
@@ -324,13 +324,15 @@ class CompleteProfile : AppCompatActivity() {
                 setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
                 getLoveHoroscope(thinkingAnimation, this)
 
-
+            // if completing the user's profile
             }else{
+                // if occupation is picked, go on to relationship status
                 if (isNextOccupation){
                     setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
                     setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
                     setRelation()
                 }else {
+                    // if occupation is not picked, toast choose your occupation
                     this.runOnUiThread {
                         Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
                         setViewGoneWithAnimation(this,occupationPick)

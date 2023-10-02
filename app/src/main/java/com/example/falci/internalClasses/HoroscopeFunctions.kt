@@ -23,7 +23,7 @@ object HoroscopeFunctions {
         )
 
 
-        println(getHoroscopeJson)
+        println("sending this json to get horoscope $getHoroscopeJson")
 
 
         val gson = Gson()
@@ -47,21 +47,23 @@ object HoroscopeFunctions {
                     }
 
                     if (responseBody != null) {
-                        val errorResponseJson = JSONObject(responseBody)
+                        val responseJson = JSONObject(responseBody)
                         println(statusCode)
 
                         if (statusCode == 200) {
                             getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
 
-                        }   else {
-                            val detail = errorResponseJson.optString("detail")
-                            println(detail)
+                        }else {
+                            val errorDetail = responseJson.optString("detail")
+                            println(errorDetail)
                         }
-                    } else exception?.printStackTrace()
+
+                    }
+                    if (responseBody == null) {println("response body null"); println("exception is : $exception")}
 
                 }
             } catch (e: Exception) {
-                e.printStackTrace()
+                e.printStackTrace(); println("(try) catch in get horoscope")
             }
         }
     }

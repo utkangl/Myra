@@ -8,14 +8,19 @@ data class PostHoroscopeData(
 val postHoroscopeData = PostHoroscopeData(type = "", time_interval = "")
 
 data class GetHoroscopeData(
+    var id: Int?,
     var thread: Int?,
     var summary: String?,
     var good: String?,
     var bad: String?,
+    var time_remaining: String?
 )
 
 var getHoroscopeData = GetHoroscopeData(
+    id = null,
     thread = null,
-    summary = "",
-    good = "",
-    bad =  "",)
+    summary = null,
+    good = null,
+    bad =  null,
+    time_remaining = null
+)

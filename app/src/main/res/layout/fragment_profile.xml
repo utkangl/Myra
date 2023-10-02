@@ -700,7 +700,7 @@
                 android:layout_above="@+id/bottomcardseperator"
                 android:layout_marginStart="50dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/star_icon">
+                android:src="@drawable/white_star_icon">
             </ImageView>
 
             <TextView

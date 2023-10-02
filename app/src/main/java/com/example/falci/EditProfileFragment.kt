@@ -26,6 +26,7 @@ import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.userProfile
 
 val editProfileJson = JSONObject()
 
@@ -64,8 +65,8 @@ class EditProfileFragment : Fragment() {
 
         nameField.text = userProfile.first_name
         genderField.text = userProfile.gender
-        birthDateField.text = separateBirthDate(userProfile.birth_day)
-        birthTimeField.text = separateBirthTime(userProfile.birth_day)
+        birthDateField.text = separateBirthDate(userProfile.birth_day!!)
+        birthTimeField.text = separateBirthTime(userProfile.birth_day!!)
         locationField.text = userProfile.birth_place
         occupationField.text = userProfile.occupation
         relationShipStatusField.text = userProfile.relationship_status
@@ -88,12 +89,12 @@ class EditProfileFragment : Fragment() {
         savebutton.setOnClickListener {
 
             // Add values to EditProfileJson if changed
-            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name)
-            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender)
+            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name!!)
+            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender!!)
             updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
-            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place)
-            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation)
-            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status)
+            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place!!)
+            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation!!)
+            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status!!)
 
             // Save changes
             userProfile.apply {

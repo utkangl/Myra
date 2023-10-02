@@ -68,7 +68,7 @@ class Loginfragment : Fragment() {
             )
 
             // post login json object, and handle the response for errors and success
-            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson, ) { responseBody, _ ->
+            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson) { responseBody, _ ->
                 println("response $responseBody")
 
                    // if response code is 200 success, toast successfully login,

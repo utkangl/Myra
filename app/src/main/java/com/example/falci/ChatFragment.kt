@@ -13,10 +13,8 @@ import android.widget.ListView
 import android.widget.RelativeLayout
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
-import com.example.falci.internalClasses.dataClasses.ChatMessage
-import com.example.falci.internalClasses.dataClasses.getHoroscopeData
-import com.example.falci.internalClasses.dataClasses.tokensDataClass
-import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.*
+import com.example.falci.internalClasses.statusCode
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -44,11 +42,78 @@ class ChatFragment : Fragment() {
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
         val messages = mutableListOf<ChatMessage>()
+        val oldMessages = mutableListOf<ChatMessage>()
         val welcomeMessage = ChatMessage(getHoroscopeData.summary.toString(), false)
         messages.add(welcomeMessage)
 
+
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
+
+        if (isFromHoroscope){
+            threadNumber = getHoroscopeData.thread
+            println("burctan geldim  ve burcun threadı bu $threadNumber")
+
+            val apiUrl = "https://api.atlasuavteam.com/gpt/chat/$threadNumber/"
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(apiUrl)
+                .get()
+                .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                .build()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    println("exception $e")
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val responseBody = response.body()?.string()
+                    statusCode = response.code()
+                    println("get thread response code $statusCode")
+
+                    if (statusCode == 200){
+                        println("code 200")
+
+                        activity?.runOnUiThread {
+
+                            val jsonResponse = responseBody?.let { JSONObject(it) }
+                            val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
+
+                            for (i in 0 until chatMessagesArray!!.length()) {
+
+                                val jsonObject = chatMessagesArray.getJSONObject(i)
+                                val oldMessage = jsonObject.getString("message")
+                                val owner = jsonObject.getString("owner")
+
+                                if (owner == "user") {
+                                    oldMessages.add(ChatMessage(oldMessage, true))
+                                }
+                                if (owner == "assistant") {
+                                    oldMessages.add(ChatMessage(oldMessage, false))
+                                }
+
+                            }
+
+                            println("eski mesajlar $oldMessages")
+
+                            for (oldMessage in oldMessages){
+                                messages.add(oldMessage)
+                            }
+                            chatAdapter.notifyDataSetChanged()
+                            chatListView.smoothScrollToPosition(messages.size - 1)
+
+                        }
+                    }
+
+                    if (statusCode == 404){
+                        println("404 not found")
+                    }
+                }
+            })
+        }
+
+
 
         annen.setOnClickListener{
             val imm =
@@ -65,7 +130,7 @@ class ChatFragment : Fragment() {
             setViewVisible(cancelUserMessage)
         }
 
-        cancelUserMessage.setOnClickListener{
+        cancelUserMessage.setOnClickListener {
             val scale = requireContext().resources.displayMetrics.density
             messageInputParams.width = (330 * scale + 0.5).toInt()
             messageInput.layoutParams = messageInputParams
@@ -97,25 +162,29 @@ class ChatFragment : Fragment() {
                 chatListView.smoothScrollToPosition(messages.size - 1)
 
                 val chatJson = createChatJSON(usermessagetomira, threadNumber)
+                println("thread bu: $threadNumber")
+                println("yolladigim chat jsonu $chatJson")
 
                 postChatJson(urls.chatGptURL, chatJson)
                 { responseBody, exception ->
                     if (exception != null) {
                         println("Error: ${exception.message}")
                     } else {
-                        println("Response: $responseBody")
+                        println("thread verdim response bu: $responseBody")
 
                         activity?.runOnUiThread {
                             val jsonResponse = responseBody?.let { JSONObject(it) }
                             val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
                             if (chatMessagesArray != null) {
+
+
                                 // En son mesaji bulmak icin chatMessagesArray'ı tersten dön
                                 for (i in chatMessagesArray.length() - 1 downTo 0) {
                                     val chatMessageObject = chatMessagesArray.getJSONObject(i)
                                     val sender = chatMessageObject.getString("owner")
                                     val message = chatMessageObject.getString("message")
                                     threadNumber = chatMessageObject.getInt("thread")
-                                    println(sender)
+                                    println("gonderen $sender")
                                     val apiMessage = ChatMessage(message, false)
                                     println(apiMessage)
                                     messages.add(apiMessage)
@@ -160,6 +229,7 @@ class ChatFragment : Fragment() {
 
             override fun onFailure(call: Call, e: IOException) {
                 callback(null, e)
+                println("hata var amuga goyum $e")
 
             }
 
@@ -167,7 +237,8 @@ class ChatFragment : Fragment() {
                 val responseBody = response.body()?.string()
 
                 println("response from mira $responseBody")
-
+                statusCode = response.code()
+                println("status code is: $statusCode")
                 callback(responseBody, null)
 
             }

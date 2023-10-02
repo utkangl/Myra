@@ -28,6 +28,7 @@ import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWit
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.userProfile
 import com.example.falci.internalClasses.statusCode
 import org.json.JSONObject
 
@@ -47,8 +48,9 @@ class ProfileFragment : Fragment() {
         val profileFragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
         val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
+        println("profile içinden yazıyorum ${userProfile.first_name}")
         // set firstLetter variable with the first letter of UserProfileDataClass's name field
-        val firstLetter = userProfile.first_name.first().toString().uppercase()
+        val firstLetter = userProfile.first_name!!.first().toString().uppercase()
         firstLetterView.text = firstLetter
         profileFragmentName.text = userProfile.first_name
 
@@ -76,7 +78,7 @@ class ProfileFragment : Fragment() {
         val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
         val planetHoroscopeImage = v.findViewById<ImageView>(R.id.planet_horoscope_image)
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
-        val planet_horoscope_text = zodiacexplanationcard.findViewById<TextView>(R.id.planet_horoscope_text)
+        val planetHoroscopeText = zodiacexplanationcard.findViewById<TextView>(R.id.planet_horoscope_text)
         val burcExplanationTextScroll = zodiacexplanationcard.findViewById<ScrollView>(R.id.burcExplanationTextScroll)
 
 
@@ -160,7 +162,7 @@ class ProfileFragment : Fragment() {
         burcexplanationplanettext.text = planetNames[0]
         var planetName = planetNames[0]
         var sign = planetSignMap[planetName]
-        planet_horoscope_text.text = sign
+        planetHoroscopeText.text = sign
         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
         planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
         profileCardZodiacName.text = planetSignMap["Sun"]
@@ -176,7 +178,7 @@ class ProfileFragment : Fragment() {
                 burcexplanationplanetimage.startAnimation(fadeOut)
                 burcexplanationplanettext.startAnimation(fadeOut)
                 planetHoroscopeImageCard.startAnimation(fadeOut)
-                planet_horoscope_text.startAnimation(fadeOut)
+                planetHoroscopeText.startAnimation(fadeOut)
 
                 fadeOut.setAnimationListener(object : Animation.AnimationListener {
                     override fun onAnimationStart(animation: Animation?) {
@@ -188,7 +190,7 @@ class ProfileFragment : Fragment() {
 
                         planetName = planetNames[index]
                         sign = planetSignMap[planetName]
-                        planet_horoscope_text.text = sign
+                        planetHoroscopeText.text = sign
 
                         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
                         planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
@@ -196,7 +198,7 @@ class ProfileFragment : Fragment() {
                         burcexplanationplanetimage.startAnimation(fadeIn)
                         burcexplanationplanettext.startAnimation(fadeIn)
                         planetHoroscopeImageCard.startAnimation(fadeIn)
-                        planet_horoscope_text.startAnimation(fadeIn)
+                        planetHoroscopeText.startAnimation(fadeIn)
                     }
 
                     override fun onAnimationRepeat(animation: Animation?) {

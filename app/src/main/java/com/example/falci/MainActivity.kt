@@ -9,12 +9,13 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
@@ -25,18 +26,21 @@ import com.example.falci.internalClasses.dataClasses.*
 import com.google.gson.Gson
 import org.json.JSONObject
 
-lateinit var userProfile: UserProfileDataClass
+//lateinit var userProfile: UserProfileDataClass
+    var anneninamcigi = false
 
 class MainActivity : AppCompatActivity() {
 
+   private lateinit var splashViewModel: ViewModel
 
-    private val splashViewModel: SplashViewModel by viewModels()
+//   private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        splashViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[SplashViewModel::class.java]
         installSplashScreen().apply {
-            setKeepOnScreenCondition(){
-                splashViewModel.isLoading.value  // keep showing splash screen until launching is over
+            setKeepOnScreenCondition{
+                (splashViewModel as SplashViewModel).isLoading.value  // keep showing splash screen until launching is over
             }
         }
         setContentView(R.layout.activity_main)
@@ -78,8 +82,6 @@ class MainActivity : AppCompatActivity() {
             isFromLoveHoroscope = false
         }
 
-
-
         // initialize the views that will animation helper will use. Animation helper functions
         // use some views to set their visibility or size, and this views are declared as late init
         // so we initialize views before calling the functions that uses this views
@@ -93,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             monthlyButton, yearlyButton, learnYourBurcButton)
 
 
-        // if burcCard is clicked open the card and make the clickToGetHoroscopeText invisible
+        // if burcCard is clicked and user is logged in open the card and make the clickToGetHoroscopeText invisible, if not logged in navigate user to login screen
         burcCard.setOnClickListener {
             if(authenticated.isLoggedIn) {
                 setViewGone(clickToGetHoroscopeText); animationHelper.animateBurcCardIn()
@@ -103,41 +105,44 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
             }
         }
-        backArrow.setOnClickListener { setViewVisible(clickToGetHoroscopeText); animationHelper.animateBurcCardOut()}                        // if backArrow is clicked close the card and make the clickToGetHoroscopeText visible
-        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"; isFromLoveHoroscope = false}//make burcCard larger and set postHoroscopeData's type to general
-        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"; isFromLoveHoroscope = true} //make burcCard larger and set postHoroscopeData's type to love
-        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign); postHoroscopeData.type ="career"; isFromLoveHoroscope = false} //make burcCard larger and set postHoroscopeData's type to career
-        dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton); postHoroscopeData.time_interval ="daily" }       //make burcCard larger and set postHoroscopeData's time interval to daily
-        monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton); postHoroscopeData.time_interval ="monthly"}   //make burcCard larger and set postHoroscopeData's time interval to monthly
-        yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton); postHoroscopeData.time_interval ="yearly"}       //make burcCard larger and set postHoroscopeData's time interval to yearly
+        backArrow.setOnClickListener { setViewVisible(clickToGetHoroscopeText); animationHelper.animateBurcCardOut()}                                             // if backArrow is clicked close the card and make the clickToGetHoroscopeText visible
+        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"; isFromLoveHoroscope = false}  //make burcCard larger and set postHoroscopeData's type to general
+        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"; isFromLoveHoroscope = true}           //make burcCard larger and set postHoroscopeData's type to love
+        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign); postHoroscopeData.type ="career"; isFromLoveHoroscope = false}   //make burcCard larger and set postHoroscopeData's type to career
+        dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton); postHoroscopeData.time_interval ="daily" }                    //make burcCard larger and set postHoroscopeData's time interval to daily
+        monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton); postHoroscopeData.time_interval ="monthly"}              //make burcCard larger and set postHoroscopeData's time interval to monthly
+        yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton); postHoroscopeData.time_interval ="yearly"}                //make burcCard larger and set postHoroscopeData's time interval to yearly
 
         settingsButton.setOnClickListener{
             // when user clicks to profile button and if user is logged in, get profile informations
             // and set the response to UserProfileDataClass's instance
             if(authenticated.isLoggedIn){
                 val gson = Gson()
+                println("data classı önceden bu $userProfile")
+                println("requesti atmadanonce")
 
                 makeGetProfileRequest(urls.getProfileURL, tokensDataClass.accessToken)
                 { responseBody, exception ->
-                    if (exception != null) {
-                        println("Error: ${exception.message}")
-                    } else {
-                        println("Response: $responseBody")
 
+                    println("request attım")
+                    if (exception != null) {
+                        println("Error var : ${exception.message}")
+                    } else {
+                        println("exception yok?")
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
 
                         if (responseJson != null) {
                             userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
+                            println("data classı şimdi bu $userProfile")
+
+                            //and navigate user to ProfileActivity
+                            if (savedInstanceState == null) {
+                                val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                                val intent = Intent(this, ProfileActivity::class.java); startActivity(intent,options.toBundle())
+                            }
                         }
                     }
                 }
-
-                //and navigate user to ProfileActivity
-                if (savedInstanceState == null) {
-                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                    val intent = Intent(this, ProfileActivity::class.java); startActivity(intent,options.toBundle())
-                }
-
             }
 
             // when user clicks to profile button but did not login, navigate user to loginSignUp activity
@@ -156,11 +161,13 @@ class MainActivity : AppCompatActivity() {
             // play thinking animation
             if (authenticated.isLoggedIn){
 
+                // if horoscope type is love, navigate user to complete profile screen to get lookup user's profile
                 if (isFromLoveHoroscope){
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, CompleteProfile::class.java); startActivity(intent,options.toBundle())
                 }
 
+                // if horoscope type is not love, call get horoscope function
                 if (!isFromLoveHoroscope){
                     animationHelper.animateBurcCardOut()
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -180,10 +187,6 @@ class MainActivity : AppCompatActivity() {
                 }, 300)
             }
         }
-
-
-
-
     } // end of onCreate function
 
 
