@@ -10,10 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
 import com.google.gson.Gson
@@ -34,6 +36,7 @@ class HoroscopeDetailFragment : Fragment() {
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
         val miraHoroscopeDetailTop = v.findViewById<ImageView>(R.id.MiraHoroscopeDetailTop)
         val favouriteThisHoroscope = v.findViewById<ImageView>(R.id.favouriteThisHoroscope)
+        val horoscopeDetailStartChatTextCard = v.findViewById<CardView>(R.id.horoscopeDetailStartChatTextCard)
 
         // create and format horoscope string with the instance of GetHoroscopeData's field
         val horoscope =
@@ -175,6 +178,12 @@ class HoroscopeDetailFragment : Fragment() {
                 })
             }
         } // end of favouriteThisHoroscope.setOnClickListener
+
+
+        horoscopeDetailStartChatTextCard.setOnClickListener{
+            replaceMainActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())
+        }
+
         return v // end of onCreateView
     }
 }
