@@ -1,16 +1,17 @@
 package com.example.falci.internalClasses
 
-import com.example.falci.anneninamcigi
+import android.content.Context
+import com.example.falci.internalClasses.dataClasses.tokensDataClass
+import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
 class ProfileFunctions {
     object ProfileFunctions{
-        fun makeGetProfileRequest(url: String, accessToken: String, callback: (String?, Exception?) -> Unit) {
+        fun makeGetProfileRequest(url: String, accessToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
             println("get profile için yolladığım acces tokeni $accessToken")
-            anneninamcigi = true
 
             val getProfileClient = OkHttpClient()
             val request = Request.Builder()
@@ -29,20 +30,36 @@ class ProfileFunctions {
                     println("failure'a dustum")
                 }
 
+
                 override fun onResponse(call: Call, response: Response) {
+                    statusCode = response.code()
+
+                    if (statusCode == 401){
+                        println("unauthorized 401, taking new access token")
+                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                            urls.refreshURL,
+                            tokensDataClass.refreshToken,
+                            context,
+                        ) { responseBody401, exception ->
+                            if (responseBody401 != null) {
+                                println(tokensDataClass.accessToken)
+                            } else {
+                                println(exception)
+                            }
+                        }
+                    }
                     val responseBody = response.body()?.string()
                     val responseDetail = JSONObject(responseBody!!).optString("detail")
 
                     println("get profile dan dönen response bu $responseBody")
 
-                    statusCode = response.code()
                     println(responseDetail)
                     println("response code $statusCode")
                     callback(responseBody, null)
                 }
             })
         }
-        fun putEditProfileJson(url: String, json: JSONObject, accessToken: String, callback: (String?, Exception?) -> Unit) {
+        fun putEditProfileJson(url: String, json: JSONObject, accessToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
             val editProfileClient = OkHttpClient()
 
@@ -69,6 +86,20 @@ class ProfileFunctions {
                     val responseBody = response.body()?.string()
 
                     statusCode = response.code()
+                    if (statusCode == 401){
+                        println("unauthorized 401, taking new access token")
+                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                            urls.refreshURL,
+                            tokensDataClass.refreshToken,
+                            context
+                        ) { responseBody401, exception ->
+                            if (responseBody401 != null) {
+                                println(tokensDataClass.accessToken)
+                            } else {
+                                println(exception)
+                            }
+                        }
+                    }
 
                     if (responseBody != null) {
                         println(responseBody)

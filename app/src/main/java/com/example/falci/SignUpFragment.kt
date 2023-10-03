@@ -49,7 +49,7 @@ class SignUpFragment : Fragment() {
             // if the passwords match each other
             if (passwordField.text.contentEquals(passwordAgainField.text)){
                 //post registerJson and let user know the error if there is one, else wise toast success
-                postJsonNoHeader(urls.signUpURL, registerJSON, ) { responseBody, _ ->
+                postJsonNoHeader(urls.signUpURL, registerJSON, requireContext() ) { responseBody, _ ->
 
                     // if response code is 201, toast success and  navigate user to CompleteProfile activity
                     if (statusCode == 201){

@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
+import com.example.falci.internalClasses.AuthenticationFunctions
+import com.example.falci.internalClasses.InternalFunctions
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
 import com.google.gson.Gson
@@ -28,8 +31,9 @@ class FavouriteHoroscopesFragment : Fragment() {
         val v =  inflater.inflate(R.layout.fragment_favourite_horoscopes, container, false)
 
         val favHoroscopeLinearLayout = v.findViewById<LinearLayout>(R.id.favourite_horoscopes_linearlayout)
+        val favHoroscopeLoadingAnimation = v.findViewById<LottieAnimationView>(R.id.favHoroscopeLoadingAnimation)
 
-        fun getFavouriteHoroscopes() {
+        fun getFavouriteHoroscopes(animationView: LottieAnimationView) {
             val gson = Gson()
 
             val client = OkHttpClient()
@@ -40,14 +44,37 @@ class FavouriteHoroscopesFragment : Fragment() {
                 .build()
 
             CoroutineScope(Dispatchers.IO).launch {
+                animationView.post {
+                    InternalFunctions.SetVisibilityFunctions.setViewVisible(animationView)
+                    animationView.playAnimation()
+                }
+
                 try {
                     val response = client.newCall(request).execute()
                     if (response.isSuccessful) {
                         val responseBody = response.body()?.string()
                         statusCode = response.code()
+                        if (statusCode == 401){
+                            println("unauthorized 401, taking new access token")
+                            AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                                urls.refreshURL,
+                                tokensDataClass.refreshToken,
+                                requireContext()
+                            ) { responseBody, exception ->
+                                if (responseBody != null) {
+                                    println(tokensDataClass.accessToken)
+                                } else {
+                                    println(exception)
+                                }
+                            }
+                        }
                         println("get fav horoscopes response body: $responseBody")
 
                         if (statusCode == 200) {
+                            animationView.post {
+                                InternalFunctions.SetVisibilityFunctions.setViewGone(animationView)
+                                animationView.cancelAnimation()
+                            }
                             println("get fav horoscopes response code $statusCode")
                             println("before responseBody $listOfFavouriteHoroscopes")
                             val listOfFavouriteHoroscopesDataClass = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
@@ -56,8 +83,7 @@ class FavouriteHoroscopesFragment : Fragment() {
 
                             withContext(Dispatchers.Main) {
                                 println(listOfFavouriteHoroscopes.count)
-                                // UI işlemleri burada yapılabilir
-                                for (i in 0 until listOfFavouriteHoroscopesDataClass.count) {
+                                for (i in listOfFavouriteHoroscopesDataClass.results.indices.reversed()) {
                                     val favCardView = FavCardView(context!!)
                                     val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
                                     val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
@@ -86,7 +112,7 @@ class FavouriteHoroscopesFragment : Fragment() {
             }
         }
 
-        getFavouriteHoroscopes()
+        getFavouriteHoroscopes(favHoroscopeLoadingAnimation)
 
         return v
 

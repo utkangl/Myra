@@ -24,6 +24,7 @@ import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctio
 import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.TransitionToFragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
@@ -75,6 +76,7 @@ class ProfileFragment : Fragment() {
         val burcexplanationplanet = v.findViewById<CardView>(R.id.burcexplanationplanet)
         val planetHoroscopeImageCard = v.findViewById<CardView>(R.id.planet_horoscope_image_card)
         val zodiacexplanationcard = v.findViewById<RelativeLayout>(R.id.zodiacexplanationcard)
+        val showFavHoroscopesLayout = v.findViewById<RelativeLayout>(R.id.showFavHoroscopesLayout)
         val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
         val planetHoroscopeImage = v.findViewById<ImageView>(R.id.planet_horoscope_image)
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
@@ -214,7 +216,7 @@ class ProfileFragment : Fragment() {
         logoutButton.setOnClickListener{
             if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to tokensDataClass.refreshToken)
-                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, tokensDataClass.accessToken)
+                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, tokensDataClass.accessToken,requireContext())
                 { responseBody, _ ->
                     if (statusCode == 205){
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
@@ -239,6 +241,14 @@ class ProfileFragment : Fragment() {
 
             } else{requireActivity().runOnUiThread { Toast.makeText(requireContext(), "can not logout without logging in", Toast.LENGTH_LONG).show()} }
         }
+
+
+        showFavHoroscopesLayout.setOnClickListener{
+            TransitionToFragment.ReplaceActivityToFragment.replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())
+        }
+
+
+
         return v
     }
 }

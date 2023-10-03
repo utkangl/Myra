@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.RelativeLayout
+import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.dataClasses.*
@@ -71,6 +72,21 @@ class ChatFragment : Fragment() {
                     val responseBody = response.body()?.string()
                     statusCode = response.code()
                     println("get thread response code $statusCode")
+
+                    if (statusCode == 401){
+                        println("unauthorized 401, taking new access token")
+                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                            urls.refreshURL,
+                            tokensDataClass.refreshToken,
+                            requireContext()
+                        ) { responseBody401, exception ->
+                            if (responseBody401 != null) {
+                                println(tokensDataClass.accessToken)
+                            } else {
+                                println(exception)
+                            }
+                        }
+                    }
 
                     if (statusCode == 200){
                         println("code 200")
@@ -235,10 +251,19 @@ class ChatFragment : Fragment() {
 
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body()?.string()
-
-                println("response from mira $responseBody")
                 statusCode = response.code()
-                println("status code is: $statusCode")
+                if (statusCode == 401){
+                    println("unauthorized 401, taking new access token")
+                    AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(urls.refreshURL, tokensDataClass.refreshToken, requireContext()) { responseBody401, exception ->
+                        if (responseBody401 != null) {
+                            println(tokensDataClass.accessToken)
+                        } else {
+                            println(exception)
+                        }
+                    }
+                }
+                println("response from mira $responseBody")
+
                 callback(responseBody, null)
 
             }

@@ -16,7 +16,7 @@ import org.json.JSONObject
 
 object HoroscopeFunctions {
 
-    fun getHoroscope(animationView: LottieAnimationView, fm: FragmentManager){
+    fun getHoroscope(animationView: LottieAnimationView, fm: FragmentManager, context: Context){
         val getHoroscopeJson = createJsonObject(
             "type" to postHoroscopeData.type.toString(),
             "time_interval" to postHoroscopeData.time_interval.toString()
@@ -38,7 +38,8 @@ object HoroscopeFunctions {
                 AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
                     urls.getHoroscopeURL,
                     getHoroscopeJson,
-                    tokensDataClass.accessToken
+                    tokensDataClass.accessToken,
+                    context
                 ) { responseBody, exception ->
                     animationView.post {
                         setViewGone(animationView)
@@ -52,6 +53,7 @@ object HoroscopeFunctions {
                         if (statusCode == 200) {
                             getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
                             replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
+                            println(getHoroscopeData)
 
                         }else {
                             val errorDetail = responseJson.optString("detail")
@@ -87,7 +89,8 @@ object HoroscopeFunctions {
                 AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
                     urls.getHoroscopeURL,
                     getLoveHoroscopeJson,
-                    tokensDataClass.accessToken
+                    tokensDataClass.accessToken,
+                    context
                 ) { responseBody, exception ->
                     animationView.post {
                         setViewGone(animationView)

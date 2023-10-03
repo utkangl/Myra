@@ -694,28 +694,33 @@
 
             </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_above="@+id/bottomcardseperator"
-                android:layout_marginStart="50dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/white_star_icon">
-            </ImageView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:id="@+id/showFavHoroscopesLayout">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/white_star_icon">
+                </ImageView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/bottomcardseperator"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/arima_madurai_bold"
-                android:gravity="center"
-                android:text="Favori Burcların"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                tools:ignore="HardcodedText">
-            </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:gravity="center"
+                    android:text="Favori Burcların"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText">
+                </TextView>
+            </RelativeLayout>
+
+
 
             <ImageView
                 android:layout_width="30dp"
@@ -749,11 +754,13 @@
         android:layout_height="48dp"
         android:background="@drawable/common_next_button"
         android:id="@+id/logoutButton"
+        android:paddingTop="9dp"
         android:layout_marginBottom="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="Cikis Yap"
         android:textSize="17sp"
+        android:textAlignment="center"
         android:fontFamily="@font/arima_madurai_bold"
         android:textColor="@color/white"
         android:textAllCaps="false"

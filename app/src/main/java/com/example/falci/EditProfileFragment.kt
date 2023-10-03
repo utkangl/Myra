@@ -109,7 +109,8 @@ class EditProfileFragment : Fragment() {
             putEditProfileJson(
                 url = urls.editProfileURL,
                 json = editProfileJson,
-                accessToken = tokensDataClass.accessToken
+                accessToken = tokensDataClass.accessToken,
+                requireContext()
             )
             {_,_->}
 
