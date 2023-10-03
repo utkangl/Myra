@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
-import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
 import com.google.gson.Gson
@@ -36,7 +35,6 @@ class HoroscopeDetailFragment : Fragment() {
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
         val miraHoroscopeDetailTop = v.findViewById<ImageView>(R.id.MiraHoroscopeDetailTop)
         val favouriteThisHoroscope = v.findViewById<ImageView>(R.id.favouriteThisHoroscope)
-        val horoscopeDetailStartChatTextCard = v.findViewById<CardView>(R.id.horoscopeDetailStartChatTextCard)
 
         // create and format horoscope string with the instance of GetHoroscopeData's field
         val horoscope =
@@ -78,11 +76,13 @@ class HoroscopeDetailFragment : Fragment() {
 
         }
 
-        if (createFavouriteHoroscope.isThisHoroscopeFavourite){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}
+        println(getHoroscopeData)
+
+        if (getHoroscopeData.isFav){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}
 
         favouriteThisHoroscope.setOnClickListener{
 
-            if (!createFavouriteHoroscope.isThisHoroscopeFavourite){
+            if (!getHoroscopeData.isFav){
                 val gson = Gson()
                 createFavouriteHoroscope.title = "title of horoscope"
                 createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
@@ -94,28 +94,30 @@ class HoroscopeDetailFragment : Fragment() {
                     if (statusCode == 201){
                         println(responseJson)
                         favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
-                        createFavouriteHoroscope.isThisHoroscopeFavourite = true
+                        getHoroscopeData.isFav = true
                         favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
-                        println(favouriteHoroscope)
+                        requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show() }
                     }
                     if (statusCode == 208){
                         println(detail)
                         favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                        createFavouriteHoroscope.isThisHoroscopeFavourite = true
+                        getHoroscopeData.isFav = true
                     }
                     if (statusCode == 400){
                         println(detail)
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                        createFavouriteHoroscope.isThisHoroscopeFavourite = false
+                        getHoroscopeData.isFav = false
                     }
                     if (statusCode == 404){
                         println(detail)
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                        createFavouriteHoroscope.isThisHoroscopeFavourite = false
+                        getHoroscopeData.isFav = false
                     }
                 }
-            } else {
+            }
+            // if already fav, destroy on click
+            if (getHoroscopeData.isFav){
 
                 val idToDelete = favouriteHoroscope.id
                 val apiUrl = "https://api.atlasuavteam.com/api/favourite/$idToDelete/"
@@ -137,8 +139,9 @@ class HoroscopeDetailFragment : Fragment() {
                         println("destroy fav horoscope response code $statusCode")
 
                         if (statusCode == 204){
-                            createFavouriteHoroscope.isThisHoroscopeFavourite = false
-                            println("is this horoscope favourite ${createFavouriteHoroscope.isThisHoroscopeFavourite}")
+                            getHoroscopeData.isFav = false
+                            requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "204 deleted" , Toast.LENGTH_SHORT).show() }
+                            println("is this horoscope favourite ${getHoroscopeData.isFav}")
                             favouriteThisHoroscope.setImageResource(R.drawable.white_star_icon)
                         }
 
@@ -149,12 +152,6 @@ class HoroscopeDetailFragment : Fragment() {
                 })
             }
         } // end of favouriteThisHoroscope.setOnClickListener
-
-
-        horoscopeDetailStartChatTextCard.setOnClickListener{
-            replaceMainActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())
-        }
-
         return v // end of onCreateView
     }
 }

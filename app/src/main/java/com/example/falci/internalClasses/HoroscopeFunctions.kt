@@ -52,6 +52,7 @@ object HoroscopeFunctions {
                         if (statusCode == 200) {
                             getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
                             replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
+                            println(getHoroscopeData)
 
                         }else {
                             val errorDetail = responseJson.optString("detail")
