@@ -26,7 +26,8 @@ import com.example.falci.internalClasses.dataClasses.*
 import com.google.gson.Gson
 import org.json.JSONObject
 
-//late init var userProfile: UserProfileDataClass
+//lateinit var userProfile: UserProfileDataClass
+    var anneninamcigi = false
 
 class MainActivity : AppCompatActivity() {
 
@@ -117,15 +118,23 @@ class MainActivity : AppCompatActivity() {
             // and set the response to UserProfileDataClass's instance
             if(authenticated.isLoggedIn){
                 val gson = Gson()
+                println("data classı önceden bu $userProfile")
+                println("requesti atmadanonce")
+
                 makeGetProfileRequest(urls.getProfileURL, tokensDataClass.accessToken,this)
                 { responseBody, exception ->
+
+                    println("request attım")
                     if (exception != null) {
                         println("Error var : ${exception.message}")
                     } else {
+                        println("exception yok?")
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                        userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
 
                         if (responseJson != null) {
+                            userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
+                            println("data classı şimdi bu $userProfile")
+
                             //and navigate user to ProfileActivity
                             if (savedInstanceState == null) {
                                 val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
@@ -163,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                     animationHelper.animateBurcCardOut()
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard,settingsButtonCard, miraMainMenu)
-                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager,this)
                     }, 300)
                 }
 

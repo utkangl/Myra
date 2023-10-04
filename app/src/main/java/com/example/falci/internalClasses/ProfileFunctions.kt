@@ -11,7 +11,7 @@ class ProfileFunctions {
     object ProfileFunctions{
         fun makeGetProfileRequest(url: String, accessToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
-            println("get profile için yolladığım acces tokeni $accessToken")
+            println("get profile için yolladığım access token $accessToken")
 
             val getProfileClient = OkHttpClient()
             val request = Request.Builder()
