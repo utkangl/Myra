@@ -104,7 +104,7 @@ class FavouriteHoroscopesFragment : Fragment() {
                                                 ViewGroup.LayoutParams.MATCH_PARENT
                                             )
 
-                                            val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
+                                            val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
                                             favCardView.startAnimation(animation)
                                             favHoroscopeLinearLayout.addView(favCardView)
                                         }
@@ -132,7 +132,7 @@ class FavouriteHoroscopesFragment : Fragment() {
                                         ViewGroup.LayoutParams.MATCH_PARENT
                                     )
 
-                                    val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
+                                    val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
                                     favCardView.startAnimation(animation)
                                     favHoroscopeLinearLayout.addView(favCardView)
                                 }

@@ -176,8 +176,6 @@ class ProfileFragment : Fragment() {
         val fadeIn = AlphaAnimation(0f, 1f)
         fadeIn.duration = 150
 
-        val inputStream: InputStream = resources.openRawResource(R.raw.planet_sign_exp)
-        val planetSignExplanation = JSONObject(inputStream.bufferedReader().use { it.readText() })
 
         planetLayouts.forEachIndexed { index, layout ->
             layout.setOnClickListener {
@@ -200,17 +198,6 @@ class ProfileFragment : Fragment() {
 
                         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
                         planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
-
-                        var kova = ""
-                        println(planetName)
-                        println(sign)
-                        if (sign == "Aqu") kova = "Kova"
-
-                        burcExplanationText.text =
-                            planetSignExplanation.getJSONObject(planetName).getJSONObject(kova).toString()
-
-
-
 
                         burcexplanationplanetimage.startAnimation(fadeIn)
                         burcexplanationplanettext.startAnimation(fadeIn)
