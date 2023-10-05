@@ -32,6 +32,7 @@ import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
 import com.example.falci.internalClasses.statusCode
 import org.json.JSONObject
+import java.io.InputStream
 
 @Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
@@ -81,6 +82,7 @@ class ProfileFragment : Fragment() {
         val planetHoroscopeImage = v.findViewById<ImageView>(R.id.planet_horoscope_image)
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
         val planetHoroscopeText = zodiacexplanationcard.findViewById<TextView>(R.id.planet_horoscope_text)
+        val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
         val burcExplanationTextScroll = zodiacexplanationcard.findViewById<ScrollView>(R.id.burcExplanationTextScroll)
 
 
@@ -174,6 +176,8 @@ class ProfileFragment : Fragment() {
         val fadeIn = AlphaAnimation(0f, 1f)
         fadeIn.duration = 150
 
+        val inputStream: InputStream = resources.openRawResource(R.raw.planet_sign_exp)
+        val planetSignExplanation = JSONObject(inputStream.bufferedReader().use { it.readText() })
 
         planetLayouts.forEachIndexed { index, layout ->
             layout.setOnClickListener {
@@ -196,6 +200,17 @@ class ProfileFragment : Fragment() {
 
                         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
                         planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
+
+                        var kova = ""
+                        println(planetName)
+                        println(sign)
+                        if (sign == "Aqu") kova = "Kova"
+
+                        burcExplanationText.text =
+                            planetSignExplanation.getJSONObject(planetName).getJSONObject(kova).toString()
+
+
+
 
                         burcexplanationplanetimage.startAnimation(fadeIn)
                         burcexplanationplanettext.startAnimation(fadeIn)
@@ -241,6 +256,14 @@ class ProfileFragment : Fragment() {
 
             } else{requireActivity().runOnUiThread { Toast.makeText(requireContext(), "can not logout without logging in", Toast.LENGTH_LONG).show()} }
         }
+
+
+
+
+
+
+
+
 
 
         showFavHoroscopesLayout.setOnClickListener{

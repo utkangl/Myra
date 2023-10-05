@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.dataClasses.JWTTokensDataClass
 import com.example.falci.internalClasses.dataClasses.authenticated
-import com.example.falci.internalClasses.dataClasses.createFavouriteHoroscope
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,6 +31,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
         // if it has been more than a week since the tokens were created, have user login again
         if(currentTime - savedTokenCreationTime > 604800){didLogin = false}
+
 
         // if didLogin is true and the token in sharedPreferences is not null or empty
         if (didLogin && !savedAccessToken.isNullOrEmpty()){

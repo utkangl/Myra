@@ -15,7 +15,7 @@ data class GetHoroscopeData(
     var bad: String?,
     var time_remaining: String?,
     var score: String?,
-    var isFav: Boolean
+    var is_favourite: Boolean
 )
 
 var getHoroscopeData = GetHoroscopeData(
@@ -26,5 +26,5 @@ var getHoroscopeData = GetHoroscopeData(
     bad =  null,
     time_remaining = null,
     score = null,
-    isFav = false,
+    is_favourite = false,
 )

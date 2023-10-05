@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
@@ -34,7 +33,6 @@ class HoroscopeDetailFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_horoscope_detail, container, false)
         val horoscopeText = v.findViewById<TextView>(R.id.horoscope_textView)
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
-        val miraHoroscopeDetailTop = v.findViewById<ImageView>(R.id.MiraHoroscopeDetailTop)
         val favouriteThisHoroscope = v.findViewById<ImageView>(R.id.favouriteThisHoroscope)
 
         // create and format horoscope string with the instance of GetHoroscopeData's field
@@ -72,18 +70,13 @@ class HoroscopeDetailFragment : Fragment() {
 //            }
 //        }
 //
-        miraHoroscopeDetailTop.setOnClickListener{
 
-
-        }
-
-        println("get horoscope data: $getHoroscopeData")
-
-        if (getHoroscopeData.isFav){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}
+        if (getHoroscopeData.is_favourite){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}
 
         favouriteThisHoroscope.setOnClickListener{
+            println("favori mi ? ${getHoroscopeData.is_favourite}")
 
-            if (!getHoroscopeData.isFav){
+            if (!getHoroscopeData.is_favourite){
                 val gson = Gson()
                 createFavouriteHoroscope.title = "title of horoscope"
                 createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
@@ -95,7 +88,7 @@ class HoroscopeDetailFragment : Fragment() {
                     if (statusCode == 201){
                         println(responseJson)
                         favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
-                        getHoroscopeData.isFav = true
+                        getHoroscopeData.is_favourite = true
                         favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show() }
                     }
@@ -103,70 +96,82 @@ class HoroscopeDetailFragment : Fragment() {
                         println(detail)
                         favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
                         favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
-                        println("ha bunu yazayrum $favouriteHoroscope")
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                        getHoroscopeData.isFav = true
+                        getHoroscopeData.is_favourite = true
                     }
                     if (statusCode == 400){
                         println(detail)
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                        getHoroscopeData.isFav = false
+                        getHoroscopeData.is_favourite = false
                     }
                     if (statusCode == 404){
                         println(detail)
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                        getHoroscopeData.isFav = false
+                        getHoroscopeData.is_favourite = false
                     }
                 }
             }
             // if already fav, destroy on click
-            if (getHoroscopeData.isFav){
+            if (getHoroscopeData.is_favourite){
 
-                println("fav horoscope id: ${getHoroscopeData.id}")
-                val idToDelete = getHoroscopeData.id
-                val apiUrl = "https://api.atlasuavteam.com/api/favourite/$idToDelete/"
-                val client = OkHttpClient()
-                val request = Request.Builder()
-                    .url(apiUrl)
-                    .delete()
-                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                    .build()
+                println(favouriteHoroscope)
 
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        println("exception $e")
-                    }
+                println("fav horoscope id: ${favouriteHoroscope.id}")
 
-                    override fun onResponse(call: Call, response: Response) {
-                        println(response)
-                        statusCode = response.code()
-                        println("destroy fav horoscope response code $statusCode")
+                if (favouriteHoroscope.id != null){
+                    val idToDelete = favouriteHoroscope.id
+                    val apiUrl = "https://api.atlasuavteam.com/api/favourite/$idToDelete/"
+                    val client = OkHttpClient()
+                    val request = Request.Builder()
+                        .url(apiUrl)
+                        .delete()
+                        .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                        .build()
 
-                        println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
-                            urls.refreshURL,
-                            tokensDataClass.refreshToken,
-                            requireContext(),
-                        ) { responseBody401, exception ->
-                            if (responseBody401 != null) {
-                                println(tokensDataClass.accessToken)
-                            } else {
-                                println(exception)
+                    client.newCall(request).enqueue(object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            println("exception $e")
+                        }
+
+                        override fun onResponse(call: Call, response: Response) {
+                            println(response)
+                            statusCode = response.code()
+                            println("destroy fav horoscope response code $statusCode")
+
+                            if (statusCode == 401){
+                                println("unauthorized 401, taking new access token")
+                                AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                                    urls.refreshURL,
+                                    tokensDataClass.refreshToken,
+                                    requireContext(),
+                                ) { responseBody401, exception ->
+                                    if (responseBody401 != null) {
+                                        println(tokensDataClass.accessToken)
+                                    } else {
+                                        println(exception)
+                                    }
+                                }
+                            }
+
+                            if (statusCode == 204){
+                                getHoroscopeData.is_favourite = false
+                                requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "204 deleted" , Toast.LENGTH_SHORT).show() }
+                                println("is this horoscope favourite ${getHoroscopeData.is_favourite}")
+                                favouriteThisHoroscope.setImageResource(R.drawable.white_star_icon)
+                            }
+
+                            if (statusCode == 404){
+                                println("404 not found")
+                                println(call)
                             }
                         }
+                    })
+                }
 
-                        if (statusCode == 204){
-                            getHoroscopeData.isFav = false
-                            requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "204 deleted" , Toast.LENGTH_SHORT).show() }
-                            println("is this horoscope favourite ${getHoroscopeData.isFav}")
-                            favouriteThisHoroscope.setImageResource(R.drawable.white_star_icon)
-                        }
+                if (favouriteHoroscope.id == null){
+                    requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "fav horoscope id is null" , Toast.LENGTH_SHORT).show() }
 
-                        if (statusCode == 404){
-                            println("404 not found")
-                        }
-                    }
-                })
+                }
             }
         } // end of favouriteThisHoroscope.setOnClickListener
         return v // end of onCreateView

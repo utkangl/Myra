@@ -11,7 +11,7 @@ class ProfileFunctions {
     object ProfileFunctions{
         fun makeGetProfileRequest(url: String, accessToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
-            println("get profile için yolladığım access token $accessToken")
+            println("get profile için access token $accessToken")
 
             val getProfileClient = OkHttpClient()
             val request = Request.Builder()
@@ -27,7 +27,7 @@ class ProfileFunctions {
 
                     callback(null, e)
                     println(call)
-                    println("failure'a dustum")
+                    println("failure")
                 }
 
 
@@ -42,7 +42,7 @@ class ProfileFunctions {
                             context,
                         ) { responseBody401, exception ->
                             if (responseBody401 != null) {
-                                println(tokensDataClass.accessToken)
+                                println("yeni access token ${tokensDataClass.accessToken}")
                             } else {
                                 println(exception)
                             }
@@ -51,7 +51,7 @@ class ProfileFunctions {
                     val responseBody = response.body()?.string()
                     val responseDetail = JSONObject(responseBody!!).optString("detail")
 
-                    println("get profile dan dönen response bu $responseBody")
+                    println("get profile response bu $responseBody")
 
                     println(responseDetail)
                     println("response code $statusCode")

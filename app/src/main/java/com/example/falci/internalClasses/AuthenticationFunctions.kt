@@ -123,18 +123,6 @@ class AuthenticationFunctions() {
                     override fun onResponse(call: Call, response: Response) {
 
                         statusCode = response.code()
-                        println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
-                            urls.refreshURL,
-                            tokensDataClass.refreshToken,
-                            context,
-                        ) { responseBody401, exception ->
-                            if (responseBody401 != null) {
-                                println(tokensDataClass.accessToken)
-                            } else {
-                                println(exception)
-                            }
-                        }
 
                         val responseBody = response.body()?.string()
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
