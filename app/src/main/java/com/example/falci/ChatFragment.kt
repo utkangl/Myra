@@ -38,7 +38,7 @@ class ChatFragment : Fragment() {
         val sendUserMessage = v.findViewById<ImageButton>(R.id.sendUserMessage)
         val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
 
-        val annen = v.findViewById<RelativeLayout>(R.id.annen)
+        val closeKeyBoardLayout = v.findViewById<RelativeLayout>(R.id.closeKeyBoardLayout)
 
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
@@ -53,85 +53,91 @@ class ChatFragment : Fragment() {
 
         if (isFromHoroscope){
             threadNumber = getHoroscopeData.thread
-            println("burctan geldim  ve burcun threadı bu $threadNumber")
+            println("came from horoscope and the thread of horoscope is: $threadNumber")
 
-            val apiUrl = "https://api.atlasuavteam.com/gpt/chat/$threadNumber/"
-            val client = OkHttpClient()
-            val request = Request.Builder()
-                .url(apiUrl)
-                .get()
-                .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                .build()
 
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    println("exception $e")
-                }
+            fun getOldMessages(){
+                val apiUrl = "https://api.atlasuavteam.com/gpt/chat/$threadNumber/"
+                val client = OkHttpClient()
 
-                override fun onResponse(call: Call, response: Response) {
-                    val responseBody = response.body()?.string()
-                    statusCode = response.code()
-                    println("get thread response code $statusCode")
+                val request = Request.Builder()
+                    .url(apiUrl)
+                    .get()
+                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                    .build()
 
-                    if (statusCode == 401){
-                        println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
-                            urls.refreshURL,
-                            tokensDataClass.refreshToken,
-                            requireContext()
-                        ) { responseBody401, exception ->
-                            if (responseBody401 != null) {
-                                println(tokensDataClass.accessToken)
-                            } else {
-                                println(exception)
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("exception $e")
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        val responseBody = response.body()?.string()
+                        statusCode = response.code()
+                        println("get thread response code $statusCode")
+
+                        if (statusCode == 401){
+                            println("unauthorized 401, taking new access token")
+                            AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                                urls.refreshURL,
+                                requireContext()
+                            ) { responseBody401, exception ->
+                                if (responseBody401 != null) {
+                                    println(tokensDataClass.accessToken)
+                                    getOldMessages()
+                                } else {
+                                    println(exception)
+                                }
                             }
                         }
-                    }
 
-                    if (statusCode == 200){
-                        println("code 200")
+                        if (statusCode == 200){
+                            println("code 200")
 
-                        activity?.runOnUiThread {
+                            activity?.runOnUiThread {
 
-                            val jsonResponse = responseBody?.let { JSONObject(it) }
-                            val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
+                                val jsonResponse = responseBody?.let { JSONObject(it) }
+                                val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
 
-                            for (i in 0 until chatMessagesArray!!.length()) {
+                                for (i in 0 until chatMessagesArray!!.length()) {
 
-                                val jsonObject = chatMessagesArray.getJSONObject(i)
-                                val oldMessage = jsonObject.getString("message")
-                                val owner = jsonObject.getString("owner")
+                                    val jsonObject = chatMessagesArray.getJSONObject(i)
+                                    val oldMessage = jsonObject.getString("message")
+                                    val owner = jsonObject.getString("owner")
 
-                                if (owner == "user") {
-                                    oldMessages.add(ChatMessage(oldMessage, true))
+                                    if (owner == "user") {
+                                        oldMessages.add(ChatMessage(oldMessage, true))
+                                    }
+                                    if (owner == "assistant") {
+                                        oldMessages.add(ChatMessage(oldMessage, false))
+                                    }
+
                                 }
-                                if (owner == "assistant") {
-                                    oldMessages.add(ChatMessage(oldMessage, false))
+
+                                for (oldMessage in oldMessages){
+                                    messages.add(oldMessage)
                                 }
+                                chatAdapter.notifyDataSetChanged()
+                                chatListView.smoothScrollToPosition(messages.size - 1)
 
                             }
+                        }
 
-                            println("eski mesajlar $oldMessages")
-
-                            for (oldMessage in oldMessages){
-                                messages.add(oldMessage)
-                            }
-                            chatAdapter.notifyDataSetChanged()
-                            chatListView.smoothScrollToPosition(messages.size - 1)
-
+                        if (statusCode == 404){
+                            println("404 not found")
                         }
                     }
+                })
+            }
 
-                    if (statusCode == 404){
-                        println("404 not found")
-                    }
-                }
-            })
+            getOldMessages()
+
+
         }
 
 
 
-        annen.setOnClickListener{
+        closeKeyBoardLayout.setOnClickListener{
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
@@ -179,7 +185,7 @@ class ChatFragment : Fragment() {
 
                 val chatJson = createChatJSON(usermessagetomira, threadNumber)
                 println("thread bu: $threadNumber")
-                println("yolladigim chat jsonu $chatJson")
+                println("sending chat json as: $chatJson")
 
                 postChatJson(urls.chatGptURL, chatJson)
                 { responseBody, exception ->
@@ -200,7 +206,7 @@ class ChatFragment : Fragment() {
                                     val sender = chatMessageObject.getString("owner")
                                     val message = chatMessageObject.getString("message")
                                     threadNumber = chatMessageObject.getInt("thread")
-                                    println("gonderen $sender")
+                                    println("sender $sender")
                                     val apiMessage = ChatMessage(message, false)
                                     println(apiMessage)
                                     messages.add(apiMessage)
@@ -227,7 +233,7 @@ class ChatFragment : Fragment() {
         return chatJsonObject
     }
 
-    private fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
+     fun postChatJson(url: String, json: JSONObject, callback: (String?, Exception?) -> Unit) {
 
         val chatclient = OkHttpClient()
 
@@ -245,7 +251,7 @@ class ChatFragment : Fragment() {
 
             override fun onFailure(call: Call, e: IOException) {
                 callback(null, e)
-                println("hata var amuga goyum $e")
+                println("hata var yav $e")
 
             }
 
@@ -254,9 +260,10 @@ class ChatFragment : Fragment() {
                 statusCode = response.code()
                 if (statusCode == 401){
                     println("unauthorized 401, taking new access token")
-                    AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(urls.refreshURL, tokensDataClass.refreshToken, requireContext()) { responseBody401, exception ->
+                    AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(urls.refreshURL, requireContext()) { responseBody401, exception ->
                         if (responseBody401 != null) {
                             println(tokensDataClass.accessToken)
+                            postChatJson(url, json, callback)
                         } else {
                             println(exception)
                         }

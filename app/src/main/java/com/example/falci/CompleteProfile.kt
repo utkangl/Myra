@@ -218,7 +218,7 @@ class CompleteProfile : AppCompatActivity() {
               // if response code is success set isFromSignin true and navigate to main activity
              // main activity will directly navigate user to login screen when isFromSignIn is true
             // if response code is error just toast the error
-            postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, tokensDataClass.accessToken, this)
+            postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, this)
             { responseBody, _ ->
                 val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                 val detail = responseJson?.optString("detail")

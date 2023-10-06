@@ -1,6 +1,7 @@
 package com.example.falci
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -18,22 +19,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.checkIsAccessExpired
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
-import com.google.gson.Gson
-import org.json.JSONObject
-
-//lateinit var userProfile: UserProfileDataClass
-    var anneninamcigi = false
 
 class MainActivity : AppCompatActivity() {
 
    private lateinit var splashViewModel: ViewModel
-
-//   private val splashViewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +39,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_main)
+
+        val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+
+        val currentTime = System.currentTimeMillis() / 1000
+        println()
+        val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time",0) // it is set in last login, does not matter if remember me is checked or not, saved until logout
+        println(savedTokenCreationTime)
+        println(currentTime)
+        checkIsAccessExpired(currentTime, savedTokenCreationTime, 9000,  application) // if it has been more than 15 minutes till creation, refresh
 
         val burcCard = findViewById<CardView>(R.id.burcCard)
         val settingsButtonCard = findViewById<CardView>(R.id.settingsButtonCard)
@@ -117,32 +121,7 @@ class MainActivity : AppCompatActivity() {
             // when user clicks to profile button and if user is logged in, get profile informations
             // and set the response to UserProfileDataClass's instance
             if(authenticated.isLoggedIn){
-                val gson = Gson()
-                println("data classı önceden bu $userProfile")
-                println("requesti atmadanonce")
-
-                makeGetProfileRequest(urls.getProfileURL, tokensDataClass.accessToken,this)
-                { responseBody, exception ->
-
-                    println("request attım")
-                    if (exception != null) {
-                        println("Error var : ${exception.message}")
-                    } else {
-                        println("exception yok?")
-                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-
-                        if (responseJson != null) {
-                            userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
-                            println("data classı şimdi bu $userProfile")
-
-                            //and navigate user to ProfileActivity
-                            if (savedInstanceState == null) {
-                                val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                                val intent = Intent(this, ProfileActivity::class.java); startActivity(intent,options.toBundle())
-                            }
-                        }
-                    }
-                }
+                makeGetProfileRequest(urls.getProfileURL,this) { _, _ -> }
             }
 
             // when user clicks to profile button but did not login, navigate user to loginSignUp activity
@@ -156,11 +135,12 @@ class MainActivity : AppCompatActivity() {
 
 
         learnYourBurcButton.setOnClickListener{
+            navigateBackToProfileActivity = true
+
             // if user is logged in, close burcCard and then after 300ms make the transition
             // to horoscope detail fragment, but until api response with horoscope
             // play thinking animation
             if (authenticated.isLoggedIn){
-
                 // if horoscope type is love, navigate user to complete profile screen to get lookup user's profile
                 if (isFromLoveHoroscope){
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
@@ -201,16 +181,19 @@ class MainActivity : AppCompatActivity() {
         if (currentFragment == null) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage("Do You Want To Exit?")
+
             builder.setPositiveButton("Yes") { _ , _ ->
                 moveTaskToBack(true)
                 finish()
             }
             builder.setNegativeButton("No", null)
+
             val dialog = builder.create()
             dialog.show()
-        } else {
-            super.onBackPressed()
         }
+//        else {
+//            super.onBackPressed()
+//        }
     }
 
 

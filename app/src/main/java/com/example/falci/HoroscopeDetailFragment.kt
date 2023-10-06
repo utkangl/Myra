@@ -54,9 +54,17 @@ class HoroscopeDetailFragment : Fragment() {
         // create callback variable which will handle onBackPressed and navigate to main activity
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
-                startActivity(mainActivityIntent, options.toBundle())
+
+                if (navigateBackToProfileActivity){
+                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                    val intent = Intent(requireContext(), ProfileActivity::class.java); startActivity(intent,options.toBundle())
+                    navigateBackToProfileActivity = false
+                    navigateToFavs = true
+                } else{
+                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                    val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(mainActivityIntent, options.toBundle())
+                }
             }
         }
         // call callback to navigate user to main activity when back button is pressed
@@ -81,7 +89,7 @@ class HoroscopeDetailFragment : Fragment() {
                 createFavouriteHoroscope.title = "title of horoscope"
                 createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
                 val favouriteHoroscopeJson = createJsonObject("title" to createFavouriteHoroscope.title, "fortune" to createFavouriteHoroscope.horoscopeId!!.toInt())
-                postJsonWithHeader(urls.favouriteHoroscopeURL, favouriteHoroscopeJson, tokensDataClass.accessToken, requireContext())
+                postJsonWithHeader(urls.favouriteHoroscopeURL, favouriteHoroscopeJson,  requireContext())
                 { responseBody, _ ->
                     val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                     val detail = responseJson?.optString("detail")
@@ -114,63 +122,63 @@ class HoroscopeDetailFragment : Fragment() {
             // if already fav, destroy on click
             if (getHoroscopeData.is_favourite){
 
-                println(favouriteHoroscope)
+                favouriteHoroscope.id = getHoroscopeData.favourite_id
 
                 println("fav horoscope id: ${favouriteHoroscope.id}")
 
-                if (favouriteHoroscope.id != null){
-                    val idToDelete = favouriteHoroscope.id
-                    val apiUrl = "https://api.atlasuavteam.com/api/favourite/$idToDelete/"
-                    val client = OkHttpClient()
-                    val request = Request.Builder()
-                        .url(apiUrl)
-                        .delete()
-                        .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                        .build()
+                fun destroyFavHoroscope(){
+                    if (favouriteHoroscope.id != null){
+                        val idToDelete = favouriteHoroscope.id
+                        val apiUrl = "https://api.atlasuavteam.com/api/favourite/$idToDelete/"
+                        val client = OkHttpClient()
+                        val request = Request.Builder()
+                            .url(apiUrl)
+                            .delete()
+                            .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                            .build()
 
-                    client.newCall(request).enqueue(object : Callback {
-                        override fun onFailure(call: Call, e: IOException) {
-                            println("exception $e")
-                        }
+                        client.newCall(request).enqueue(object : Callback {
+                            override fun onFailure(call: Call, e: IOException) {
+                                println("exception $e")
+                            }
 
-                        override fun onResponse(call: Call, response: Response) {
-                            println(response)
-                            statusCode = response.code()
-                            println("destroy fav horoscope response code $statusCode")
+                            override fun onResponse(call: Call, response: Response) {
+                                println(response)
+                                statusCode = response.code()
+                                println("destroy fav horoscope response code $statusCode")
 
-                            if (statusCode == 401){
-                                println("unauthorized 401, taking new access token")
-                                AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
-                                    urls.refreshURL,
-                                    tokensDataClass.refreshToken,
-                                    requireContext(),
-                                ) { responseBody401, exception ->
-                                    if (responseBody401 != null) {
-                                        println(tokensDataClass.accessToken)
-                                    } else {
-                                        println(exception)
+                                if (statusCode == 401){
+                                    println("unauthorized 401, taking new access token")
+                                    AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(urls.refreshURL, requireContext())
+                                    { responseBody401, exception ->
+                                        if (responseBody401 != null) {
+                                            println(tokensDataClass.accessToken)
+                                            destroyFavHoroscope()
+
+                                        } else {
+                                            println(exception)
+                                        }
                                     }
                                 }
-                            }
 
-                            if (statusCode == 204){
-                                getHoroscopeData.is_favourite = false
-                                requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "204 deleted" , Toast.LENGTH_SHORT).show() }
-                                println("is this horoscope favourite ${getHoroscopeData.is_favourite}")
-                                favouriteThisHoroscope.setImageResource(R.drawable.white_star_icon)
-                            }
+                                if (statusCode == 204){
+                                    getHoroscopeData.is_favourite = false
+                                    requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "204 deleted" , Toast.LENGTH_SHORT).show() }
+                                    println("is this horoscope favourite ${getHoroscopeData.is_favourite}")
+                                    favouriteThisHoroscope.setImageResource(R.drawable.white_star_icon)
+                                }
 
-                            if (statusCode == 404){
-                                println("404 not found")
-                                println(call)
+                                if (statusCode == 404){
+                                    println("404 not found")
+                                    println(call)
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
-
+                destroyFavHoroscope()
                 if (favouriteHoroscope.id == null){
                     requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "fav horoscope id is null" , Toast.LENGTH_SHORT).show() }
-
                 }
             }
         } // end of favouriteThisHoroscope.setOnClickListener

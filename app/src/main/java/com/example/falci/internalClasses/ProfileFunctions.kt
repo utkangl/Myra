@@ -1,65 +1,72 @@
 package com.example.falci.internalClasses
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
+import com.example.falci.ProfileActivity
+import com.example.falci.R
+import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.dataClasses.userProfile
+import com.google.gson.Gson
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
 class ProfileFunctions {
     object ProfileFunctions{
-        fun makeGetProfileRequest(url: String, accessToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
+        fun makeGetProfileRequest(url: String,  context: Context, callback: (String?, Exception?) -> Unit) {
 
-            println("get profile için access token $accessToken")
+            println("get profile sending access token ${tokensDataClass.accessToken}")
 
             val getProfileClient = OkHttpClient()
             val request = Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer $accessToken")
+                .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                 .build()
-
 
             getProfileClient.newCall(request).enqueue(object : Callback {
 
-
                 override fun onFailure(call: Call, e: IOException) {
-
                     callback(null, e)
                     println(call)
                     println("failure")
                 }
-
-
                 override fun onResponse(call: Call, response: Response) {
-                    statusCode = response.code()
+                    val getProfileStatusCode = response.code()
+                    val responseBody = response.body()?.string()
 
-                    if (statusCode == 401){
+                    println("response code $getProfileStatusCode")
+                    callback(responseBody, null)
+
+                    if (getProfileStatusCode == 401){
                         println("unauthorized 401, taking new access token")
                         AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
                             urls.refreshURL,
-                            tokensDataClass.refreshToken,
                             context,
                         ) { responseBody401, exception ->
                             if (responseBody401 != null) {
-                                println("yeni access token ${tokensDataClass.accessToken}")
+                                makeGetProfileRequest(url,  context, callback)
                             } else {
                                 println(exception)
                             }
                         }
                     }
-                    val responseBody = response.body()?.string()
-                    val responseDetail = JSONObject(responseBody!!).optString("detail")
+                    if (getProfileStatusCode == 200){
+                        val gson = Gson()
+                        userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
+                        //and navigate user to ProfileActivity
+                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                            val intent = Intent(context, ProfileActivity::class.java)
+                            startActivity(context, intent, options.toBundle())
 
-                    println("get profile response bu $responseBody")
-
-                    println(responseDetail)
-                    println("response code $statusCode")
-                    callback(responseBody, null)
+                    }
                 }
             })
         }
-        fun putEditProfileJson(url: String, json: JSONObject, accessToken: String, context: Context, callback: (String?, Exception?) -> Unit) {
+        fun putEditProfileJson(url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
 
             val editProfileClient = OkHttpClient()
 
@@ -71,7 +78,7 @@ class ProfileFunctions {
             val request = Request.Builder()
                 .url(url)
                 .put(requestBody)
-                .header("Authorization", "Bearer $accessToken")
+                .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                 .build()
 
 
@@ -90,11 +97,11 @@ class ProfileFunctions {
                         println("unauthorized 401, taking new access token")
                         AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
                             urls.refreshURL,
-                            tokensDataClass.refreshToken,
                             context
                         ) { responseBody401, exception ->
                             if (responseBody401 != null) {
                                 println(tokensDataClass.accessToken)
+                                putEditProfileJson(url, json,context, callback)
                             } else {
                                 println(exception)
                             }

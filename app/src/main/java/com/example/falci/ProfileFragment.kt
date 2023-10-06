@@ -32,7 +32,6 @@ import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
 import com.example.falci.internalClasses.statusCode
 import org.json.JSONObject
-import java.io.InputStream
 
 @Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
@@ -82,7 +81,7 @@ class ProfileFragment : Fragment() {
         val planetHoroscopeImage = v.findViewById<ImageView>(R.id.planet_horoscope_image)
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
         val planetHoroscopeText = zodiacexplanationcard.findViewById<TextView>(R.id.planet_horoscope_text)
-        val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
+//        val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
         val burcExplanationTextScroll = zodiacexplanationcard.findViewById<ScrollView>(R.id.burcExplanationTextScroll)
 
 
@@ -218,7 +217,7 @@ class ProfileFragment : Fragment() {
         logoutButton.setOnClickListener{
             if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to tokensDataClass.refreshToken)
-                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, tokensDataClass.accessToken,requireContext())
+                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, requireContext())
                 { responseBody, _ ->
                     if (statusCode == 205){
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}

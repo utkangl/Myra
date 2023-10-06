@@ -1,5 +1,8 @@
 package com.example.falci
 
+import android.app.ActivityOptions
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.InternalFunctions
@@ -21,8 +24,10 @@ import kotlinx.coroutines.*
 import okhttp3.*
 import java.io.IOException
 
-class FavouriteHoroscopesFragment : Fragment() {
+var navigateBackToProfileActivity = false
+var navigateToFavs = false
 
+class FavouriteHoroscopesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +39,7 @@ class FavouriteHoroscopesFragment : Fragment() {
         val favHoroscopeLinearLayout = v.findViewById<LinearLayout>(R.id.favourite_horoscopes_linearlayout)
         val favHoroscopeLoadingAnimation = v.findViewById<LottieAnimationView>(R.id.favHoroscopeLoadingAnimation)
         val searchFavHoroscope = v.findViewById<EditText>(R.id.searchFavHoroscope)
+        val cancelFavSearchFilter = v.findViewById< ImageButton>(R.id.cancelFavSearchFilter)
 
 
         fun getFavouriteHoroscopes(animationView: LottieAnimationView) {
@@ -63,17 +69,16 @@ class FavouriteHoroscopesFragment : Fragment() {
                             println("unauthorized 401, taking new access token")
                             AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
                                 urls.refreshURL,
-                                tokensDataClass.refreshToken,
                                 requireContext()
                             ) { responseBody401, exception ->
                                 if (responseBody401 != null) {
                                     println(tokensDataClass.accessToken)
+                                    getFavouriteHoroscopes(animationView)
                                 } else {
                                     println(exception)
                                 }
                             }
                         }
-                        println("get fav horoscopes response body: $responseBody")
 
                         if (statusCode == 200) {
                             animationView.post {
@@ -84,10 +89,11 @@ class FavouriteHoroscopesFragment : Fragment() {
                             val listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
 
                             searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
+                                cancelFavSearchFilter.visibility = View.VISIBLE
                                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                                     val searchText = searchFavHoroscope.text.toString()
                                     favHoroscopeLinearLayout.removeAllViews()
-
+                                    var keywordFound = false
                                     for (fortuneItem in listOfFavouriteHoroscopes.results) {
                                         val summary = fortuneItem.fortune?.prompt?.summary
 
@@ -107,15 +113,27 @@ class FavouriteHoroscopesFragment : Fragment() {
                                             val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
                                             favCardView.startAnimation(animation)
                                             favHoroscopeLinearLayout.addView(favCardView)
+                                            keywordFound = true
+                                        }
+
+                                    }
+                                    if (!keywordFound){
+                                        requireActivity().runOnUiThread{
+                                            Toast.makeText(requireContext(), "No Horoscope Found With The Given Keyword", Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                     true
                                 } else {
                                     false
+
                                 }
                             }
 
-                            withContext(Dispatchers.Main) {
+                            cancelFavSearchFilter.setOnClickListener{
+                                favHoroscopeLinearLayout.removeAllViews()
+                                searchFavHoroscope.setText("")
+                                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
                                 for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
                                     val favCardView = FavCardView(context!!)
                                     val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
@@ -137,8 +155,44 @@ class FavouriteHoroscopesFragment : Fragment() {
                                     favHoroscopeLinearLayout.addView(favCardView)
                                 }
                             }
+                            withContext(Dispatchers.Main) {
+                                for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
+                                    val favCardView = FavCardView(context!!)
+                                    val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
+                                    val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
 
+                                    val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                                    val summary = fortuneItem.fortune?.prompt?.summary
 
+                                    favCardTitle.text = fortuneItem.title
+                                    favCardExplanation.text = summary
+
+                                    favCardView.layoutParams = ViewGroup.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        ViewGroup.LayoutParams.MATCH_PARENT
+                                    )
+
+                                    val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
+                                    favCardView.startAnimation(animation)
+                                    favHoroscopeLinearLayout.addView(favCardView)
+
+                                    favCardView.setOnClickListener{
+                                        getHoroscopeData.id = fortuneItem.fortune?.id
+                                        getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
+                                        getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
+                                        getHoroscopeData.bad = fortuneItem.fortune?.prompt?.bad
+                                        getHoroscopeData.summary = fortuneItem.fortune?.prompt?.summary
+                                        getHoroscopeData.is_favourite = true
+                                        getHoroscopeData.favourite_id = fortuneItem.id
+                                        navigateToHoroscope = true
+                                        navigateBackToProfileActivity = true
+
+                                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                                        val intent = Intent(requireActivity(), MainActivity::class.java);startActivity(intent, options.toBundle())
+                                    }
+
+                                }
+                            }
                         }
                     } else {
                         println("Request failed with code ${response.code()}")
@@ -150,6 +204,18 @@ class FavouriteHoroscopesFragment : Fragment() {
         }
 
         getFavouriteHoroscopes(favHoroscopeLoadingAnimation)
+
+        // create callback variable which will handle onBackPressed and navigate to main activity
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                val intent = Intent(requireContext(), ProfileActivity::class.java)
+                startActivity(intent, options.toBundle())
+            }
+        }
+        // call callback to navigate user to main activity when back button is pressed
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
 
         return v
 
