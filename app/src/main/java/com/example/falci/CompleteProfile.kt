@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
@@ -28,13 +30,14 @@ class CompleteProfile : AppCompatActivity() {
         val miraSpeechBubbleContainer = findViewById<RelativeLayout>(R.id.mira_speech_bubble_container)
         val completeProfilePickersContainer = findViewById<RelativeLayout>(R.id.completeProfilePickersContainer)
 
-        val nameNextButton = findViewById<AppCompatButton>(R.id.namePick_next_button)
-        val genderNextButton = findViewById<AppCompatButton>(R.id.genderPick_next_button)
-        val dateNextButton = findViewById<AppCompatButton>(R.id.datePick_next_button)
-        val timeNextButton = findViewById<AppCompatButton>(R.id.timePick_next_button)
-        val locationNextButton = findViewById<AppCompatButton>(R.id.locationPick_next_button)
-        val relationNextButton = findViewById<AppCompatButton>(R.id.relationPick_next_button)
-        val occupationNextButton = findViewById<AppCompatButton>(R.id.occupationPick_next_button)
+//        val nameNextButton = findViewById<AppCompatButton>(R.id.namePick_next_button)
+//        val genderNextButton = findViewById<AppCompatButton>(R.id.genderPick_next_button)
+//        val dateNextButton = findViewById<AppCompatButton>(R.id.datePick_next_button)
+//        val timeNextButton = findViewById<AppCompatButton>(R.id.timePick_next_button)
+//        val locationNextButton = findViewById<AppCompatButton>(R.id.locationPick_next_button)
+//        val relationNextButton = findViewById<AppCompatButton>(R.id.relationPick_next_button)
+//        val occupationNextButton = findViewById<AppCompatButton>(R.id.occupationPick_next_button)
+        val nextButton = findViewById<AppCompatButton>(R.id.next_button)
 
         val namePickContainer = findViewById<RelativeLayout>(R.id.namePickContainer)
         val genderPickContainer = findViewById<RelativeLayout>(R.id.genderPickContainer)
@@ -64,7 +67,7 @@ class CompleteProfile : AppCompatActivity() {
         var isNextLocation = false
         var isNextRelation = false
         var isNextOccupation = false
-
+        var isFromBackPress = false
         // multiple spinner will be used in that screen, this function aims to reduce repeating code
         fun setSpinner(spinner: Spinner, dataResId: Int, defaultText: String, onItemSelectedAction: (String) -> Unit) {
             val adapter = ArrayAdapter.createFromResource(this, dataResId, R.layout.custom_spinner_item)
@@ -135,6 +138,7 @@ class CompleteProfile : AppCompatActivity() {
         }
 
         // set time field of CompleteProfileUserDataClass's instance w/ user's time input
+        @SuppressLint("StopShip")
         fun setTime(){
             val selectedHour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 timePick.hour
@@ -264,97 +268,98 @@ class CompleteProfile : AppCompatActivity() {
         // when activity is created directly set namePick view visible
         setViewVisibleWithAnimation(this,namePickContainer)
 
-        // call setName if success change to genderPick, error state is handled by setName function
-        nameNextButton.setOnClickListener{
-            setName()
-            if (isNextName){
-                setViewGoneWithAnimation(this,namePickContainer)
-                setViewVisibleWithAnimation(this,genderPickContainer)
-                setGender()
-            }
-        }
+        var step = 0
 
-        // allow user to go on to datePick if gender has chosen, else wise toast error
-        genderNextButton.setOnClickListener{
-            if (isNextGender){
-                setViewGoneWithAnimation(this@CompleteProfile,genderPickContainer)
-                setViewVisibleWithAnimation(this@CompleteProfile,datePickContainer)
-            } else {
-                this.runOnUiThread {
-                    Toast.makeText(this, "You should pick a gender before you go on", Toast.LENGTH_SHORT).show()
-                    setViewGoneWithAnimation(this,genderPick)
-                    setViewVisibleWithAnimation(this,genderPick)
-                }
-            }
-        }
+        nextButton.setOnClickListener{
+            when(step){
+                0 -> { setName(); if (isNextName){ setViewGoneWithAnimation(this,namePickContainer) ; setViewVisibleWithAnimation(this,genderPickContainer) ; setGender() }; if (!isFromBackPress){ step += 1} }
 
-        // call setDate function to set the date as user has chosen
-        dateNextButton.setOnClickListener{
-            setDate()
-        }
-
-        // set time and location by calling functions
-        timeNextButton.setOnClickListener{
-            setTime()
-            setLocation()
-        }
-
-        // allow user to go on to occupationPick if location has chosen, else wise toast error
-        locationNextButton.setOnClickListener{
-            if (isNextLocation){
-                setViewGoneWithAnimation(this,locationPickContainer)
-                setViewVisibleWithAnimation(this,occupationPickContainer)
-                setOccupation()
-            }else {
-                this.runOnUiThread {
-                    Toast.makeText(this, "You should choose your birth location before you go on", Toast.LENGTH_SHORT).show()
-                    setViewGoneWithAnimation(this,locationPick)
-                    setViewVisibleWithAnimation(this,locationPick)
-                }
-            }
-        }
-
-        // allow user to go on to relationship status pick if occupation has chosen else toast error
-        occupationNextButton.setOnClickListener{
-            // if completing the profile of lookup user, call get horoscope function for love
-            if (isFromLoveHoroscope && isNextOccupation){
-                isNextOccupation = false
-                createLookupUserJson()
-                println(lookupUserJson)
-                setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
-                getLoveHoroscope(thinkingAnimation, this)
-
-            // if completing the user's profile
-            }else{
-                // if occupation is picked, go on to relationship status
-                if (isNextOccupation){
-                    setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
-                    setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
-                    setRelation()
-                }else {
-                    // if occupation is not picked, toast choose your occupation
-                    this.runOnUiThread {
-                        Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
-                        setViewGoneWithAnimation(this,occupationPick)
-                        setViewVisibleWithAnimation(this,occupationPick)
+                1 -> {
+                    if (isNextGender){
+                        setViewGoneWithAnimation(this@CompleteProfile,genderPickContainer)
+                        setViewVisibleWithAnimation(this@CompleteProfile,datePickContainer)
+                        if (!isFromBackPress){ step += 1}
+                    } else {
+                        this.runOnUiThread {
+                            Toast.makeText(this, "You should pick a gender before you go on", Toast.LENGTH_SHORT).show()
+                            setViewGoneWithAnimation(this,genderPick)
+                            setViewVisibleWithAnimation(this,genderPick)
+                        }
                     }
                 }
-            }
 
-        }
-
-        // if relation has chosen, call completeProfile function else wise toast error
-        relationNextButton.setOnClickListener{
-            println(userCompleteProfile)
-            if (isNextRelation){
-                completeProfile()
-            }else {
-                this.runOnUiThread {
-                    Toast.makeText(this, "You should choose your marital status before you go on", Toast.LENGTH_SHORT).show()
-                    setViewGoneWithAnimation(this,relationPick)
-                    setViewVisibleWithAnimation(this,relationPick)
+                2-> { setDate() ; if (!isFromBackPress){ step += 1}}
+                3 -> { setTime(); setLocation(); if (!isFromBackPress){ step += 1}}
+                4 -> {
+                    if (isNextLocation){
+                        setViewGoneWithAnimation(this,locationPickContainer)
+                        setViewVisibleWithAnimation(this,occupationPickContainer)
+                        setOccupation()
+                        if (!isFromBackPress){ step += 1}
+                    }else {
+                        this.runOnUiThread {
+                            Toast.makeText(this, "You should choose your birth location before you go on", Toast.LENGTH_SHORT).show()
+                            setViewGoneWithAnimation(this,locationPick)
+                            setViewVisibleWithAnimation(this,locationPick)
+                        }
+                    }
                 }
+
+                5 -> {
+                    if (isFromLoveHoroscope && isNextOccupation){
+                        isNextOccupation = false
+                        createLookupUserJson()
+                        println(lookupUserJson)
+                        setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
+                        getLoveHoroscope(thinkingAnimation, this)
+
+                        // if completing the user's profile
+                    }else{
+                        // if occupation is picked, go on to relationship status
+                        if (isNextOccupation){
+                            setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
+                            setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
+                            setRelation()
+                            if (!isFromBackPress){ step += 1}
+                        }else {
+                            // if occupation is not picked, toast choose your occupation
+                            this.runOnUiThread {
+                                Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
+                                setViewGoneWithAnimation(this,occupationPick)
+                                setViewVisibleWithAnimation(this,occupationPick)
+                            }
+                        }
+                    }
+                }
+
+                6-> {
+                    if (isNextRelation){
+                        completeProfile()
+                    }else {
+                        this.runOnUiThread {
+                            Toast.makeText(this, "You should choose your marital status before you go on", Toast.LENGTH_SHORT).show()
+                            setViewGoneWithAnimation(this,relationPick)
+                            setViewVisibleWithAnimation(this,relationPick)
+                        }
+                    }
+                }
+
+
+
+
             }
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+//                println(step)
+//                step -= 1
+//                nextButton.performClick()
+//                println(step)
+//                isFromBackPress = true
+            }
+        }
+        this.onBackPressedDispatcher.addCallback(this, callback)
+
     }
 }
