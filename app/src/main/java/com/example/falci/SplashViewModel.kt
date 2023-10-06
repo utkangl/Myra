@@ -21,8 +21,9 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         val savedAccessToken = tokensSharedPreferences.getString("access_token",null) // access token is saved if user checks the remember me checkbox; if not, default value is null
         val savedRefreshToken = tokensSharedPreferences.getString("refresh_token",null) // refresh token is saved in last login, does not matter if remember me is checked or not, saved until logout
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time",0) // it is set in last login, does not matter if remember me is checked or not, saved until logout
-        val didLogin = tokensSharedPreferences.getBoolean("didLogin",false) // this boolean is true when user checks remember me checkbox
+        var didLogin = tokensSharedPreferences.getBoolean("didLogin",false) // this boolean is true when user checks remember me checkbox
 
+        didLogin = false
 
         // if didLogin is true and the token in sharedPreferences is not null or empty
         if (didLogin && !savedAccessToken.isNullOrEmpty()){

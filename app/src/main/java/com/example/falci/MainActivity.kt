@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time",0) // it is set in last login, does not matter if remember me is checked or not, saved until logout
         println(savedTokenCreationTime)
         println(currentTime)
-        checkIsAccessExpired(currentTime, savedTokenCreationTime, 9000,  application) // if it has been more than 15 minutes till creation, refresh
+        checkIsAccessExpired(currentTime, savedTokenCreationTime, 900,  application) // if it has been more than 15 minutes till creation, refresh
 
         val burcCard = findViewById<CardView>(R.id.burcCard)
         val settingsButtonCard = findViewById<CardView>(R.id.settingsButtonCard)
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
 
 
         learnYourBurcButton.setOnClickListener{
-            navigateBackToProfileActivity = true
+            navigateBackToProfileActivity = false
 
             // if user is logged in, close burcCard and then after 300ms make the transition
             // to horoscope detail fragment, but until api response with horoscope
@@ -184,16 +184,16 @@ class MainActivity : AppCompatActivity() {
 
             builder.setPositiveButton("Yes") { _ , _ ->
                 moveTaskToBack(true)
-                finish()
+                finishAffinity( )
             }
             builder.setNegativeButton("No", null)
 
             val dialog = builder.create()
             dialog.show()
         }
-//        else {
-//            super.onBackPressed()
-//        }
+        else {
+            super.onBackPressed()
+        }
     }
 
 

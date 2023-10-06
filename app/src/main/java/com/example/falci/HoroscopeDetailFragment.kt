@@ -56,9 +56,9 @@ class HoroscopeDetailFragment : Fragment() {
             override fun handleOnBackPressed() {
 
                 if (navigateBackToProfileActivity){
+                    navigateBackToProfileActivity = false
                     val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                     val intent = Intent(requireContext(), ProfileActivity::class.java); startActivity(intent,options.toBundle())
-                    navigateBackToProfileActivity = false
                     navigateToFavs = true
                 } else{
                     val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
