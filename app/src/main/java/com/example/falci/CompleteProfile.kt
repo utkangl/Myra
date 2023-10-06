@@ -3,7 +3,6 @@ package com.example.falci
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -22,6 +21,8 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
+var navigateToSignUp = false
+
 class CompleteProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +31,8 @@ class CompleteProfile : AppCompatActivity() {
         val miraSpeechBubbleContainer = findViewById<RelativeLayout>(R.id.mira_speech_bubble_container)
         val completeProfilePickersContainer = findViewById<RelativeLayout>(R.id.completeProfilePickersContainer)
 
-//        val nameNextButton = findViewById<AppCompatButton>(R.id.namePick_next_button)
-//        val genderNextButton = findViewById<AppCompatButton>(R.id.genderPick_next_button)
-//        val dateNextButton = findViewById<AppCompatButton>(R.id.datePick_next_button)
-//        val timeNextButton = findViewById<AppCompatButton>(R.id.timePick_next_button)
-//        val locationNextButton = findViewById<AppCompatButton>(R.id.locationPick_next_button)
-//        val relationNextButton = findViewById<AppCompatButton>(R.id.relationPick_next_button)
-//        val occupationNextButton = findViewById<AppCompatButton>(R.id.occupationPick_next_button)
         val nextButton = findViewById<AppCompatButton>(R.id.next_button)
+        val timePickNextButton = findViewById<AppCompatButton>(R.id.timePickNextButton)
 
         val namePickContainer = findViewById<RelativeLayout>(R.id.namePickContainer)
         val genderPickContainer = findViewById<RelativeLayout>(R.id.genderPickContainer)
@@ -62,12 +57,9 @@ class CompleteProfile : AppCompatActivity() {
         val cityInput= findViewById<AutoCompleteTextView>(R.id.cityInput)
 
 
-        var isNextName = false
-        var isNextGender = false
-        var isNextLocation = false
-        var isNextRelation = false
-        var isNextOccupation = false
-        var isFromBackPress = false
+        var allowNext = false
+
+
         // multiple spinner will be used in that screen, this function aims to reduce repeating code
         fun setSpinner(spinner: Spinner, dataResId: Int, defaultText: String, onItemSelectedAction: (String) -> Unit) {
             val adapter = ArrayAdapter.createFromResource(this, dataResId, R.layout.custom_spinner_item)
@@ -88,117 +80,18 @@ class CompleteProfile : AppCompatActivity() {
             }
         }
 
-         // let user to go on to genderpick if input lasts longer than 2 characters else toast error
-        // and  set name field of CompleteProfileUserDataClass's instance w/ user's name input
-        fun setName(){
-             if (isFromLoveHoroscope && namePick.text.length >= 2){
-                 partnerProfile.partnerName = namePick.text.toString()
-                 isNextName = true
-             }else{
-                 if (namePick.text.length >= 2) {
-                     userCompleteProfile.name = namePick.text.toString()
-                     isNextName = true
-                 } else {
-                     this.runOnUiThread {
-                         Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
-                     }
-                 }
-             }
+        var step = 0
 
-
-        }
-
-        // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
-        fun setGender(){
-            setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
-                if (selectedGender != "Pick your gender") {
-                    if (isFromLoveHoroscope){
-                        partnerProfile.partnerGender = selectedGender
-                    }else{
-                        userCompleteProfile.gender = selectedGender
-                    }
-                    isNextGender = true
-                }
-            }
-        }
-
-        // set date field of CompleteProfileUserDataClass's instance w/ user's date input
-        fun setDate(){
-            val selectedYear = datePick.year
-            val selectedMonth =  datePick.month + 1
-            val selectedDay = datePick.dayOfMonth
-            val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
-            if (isFromLoveHoroscope){
-                partnerProfile.partnerDate = selectedDate
-            }else{
-                userCompleteProfile.date = selectedDate
-            }
-            setViewGoneWithAnimation(this@CompleteProfile,datePickContainer)
-            setViewVisibleWithAnimation(this@CompleteProfile,timePickContainer)
-        }
-
-        // set time field of CompleteProfileUserDataClass's instance w/ user's time input
-        @SuppressLint("StopShip")
-        fun setTime(){
-            val selectedHour = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                timePick.hour
-            } else {
-                TODO("VERSION.SDK_INT < M")
-            }
-            val selectedMinute = timePick.minute
-            val selectedTime = "$selectedHour:$selectedMinute:00"
-            if (isFromLoveHoroscope)partnerProfile.partnerTime = selectedTime; else userCompleteProfile.time = selectedTime
-
-            setViewGoneWithAnimation(this@CompleteProfile,timePickContainer)
-            setViewVisibleWithAnimation(this@CompleteProfile,locationPickContainer)
-        }
-
-        // set location field of CompleteProfileUserDataClass's instance w/ user's location input
-        fun setLocation(){
-            locationPick.setOnClickListener{
-                val locationService = LocationService(this)
-                locationService.initializeAutoCompleteTextView(cityInput)
-                setViewGone(locationPickFirstLayout)
-                setViewVisible(locationPickSecondLayout)
-
-                cityInput.setOnItemClickListener { _, _, _, _ ->
-                    setViewGoneWithAnimation(this,locationPickSecondLayout)
-                    setViewVisibleWithAnimation(this,locationPickFirstLayout)
-                    locationService.hideKeyboard(cityInput)
-                    locationPick.text = cityInput.text.toString()
-                    isNextLocation = true
-                }
-
-            }
-        }
-
-        // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
-        fun setOccupation(){
-            setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
-                if (isFromLoveHoroscope) {partnerProfile.partnerOccupation = selectedOccupation}
-                else {userCompleteProfile.occupation = selectedOccupation}
-                isNextOccupation = true
-            }
-        }
-
-        // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
-        fun setRelation(){
-            setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
-                userCompleteProfile.relation = selectedRelation
-                isNextRelation = true
-            }
-        }
-
+        completeProfilePickersContainer.setOnClickListener{ println(step); println(allowNext) }
         // this function will put date and time inputs in one variable
         fun formatDateAndTime(date: String, time: String): String {
             return ("$date $time +0000")
         }
 
-
         // create Json, fill with inputs, post it, handle response with response code,toast detail
         fun completeProfile(){
 
-             // create the json object that will be posted as completeProfileJson
+            // create the json object that will be posted as completeProfileJson
             //fill json with the user inputs, format date and time into one variable before fill
             val formattedDate = formatDateAndTime(userCompleteProfile.date, userCompleteProfile.time)
             val zodiacInfoJson = createJsonObject(
@@ -218,9 +111,9 @@ class CompleteProfile : AppCompatActivity() {
                 "info" to infoJson
             )
 
-               // post complete profile json, handle response with response codes, toast details
-              // if response code is success set isFromSignin true and navigate to main activity
-             // main activity will directly navigate user to login screen when isFromSignIn is true
+            // post complete profile json, handle response with response codes, toast details
+            // if response code is success set isFromSignin true and navigate to main activity
+            // main activity will directly navigate user to login screen when isFromSignIn is true
             // if response code is error just toast the error
             postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, this)
             { responseBody, _ ->
@@ -265,94 +158,235 @@ class CompleteProfile : AppCompatActivity() {
             )
         }
 
-        // when activity is created directly set namePick view visible
-        setViewVisibleWithAnimation(this,namePickContainer)
+         // let user to go on to genderpick if input lasts longer than 2 characters else toast error
+        // and  set name field of CompleteProfileUserDataClass's instance w/ user's name input
+         fun setName(){
+             allowNext = false
+             if (isFromLoveHoroscope && namePick.text.length >= 2){
+                 partnerProfile.partnerName = namePick.text.toString()
+                 allowNext = true
+             }else{
+                 if (namePick.text.length >= 2) {
+                     userCompleteProfile.name = namePick.text.toString()
+                     allowNext = true
+                 } else {
+                     this.runOnUiThread {
+                         Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
+                     }
+                 }
+             }
+         }
 
-        var step = 0
+        // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
+        fun setGender(){
+            setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
+                if (selectedGender != "Pick your gender") {
+                    if (isFromLoveHoroscope) partnerProfile.partnerGender = selectedGender; allowNext = true
+                    if (!isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true
 
-        nextButton.setOnClickListener{
-            when(step){
-                0 -> { setName(); if (isNextName){ setViewGoneWithAnimation(this,namePickContainer) ; setViewVisibleWithAnimation(this,genderPickContainer) ; setGender() }; if (!isFromBackPress){ step += 1} }
-
-                1 -> {
-                    if (isNextGender){
-                        setViewGoneWithAnimation(this@CompleteProfile,genderPickContainer)
-                        setViewVisibleWithAnimation(this@CompleteProfile,datePickContainer)
-                        if (!isFromBackPress){ step += 1}
-                    } else {
-                        this.runOnUiThread {
-                            Toast.makeText(this, "You should pick a gender before you go on", Toast.LENGTH_SHORT).show()
-                            setViewGoneWithAnimation(this,genderPick)
-                            setViewVisibleWithAnimation(this,genderPick)
-                        }
-                    }
+                } else this.runOnUiThread { Toast.makeText(this, "pick your gender", Toast.LENGTH_SHORT).show(); allowNext = false
                 }
+            }
+        }
+        // set date field of CompleteProfileUserDataClass's instance w/ user's date input
+        fun setDate(){
+            val selectedYear = datePick.year
+            val selectedMonth =  datePick.month + 1
+            val selectedDay = datePick.dayOfMonth
+            val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
+            println(selectedYear)
+            allowNext = (selectedYear < 2020)
+            if (isFromLoveHoroscope)  partnerProfile.partnerDate = selectedDate
+            if (!isFromLoveHoroscope) userCompleteProfile.date = selectedDate
+        }
 
-                2-> { setDate() ; if (!isFromBackPress){ step += 1}}
-                3 -> { setTime(); setLocation(); if (!isFromBackPress){ step += 1}}
-                4 -> {
-                    if (isNextLocation){
-                        setViewGoneWithAnimation(this,locationPickContainer)
-                        setViewVisibleWithAnimation(this,occupationPickContainer)
-                        setOccupation()
-                        if (!isFromBackPress){ step += 1}
-                    }else {
-                        this.runOnUiThread {
-                            Toast.makeText(this, "You should choose your birth location before you go on", Toast.LENGTH_SHORT).show()
-                            setViewGoneWithAnimation(this,locationPick)
-                            setViewVisibleWithAnimation(this,locationPick)
-                        }
-                    }
+        // set time field of CompleteProfileUserDataClass's instance w/ user's time input
+        @SuppressLint("StopShip")
+        fun setTime(){
+            val selectedHour = timePick.hour
+            val selectedMinute = timePick.minute
+            val selectedTime = "$selectedHour:$selectedMinute:00"
+            if (isFromLoveHoroscope)  partnerProfile.partnerTime = selectedTime
+            if (!isFromLoveHoroscope) userCompleteProfile.time = selectedTime
+        }
+
+        // set location field of CompleteProfileUserDataClass's instance w/ user's location input
+        fun setLocation(){
+            if (locationPick.text != "sehrini_sec"){
+                step = 5; allowNext = true
+            }
+            locationPick.setOnClickListener{
+                val locationService = LocationService(this)
+                locationService.initializeAutoCompleteTextView(cityInput)
+                setViewGone(locationPickFirstLayout)
+                setViewVisible(locationPickSecondLayout)
+
+                cityInput.setOnItemClickListener { _, _, _, _ ->
+                    setViewGoneWithAnimation(this,locationPickSecondLayout)
+                    setViewVisibleWithAnimation(this,locationPickFirstLayout)
+                    locationService.hideKeyboard(cityInput)
+                    locationPick.text = cityInput.text.toString()
+                    step = 5; allowNext = true
                 }
+            }
+        }
 
-                5 -> {
-                    if (isFromLoveHoroscope && isNextOccupation){
-                        isNextOccupation = false
-                        createLookupUserJson()
-                        println(lookupUserJson)
-                        setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
-                        getLoveHoroscope(thinkingAnimation, this)
-
-                        // if completing the user's profile
-                    }else{
-                        // if occupation is picked, go on to relationship status
-                        if (isNextOccupation){
-                            setViewGoneWithAnimation(this@CompleteProfile,occupationPickContainer)
-                            setViewVisibleWithAnimation(this@CompleteProfile,relationPickContainer)
-                            setRelation()
-                            if (!isFromBackPress){ step += 1}
-                        }else {
-                            // if occupation is not picked, toast choose your occupation
-                            this.runOnUiThread {
-                                Toast.makeText(this, "You should choose your occupation before you go on", Toast.LENGTH_SHORT).show()
-                                setViewGoneWithAnimation(this,occupationPick)
-                                setViewVisibleWithAnimation(this,occupationPick)
-                            }
-                        }
-                    }
+        // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
+        fun setOccupation(){
+            setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
+                if (isFromLoveHoroscope) {
+                    partnerProfile.partnerOccupation = selectedOccupation
+                    createLookupUserJson()
+                    println(lookupUserJson)
+                    setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
+                    getLoveHoroscope(thinkingAnimation, this)
                 }
-
-                6-> {
-                    if (isNextRelation){
-                        completeProfile()
-                    }else {
-                        this.runOnUiThread {
-                            Toast.makeText(this, "You should choose your marital status before you go on", Toast.LENGTH_SHORT).show()
-                            setViewGoneWithAnimation(this,relationPick)
-                            setViewVisibleWithAnimation(this,relationPick)
-                        }
+                else{
+                    if (selectedOccupation != "Pick your occupation" ){
+                        userCompleteProfile.occupation = selectedOccupation
+                        step = 6
+                    } else{
+                        step = 5
                     }
                 }
             }
         }
 
+        // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
+        fun setRelation(){
+            allowNext = false
+            setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
+                if (selectedRelation != "Medeni durumunuzu Seciniz") {
+                    userCompleteProfile.relation = selectedRelation
+                    step = 7
+                } else step = 6
+            }
+        }
+
+        // when activity is created directly set namePick view visible
+        setViewVisibleWithAnimation(this,namePickContainer)
+
+        nextButton.setOnClickListener{
+            if (step == 0){
+                setName()
+                if (step == 0 && allowNext){
+                    allowNext = false; step = 1; nextButton.performClick()
+                }
+            }
+
+            if (step == 1){
+                setGender()
+                setViewGoneWithAnimation(this,namePickContainer)
+                setViewVisibleWithAnimation(this,genderPickContainer)
+                if (step==1 && allowNext){
+                    allowNext = false; step = 2
+                }
+            }
+
+            if (step == 2){
+                setViewGoneWithAnimation(this,genderPickContainer)
+                setViewVisibleWithAnimation(this,datePickContainer)
+                setDate()
+                if (step == 2 && allowNext){
+                    allowNext = false; step = 3
+                }
+            }
+
+            if (step == 5){
+                setViewGoneWithAnimation(this,locationPickContainer)
+                setViewVisibleWithAnimation(this,occupationPickContainer)
+                setOccupation()
+
+            }
+
+            if (step == 6){
+                setViewGoneWithAnimation(this,occupationPickContainer)
+                setViewVisibleWithAnimation(this,relationPickContainer)
+                setRelation()
+            }
+
+            when(step){
+
+                3 -> {
+                    allowNext = false
+                    setViewGoneWithAnimation(this,datePickContainer, nextButton)
+                    setViewVisibleWithAnimation(this,timePickContainer,timePickNextButton)
+                    setTime()
+                    timePickNextButton.setOnClickListener{
+                        allowNext = true
+                        step = 4
+                        setViewVisibleWithAnimation(this,nextButton)
+                        setViewGoneWithAnimation(this,timePickNextButton)
+                        nextButton.performClick()
+                    }
+
+                }
+
+                4 -> {
+                    allowNext = false
+                    setViewGoneWithAnimation(this,timePickContainer)
+                    setViewVisibleWithAnimation(this,locationPickContainer)
+                    println("allow next?: $step")
+                    setLocation()
+                    println("allow next?: $step")
+                }
+
+                7-> completeProfile()
+            }
+        }
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-//                println(step)
-//                step -= 1
-//                nextButton.performClick()
-//                println(step)
-//                isFromBackPress = true
+                if (step == 0){
+                    val options = ActivityOptions.makeCustomAnimation(applicationContext, R.anim.activity_slide_down, 0)
+                    val intent = Intent(applicationContext, LoginSignupActivity::class.java);startActivity(intent, options.toBundle())
+                    navigateToSignUp = true
+                }
+
+                if (step == 1){
+                    step = 0
+                    setViewGoneWithAnimation(applicationContext, genderPickContainer)
+                    setViewVisibleWithAnimation(applicationContext, namePickContainer)
+                }
+
+                if (step == 2){
+                    step = 1
+                    setViewGoneWithAnimation(applicationContext, datePickContainer)
+                    setViewVisibleWithAnimation(applicationContext, genderPickContainer)
+                }
+
+                if (step == 3){
+                    step = 2
+                    setViewGoneWithAnimation(applicationContext, timePickContainer)
+                    setViewVisibleWithAnimation(applicationContext, datePickContainer, nextButton)
+                }
+
+                if (step == 4){
+                    step = 3
+                    setViewGoneWithAnimation(applicationContext, locationPickContainer, nextButton)
+                    setViewVisibleWithAnimation(applicationContext, timePickContainer, timePickNextButton)
+                }
+
+                if (step == 5){
+                    step = 4
+                    allowNext = false
+                    setLocation()
+                    setViewGoneWithAnimation(applicationContext, occupationPickContainer)
+                    setViewVisibleWithAnimation(applicationContext, locationPickContainer)
+                }
+
+                if (step == 6){
+                    step = 5
+                    setViewGoneWithAnimation(applicationContext, relationPickContainer)
+                    setViewVisibleWithAnimation(applicationContext, occupationPickContainer)
+                }
+
+                if (step == 7){
+                    step = 5
+                    setViewGoneWithAnimation(applicationContext, relationPickContainer)
+                    setViewVisibleWithAnimation(applicationContext, occupationPickContainer)
+                }
+
             }
         }
         this.onBackPressedDispatcher.addCallback(this, callback)

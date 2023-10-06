@@ -25,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/empty"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:textIsSelectable="true">
         </TextView>
 
 <!--        mira_speech_bubble_container-->
@@ -53,7 +54,7 @@
                     android:layout_marginEnd="-10dp"
                     android:layout_toStartOf="@+id/complete_profile_mira"
                     android:src="@drawable/speech_bubble_triangle"
-                    tools:ignore="ImageContrastCheck">
+                    tools:ignore="ImageContrastCheck,NegativeMargin">
                 </ImageView>
 
                 <androidx.cardview.widget.CardView
@@ -115,23 +116,6 @@
                     android:id="@+id/namePickContainer"
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
-
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/namePick_next_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:layout_marginStart="150dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="120dp"
-                            android:background="@drawable/common_next_button"
-                            android:fontFamily="@font/arima_madurai_bold"
-                            android:text="@string/devam"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="24sp">
-                        </androidx.appcompat.widget.AppCompatButton>
-
                         <androidx.cardview.widget.CardView
                             android:id="@+id/namePickCard"
                             android:layout_width="match_parent"
@@ -157,7 +141,6 @@
                                     android:autofillHints="name"
                                     android:inputType="textMultiLine" />
                         </androidx.cardview.widget.CardView>
-
                 </RelativeLayout>
 
                 <!--genderPick container-->
@@ -167,21 +150,7 @@
                     android:id="@+id/genderPickContainer"
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/genderPick_next_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:layout_marginStart="150dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="120dp"
-                            android:background="@drawable/common_next_button"
-                            android:fontFamily="@font/arima_madurai_bold"
-                            android:text="@string/devam"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="24sp">
-                        </androidx.appcompat.widget.AppCompatButton>
+
                         <Spinner
                             android:id="@+id/genderPick"
                             android:layout_width="match_parent"
@@ -208,21 +177,6 @@
                             android:layout_height="match_parent"
                             android:id="@+id/locationPickFirstLayout">
 
-                                <androidx.appcompat.widget.AppCompatButton
-                                    android:id="@+id/locationPick_next_button"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="75dp"
-                                    android:layout_marginStart="150dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_alignParentBottom="true"
-                                    android:layout_marginBottom="120dp"
-                                    android:background="@drawable/common_next_button"
-                                    android:fontFamily="@font/arima_madurai_bold"
-                                    android:text="@string/devam"
-                                    android:textAllCaps="false"
-                                    android:textColor="@color/white"
-                                    android:textSize="24sp">
-                                </androidx.appcompat.widget.AppCompatButton>
 
                                 <androidx.appcompat.widget.AppCompatButton
                                     android:id="@+id/locationPick"
@@ -285,9 +239,8 @@
                     android:id="@+id/birthTimePickContainer"
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
-
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/timePick_next_button"
+                            android:id="@+id/timePickNextButton"
                             android:layout_width="match_parent"
                             android:layout_height="75dp"
                             android:layout_marginStart="150dp"
@@ -320,21 +273,7 @@
                     android:id="@+id/birthDatePickContainer"
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/datePick_next_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:layout_marginStart="150dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="120dp"
-                            android:background="@drawable/common_next_button"
-                            android:fontFamily="@font/arima_madurai_bold"
-                            android:text="@string/devam"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="24sp">
-                        </androidx.appcompat.widget.AppCompatButton>
+
                         <DatePicker
                             android:id="@+id/datePick"
                             android:layout_width="wrap_content"
@@ -354,21 +293,7 @@
                     android:id="@+id/relationPickContainer"
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/relationPick_next_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:layout_marginStart="150dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="120dp"
-                            android:background="@drawable/common_next_button"
-                            android:fontFamily="@font/arima_madurai_bold"
-                            android:text="@string/devam"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="24sp">
-                        </androidx.appcompat.widget.AppCompatButton>
+
                         <Spinner
                             android:id="@+id/relationPick"
                             android:layout_width="match_parent"
@@ -387,21 +312,7 @@
                     android:id="@+id/occupationPickContainer"
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/occupationPick_next_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:layout_marginStart="150dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="120dp"
-                            android:background="@drawable/common_next_button"
-                            android:fontFamily="@font/arima_madurai_bold"
-                            android:text="@string/devam"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="24sp">
-                        </androidx.appcompat.widget.AppCompatButton>
+
                         <Spinner
                             android:id="@+id/occupationPick"
                             android:layout_width="match_parent"
@@ -413,6 +324,7 @@
                             android:textAlignment="center" />
                 </RelativeLayout>
 
+                <!--stars-->
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
