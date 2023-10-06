@@ -343,10 +343,6 @@ class CompleteProfile : AppCompatActivity() {
                         }
                     }
                 }
-
-
-
-
             }
         }
 

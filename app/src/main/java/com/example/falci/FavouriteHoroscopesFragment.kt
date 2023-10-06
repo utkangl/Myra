@@ -14,15 +14,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
-import com.example.falci.internalClasses.AuthenticationFunctions
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken
 import com.example.falci.internalClasses.InternalFunctions
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.dataClasses.*
-import com.example.falci.internalClasses.statusCode
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.*
-import java.io.IOException
 
 var navigateBackToProfileActivity = false
 var navigateToFavs = false
@@ -58,148 +56,150 @@ class FavouriteHoroscopesFragment : Fragment() {
                     animationView.playAnimation()
                 }
 
-                try {
-                    val response = client.newCall(request).execute()
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()?.string()
-                        statusCode = response.code()
-                        delay(2000)
 
-                        if (statusCode == 401) {
-                            println("unauthorized 401, taking new access token")
-                            AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
-                                urls.refreshURL,
-                                requireContext()
-                            ) { responseBody401, exception ->
-                                if (responseBody401 != null) {
-                                    println(tokensDataClass.accessToken)
-                                    getFavouriteHoroscopes(animationView)
-                                } else {
-                                    println(exception)
-                                }
-                            }
+                val response = client.newCall(request).execute()
+                val getFavsStatusCode = response.code()
+
+                println("code $getFavsStatusCode")
+
+                if (getFavsStatusCode == 401) {
+                    println("unauthorized 401, taking new access token")
+                    takeNewAccessToken(
+                        urls.refreshURL,
+                        requireContext()
+                    ) { responseBody401, exception ->
+                        if (responseBody401 != null) {
+                            println(tokensDataClass.accessToken)
+                            getFavouriteHoroscopes(animationView)
+                        } else {
+                            println(exception)
                         }
-
-                        if (statusCode == 200) {
-                            animationView.post {
-                                setViewGone(animationView)
-                                animationView.cancelAnimation()
-                            }
-                            println("get fav horoscopes response code $statusCode")
-                            val listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
-
-                            searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
-                                cancelFavSearchFilter.visibility = View.VISIBLE
-                                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                                    val searchText = searchFavHoroscope.text.toString()
-                                    favHoroscopeLinearLayout.removeAllViews()
-                                    var keywordFound = false
-                                    for (fortuneItem in listOfFavouriteHoroscopes.results) {
-                                        val summary = fortuneItem.fortune?.prompt?.summary
-
-                                        if (summary?.contains(searchText, ignoreCase = true) == true) {
-                                            val favCardView = FavCardView(context!!)
-                                            val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
-                                            val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
-
-                                            favCardTitle.text = fortuneItem.title
-                                            favCardExplanation.text = summary
-
-                                            favCardView.layoutParams = ViewGroup.LayoutParams(
-                                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                                ViewGroup.LayoutParams.MATCH_PARENT
-                                            )
-
-                                            val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
-                                            favCardView.startAnimation(animation)
-                                            favHoroscopeLinearLayout.addView(favCardView)
-                                            keywordFound = true
-                                        }
-
-                                    }
-                                    if (!keywordFound){
-                                        requireActivity().runOnUiThread{
-                                            Toast.makeText(requireContext(), "No Horoscope Found With The Given Keyword", Toast.LENGTH_SHORT).show()
-                                        }
-                                    }
-                                    true
-                                } else {
-                                    false
-
-                                }
-                            }
-
-                            cancelFavSearchFilter.setOnClickListener{
-                                favHoroscopeLinearLayout.removeAllViews()
-                                searchFavHoroscope.setText("")
-                                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                                inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-                                for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
-                                    val favCardView = FavCardView(context!!)
-                                    val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
-                                    val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
-
-                                    val fortuneItem = listOfFavouriteHoroscopes.results[i]
-                                    val summary = fortuneItem.fortune?.prompt?.summary
-
-                                    favCardTitle.text = fortuneItem.title
-                                    favCardExplanation.text = summary
-
-                                    favCardView.layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.MATCH_PARENT
-                                    )
-
-                                    val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
-                                    favCardView.startAnimation(animation)
-                                    favHoroscopeLinearLayout.addView(favCardView)
-                                }
-                            }
-                            withContext(Dispatchers.Main) {
-                                for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
-                                    val favCardView = FavCardView(context!!)
-                                    val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
-                                    val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
-
-                                    val fortuneItem = listOfFavouriteHoroscopes.results[i]
-                                    val summary = fortuneItem.fortune?.prompt?.summary
-
-                                    favCardTitle.text = fortuneItem.title
-                                    favCardExplanation.text = summary
-
-                                    favCardView.layoutParams = ViewGroup.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.MATCH_PARENT
-                                    )
-
-                                    val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
-                                    favCardView.startAnimation(animation)
-                                    favHoroscopeLinearLayout.addView(favCardView)
-
-                                    favCardView.setOnClickListener{
-                                        getHoroscopeData.id = fortuneItem.fortune?.id
-                                        getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
-                                        getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
-                                        getHoroscopeData.bad = fortuneItem.fortune?.prompt?.bad
-                                        getHoroscopeData.summary = fortuneItem.fortune?.prompt?.summary
-                                        getHoroscopeData.is_favourite = true
-                                        getHoroscopeData.favourite_id = fortuneItem.id
-                                        navigateToHoroscope = true
-                                        navigateBackToProfileActivity = true
-
-                                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                                        val intent = Intent(requireActivity(), MainActivity::class.java);startActivity(intent, options.toBundle())
-                                    }
-
-                                }
-                            }
-                        }
-                    } else {
-                        println("Request failed with code ${response.code()}")
                     }
-                } catch (e: IOException) {
-                    println("Exception $e")
                 }
+
+                if (response.isSuccessful) {
+                    val responseBody = response.body()?.string()
+                    delay(2000)
+                    println("getFavsStatusCode: $getFavsStatusCode")
+
+
+                    if (getFavsStatusCode == 200) {
+                        println("200um")
+                        animationView.post {
+                            setViewGone(animationView)
+                            animationView.cancelAnimation()
+                        }
+                        println("get fav horoscopes response code $getFavsStatusCode")
+                        val listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
+
+                        searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
+                            cancelFavSearchFilter.visibility = View.VISIBLE
+                            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                                val searchText = searchFavHoroscope.text.toString()
+                                favHoroscopeLinearLayout.removeAllViews()
+                                var keywordFound = false
+                                for (fortuneItem in listOfFavouriteHoroscopes.results) {
+                                    val summary = fortuneItem.fortune?.prompt?.summary
+
+                                    if (summary?.contains(searchText, ignoreCase = true) == true) {
+                                        val favCardView = FavCardView(context!!)
+                                        val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
+                                        val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
+
+                                        favCardTitle.text = fortuneItem.title
+                                        favCardExplanation.text = summary
+
+                                        favCardView.layoutParams = ViewGroup.LayoutParams(
+                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                            ViewGroup.LayoutParams.MATCH_PARENT
+                                        )
+
+                                        val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
+                                        favCardView.startAnimation(animation)
+                                        favHoroscopeLinearLayout.addView(favCardView)
+                                        keywordFound = true
+                                    }
+
+                                }
+                                if (!keywordFound){
+                                    requireActivity().runOnUiThread{
+                                        Toast.makeText(requireContext(), "No Horoscope Found With The Given Keyword", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                true
+                            } else {
+                                false
+
+                            }
+                        }
+
+                        cancelFavSearchFilter.setOnClickListener{
+                            favHoroscopeLinearLayout.removeAllViews()
+                            searchFavHoroscope.setText("")
+                            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
+                            for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
+                                val favCardView = FavCardView(context!!)
+                                val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
+                                val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
+
+                                val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                                val summary = fortuneItem.fortune?.prompt?.summary
+
+                                favCardTitle.text = fortuneItem.title
+                                favCardExplanation.text = summary
+
+                                favCardView.layoutParams = ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT
+                                )
+
+                                val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
+                                favCardView.startAnimation(animation)
+                                favHoroscopeLinearLayout.addView(favCardView)
+                            }
+                        }
+                        withContext(Dispatchers.Main) {
+                            for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
+                                val favCardView = FavCardView(context!!)
+                                val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
+                                val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
+
+                                val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                                val summary = fortuneItem.fortune?.prompt?.summary
+
+                                favCardTitle.text = fortuneItem.title
+                                favCardExplanation.text = summary
+
+                                favCardView.layoutParams = ViewGroup.LayoutParams(
+                                    ViewGroup.LayoutParams.MATCH_PARENT,
+                                    ViewGroup.LayoutParams.MATCH_PARENT
+                                )
+
+                                val animation = AnimationUtils.loadAnimation(context, R.anim.slow_slide_down)
+                                favCardView.startAnimation(animation)
+                                favHoroscopeLinearLayout.addView(favCardView)
+
+                                favCardView.setOnClickListener{
+                                    getHoroscopeData.id = fortuneItem.fortune?.id
+                                    getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
+                                    getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
+                                    getHoroscopeData.bad = fortuneItem.fortune?.prompt?.bad
+                                    getHoroscopeData.summary = fortuneItem.fortune?.prompt?.summary
+                                    getHoroscopeData.is_favourite = true
+                                    getHoroscopeData.favourite_id = fortuneItem.id
+                                    navigateToHoroscope = true
+                                    navigateBackToProfileActivity = true
+
+                                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                                    val intent = Intent(requireActivity(), MainActivity::class.java);startActivity(intent, options.toBundle())
+                                }
+
+                            }
+                        }
+                    }
+
+                } else println("response.isSuccessful is false")
             }
         }
 
