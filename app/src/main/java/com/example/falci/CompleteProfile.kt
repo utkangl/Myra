@@ -3,6 +3,7 @@ package com.example.falci
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -55,6 +56,14 @@ class CompleteProfile : AppCompatActivity() {
         val relationPick= findViewById<Spinner>(R.id.relationPick)
 
         val cityInput= findViewById<AutoCompleteTextView>(R.id.cityInput)
+
+        val star1 = findViewById<StarShape>(R.id.star1)
+        val star2 = findViewById<StarShape>(R.id.star2)
+        val star3 = findViewById<StarShape>(R.id.star3)
+        val star4 = findViewById<StarShape>(R.id.star4)
+        val star5 = findViewById<StarShape>(R.id.star5)
+        val star6 = findViewById<StarShape>(R.id.star6)
+        val star7 = findViewById<StarShape>(R.id.star7)
 
 
         var allowNext = false
@@ -164,11 +173,11 @@ class CompleteProfile : AppCompatActivity() {
              allowNext = false
              if (isFromLoveHoroscope && namePick.text.length >= 2){
                  partnerProfile.partnerName = namePick.text.toString()
-                 allowNext = true
+                 allowNext = true; star1.startColorAnimation()
              }else{
                  if (namePick.text.length >= 2) {
                      userCompleteProfile.name = namePick.text.toString()
-                     allowNext = true
+                     allowNext = true; star1.startColorAnimation()
                  } else {
                      this.runOnUiThread {
                          Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
@@ -181,8 +190,8 @@ class CompleteProfile : AppCompatActivity() {
         fun setGender(){
             setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
                 if (selectedGender != "Pick your gender") {
-                    if (isFromLoveHoroscope) partnerProfile.partnerGender = selectedGender; allowNext = true
-                    if (!isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true
+                    if (isFromLoveHoroscope) partnerProfile.partnerGender = selectedGender; allowNext = true; star2.startColorAnimation()
+                    if (!isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true; star2.startColorAnimation()
 
                 } else this.runOnUiThread { Toast.makeText(this, "pick your gender", Toast.LENGTH_SHORT).show(); allowNext = false
                 }
@@ -196,8 +205,8 @@ class CompleteProfile : AppCompatActivity() {
             val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
             println(selectedYear)
             allowNext = (selectedYear < 2020)
-            if (isFromLoveHoroscope)  partnerProfile.partnerDate = selectedDate
-            if (!isFromLoveHoroscope) userCompleteProfile.date = selectedDate
+            if (isFromLoveHoroscope)  partnerProfile.partnerDate = selectedDate; star3.startColorAnimation()
+            if (!isFromLoveHoroscope) userCompleteProfile.date = selectedDate; star3.startColorAnimation()
         }
 
         // set time field of CompleteProfileUserDataClass's instance w/ user's time input
@@ -206,8 +215,8 @@ class CompleteProfile : AppCompatActivity() {
             val selectedHour = timePick.hour
             val selectedMinute = timePick.minute
             val selectedTime = "$selectedHour:$selectedMinute:00"
-            if (isFromLoveHoroscope)  partnerProfile.partnerTime = selectedTime
-            if (!isFromLoveHoroscope) userCompleteProfile.time = selectedTime
+            if (isFromLoveHoroscope)  partnerProfile.partnerTime = selectedTime; star4.startColorAnimation()
+            if (!isFromLoveHoroscope) userCompleteProfile.time = selectedTime; star4.startColorAnimation()
         }
 
         // set location field of CompleteProfileUserDataClass's instance w/ user's location input
@@ -226,7 +235,7 @@ class CompleteProfile : AppCompatActivity() {
                     setViewVisibleWithAnimation(this,locationPickFirstLayout)
                     locationService.hideKeyboard(cityInput)
                     locationPick.text = cityInput.text.toString()
-                    step = 5; allowNext = true
+                    step = 5; allowNext = true; star5.startColorAnimation()
                 }
             }
         }
@@ -244,7 +253,7 @@ class CompleteProfile : AppCompatActivity() {
                 else{
                     if (selectedOccupation != "Pick your occupation" ){
                         userCompleteProfile.occupation = selectedOccupation
-                        step = 6
+                        step = 6; star6.startColorAnimation()
                     } else{
                         step = 5
                     }
@@ -258,7 +267,7 @@ class CompleteProfile : AppCompatActivity() {
             setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
                 if (selectedRelation != "Medeni durumunuzu Seciniz") {
                     userCompleteProfile.relation = selectedRelation
-                    step = 7
+                    step = 7; star7.startColorAnimation()
                 } else step = 6
             }
         }

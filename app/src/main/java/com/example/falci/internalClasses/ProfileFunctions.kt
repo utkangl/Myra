@@ -12,8 +12,10 @@ import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
 import com.google.gson.Gson
 import okhttp3.*
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import java.io.InputStream
 
 class ProfileFunctions {
     object ProfileFunctions{
@@ -117,5 +119,65 @@ class ProfileFunctions {
                 }
             })
         }
+
+        fun getPlanetZodiacExplanationJsonValue(context: Context, jsonFileName: String, key1: String, key2: String?): String {
+            var jsonString: String? = null
+            try {
+                val resourceId =
+                    context.resources.getIdentifier(jsonFileName, "raw", context.packageName)
+                if (resourceId == 0) {
+                    return "JSON dosyası bulunamadı."
+                }
+                val inputStream: InputStream = context.resources.openRawResource(resourceId)
+                val size = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                inputStream.close()
+                jsonString = String(buffer)
+
+                val jsonObject = JSONObject(jsonString)
+
+                val value1 = jsonObject.getJSONObject(key1)
+                println("value1: $value1")
+                val value2 = value1.getString(key2)
+                println("value2: $value2")
+                return value2
+
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+                return "JSON verisi çözümlenemedi."
+            }
+        }
+
+        fun getPlanetExplanationJsonValue(context: Context, jsonFileName: String, key: String): String {
+            var jsonString: String? = null
+            try {
+                val resourceId =
+                    context.resources.getIdentifier(jsonFileName, "raw", context.packageName)
+                if (resourceId == 0) {
+                    return "JSON dosyası bulunamadı."
+                }
+                val inputStream: InputStream = context.resources.openRawResource(resourceId)
+                val size = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                inputStream.close()
+                jsonString = String(buffer)
+
+                val jsonObject = JSONObject(jsonString)
+
+                val value1 = jsonObject.getString(key)
+                println("value1: $value1")
+                return value1
+
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+                return "JSON verisi çözümlenemedi."
+            }
+        }
+
+
     }
 }

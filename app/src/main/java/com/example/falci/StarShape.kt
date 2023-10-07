@@ -1,7 +1,9 @@
 package com.example.falci
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
@@ -14,6 +16,18 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private val paint = Paint()
     private val path = Path()
 
+    // Animator nesnesini oluşturun
+    private val colorAnimator = ValueAnimator().apply {
+        paint.color = Color.WHITE
+        setIntValues(Color.WHITE, Color.CYAN)
+        duration = 1000
+        addUpdateListener { animator ->
+            val animatedValue = animator.animatedValue as Int
+            paint.color = animatedValue
+            invalidate()
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
@@ -23,24 +37,19 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         path.reset()
 
-        val innerRadius = radius / 512  // İçbükeylik sağlamak için iç yarıçapı belirleyin
+        val innerRadius = radius / 512
 
         for (i in 0 until 6) {
             val angle = Math.PI * i / 4
             val x = (centerX + radius * cos(angle)).toFloat()
             val y = (centerY + radius * sin(angle)).toFloat()
 
-
             if (i == 0) {
                 path.moveTo(x, y)
             } else {
-                // İçbükeylik için kontrol noktalarını hesaplayın
                 val prevAngle = Math.PI * (i - 1) / 2
                 val prevX = (centerX + radius * cos(prevAngle)).toFloat()
                 val prevY = (centerY + radius * sin(prevAngle)).toFloat()
-
-//                val midX = (prevX + x) / 2
-//                val midY = (prevY + y) / 2
 
                 val controlX = (centerX + innerRadius * cos(angle - Math.PI / 8)).toFloat()
                 val controlY = (centerY + innerRadius * sin(angle - Math.PI / 8)).toFloat()
@@ -48,13 +57,14 @@ class StarShape(context: Context, attrs: AttributeSet) : View(context, attrs) {
                 path.quadTo(controlX, controlY, prevX, prevY)
             }
         }
-
-
         path.close()
-
-        paint.color = android.graphics.Color.WHITE
         paint.style = Paint.Style.FILL
-
         canvas.drawPath(path, paint)
+    }
+
+    fun startColorAnimation() {
+        if (!colorAnimator.isRunning) {
+            colorAnimator.start()
+        }
     }
 }

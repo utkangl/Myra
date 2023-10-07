@@ -24,6 +24,8 @@ import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctio
 import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPlanetExplanationJsonValue
+import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPlanetZodiacExplanationJsonValue
 import com.example.falci.internalClasses.TransitionToFragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
@@ -81,7 +83,7 @@ class ProfileFragment : Fragment() {
         val planetHoroscopeImage = v.findViewById<ImageView>(R.id.planet_horoscope_image)
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
         val planetHoroscopeText = zodiacexplanationcard.findViewById<TextView>(R.id.planet_horoscope_text)
-//        val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
+        val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
         val burcExplanationTextScroll = zodiacexplanationcard.findViewById<ScrollView>(R.id.burcExplanationTextScroll)
 
 
@@ -167,13 +169,19 @@ class ProfileFragment : Fragment() {
         var sign = planetSignMap[planetName]
         planetHoroscopeText.text = sign
         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
-        planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
         profileCardZodiacName.text = planetSignMap["Sun"]
 
         val fadeOut = AlphaAnimation(1f, 0f)
         fadeOut.duration = 150
         val fadeIn = AlphaAnimation(0f, 1f)
         fadeIn.duration = 150
+
+
+        val planetZodiacJsonFileName = "planet_sign_exp"
+        val planetJsonFileName = "planet_exp"
+
+        burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+
 
 
         planetLayouts.forEachIndexed { index, layout ->
@@ -194,9 +202,9 @@ class ProfileFragment : Fragment() {
                         planetName = planetNames[index]
                         sign = planetSignMap[planetName]
                         planetHoroscopeText.text = sign
+                        burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
                         planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
-                        planetHoroscopeImageCard.setCardBackgroundColor(planetToColorMap[planetName]!!)
 
                         burcexplanationplanetimage.startAnimation(fadeIn)
                         burcexplanationplanettext.startAnimation(fadeIn)
