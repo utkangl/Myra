@@ -36,7 +36,9 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         val getFavsFuncs = GetFavsFuncs()
 
-        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout )
+        activity!!.runOnUiThread {
+            getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout )
+        }
 
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

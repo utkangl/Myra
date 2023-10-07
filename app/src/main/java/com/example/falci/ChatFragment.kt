@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.RelativeLayout
 import com.example.falci.internalClasses.AuthenticationFunctions
+import com.example.falci.internalClasses.ChatFuncs
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.dataClasses.*
@@ -44,97 +45,17 @@ class ChatFragment : Fragment() {
 
         val messages = mutableListOf<ChatMessage>()
         val oldMessages = mutableListOf<ChatMessage>()
-        val welcomeMessage = ChatMessage(getHoroscopeData.summary.toString(), false)
-        messages.add(welcomeMessage)
 
+
+        threadNumber = getHoroscopeData.thread
 
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
 
-        if (isFromHoroscope){
-            threadNumber = getHoroscopeData.thread
-            println("came from horoscope and the thread of horoscope is: $threadNumber")
 
+        val chatFuncs = ChatFuncs()
 
-            fun getOldMessages(){
-                val apiUrl = "https://api.atlasuavteam.com/gpt/chat/$threadNumber/"
-                val client = OkHttpClient()
-
-                val request = Request.Builder()
-                    .url(apiUrl)
-                    .get()
-                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                    .build()
-
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        println("exception $e")
-                    }
-
-                    override fun onResponse(call: Call, response: Response) {
-                        val responseBody = response.body()?.string()
-                        statusCode = response.code()
-                        println("get thread response code $statusCode")
-
-                        if (statusCode == 401){
-                            println("unauthorized 401, taking new access token")
-                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                                urls.refreshURL,
-                                requireContext()
-                            ) { responseBody401, exception ->
-                                if (responseBody401 != null) {
-                                    println(tokensDataClass.accessToken)
-                                    getOldMessages()
-                                } else {
-                                    println(exception)
-                                }
-                            }
-                        }
-
-                        if (statusCode == 200){
-                            println("code 200")
-
-                            activity?.runOnUiThread {
-
-                                val jsonResponse = responseBody?.let { JSONObject(it) }
-                                val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
-
-                                for (i in 0 until chatMessagesArray!!.length()) {
-
-                                    val jsonObject = chatMessagesArray.getJSONObject(i)
-                                    val oldMessage = jsonObject.getString("message")
-                                    val owner = jsonObject.getString("owner")
-
-                                    if (owner == "user") {
-                                        oldMessages.add(ChatMessage(oldMessage, true))
-                                    }
-                                    if (owner == "assistant") {
-                                        oldMessages.add(ChatMessage(oldMessage, false))
-                                    }
-
-                                }
-
-                                for (oldMessage in oldMessages){
-                                    messages.add(oldMessage)
-                                }
-                                chatAdapter.notifyDataSetChanged()
-                                chatListView.smoothScrollToPosition(messages.size - 1)
-
-                            }
-                        }
-
-                        if (statusCode == 404){
-                            println("404 not found")
-                        }
-                    }
-                })
-            }
-
-            getOldMessages()
-
-
-        }
-
+        chatFuncs.getOldMessages(requireContext(), activity!! ,threadNumber!!, oldMessages, chatAdapter, messages, chatListView)
 
 
         closeKeyBoardLayout.setOnClickListener{

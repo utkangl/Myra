@@ -82,7 +82,6 @@ class GetFavsFuncs {
     ) {
         val responseBody = response.body()?.string()
         delay(2000)
-        println("getFavsStatusCode: ${response.code()}")
 
         animationView.post {
             setViewGone(animationView)
