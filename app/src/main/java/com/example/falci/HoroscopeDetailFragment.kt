@@ -149,7 +149,7 @@ class HoroscopeDetailFragment : Fragment() {
 
                                 if (statusCode == 401){
                                     println("unauthorized 401, taking new access token")
-                                    AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(urls.refreshURL, requireContext())
+                                    AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, requireContext())
                                     { responseBody401, exception ->
                                         if (responseBody401 != null) {
                                             println(tokensDataClass.accessToken)

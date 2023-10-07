@@ -77,7 +77,7 @@ class AuthenticationFunctions() {
                         statusCode = response.code()
                         if (statusCode == 401){
                             println("unauthorized 401, taking new access token")
-                            takeNewAccessToken(urls.refreshURL, context) { responseBody, exception ->
+                            takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
                                 if (responseBody != null) {
                                     println(tokensDataClass.accessToken)
                                     postJsonWithHeader(url, json, context, callback)
@@ -94,7 +94,7 @@ class AuthenticationFunctions() {
                 })
             }
 
-            fun takeNewAccessToken(url: String, context: Context, callback: (String?, Exception?) -> Unit) {
+            fun takeFreshTokens(url: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
                 val refreshJson = createJsonObject("refresh" to tokensDataClass.refreshToken)
                 println(tokensDataClass)
@@ -144,7 +144,7 @@ class AuthenticationFunctions() {
             if (nowTime - creationTime > livingTime) {
                 println("token is expired")
 
-                takeNewAccessToken(urls.refreshURL,  context) { responseBody, exception ->
+                takeFreshTokens(urls.refreshURL,  context) { responseBody, exception ->
                     if (responseBody != null) {
                         println(tokensDataClass.accessToken)
                     } else {

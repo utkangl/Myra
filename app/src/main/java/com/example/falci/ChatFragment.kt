@@ -78,7 +78,7 @@ class ChatFragment : Fragment() {
 
                         if (statusCode == 401){
                             println("unauthorized 401, taking new access token")
-                            AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
                                 urls.refreshURL,
                                 requireContext()
                             ) { responseBody401, exception ->
@@ -260,7 +260,7 @@ class ChatFragment : Fragment() {
                 statusCode = response.code()
                 if (statusCode == 401){
                     println("unauthorized 401, taking new access token")
-                    AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(urls.refreshURL, requireContext()) { responseBody401, exception ->
+                    AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->
                         if (responseBody401 != null) {
                             println(tokensDataClass.accessToken)
                             postChatJson(url, json, callback)

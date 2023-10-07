@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
@@ -172,9 +173,9 @@ class ProfileFragment : Fragment() {
         profileCardZodiacName.text = planetSignMap["Sun"]
 
         val fadeOut = AlphaAnimation(1f, 0f)
-        fadeOut.duration = 150
+        fadeOut.duration = 300
         val fadeIn = AlphaAnimation(0f, 1f)
-        fadeIn.duration = 150
+        fadeIn.duration = 300
 
 
         val planetZodiacJsonFileName = "planet_sign_exp"
@@ -190,6 +191,10 @@ class ProfileFragment : Fragment() {
                 burcexplanationplanettext.startAnimation(fadeOut)
                 planetHoroscopeImageCard.startAnimation(fadeOut)
                 planetHoroscopeText.startAnimation(fadeOut)
+
+                val upAnimation = AnimationUtils.loadAnimation(context, R.anim.slide_up)
+                val downAnimation = AnimationUtils.loadAnimation(context, R.anim.activity_slide_down)
+                burcExplanationText.startAnimation(upAnimation)
 
                 fadeOut.setAnimationListener(object : Animation.AnimationListener {
                     override fun onAnimationStart(animation: Animation?) {
@@ -210,6 +215,7 @@ class ProfileFragment : Fragment() {
                         burcexplanationplanettext.startAnimation(fadeIn)
                         planetHoroscopeImageCard.startAnimation(fadeIn)
                         planetHoroscopeText.startAnimation(fadeIn)
+                        burcExplanationText.startAnimation(downAnimation)
                     }
 
                     override fun onAnimationRepeat(animation: Animation?) {

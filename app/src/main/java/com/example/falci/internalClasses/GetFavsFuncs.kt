@@ -13,7 +13,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.FavCardView
 import com.example.falci.MainActivity
 import com.example.falci.R
-import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken
+import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.navigateBackToProfileActivity
@@ -61,7 +61,7 @@ class GetFavsFuncs {
 
     private  fun handleUnauthorized(animationView: LottieAnimationView, context: Context,searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout) {
         println("unauthorized 401, taking new access token")
-        takeNewAccessToken(urls.refreshURL, context) { responseBody401, exception ->
+        takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
             if (responseBody401 != null) {
                 println(tokensDataClass.accessToken)
                 getFavouriteHoroscopes(animationView,context, searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout)

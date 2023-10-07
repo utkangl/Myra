@@ -45,7 +45,7 @@ class ProfileFunctions {
 
                     if (getProfileStatusCode == 401){
                         println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
                             urls.refreshURL,
                             context,
                         ) { responseBody401, exception ->
@@ -97,7 +97,7 @@ class ProfileFunctions {
                     statusCode = response.code()
                     if (statusCode == 401){
                         println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeNewAccessToken(
+                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
                             urls.refreshURL,
                             context
                         ) { responseBody401, exception ->
@@ -120,13 +120,13 @@ class ProfileFunctions {
             })
         }
 
-        fun getPlanetZodiacExplanationJsonValue(context: Context, jsonFileName: String, key1: String, key2: String?): String {
-            var jsonString: String? = null
+        fun getPlanetZodiacExplanationJsonValue(context: Context, jsonFileName: String, key1: String, key2: String): String {
+            val jsonString: String?
             try {
                 val resourceId =
                     context.resources.getIdentifier(jsonFileName, "raw", context.packageName)
                 if (resourceId == 0) {
-                    return "JSON dosyası bulunamadı."
+                    return "JSON file could not found."
                 }
                 val inputStream: InputStream = context.resources.openRawResource(resourceId)
                 val size = inputStream.available()
@@ -146,17 +146,17 @@ class ProfileFunctions {
 
             } catch (e: JSONException) {
                 e.printStackTrace()
-                return "JSON verisi çözümlenemedi."
+                return "JSON data could not solved."
             }
         }
 
         fun getPlanetExplanationJsonValue(context: Context, jsonFileName: String, key: String): String {
-            var jsonString: String? = null
+            val jsonString: String?
             try {
                 val resourceId =
                     context.resources.getIdentifier(jsonFileName, "raw", context.packageName)
                 if (resourceId == 0) {
-                    return "JSON dosyası bulunamadı."
+                    return "JSON file could not found."
                 }
                 val inputStream: InputStream = context.resources.openRawResource(resourceId)
                 val size = inputStream.available()
@@ -174,7 +174,7 @@ class ProfileFunctions {
 
             } catch (e: JSONException) {
                 e.printStackTrace()
-                return "JSON verisi çözümlenemedi."
+                return "JSON data could not be solved."
             }
         }
 
