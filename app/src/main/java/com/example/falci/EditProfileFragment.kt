@@ -26,6 +26,7 @@ import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
+import kotlin.concurrent.thread
 
 val editProfileJson = JSONObject()
 
@@ -34,6 +35,10 @@ class EditProfileFragment : Fragment() {
     private lateinit var locationService: LocationService
 
     @RequiresApi(Build.VERSION_CODES.M)
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,59 +67,60 @@ class EditProfileFragment : Fragment() {
         val relationshipStatusFieldHint = v.findViewById<TextView>(R.id.relationshipStatusFieldHint)
         val editProfileGeneralLayout = v.findViewById<RelativeLayout>(R.id.editProfileGeneralLayout)
 
-        nameField.text = userProfile.first_name
-        genderField.text = userProfile.gender
-        birthDateField.text = separateBirthDate(userProfile.birth_day!!)
-        birthTimeField.text = separateBirthTime(userProfile.birth_day!!)
-        locationField.text = userProfile.birth_place
-        occupationField.text = userProfile.occupation
-        relationShipStatusField.text = userProfile.relationship_status
-
-        setViewGone(savebutton)
-
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-            override fun afterTextChanged(s: Editable?) {
-                setViewVisible(savebutton)
-            }
-        }
-
-        // Add TextWatcher to each EditText
-        addTextWatcher(nameField,genderField,birthDateField,birthTimeField,locationField,occupationField,relationShipStatusField, textWatcher = textWatcher)
-
-        savebutton.setOnClickListener {
-
-            // Add values to EditProfileJson if changed
-            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name!!)
-            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender!!)
-            updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
-            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place!!)
-            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation!!)
-            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status!!)
-
-            // Save changes
-            userProfile.apply {
-                first_name = nameField.text.toString()
-                gender = genderField.text.toString()
-                birth_day = birthDateField.text.toString()
-                birth_place = locationField.text.toString()
-                occupation = occupationField.text.toString()
-                relationship_status = relationShipStatusField.text.toString()
-            }
-
-            putEditProfileJson(
-                url = urls.editProfileURL,
-                json = editProfileJson,
-                requireContext()
-            )
-            {_,_->}
+        val workerThread = thread(start = true) {
+            nameField.text = userProfile.first_name
+            genderField.text = userProfile.gender
+            birthDateField.text = separateBirthDate(userProfile.birth_day!!)
+            birthTimeField.text = separateBirthTime(userProfile.birth_day!!)
+            locationField.text = userProfile.birth_place
+            occupationField.text = userProfile.occupation
+            relationShipStatusField.text = userProfile.relationship_status
 
             setViewGone(savebutton)
-            parentFragmentManager.popBackStack()
+
+            val textWatcher = object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+                override fun afterTextChanged(s: Editable?) {
+                    setViewVisible(savebutton)
+                }
+            }
+
+            // Add TextWatcher to each EditText
+            addTextWatcher(nameField,genderField,birthDateField,birthTimeField,locationField,occupationField,relationShipStatusField, textWatcher = textWatcher)
         }
+
+
+        val workerThread1 = thread(start = true) {
+            savebutton.setOnClickListener {
+                // Add values to EditProfileJson if changed
+                updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name!!)
+                updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender!!)
+                updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
+                updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place!!)
+                updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation!!)
+                updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status!!)
+
+                // Save changes
+                userProfile.apply {
+                    first_name = nameField.text.toString()
+                    gender = genderField.text.toString()
+                    birth_day = birthDateField.text.toString()
+                    birth_place = locationField.text.toString()
+                    occupation = occupationField.text.toString()
+                    relationship_status = relationShipStatusField.text.toString()
+                }
+
+
+                putEditProfileJson(urls.editProfileURL, editProfileJson, requireContext()) {_,_->}
+
+                setViewGone(savebutton)
+                parentFragmentManager.popBackStack()
+            }
+        }
+
 
         backArrow.setOnClickListener { parentFragmentManager.popBackStack() }
 

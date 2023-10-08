@@ -1,5 +1,6 @@
 package com.example.falci
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToSignUpFragment
 import com.example.falci.internalClasses.dataClasses.isFromLoveHoroscope
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userRegister
@@ -77,6 +80,17 @@ class SignUpFragment : Fragment() {
             }
 
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                replaceLoginActivityToSignUpFragment(
+                    parentFragmentManager,
+                    Loginfragment()
+                )
+            }
+        };requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
         return v
     }
 

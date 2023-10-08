@@ -34,6 +34,9 @@ import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
 import com.example.falci.internalClasses.statusCode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 @Suppress("DEPRECATION")
@@ -104,6 +107,7 @@ class ProfileFragment : Fragment() {
 
         editprofilebutton.setOnClickListener {
             // change to editProfile screen if user is logged in
+
             if (authenticated.isLoggedIn){ replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
 
             // change to Login screen if user is not logged in
@@ -183,7 +187,25 @@ class ProfileFragment : Fragment() {
             val planetZodiacJsonFileName = "planet_sign_exp"
             val planetJsonFileName = "planet_exp"
 
-            burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+
+            fun updateUIWithResult(result: String) {
+                requireActivity().runOnUiThread {
+                    // UI üzerinde sonucu güncelleyin
+                    burcExplanationText.text = result
+                }
+            }
+
+//            burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+            fun performLongRunningTask() {
+                GlobalScope.launch(Dispatchers.IO) {
+                    val planetExplanation = getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)
+                    val zodiacExplanation = getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)
+                    val result = " $planetName ; $planetExplanation $planetName ve $sign birlikteliği $zodiacExplanation"
+                    updateUIWithResult(result)
+                }
+            }
+
+            performLongRunningTask()
 
             planetLayouts.forEachIndexed { index, layout ->
                 layout.setOnClickListener {
@@ -267,9 +289,7 @@ class ProfileFragment : Fragment() {
 
 
         showFavHoroscopesLayout.setOnClickListener{
-            activity!!.runOnUiThread {
                 TransitionToFragment.ReplaceActivityToFragment.replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())
-            }
         }
 
 

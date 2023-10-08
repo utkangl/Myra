@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.*
@@ -113,6 +114,14 @@ class Loginfragment : Fragment() {
         changeToSignUp.setOnClickListener {
             replaceLoginActivityToSignUpFragment(parentFragmentManager, SignUpFragment())
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+                startActivity(mainActivityIntent, options.toBundle())
+            }
+        };requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         return v
     }

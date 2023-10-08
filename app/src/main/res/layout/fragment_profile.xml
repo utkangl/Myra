@@ -534,7 +534,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/scrollViewSeparator">
 
-<!--             zodiac image-->
+                <!--             zodiac image-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/planet_horoscope_image_card"
                     android:layout_width="70dp"
@@ -555,7 +555,7 @@
                     </ImageView>
                 </androidx.cardview.widget.CardView>
 
-<!--             zodiac name-->
+                <!--             zodiac name-->
                 <TextView
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
@@ -572,7 +572,7 @@
                     tools:ignore="HardcodedText">
                 </TextView>
 
-<!--             planet image-->
+                <!--             planet image-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/burcexplanationplanet"
                     android:layout_width="70dp"
@@ -592,7 +592,7 @@
 
                 </androidx.cardview.widget.CardView>
 
-<!--             planet name-->
+                <!--             planet name-->
                 <TextView
                     android:id="@+id/burcexplanationplanettext"
                     android:layout_width="wrap_content"
@@ -609,7 +609,7 @@
 
                 </TextView>
 
-<!--             explanation text-->
+                <!--             explanation text-->
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -631,7 +631,7 @@
                     </TextView>
                 </ScrollView>
 
-<!--             back button( visible only when card is open)-->
+                <!--             back button( visible only when card is open)-->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/backArrowCard"
                     android:layout_width="50dp"

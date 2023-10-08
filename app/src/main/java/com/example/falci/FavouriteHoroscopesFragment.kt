@@ -14,6 +14,8 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
+import com.example.falci.internalClasses.TransitionToFragment
+import kotlin.concurrent.thread
 
 var navigateBackToProfileActivity = false
 var navigateToFavs = false
@@ -36,9 +38,9 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         val getFavsFuncs = GetFavsFuncs()
 
-        activity!!.runOnUiThread {
-            getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout )
-        }
+        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout )
+
+
 
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -29,7 +29,6 @@ class ChatFuncs {
             override fun onFailure(call: Call, e: IOException) {
                 println("exception $e")
             }
-
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body()?.string()
                 statusCode = response.code()
@@ -49,12 +48,9 @@ class ChatFuncs {
                         }
                     }
                 }
-
                 if (statusCode == 200){
                     println("code 200")
-
                     activity.runOnUiThread {
-
                         val welcomeMessage = ChatMessage(getHoroscopeData.summary.toString(), false)
                         messages.add(welcomeMessage)
                         val jsonResponse = responseBody?.let { JSONObject(it) }
@@ -72,9 +68,7 @@ class ChatFuncs {
                             if (owner == "assistant") {
                                 oldMessages.add(ChatMessage(oldMessage, false))
                             }
-
                         }
-
                         for (oldMessage in oldMessages){
                             messages.add(oldMessage)
                         }
@@ -84,13 +78,7 @@ class ChatFuncs {
                             chatAdapter.notifyDataSetChanged()
                             chatListView.smoothScrollToPosition(messages.size - 1)
                         }
-
-
                     }
-                }
-
-                if (statusCode == 404){
-                    println("404 not found")
                 }
             }
         })
