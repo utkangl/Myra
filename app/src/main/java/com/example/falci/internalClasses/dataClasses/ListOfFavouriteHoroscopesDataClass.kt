@@ -3,7 +3,7 @@ package com.example.falci.internalClasses.dataClasses
 
 data class ListOfFavouriteHoroscopesDataClass(
     val count: Int,
-    val next: String?,
+    var next: String?,
     val previous: String?,
     val results: List<FortuneItem>
 )

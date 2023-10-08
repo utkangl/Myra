@@ -10,13 +10,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.LottieAnimationView
-import com.example.falci.FavCardView
-import com.example.falci.MainActivity
-import com.example.falci.R
+import com.example.falci.*
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.dataClasses.*
-import com.example.falci.navigateBackToProfileActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
@@ -25,28 +22,28 @@ import okhttp3.Response
 
 class GetFavsFuncs {
 
-     fun getFavouriteHoroscopes(animationView: LottieAnimationView,context: Context, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton,favHoroscopeLinearLayout: LinearLayout) {
+     fun getFavouriteHoroscopes(animationView: LottieAnimationView,context: Context, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton,favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String) {
         val gson = Gson()
         val client = OkHttpClient()
-        val request = createFavouriteHoroscopeRequest()
+        val request = createFavouriteHoroscopeRequest(getFavsUrl)
 
         CoroutineScope(Dispatchers.IO).launch {
             showLoadingAnimation(animationView)
             val response = client.newCall(request).execute()
             val getFavsStatusCode = response.code()
-            println("code $getFavsStatusCode")
 
             when (getFavsStatusCode) {
-                401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout)
+                401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout, getFavsUrl)
                 200 -> handleSuccessfulResponse(response, gson, animationView,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,context)
                 else -> println("Response code was: $getFavsStatusCode")
             }
         }
     }
 
-    private fun createFavouriteHoroscopeRequest(): Request {
+    private fun createFavouriteHoroscopeRequest(getFavsUrl: String): Request {
+        println("cagirildim")
         return Request.Builder()
-            .url(urls.favouriteHoroscopeURL)
+            .url(getFavsUrl)
             .get()
             .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
             .build()
@@ -59,12 +56,12 @@ class GetFavsFuncs {
         }
     }
 
-    private  fun handleUnauthorized(animationView: LottieAnimationView, context: Context,searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout) {
+    private  fun handleUnauthorized(animationView: LottieAnimationView, context: Context,searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String) {
         println("unauthorized 401, taking new access token")
         takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
             if (responseBody401 != null) {
                 println(tokensDataClass.accessToken)
-                getFavouriteHoroscopes(animationView,context, searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout)
+                getFavouriteHoroscopes(animationView,context, searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,getFavsUrl)
             } else {
                 println(exception)
             }
@@ -81,17 +78,17 @@ class GetFavsFuncs {
         context: Context
     ) {
         val responseBody = response.body()?.string()
-        delay(2000)
+        delay(100)
 
         animationView.post {
             setViewGone(animationView)
             animationView.cancelAnimation()
         }
 
-        val listOfFavouriteHoroscopes =
-            gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
+        listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
 
         searchAndDisplayFilteredResults(listOfFavouriteHoroscopes,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,context)
+
     }
 
     private  fun searchAndDisplayFilteredResults(
@@ -139,10 +136,14 @@ class GetFavsFuncs {
             }
         }
         CoroutineScope(Dispatchers.Main).launch {
-            for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
-                val fortuneItem = listOfFavouriteHoroscopes.results[i]
-                createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-            }
+            if (numOfCards < listOfFavouriteHoroscopes.count){
+                for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
+                    val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                    createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                    numOfCards += 1
+                    println(numOfCards)
+                }
+            } else println("maksimum count sayısına ulaşıldı cound: ${listOfFavouriteHoroscopes.count}")
         }
     }
 
@@ -165,7 +166,7 @@ class GetFavsFuncs {
         )
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
-        favCardView.startAnimation(animation)
+        //favCardView.startAnimation(animation)
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {

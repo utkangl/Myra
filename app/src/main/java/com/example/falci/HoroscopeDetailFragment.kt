@@ -98,6 +98,7 @@ class HoroscopeDetailFragment : Fragment() {
                         favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
                         getHoroscopeData.is_favourite = true
                         favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
+                        getHoroscopeData.favourite_id = favouriteHoroscope.id
                         requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show() }
                     }
                     if (statusCode == 208){
@@ -121,10 +122,11 @@ class HoroscopeDetailFragment : Fragment() {
             }
             // if already fav, destroy on click
             if (getHoroscopeData.is_favourite){
+                println("favori mi ? ${getHoroscopeData.is_favourite}")
 
                 favouriteHoroscope.id = getHoroscopeData.favourite_id
 
-                println("fav horoscope id: ${favouriteHoroscope.id}")
+                println("destroya giden fav horoscope id: ${favouriteHoroscope.id}")
 
                 fun destroyFavHoroscope(){
                     if (favouriteHoroscope.id != null){

@@ -14,11 +14,12 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
-import com.example.falci.internalClasses.TransitionToFragment
-import kotlin.concurrent.thread
+import com.example.falci.internalClasses.dataClasses.listOfFavouriteHoroscopes
+import com.example.falci.internalClasses.dataClasses.urls
 
 var navigateBackToProfileActivity = false
 var navigateToFavs = false
+var numOfCards = 0
 
 class FavouriteHoroscopesFragment : Fragment() {
 
@@ -30,6 +31,8 @@ class FavouriteHoroscopesFragment : Fragment() {
         // Inflate the layout for this fragment
         val v =  inflater.inflate(R.layout.fragment_favourite_horoscopes, container, false)
 
+        numOfCards = 0
+
         val favHoroscopeLinearLayout = v.findViewById<LinearLayout>(R.id.favourite_horoscopes_linearlayout)
         val favHoroscopeLoadingAnimation = v.findViewById<LottieAnimationView>(R.id.favHoroscopeLoadingAnimation)
         val searchFavHoroscope = v.findViewById<EditText>(R.id.searchFavHoroscope)
@@ -38,14 +41,27 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         val getFavsFuncs = GetFavsFuncs()
 
-        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout )
-
+        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL )
 
 
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
             false
+        }
+
+        favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = favouriteHoroscopesScrollview.scrollY
+            val scrollViewHeight = favouriteHoroscopesScrollview.height
+            val contentViewHeight = favouriteHoroscopesScrollview.getChildAt(0).height
+
+
+            if (contentViewHeight - scrollY - scrollViewHeight <= 300) {
+                if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count){
+                    println("selam ben burdayım")
+                    getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, listOfFavouriteHoroscopes.next!!);
+                }
+            }
         }
 
         // create callback variable which will handle onBackPressed and navigate to main activity
