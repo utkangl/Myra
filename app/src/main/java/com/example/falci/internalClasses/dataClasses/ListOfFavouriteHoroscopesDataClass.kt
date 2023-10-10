@@ -5,7 +5,7 @@ data class ListOfFavouriteHoroscopesDataClass(
     val count: Int,
     var next: String?,
     val previous: String?,
-    val results: List<FortuneItem>
+    val results: MutableList<FortuneItem>
 )
 
 data class FortuneItem(
@@ -37,5 +37,5 @@ var listOfFavouriteHoroscopes = ListOfFavouriteHoroscopesDataClass(
     count = 0,
     next = null,
     previous = null,
-    results = emptyList()
+    results = mutableListOf()
 )

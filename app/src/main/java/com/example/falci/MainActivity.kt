@@ -110,12 +110,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         backArrow.setOnClickListener { setViewVisible(clickToGetHoroscopeText); animationHelper.animateBurcCardOut()}                                             // if backArrow is clicked close the card and make the clickToGetHoroscopeText visible
-        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign); postHoroscopeData.type ="general"; isFromLoveHoroscope = false}  //make burcCard larger and set postHoroscopeData's type to general
-        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign); postHoroscopeData.type ="love"; isFromLoveHoroscope = true}           //make burcCard larger and set postHoroscopeData's type to love
-        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign); postHoroscopeData.type ="career"; isFromLoveHoroscope = false}   //make burcCard larger and set postHoroscopeData's type to career
-        dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton); postHoroscopeData.time_interval ="daily" }                    //make burcCard larger and set postHoroscopeData's time interval to daily
-        monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton); postHoroscopeData.time_interval ="monthly"}              //make burcCard larger and set postHoroscopeData's time interval to monthly
-        yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton); postHoroscopeData.time_interval ="yearly"}                //make burcCard larger and set postHoroscopeData's time interval to yearly
+        generalSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(generalSign, animationHelper); postHoroscopeData.type ="general"; isFromLoveHoroscope = false}  //make burcCard larger and set postHoroscopeData's type to general
+        loveSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(loveSign, animationHelper); postHoroscopeData.type ="love"; isFromLoveHoroscope = true}           //make burcCard larger and set postHoroscopeData's type to love
+        careerSign.setOnClickListener { signCardViewUpdater.updateUIForCardClick(careerSign, animationHelper); postHoroscopeData.type ="career"; isFromLoveHoroscope = false}   //make burcCard larger and set postHoroscopeData's type to career
+        dailyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(dailyButton, animationHelper); postHoroscopeData.time_interval ="daily" }                    //make burcCard larger and set postHoroscopeData's time interval to daily
+        monthlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(monthlyButton,animationHelper); postHoroscopeData.time_interval ="monthly"}              //make burcCard larger and set postHoroscopeData's time interval to monthly
+        yearlyButton.setOnClickListener { periodButtonViewUpdater.updateButtonView(yearlyButton,animationHelper); postHoroscopeData.time_interval ="yearly"}                //make burcCard larger and set postHoroscopeData's time interval to yearly
 
         settingsButton.setOnClickListener{
             // when user clicks to profile button and if user is logged in, get profile informations

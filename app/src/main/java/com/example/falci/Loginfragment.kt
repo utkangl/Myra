@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -35,7 +34,6 @@ class Loginfragment : Fragment() {
 
         val changeToSignUp = v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
         val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginFragmentNextButton)
-        val remembermeCheckBox = v.findViewById<CheckBox>(R.id.remembermeCheckBox)
 
         usernameEditText = v.findViewById(R.id.loginFragmentUsername)
         passwordEditText = v.findViewById(R.id.loginFragmentPassword)
@@ -45,15 +43,6 @@ class Loginfragment : Fragment() {
         if (authenticated.isFromSignIn){
             usernameEditText.setText(userRegister.email)
             passwordEditText.setText(userRegister.password)
-        }
-
-        remembermeCheckBox.setOnCheckedChangeListener { _, isRememberMeTrue ->
-            if (isRememberMeTrue){
-                authenticated.rememberMe = true
-                requireActivity().runOnUiThread { Toast.makeText(requireContext(), "remember me is true", Toast.LENGTH_SHORT).show()}
-            } else requireActivity().runOnUiThread { Toast.makeText(requireContext(), "remember me is false", Toast.LENGTH_SHORT).show()}
-
-
         }
 
         // assign user inputs to vars, create jsonObject w/ this vars, post them, handle response
@@ -69,7 +58,7 @@ class Loginfragment : Fragment() {
             )
 
             // post login json object, and handle the response for errors and success
-            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson, ) { responseBody, _ ->
+            AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson) { responseBody, _ ->
                 println("response $responseBody")
 
                    // if response code is 200 success, toast successfully login,
@@ -83,21 +72,13 @@ class Loginfragment : Fragment() {
                         authenticated.isFromSignIn = false
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val intent = Intent(requireActivity(), MainActivity::class.java);startActivity(intent, options.toBundle())
-
                         val sharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
                         val editor = sharedPreferences.edit()
-
                         editor.putLong("token_creation_time", tokensDataClass.tokensCreatedAt)
                         editor.putString("refresh_token", tokensDataClass.refreshToken)
-
-                        if (authenticated.rememberMe){
-                            editor.putString("access_token", tokensDataClass.accessToken)
-                            editor.putBoolean("didLogin", true)
-                        }
-
+                        editor.putString("access_token", tokensDataClass.accessToken)
+                        editor.putBoolean("didLogin", true)
                         editor.apply()
-
-
                     }
                 }
 

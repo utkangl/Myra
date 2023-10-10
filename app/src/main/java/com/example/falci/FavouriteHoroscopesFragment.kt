@@ -14,7 +14,6 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
-import com.example.falci.internalClasses.dataClasses.listOfFavouriteHoroscopes
 import com.example.falci.internalClasses.dataClasses.urls
 
 var navigateBackToProfileActivity = false
@@ -41,7 +40,7 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         val getFavsFuncs = GetFavsFuncs()
 
-        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL )
+        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL,favouriteHoroscopesScrollview )
 
 
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
@@ -49,21 +48,7 @@ class FavouriteHoroscopesFragment : Fragment() {
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
             false
         }
-
-        favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = favouriteHoroscopesScrollview.scrollY
-            val scrollViewHeight = favouriteHoroscopesScrollview.height
-            val contentViewHeight = favouriteHoroscopesScrollview.getChildAt(0).height
-
-
-            if (contentViewHeight - scrollY - scrollViewHeight <= 300) {
-                if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count){
-                    println("selam ben burdayım")
-                    getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, listOfFavouriteHoroscopes.next!!);
-                }
-            }
-        }
-
+        
         // create callback variable which will handle onBackPressed and navigate to main activity
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

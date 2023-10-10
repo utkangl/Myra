@@ -3,7 +3,6 @@ package com.example.falci
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -347,9 +346,16 @@ class CompleteProfile : AppCompatActivity() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (step == 0){
-                    val options = ActivityOptions.makeCustomAnimation(applicationContext, R.anim.activity_slide_down, 0)
-                    val intent = Intent(applicationContext, LoginSignupActivity::class.java);startActivity(intent, options.toBundle())
-                    navigateToSignUp = true
+                    navigateToSignUp = if (isFromLoveHoroscope){
+                        val options = ActivityOptions.makeCustomAnimation(applicationContext, R.anim.activity_slide_down, 0)
+                        val intent = Intent(applicationContext, MainActivity::class.java);startActivity(intent, options.toBundle())
+                        false
+                    } else {
+                        val options = ActivityOptions.makeCustomAnimation(applicationContext, R.anim.activity_slide_down, 0)
+                        val intent = Intent(applicationContext, LoginSignupActivity::class.java);startActivity(intent, options.toBundle())
+                        true
+                    }
+
                 }
 
                 if (step == 1){

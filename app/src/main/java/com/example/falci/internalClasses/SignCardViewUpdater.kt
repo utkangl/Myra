@@ -40,9 +40,10 @@ class SignCardViewUpdater(private val context: Context) {
         this.learnYourBurcButton = learnYourBurcButton
     }
 
-    fun updateUIForCardClick(selectedCard: View) {
+    fun updateUIForCardClick(selectedCard: View, animationHelper: AnimationHelper) {
         val scale = context.resources.displayMetrics.density
         val newHeight = (680 * scale + 0.5f).toInt()
+        val newWidth = (370 * scale + 0.5f).toInt()
         val newMarginBottom = (105 * scale + 0.5f).toInt()
 //        val burcCardMarginBottom = (-270 * scale + 0.5f).toInt()
         val dailyButtonMarginBottom = (25 * scale + 0.5f).toInt()
@@ -55,25 +56,33 @@ class SignCardViewUpdater(private val context: Context) {
         val monthlyButtonParams = monthlyButton.layoutParams as RelativeLayout.LayoutParams
         val yearlyButtonParams = yearlyButton.layoutParams as RelativeLayout.LayoutParams
 
-        burcCardParams.height = newHeight
-        burcCardParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+        animationHelper.animateBurcCardSize(newWidth,newHeight,
+        {
+            burcCardParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+            burcCard.layoutParams = burcCardParams
 
+            setViewGone(learnYourBurcButton)
+        },
+        {
 
-        generalSignCardParams.bottomMargin = newMarginBottom
-        loveSignCardParams.bottomMargin = newMarginBottom
-        careerSignCardParams.bottomMargin = newMarginBottom
+            generalSignCardParams.bottomMargin = newMarginBottom
+            loveSignCardParams.bottomMargin = newMarginBottom
+            careerSignCardParams.bottomMargin = newMarginBottom
+            generalSign.layoutParams = generalSignCardParams
+            loveSign.layoutParams = loveSignCardParams
+            careerSign.layoutParams = careerSignCardParams
 
-        dailyButtonParams.bottomMargin = dailyButtonMarginBottom
-        monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
-        yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            dailyButton.layoutParams = dailyButtonParams
+            monthlyButton.layoutParams = monthlyButtonParams
+            yearlyButton.layoutParams = yearlyButtonParams
 
-        burcCard.layoutParams = burcCardParams
-        generalSign.layoutParams = generalSignCardParams
-        loveSign.layoutParams = loveSignCardParams
-        careerSign.layoutParams = careerSignCardParams
-        dailyButton.layoutParams = dailyButtonParams
-        monthlyButton.layoutParams = monthlyButtonParams
-        yearlyButton.layoutParams = yearlyButtonParams
+            setViewVisible(dailyButton, monthlyButton, yearlyButton)
+
+        })
+
 
         generalSign.setCardBackgroundColor(getColor(context, R.color.passive_sign_card))
         loveSign.setCardBackgroundColor(getColor(context, R.color.passive_sign_card))
@@ -90,9 +99,6 @@ class SignCardViewUpdater(private val context: Context) {
                 R.color.name_input_background
             ))
         }
-
-        setViewVisible(dailyButton, monthlyButton, yearlyButton)
-        setViewGone(learnYourBurcButton)
 
         dailyButton.setBackgroundResource(R.drawable.button_passive)
         monthlyButton.setBackgroundResource(R.drawable.button_passive)

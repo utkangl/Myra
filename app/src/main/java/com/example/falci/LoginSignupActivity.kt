@@ -13,9 +13,11 @@ class LoginSignupActivity : AppCompatActivity() {
         if (!navigateToSignUp) replaceLoginActivityToFragment(supportFragmentManager, Loginfragment())
 
 
-        if (navigateToSignUp)
+        if (navigateToSignUp){
             replaceLoginActivityToFragment(supportFragmentManager, SignUpFragment())
             navigateToSignUp = false
+        }
+
 
     }
 

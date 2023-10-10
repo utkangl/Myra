@@ -24,7 +24,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         var didLogin = tokensSharedPreferences.getBoolean("didLogin",false) // this boolean is true when user checks remember me checkbox
 
         val currentTime = System.currentTimeMillis() / 1000
-        if(currentTime - savedTokenCreationTime > 1800){ didLogin = false } // refresh token lasts 30 minutes
+        if(currentTime - savedTokenCreationTime > 600000){ didLogin = false } // refresh token lasts 30 minutes
 
         // if didLogin is true and the token in sharedPreferences is not null or empty
         if (didLogin && !savedAccessToken.isNullOrEmpty()){

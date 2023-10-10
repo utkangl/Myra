@@ -21,8 +21,9 @@ import okhttp3.Request
 import okhttp3.Response
 
 class GetFavsFuncs {
-
-     fun getFavouriteHoroscopes(animationView: LottieAnimationView,context: Context, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton,favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String) {
+var loadMore = true
+private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
+     fun getFavouriteHoroscopes(animationView: LottieAnimationView,context: Context, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton,favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String, favouriteHoroscopesScrollview: ScrollView) {
         val gson = Gson()
         val client = OkHttpClient()
         val request = createFavouriteHoroscopeRequest(getFavsUrl)
@@ -33,15 +34,29 @@ class GetFavsFuncs {
             val getFavsStatusCode = response.code()
 
             when (getFavsStatusCode) {
-                401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout, getFavsUrl)
-                200 -> handleSuccessfulResponse(response, gson, animationView,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,context)
+                401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout, getFavsUrl,favouriteHoroscopesScrollview)
+                200 -> {
+                    handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context)
+                    favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
+                        val scrollY = favouriteHoroscopesScrollview.scrollY
+                        val scrollViewHeight = favouriteHoroscopesScrollview.height
+                        val contentViewHeight = favouriteHoroscopesScrollview.getChildAt(0).height
+                        if (contentViewHeight - scrollY - scrollViewHeight <= 100) {
+                            if (listOfFavouriteHoroscopes.next.isNullOrEmpty()) println("this is the last page")
+                            if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count && loadMore){
+                                println(listOfFavouriteHoroscopes.next)
+                                getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, listOfFavouriteHoroscopes.next!!, favouriteHoroscopesScrollview)
+                                loadMore = false
+                            }
+                        }
+                    }
+                }
                 else -> println("Response code was: $getFavsStatusCode")
             }
         }
     }
 
     private fun createFavouriteHoroscopeRequest(getFavsUrl: String): Request {
-        println("cagirildim")
         return Request.Builder()
             .url(getFavsUrl)
             .get()
@@ -56,12 +71,11 @@ class GetFavsFuncs {
         }
     }
 
-    private  fun handleUnauthorized(animationView: LottieAnimationView, context: Context,searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String) {
-        println("unauthorized 401, taking new access token")
+    private  fun handleUnauthorized(animationView: LottieAnimationView, context: Context,searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String,favouriteHoroscopesScrollview: ScrollView) {
         takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
             if (responseBody401 != null) {
                 println(tokensDataClass.accessToken)
-                getFavouriteHoroscopes(animationView,context, searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,getFavsUrl)
+                getFavouriteHoroscopes(animationView,context, searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,getFavsUrl, favouriteHoroscopesScrollview)
             } else {
                 println(exception)
             }
@@ -85,10 +99,19 @@ class GetFavsFuncs {
             animationView.cancelAnimation()
         }
 
+        // Parse the response and update the listOfFavouriteHoroscopes
         listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
+        allFavouriteHoroscopes.addAll(listOfFavouriteHoroscopes.results)
+        println(" size bu: ${allFavouriteHoroscopes.size}")
+        loadMore = true
 
-        searchAndDisplayFilteredResults(listOfFavouriteHoroscopes,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,context)
-
+        searchAndDisplayFilteredResults(
+            listOfFavouriteHoroscopes,
+            searchFavHoroscope,
+            cancelFavSearchFilter,
+            favHoroscopeLinearLayout,
+            context
+        )
     }
 
     private  fun searchAndDisplayFilteredResults(
@@ -111,7 +134,6 @@ class GetFavsFuncs {
                         }
                     }
                 }
-
                 true
             } else {
                 false
@@ -124,8 +146,7 @@ class GetFavsFuncs {
                 val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
                 CoroutineScope(Dispatchers.Main).launch {
-                    for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
-                        val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                    for (fortuneItem in allFavouriteHoroscopes.reversed()) {
                         createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
                     }
                 }
@@ -136,14 +157,12 @@ class GetFavsFuncs {
             }
         }
         CoroutineScope(Dispatchers.Main).launch {
-            if (numOfCards < listOfFavouriteHoroscopes.count){
                 for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
                     val fortuneItem = listOfFavouriteHoroscopes.results[i]
                     createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                    println(fortuneItem.id)
                     numOfCards += 1
-                    println(numOfCards)
                 }
-            } else println("maksimum count sayısına ulaşıldı cound: ${listOfFavouriteHoroscopes.count}")
         }
     }
 

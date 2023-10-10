@@ -10,10 +10,11 @@ import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 
 class PeriodButtonViewUpdater(private val context: Context) {
-    fun updateButtonView(button: Button) {
+    fun  updateButtonView(button: Button, animationHelper: AnimationHelper) {
         val scale = context.resources.displayMetrics.density
 
         val newHeight = (780 * scale + 0.5f).toInt()
+        val newWidth = (370 * scale + 0.5f).toInt()
 //        val burcCardMarginBottom = (-370 * scale + 0.5f).toInt()
         val dailyButtonMarginBottom = (125 * scale + 0.5f).toInt()
         val signsMarginBottom = (205 * scale + 0.5f).toInt()
@@ -36,28 +37,35 @@ class PeriodButtonViewUpdater(private val context: Context) {
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
         val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
 
-        burcCardParams.height = newHeight
+
+        animationHelper.animateBurcCardSize(newWidth,newHeight,{
+
+        }, {
+            setViewVisible(learnYourBurcButton)
+            burcCardParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
+            dailyButtonParams.bottomMargin = dailyButtonMarginBottom
+            monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
+            generalSignParams.bottomMargin = signsMarginBottom
+            loveSignParams.bottomMargin = signsMarginBottom
+            careerSignParams.bottomMargin = signsMarginBottom
+
+            burcCard.layoutParams = burcCardParams
+            dailyButton.layoutParams = dailyButtonParams
+            generalSign.layoutParams = generalSignParams
+            loveSign.layoutParams = loveSignParams
+            careerSign.layoutParams = careerSignParams
+        })
+
+        //burcCardParams.height = newHeight
 //        burcCardParams.bottomMargin = burcCardMarginBottom
-        burcCardParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
 
 
-        dailyButtonParams.bottomMargin = dailyButtonMarginBottom
-        monthlyButtonParams.bottomMargin = dailyButtonMarginBottom
-        yearlyButtonParams.bottomMargin = dailyButtonMarginBottom
-        generalSignParams.bottomMargin = signsMarginBottom
-        loveSignParams.bottomMargin = signsMarginBottom
-        careerSignParams.bottomMargin = signsMarginBottom
 
-        burcCard.layoutParams = burcCardParams
-        dailyButton.layoutParams = dailyButtonParams
-        generalSign.layoutParams = generalSignParams
-        loveSign.layoutParams = loveSignParams
-        careerSign.layoutParams = careerSignParams
 
         dailyButton.setBackgroundResource(if (button == dailyButton) R.drawable.common_next_button else R.drawable.button_passive)
         monthlyButton.setBackgroundResource(if (button == monthlyButton) R.drawable.common_next_button else R.drawable.button_passive)
         yearlyButton.setBackgroundResource(if (button == yearlyButton) R.drawable.common_next_button else R.drawable.button_passive)
 
-        setViewVisible(learnYourBurcButton)
     }
 }

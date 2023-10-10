@@ -99,7 +99,7 @@ class AnimationHelper(private val context: Context) {
         setSignCardBackgroundColor(getColor(context, R.color.passive_sign_card))
     }
 
-    private fun animateBurcCardSize(newWidth: Int, newHeight: Int, onAnimationStart: () -> Unit, onAnimationEnd: () -> Unit) {
+     fun animateBurcCardSize(newWidth: Int, newHeight: Int, onAnimationStart: () -> Unit, onAnimationEnd: () -> Unit) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
         val animatorWidth = ValueAnimator.ofInt(burcCard.width, newWidth)
@@ -124,12 +124,10 @@ class AnimationHelper(private val context: Context) {
             override fun onAnimationStart(animation: Animator) {
                 onAnimationStart()
             }
-
             override fun onAnimationEnd(animation: Animator) {
                 onAnimationEnd()
             }
         })
-
         animatorSet.start()
     }
 
