@@ -48,7 +48,7 @@ class FavouriteHoroscopesFragment : Fragment() {
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
             false
         }
-        
+
         // create callback variable which will handle onBackPressed and navigate to main activity
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
