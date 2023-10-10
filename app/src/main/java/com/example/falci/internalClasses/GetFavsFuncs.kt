@@ -92,7 +92,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
         context: Context
     ) {
         val responseBody = response.body()?.string()
-        delay(100)
+        delay(1000)
 
         animationView.post {
             setViewGone(animationView)
@@ -185,7 +185,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
         )
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
-        //favCardView.startAnimation(animation)
+        favCardView.startAnimation(animation)
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {

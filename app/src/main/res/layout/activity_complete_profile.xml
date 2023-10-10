@@ -255,14 +255,19 @@
                             android:textSize="24sp">
                         </androidx.appcompat.widget.AppCompatButton>
 
-                        <TimePicker
-                            android:id="@+id/timePick"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
-                            android:layout_height="150dp"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:numbersTextColor="@color/white"
-                            android:timePickerMode="spinner">
-                        </TimePicker>
+                            app:cardBackgroundColor="@color/black">
+                                <TimePicker
+                                    android:id="@+id/timePick"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="150dp"
+                                    android:numbersTextColor="@color/white"
+                                    android:timePickerMode="spinner">
+                                </TimePicker>
+                        </androidx.cardview.widget.CardView>
 
                 </RelativeLayout>
 

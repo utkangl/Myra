@@ -1,12 +1,14 @@
 package com.example.falci
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -14,6 +16,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
@@ -47,6 +50,15 @@ class HoroscopeDetailFragment : Fragment() {
         val horoscopeDetailScroll = v.findViewById<ScrollView>(R.id.horoscopeDetailScroll)
         val favHoroscopeTitleInput = v.findViewById<EditText>(R.id.favHoroscopeTitleInput)
 
+        var inTitleInput = false
+
+        if (getHoroscopeData.time_remaining != null){
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("You can get your new ${postHoroscopeData.time_interval} ${postHoroscopeData.type} horoscope in \n ${getHoroscopeData.time_remaining}")
+            builder.setPositiveButton("Close",null)
+            val dialog = builder.create()
+            dialog.show()
+        }
 
         // create and format horoscope string with the instance of GetHoroscopeData's field
         val horoscope =
@@ -68,15 +80,19 @@ class HoroscopeDetailFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
-                if (navigateBackToProfileActivity){
-                    navigateBackToProfileActivity = false
-                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                    val intent = Intent(requireContext(), ProfileActivity::class.java); startActivity(intent,options.toBundle())
-                    navigateToFavs = true
-                } else{
-                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                    val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
-                    startActivity(mainActivityIntent, options.toBundle())
+                if (inTitleInput){
+                    Toast.makeText(context, "sent your title!!", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (navigateBackToProfileActivity){
+                        navigateBackToProfileActivity = false
+                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                        val intent = Intent(requireContext(), ProfileActivity::class.java); startActivity(intent,options.toBundle())
+                        navigateToFavs = true
+                    } else{
+                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                        val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(mainActivityIntent, options.toBundle())
+                    }
                 }
             }
         }
@@ -101,9 +117,13 @@ class HoroscopeDetailFragment : Fragment() {
 
                 setViewVisible(favTitleInputLayout)
                 setViewGone(horoscopeDetailScroll)
+                inTitleInput = true
 
                 favHoroscopeTitleInput.setOnEditorActionListener { _, actionId, _ ->
                     if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(favHoroscopeTitleInput.windowToken, 0)
+
                         val gson = Gson()
                         createFavouriteHoroscope.title = favHoroscopeTitleInput.text.toString()
                         createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
@@ -140,6 +160,7 @@ class HoroscopeDetailFragment : Fragment() {
                         }
                         setViewGone(favTitleInputLayout)
                         setViewVisible(horoscopeDetailScroll)
+                        inTitleInput = false
 
                         true
                     } else {

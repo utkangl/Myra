@@ -8,16 +8,7 @@
     tools:context=".FavouriteHoroscopesFragment"
     tools:ignore="HardcodedText">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/favHoroscopeLoadingAnimation"
-        android:layout_centerInParent="true"
-        android:layout_width="360dp"
-        android:layout_height="360dp"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/fav_horoscope_loading_animation"
-        tools:layout_editor_absoluteY="0dp"
-        android:visibility="gone">
-    </com.airbnb.lottie.LottieAnimationView>
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -119,4 +110,16 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/favHoroscopeLoadingAnimation"
+        android:layout_centerInParent="true"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fav_horoscope_loading_animation"
+        tools:layout_editor_absoluteY="0dp"
+        android:visibility="gone">
+    </com.airbnb.lottie.LottieAnimationView>
+
 </RelativeLayout>

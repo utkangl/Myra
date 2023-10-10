@@ -3,7 +3,9 @@ package com.example.falci
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.widget.RelativeLayout
+import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.dataClasses.ListOfFavouriteHoroscopesDataClass
 import com.example.falci.internalClasses.dataClasses.listOfFavouriteHoroscopes
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
@@ -17,6 +19,7 @@ class FavCardView @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     init {
         LayoutInflater.from(context).inflate(R.layout.fav_card_view, this, true)
+
 
     }
 
