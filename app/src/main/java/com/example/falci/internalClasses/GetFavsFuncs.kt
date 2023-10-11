@@ -1,5 +1,6 @@
 package com.example.falci.internalClasses
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
@@ -11,6 +12,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.*
+import com.example.falci.HoroscopeDetailFragment.DestroyFavHoroscope.destroyFavHoroscope
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.dataClasses.*
@@ -160,7 +162,6 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
                 for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
                     val fortuneItem = listOfFavouriteHoroscopes.results[i]
                     createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-                    println(fortuneItem.id)
                     numOfCards += 1
                 }
         }
@@ -173,6 +174,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
     ) {
         val summary = fortuneItem.fortune?.prompt?.summary
         val favCardView = FavCardView(context)
+        val swipeDeleteButton = favCardView.findViewById<ImageButton>(R.id.swipe_delete_image_button)
         val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
         val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
 
@@ -203,5 +205,14 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
             val intent = Intent(context, MainActivity::class.java)
             startActivity(context, intent, options.toBundle())
         }
+
+        swipeDeleteButton.setOnClickListener{
+            val favHoroscopeId = fortuneItem.id
+            println(favHoroscopeId)
+            destroyFavHoroscope(context = context, activity = Activity(), favouriteThisHoroscope = null, favHoroscopeId = favHoroscopeId)
+            favHoroscopeLinearLayout.removeView(favCardView)
+        }
+
+
     }
 }

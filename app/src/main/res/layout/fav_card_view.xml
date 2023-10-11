@@ -2,16 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
     tools:ignore="HardcodedText"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:id="@+id/swipe_delete_image_button"
+        android:src="@drawable/trash_can"
+        android:background="@drawable/delete_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="delete fav card background"
+        android:visibility="gone">
+    </ImageButton>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:id="@+id/favCard"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="match_parent"

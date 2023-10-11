@@ -46,7 +46,9 @@ class FavouriteHoroscopesFragment : Fragment() {
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-            false
+
+
+
         }
 
         // create callback variable which will handle onBackPressed and navigate to main activity
