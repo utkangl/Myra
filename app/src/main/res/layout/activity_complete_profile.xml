@@ -268,7 +268,6 @@
                                     android:timePickerMode="spinner">
                                 </TimePicker>
                         </androidx.cardview.widget.CardView>
-
                 </RelativeLayout>
 
                 <!--birthDatePick container-->

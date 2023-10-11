@@ -3,11 +3,11 @@ package com.example.falci
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
@@ -48,8 +48,7 @@ class CompleteProfile : AppCompatActivity() {
 
         val namePick = findViewById<EditText>(R.id.namePick)
         val genderPick = findViewById<Spinner>(R.id.genderPick)
-        val datePick = findViewById<DatePicker>(R.id.datePick)
-        val timePick = findViewById<TimePicker>(R.id.timePick)
+
         val locationPick= findViewById<AppCompatButton>(R.id.locationPick)
         val occupationPick= findViewById<Spinner>(R.id.occupationPick)
         val relationPick= findViewById<Spinner>(R.id.relationPick)
@@ -64,8 +63,11 @@ class CompleteProfile : AppCompatActivity() {
         val star6 = findViewById<StarShape>(R.id.star6)
         val star7 = findViewById<StarShape>(R.id.star7)
 
-
         var allowNext = false
+
+        val timePick = findViewById<TimePicker>(R.id.timePick)
+        val datePick = findViewById<DatePicker>(R.id.datePick)
+
 
 
         // multiple spinner will be used in that screen, this function aims to reduce repeating code
