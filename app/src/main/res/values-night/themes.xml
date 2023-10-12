@@ -12,6 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#FF5b54b1</item>
         <!-- Customize your theme here. -->
-
+        <item name="fontFamily">@font/arima_madurai_light</item>
     </style>
 </resources>

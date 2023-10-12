@@ -98,6 +98,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="0dp"
         android:padding="8dp"
+        android:scrollbars="none"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout

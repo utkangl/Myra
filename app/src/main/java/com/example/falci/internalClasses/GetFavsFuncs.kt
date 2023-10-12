@@ -4,13 +4,13 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.iterator
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.*
 import com.example.falci.HoroscopeDetailFragment.DestroyFavHoroscope.destroyFavHoroscope
@@ -39,6 +39,8 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
                 401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout, getFavsUrl,favouriteHoroscopesScrollview)
                 200 -> {
                     handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context)
+
+                    var lastScrollY = 0
                     favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
                         val scrollY = favouriteHoroscopesScrollview.scrollY
                         val scrollViewHeight = favouriteHoroscopesScrollview.height
@@ -52,12 +54,24 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
                             }
                         }
 
+                        for (i in 0 until favHoroscopeLinearLayout.childCount) {
+                            val childView: View = favHoroscopeLinearLayout.getChildAt(i)
+                            println(scrollY - lastScrollY)
+                            if (childView is FavCardView && scrollY - lastScrollY > 4
+
+                            ) {
+                                if (swipeBack) {
+                                    SwipeBack.swipeBack(childView)
+                                }
+                            }
+                        }
+                        lastScrollY = scrollY
                     }
-                }
-                else -> println("Response code was: $getFavsStatusCode")
+                }; else -> println("Response code was: $getFavsStatusCode")
             }
         }
     }
+
 
     private fun createFavouriteHoroscopeRequest(getFavsUrl: String): Request {
         return Request.Builder()
@@ -192,19 +206,21 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {
-            getHoroscopeData.id = fortuneItem.fortune?.id
-            getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
-            getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
-            getHoroscopeData.bad = fortuneItem.fortune?.prompt?.bad
-            getHoroscopeData.summary = fortuneItem.fortune?.prompt?.summary
-            getHoroscopeData.is_favourite = true
-            getHoroscopeData.favourite_id = fortuneItem.id
-            navigateToHoroscope = true
-            navigateBackToProfileActivity = true
-
-            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-            val intent = Intent(context, MainActivity::class.java)
-            startActivity(context, intent, options.toBundle())
+            if (!swipeBack){
+                getHoroscopeData.id = fortuneItem.fortune?.id
+                getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
+                getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
+                getHoroscopeData.bad = fortuneItem.fortune?.prompt?.bad
+                getHoroscopeData.summary = fortuneItem.fortune?.prompt?.summary
+                getHoroscopeData.is_favourite = true
+                getHoroscopeData.favourite_id = fortuneItem.id
+                navigateToHoroscope = true
+                navigateBackToProfileActivity = true
+                swipeBack = false
+                val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(context, intent, options.toBundle())
+            } else println("swipeBack was true, cant navigate to horoscope")
         }
 
         swipeDeleteButton.setOnClickListener{
@@ -212,6 +228,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
             println(favHoroscopeId)
             destroyFavHoroscope(context = context, activity = Activity(), favouriteThisHoroscope = null, favHoroscopeId = favHoroscopeId)
             favHoroscopeLinearLayout.removeView(favCardView)
+            swipeBack = false
         }
 
 

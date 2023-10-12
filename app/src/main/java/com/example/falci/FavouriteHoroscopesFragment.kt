@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.iterator
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
 import com.example.falci.internalClasses.dataClasses.urls
@@ -29,20 +28,27 @@ class FavouriteHoroscopesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v =  inflater.inflate(R.layout.fragment_favourite_horoscopes, container, false)
+        val v = inflater.inflate(R.layout.fragment_favourite_horoscopes, container, false)
 
         numOfCards = 0
 
         val favHoroscopeLinearLayout = v.findViewById<LinearLayout>(R.id.favourite_horoscopes_linearlayout)
-        val favouritesScreenContainer = v.findViewById<RelativeLayout>(R.id.favouritesScreenContainer)
         val favHoroscopeLoadingAnimation = v.findViewById<LottieAnimationView>(R.id.favHoroscopeLoadingAnimation)
         val searchFavHoroscope = v.findViewById<EditText>(R.id.searchFavHoroscope)
-        val cancelFavSearchFilter = v.findViewById< ImageButton>(R.id.cancelFavSearchFilter)
-        val favouriteHoroscopesScrollview = v.findViewById< ScrollView>(R.id.favourite_horoscopes_scrollview)
+        val cancelFavSearchFilter = v.findViewById<ImageButton>(R.id.cancelFavSearchFilter)
+        val favouriteHoroscopesScrollview = v.findViewById<ScrollView>(R.id.favourite_horoscopes_scrollview)
 
         val getFavsFuncs = GetFavsFuncs()
 
-        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL,favouriteHoroscopesScrollview )
+        getFavsFuncs.getFavouriteHoroscopes(
+            favHoroscopeLoadingAnimation,
+            requireContext(),
+            searchFavHoroscope,
+            cancelFavSearchFilter,
+            favHoroscopeLinearLayout,
+            urls.favouriteHoroscopeURL,
+            favouriteHoroscopesScrollview
+        )
 
 
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->

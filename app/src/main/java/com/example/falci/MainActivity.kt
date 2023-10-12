@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         //navigate user directly to horoscope, when horoscope mode is love and when user is navigated to main screen from lookup user's complete profile
         if (navigateToHoroscope){
+            println("navigating to horoscope detail")
             replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
             setViewGone(burcCard,settingsButtonCard, miraMainMenu)
             navigateToHoroscope = false
