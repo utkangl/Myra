@@ -11,12 +11,9 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         // directly navigate to profile fragment when this activity is created
-
         println(navigateToFavs)
         if (!navigateToFavs) replaceProfileActivityToFragment(supportFragmentManager, ProfileFragment())
-
         if (navigateToFavs)  replaceProfileActivityToFragment(supportFragmentManager, FavouriteHoroscopesFragment()); navigateToFavs = false
-
     }
 
      // when user press back button, simply go back if there are fragments in the backstack

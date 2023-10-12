@@ -24,7 +24,7 @@ import com.example.falci.internalClasses.AuthenticationFunctions
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
-import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
@@ -113,9 +113,8 @@ class HoroscopeDetailFragment : Fragment() {
             println("favori mi ? ${getHoroscopeData.is_favourite}")
 
             if (!getHoroscopeData.is_favourite){
+                setViewVisibleWithAnimation(requireContext(), favTitleInputLayout)
 
-                setViewVisible(favTitleInputLayout)
-                setViewGone(horoscopeDetailScroll)
                 inTitleInput = true
 
                 favHoroscopeTitleInput.setOnEditorActionListener { _, actionId, _ ->
@@ -137,7 +136,11 @@ class HoroscopeDetailFragment : Fragment() {
                                 getHoroscopeData.is_favourite = true
                                 favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
                                 getHoroscopeData.favourite_id = favouriteHoroscope.id
-                                requireActivity().runOnUiThread{ Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show() }
+                                requireActivity().runOnUiThread{
+                                    Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show()
+                                    setViewGone(favTitleInputLayout)
+                                    inTitleInput = false
+                                }
                             }
                             if (statusCode == 208){
                                 println(detail)
@@ -157,9 +160,7 @@ class HoroscopeDetailFragment : Fragment() {
                                 getHoroscopeData.is_favourite = false
                             }
                         }
-                        setViewGone(favTitleInputLayout)
-                        setViewVisible(horoscopeDetailScroll)
-                        inTitleInput = false
+
 
                         true
                     } else {

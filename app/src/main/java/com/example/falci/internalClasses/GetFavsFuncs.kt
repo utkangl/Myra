@@ -24,9 +24,17 @@ import okhttp3.Request
 import okhttp3.Response
 
 class GetFavsFuncs {
-private var loadMore = true
-private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
-     fun getFavouriteHoroscopes(animationView: LottieAnimationView,context: Context, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton,favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String, favouriteHoroscopesScrollview: ScrollView) {
+    private var loadMore = true
+    private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
+    fun getFavouriteHoroscopes(
+        animationView: LottieAnimationView,
+        context: Context,
+        searchFavHoroscope: EditText,
+        cancelFavSearchFilter: ImageButton,
+        favHoroscopeLinearLayout: LinearLayout,
+        getFavsUrl: String,
+        favouriteHoroscopesScrollview: ScrollView
+    ) {
         val gson = Gson()
         val client = OkHttpClient()
         val request = createFavouriteHoroscopeRequest(getFavsUrl)
@@ -36,9 +44,25 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
             val response = client.newCall(request).execute()
 
             when (val getFavsStatusCode = response.code()) {
-                401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout, getFavsUrl,favouriteHoroscopesScrollview)
+                401 -> handleUnauthorized(
+                    animationView,
+                    context,
+                    searchFavHoroscope,
+                    cancelFavSearchFilter,
+                    favHoroscopeLinearLayout,
+                    getFavsUrl,
+                    favouriteHoroscopesScrollview
+                )
                 200 -> {
-                    handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context)
+                    handleSuccessfulResponse(
+                        response,
+                        gson,
+                        animationView,
+                        searchFavHoroscope,
+                        cancelFavSearchFilter,
+                        favHoroscopeLinearLayout,
+                        context
+                    )
 
                     var lastScrollY = 0
                     favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
@@ -47,9 +71,17 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
                         val contentViewHeight = favouriteHoroscopesScrollview.getChildAt(0).height
                         if (contentViewHeight - scrollY - scrollViewHeight <= 100) {
                             if (listOfFavouriteHoroscopes.next.isNullOrEmpty()) println("this is the last page")
-                            if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count && loadMore){
+                            if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count && loadMore) {
                                 println(listOfFavouriteHoroscopes.next)
-                                getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, listOfFavouriteHoroscopes.next!!, favouriteHoroscopesScrollview)
+                                getFavouriteHoroscopes(
+                                    animationView,
+                                    context,
+                                    searchFavHoroscope,
+                                    cancelFavSearchFilter,
+                                    favHoroscopeLinearLayout,
+                                    listOfFavouriteHoroscopes.next!!,
+                                    favouriteHoroscopesScrollview
+                                )
                                 loadMore = false
                             }
                         }
@@ -57,11 +89,11 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
                         for (i in 0 until favHoroscopeLinearLayout.childCount) {
                             val childView: View = favHoroscopeLinearLayout.getChildAt(i)
                             println(scrollY - lastScrollY)
-                            if (childView is FavCardView && scrollY - lastScrollY > 4
-
-                            ) {
-                                if (swipeBack) {
-                                    SwipeBack.swipeBack(childView)
+                            if (childView is FavCardView) {
+                                if (scrollY - lastScrollY > 8 ||  scrollY - lastScrollY < -8){
+                                    if (swipeBack) {
+                                        SwipeBack.swipeBack(childView)
+                                    }
                                 }
                             }
                         }
@@ -81,18 +113,34 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
             .build()
     }
 
-    private  fun showLoadingAnimation(animationView: LottieAnimationView) {
+    private fun showLoadingAnimation(animationView: LottieAnimationView) {
         animationView.post {
             InternalFunctions.SetVisibilityFunctions.setViewVisible(animationView)
             animationView.playAnimation()
         }
     }
 
-    private  fun handleUnauthorized(animationView: LottieAnimationView, context: Context,searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String,favouriteHoroscopesScrollview: ScrollView) {
+    private fun handleUnauthorized(
+        animationView: LottieAnimationView,
+        context: Context,
+        searchFavHoroscope: EditText,
+        cancelFavSearchFilter: ImageButton,
+        favHoroscopeLinearLayout: LinearLayout,
+        getFavsUrl: String,
+        favouriteHoroscopesScrollview: ScrollView
+    ) {
         takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
             if (responseBody401 != null) {
                 println(tokensDataClass.accessToken)
-                getFavouriteHoroscopes(animationView,context, searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout,getFavsUrl, favouriteHoroscopesScrollview)
+                getFavouriteHoroscopes(
+                    animationView,
+                    context,
+                    searchFavHoroscope,
+                    cancelFavSearchFilter,
+                    favHoroscopeLinearLayout,
+                    getFavsUrl,
+                    favouriteHoroscopesScrollview
+                )
             } else {
                 println(exception)
             }
@@ -131,7 +179,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
         )
     }
 
-    private  fun searchAndDisplayFilteredResults(
+    private fun searchAndDisplayFilteredResults(
         listOfFavouriteHoroscopes: ListOfFavouriteHoroscopesDataClass,
         searchFavHoroscope: EditText,
         cancelFavSearchFilter: ImageButton,
@@ -174,15 +222,15 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
             }
         }
         CoroutineScope(Dispatchers.Main).launch {
-                for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
-                    val fortuneItem = listOfFavouriteHoroscopes.results[i]
-                    createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-                    numOfCards += 1
-                }
+            for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
+                val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                numOfCards += 1
+            }
         }
     }
 
-    private  fun createAndAddFavCardView(
+    private fun createAndAddFavCardView(
         context: Context,
         favHoroscopeLinearLayout: LinearLayout,
         fortuneItem: FortuneItem,
@@ -206,7 +254,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {
-            if (!swipeBack){
+            if (!swipeBack) {
                 getHoroscopeData.id = fortuneItem.fortune?.id
                 getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
                 getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
@@ -223,7 +271,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
             } else println("swipeBack was true, cant navigate to horoscope")
         }
 
-        swipeDeleteButton.setOnClickListener{
+        swipeDeleteButton.setOnClickListener {
             val favHoroscopeId = fortuneItem.id
             println(favHoroscopeId)
             destroyFavHoroscope(context = context, activity = Activity(), favouriteThisHoroscope = null, favHoroscopeId = favHoroscopeId)

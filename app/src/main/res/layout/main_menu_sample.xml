@@ -7,213 +7,504 @@
     android:background="@color/black"
     tools:ignore="HardcodedText">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/selectedModeAsTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/timeIntervalsScrollContainer"
-        android:layout_marginBottom="30dp"
-        android:fontFamily="@font/arima_madurai_bold"
-        android:textSize="35sp"
-        android:textColor="@color/white"
-        android:text="ASK">
-    </TextView>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/selectModeContainer"
-        android:layout_marginBottom="80dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:id="@+id/timeIntervalsScrollContainer">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="15dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/fav_card_background"
-                    android:contentDescription="time interval card background">
-                </ImageView>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="15dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/fav_card_background"
-                    android:contentDescription="time interval card background">
-
-                </ImageView>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="15dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/fav_card_background"
-                    android:contentDescription="time interval card background">
-                </ImageView>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="15dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/fav_card_background"
-                    android:contentDescription="time interval card background">
-                </ImageView>
-            </androidx.cardview.widget.CardView>
-
-
-        </LinearLayout>
-
-
-    </HorizontalScrollView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:id="@+id/selectModeContainer"
-        android:orientation="horizontal"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="25dp"
-        android:gravity="center_vertical">
-        
-        <androidx.cardview.widget.CardView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:id="@+id/generalModeCard"
-            android:layout_marginEnd="12dp"
-            app:cardCornerRadius="15dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/generalModeImage"
-                android:src="@drawable/cancel_icon"
-                android:background="@drawable/fav_card_background"
-                android:contentDescription="love mode card's background image">
-            </ImageView>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:id="@+id/loveModeCard"
-            android:layout_marginEnd="12dp"
-            app:cardCornerRadius="15dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/loveModeImage"
-                android:src="@drawable/cancel_icon"
-                android:background="@drawable/fav_card_background"
-                android:contentDescription="love mode card's background image">
-            </ImageView>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:id="@+id/CareerModeCard"
-            app:cardCornerRadius="15dp">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/CareerModeImage"
-                android:src="@drawable/cancel_icon"
-                android:background="@drawable/fav_card_background"
-                android:contentDescription="love mode card's background image">
-            </ImageView>
-        </androidx.cardview.widget.CardView>
-
-            
-        
-        
-    </LinearLayout>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/selectModeContainer"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:id="@+id/lookupUsersScrollContainer">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
-            <androidx.cardview.widget.CardView
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="15dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/add_user_icon"
-                    android:background="@drawable/fav_card_background"
-                    android:contentDescription="time interval card background">
-                </ImageView>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="15dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/fav_card_background"
-                    android:contentDescription="time interval card background">
-                </ImageView>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </HorizontalScrollView>
-
+    <!--back arrow-->
     <androidx.cardview.widget.CardView
-        android:layout_width="205dp"
-        android:layout_height="60dp"
-        app:cardCornerRadius="15dp"
+        android:id="@+id/backArrowCard"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp"
+        android:visibility="visible"
+        app:cardBackgroundColor="#90f1f1f1"
+        app:cardCornerRadius="75dp">
+
+        <ImageButton
+            android:id="@+id/back_arrow"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/back_arrow"
+            android:contentDescription="back arrow image button"
+            tools:ignore="VisualLintBounds">
+        </ImageButton>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--mira image-->
+    <ImageView
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:id="@+id/MiraBurcCardTop"
+        android:elevation="6dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/burcCard"
+        android:layout_marginBottom="-45dp"
+        android:src="@drawable/mira_horoscope_detail_top"
+        tools:ignore="NegativeMargin">
+    </ImageView>
+
+    <!--triangle -->
+    <ImageView
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_above="@id/burcCard"
+        android:elevation="6dp"
+        android:layout_toStartOf="@+id/MiraBurcCardTop"
+        android:src="@drawable/horoscope_detail_card_triangle"
+        android:layout_marginBottom="-20dp"
+        android:layout_marginEnd="-8dp">
+    </ImageView>
+
+    <!--burc card-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/burcCard"
+        android:layout_width="340dp"
+        android:layout_height="600dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="45dp">
-        <ImageView
+        android:layout_marginBottom="50dp"
+        android:animateLayoutChanges="true"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        app:cardBackgroundColor="#313131"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="5dp"
+        tools:ignore="TextSizeCheck">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/fav_card_background"
-            android:contentDescription="get horoscope button background image">
-        </ImageView>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/ClickToGetHoroscopeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="Click to Get Horoscope"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                tools:ignore="VisualLintOverlap"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible">
+            </TextView>
+
+            <!--burcCardLayout1-->
+            <RelativeLayout
+                android:id="@+id/burcCardInnerLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="VisualLintBounds">
+
+                <!--burc explanation text scroll-->
+                <ScrollView
+                    android:id="@+id/burcCardExplanationTextScroll"
+                    android:layout_width="300dp"
+                    android:layout_height="85dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:visibility="visible">
+                    <!--burc explanation text-->
+                    <TextView
+                        android:id="@+id/burcCardExplanationText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:padding="10dp"
+                        android:paddingBottom="15dp"
+                        android:text="Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.  "
+                        android:textColor="@color/white"
+                        android:textSize="11sp">
+                    </TextView>
+                </ScrollView>
+
+                <!--selected mode title-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectedModeTitle"
+                    android:text="GENEL"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:layout_below="@+id/burcCardExplanationTextScroll"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+
+                <!--general sign card-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/generalSign"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/selectedModeTitle"
+                    android:layout_marginTop="25dp"
+                    android:animateLayoutChanges="true"
+                    app:cardBackgroundColor="#47386F"
+                    android:layout_toStartOf="@+id/loveSign"
+                    android:layout_marginEnd="20dp"
+                    app:cardCornerRadius="15dp">
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="15dp"
+                            tools:ignore="VisualLintBounds"
+                            android:visibility="invisible">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:contentDescription="general sign card's image"
+                                android:src="@drawable/gemini">
+                            </ImageView>
+                        </androidx.cardview.widget.CardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/arima_madurai_bold"
+                                android:text="GENEL"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="17sp">
+                            </TextView>
+                    </androidx.cardview.widget.CardView>
+
+                <!--love sign card-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/loveSign"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/selectedModeTitle"
+                    android:animateLayoutChanges="true"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="#47386F"
+                    app:cardCornerRadius="15dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:contentDescription="love sign card's image"
+                        android:src="@drawable/fav_card_background">
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:text="ASK"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="17sp">
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+
+                <!--career sign card-->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/careerSign"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/selectedModeTitle"
+                    android:layout_marginTop="25dp"
+                    android:layout_toEndOf="@+id/loveSign"
+                    android:layout_marginStart="20dp"
+                    android:animateLayoutChanges="true"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="#47386F"
+                    app:cardCornerRadius="15dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="15dp"
+                        tools:ignore="VisualLintBounds"
+                        android:visibility="invisible">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:contentDescription="career sign card's image"
+                            android:src="@drawable/gemini">
+                        </ImageView>
+                    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:text="KARİYER"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="17sp">
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+                <!--daily button-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="130dp"
+                    android:layout_height="45dp"
+                    app:cardCornerRadius="15dp"
+                    android:id="@+id/timeIntervalDaily"
+                    android:layout_below="@id/generalSign"
+                    android:layout_marginTop="35dp"
+                    app:cardBackgroundColor="#47386F"
+                    android:layout_marginStart="30dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timeIntervalDailyText"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:textSize="15sp"
+                        android:text="GUNLUK"
+                        android:layout_gravity="center">
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+                <!--weekly button-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="135dp"
+                    android:layout_height="45dp"
+                    android:id="@+id/timeIntervalWeekly"
+                    android:layout_below="@id/generalSign"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="30dp"
+                    app:cardBackgroundColor="#47386F"
+                    app:cardCornerRadius="15dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/fav_card_background">
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timeIntervalWeeklyText"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:textSize="15sp"
+                        android:text="HAFTALIK"
+                        android:layout_gravity="center">
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+                <!--daily button-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="130dp"
+                    android:layout_height="45dp"
+                    app:cardCornerRadius="15dp"
+                    android:id="@+id/timeIntervalMonthly"
+                    android:layout_below="@id/timeIntervalDaily"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="#47386F"
+                    android:layout_marginStart="30dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timeIntervalMonthlyText"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:textSize="15sp"
+                        android:text="AYLIK"
+                        android:layout_gravity="center">
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+                <!--daily button-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="135dp"
+                    android:layout_height="45dp"
+                    app:cardCornerRadius="15dp"
+                    android:id="@+id/timeIntervalYearly"
+                    android:layout_below="@id/timeIntervalWeekly"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="#47386F"
+                    android:layout_marginEnd="30dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/timeIntervalYearlyText"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/arima_madurai_bold"
+                        android:textSize="15sp"
+                        android:text="YILLIK"
+                        android:layout_gravity="center">
+                    </TextView>
+                </androidx.cardview.widget.CardView>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/timeIntervalMonthly"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="35dp"
+                    android:id="@+id/timeIntervalsScrollContainer"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="50dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            app:cardCornerRadius="15dp">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/fav_card_background"
+                                android:src="@drawable/add_user_icon"
+                                android:contentDescription="time interval card background">
+                            </ImageView>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            app:cardCornerRadius="15dp">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="#47386F"
+                                android:contentDescription="time interval card background">
+                            </ImageView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/savedUsername1"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:fontFamily="@font/arima_madurai_light"
+                                android:text="User1"
+                                android:layout_gravity="center"
+                                android:textSize="17sp">
+                            </TextView>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            app:cardCornerRadius="15dp">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/fav_card_background"
+                                android:contentDescription="time interval card background">
+                            </ImageView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/savedUsername2"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:fontFamily="@font/arima_madurai_light"
+                                android:text="User2"
+                                android:layout_gravity="center"
+                                android:textSize="17sp">
+                            </TextView>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            app:cardCornerRadius="15dp">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="#47386F"
+                                android:contentDescription="time interval card background">
+                            </ImageView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/savedUsername3"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:fontFamily="@font/arima_madurai_light"
+                                android:text="User3"
+                                android:layout_gravity="center"
+                                android:textSize="17sp">
+                            </TextView>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="10dp"
+                            app:cardCornerRadius="15dp">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/fav_card_background"
+                                android:contentDescription="time interval card background">
+                            </ImageView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/savedUsername4"
+                                android:textColor="@color/white"
+                                android:textAlignment="center"
+                                android:fontFamily="@font/arima_madurai_light"
+                                android:text="User4"
+                                android:layout_gravity="center"
+                                android:textSize="17sp">
+                            </TextView>
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+
+                </HorizontalScrollView>
+
+                <!--learn your burc button-->
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/learnYourBurcButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_below="@id/timeIntervalMonthly"
+                    android:layout_marginTop="115dp"
+                    android:layout_marginLeft="85dp"
+                    android:layout_marginRight="85dp"
+                    android:background="@drawable/fav_card_background"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:gravity="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="visible">
+                </androidx.appcompat.widget.AppCompatButton>
+            </RelativeLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
