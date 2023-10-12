@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.view.iterator
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.*
 import com.example.falci.HoroscopeDetailFragment.DestroyFavHoroscope.destroyFavHoroscope
@@ -23,7 +24,7 @@ import okhttp3.Request
 import okhttp3.Response
 
 class GetFavsFuncs {
-var loadMore = true
+private var loadMore = true
 private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
      fun getFavouriteHoroscopes(animationView: LottieAnimationView,context: Context, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton,favHoroscopeLinearLayout: LinearLayout, getFavsUrl: String, favouriteHoroscopesScrollview: ScrollView) {
         val gson = Gson()
@@ -33,9 +34,8 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
         CoroutineScope(Dispatchers.IO).launch {
             showLoadingAnimation(animationView)
             val response = client.newCall(request).execute()
-            val getFavsStatusCode = response.code()
 
-            when (getFavsStatusCode) {
+            when (val getFavsStatusCode = response.code()) {
                 401 -> handleUnauthorized(animationView,context,searchFavHoroscope,cancelFavSearchFilter,favHoroscopeLinearLayout, getFavsUrl,favouriteHoroscopesScrollview)
                 200 -> {
                     handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context)
@@ -51,6 +51,7 @@ private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
                                 loadMore = false
                             }
                         }
+
                     }
                 }
                 else -> println("Response code was: $getFavsStatusCode")

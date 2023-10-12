@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.iterator
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
 import com.example.falci.internalClasses.dataClasses.urls
@@ -33,6 +34,7 @@ class FavouriteHoroscopesFragment : Fragment() {
         numOfCards = 0
 
         val favHoroscopeLinearLayout = v.findViewById<LinearLayout>(R.id.favourite_horoscopes_linearlayout)
+        val favouritesScreenContainer = v.findViewById<RelativeLayout>(R.id.favouritesScreenContainer)
         val favHoroscopeLoadingAnimation = v.findViewById<LottieAnimationView>(R.id.favHoroscopeLoadingAnimation)
         val searchFavHoroscope = v.findViewById<EditText>(R.id.searchFavHoroscope)
         val cancelFavSearchFilter = v.findViewById< ImageButton>(R.id.cancelFavSearchFilter)
@@ -46,9 +48,6 @@ class FavouriteHoroscopesFragment : Fragment() {
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-
-
-
         }
 
         // create callback variable which will handle onBackPressed and navigate to main activity

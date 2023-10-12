@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CustomTimePickerStyle" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/black</item>
-        <item name="android:headerBackground">@color/black</item>
-        <item name="android:fontFamily">@font/arima_madurai_bold</item>
+    <style name="CustomTimePickerStyle">
+        <item name="android:fontFamily">@font/arimo_italic</item>
     </style>
 </resources>

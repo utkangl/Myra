@@ -3,12 +3,15 @@ package com.example.falci
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.res.ResourcesCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
@@ -222,8 +225,9 @@ class CompleteProfile : AppCompatActivity() {
 
         // set location field of CompleteProfileUserDataClass's instance w/ user's location input
         fun setLocation(){
-            if (locationPick.text != "sehrini_sec"){
-                step = 5; allowNext = true
+            allowNext = false
+            if (locationPick.text != "Sehrini Sec"){
+                allowNext = true
             }
             locationPick.setOnClickListener{
                 val locationService = LocationService(this)
@@ -236,7 +240,7 @@ class CompleteProfile : AppCompatActivity() {
                     setViewVisibleWithAnimation(this,locationPickFirstLayout)
                     locationService.hideKeyboard(cityInput)
                     locationPick.text = cityInput.text.toString()
-                    step = 5; allowNext = true; star5.startColorAnimation()
+                        allowNext = true; star5.startColorAnimation(); nextButton.performClick()
                 }
             }
         }
@@ -338,6 +342,7 @@ class CompleteProfile : AppCompatActivity() {
                     setViewVisibleWithAnimation(this,locationPickContainer)
                     println("allow next?: $step")
                     setLocation()
+                    if (allowNext) step = 5
                     println("allow next?: $step")
                 }
 
@@ -387,7 +392,6 @@ class CompleteProfile : AppCompatActivity() {
                 if (step == 5){
                     step = 4
                     allowNext = false
-                    setLocation()
                     setViewGoneWithAnimation(applicationContext, occupationPickContainer)
                     setViewVisibleWithAnimation(applicationContext, locationPickContainer)
                 }

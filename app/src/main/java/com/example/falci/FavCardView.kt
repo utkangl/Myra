@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.ImageButton
 import android.widget.RelativeLayout
@@ -16,6 +17,10 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.dataClasses.favouriteHoroscope
 import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 import okhttp3.*
+import kotlin.math.abs
+
+var isSwiped = false
+
 
 @SuppressLint("ClickableViewAccessibility")
 class FavCardView constructor(
@@ -24,11 +29,10 @@ class FavCardView constructor(
 
     private val cardView: CardView
     private val swipeDeleteButton: ImageButton
-    private var isSwiped = false
     private var startX: Float = 0f
     private var swipeDistance: Float = 0f
     private val maxSwipeDistance = 160f
-
+    private val swipeThreshold = 20
     init {
         LayoutInflater.from(context).inflate(R.layout.fav_card_view, this, true)
         cardView = findViewById(R.id.favCard)
@@ -43,9 +47,10 @@ class FavCardView constructor(
                     startX = event.x
                 }
 
+                // on swipe left
                 MotionEvent.ACTION_MOVE -> {
                     val dx = event.x - startX
-                    if (dx < 0 && !isSwiped) {
+                    if (dx < 0 && !isSwiped && abs(dx) >= swipeThreshold) {
                         isSwiped = true
                         val animation = TranslateAnimation(0f, -maxSwipeDistance, 0f, 0f)
                         animation.duration = 200
@@ -56,9 +61,9 @@ class FavCardView constructor(
                     swipeDistance = dx
                 }
 
+                // on click
                 MotionEvent.ACTION_UP -> {
                     if (!isSwiped){
-                        println("click click")
                         performClick()
                         val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                         val intent = Intent(context, MainActivity::class.java)
@@ -73,9 +78,19 @@ class FavCardView constructor(
                         setViewGone(swipeDeleteButton)
                     }
                 }
-            }
-            true
+            }; true
         }
     }
+}
 
+
+object swipeBack{
+    fun swipeBack(cardView: View, swipeDeleteButton: ImageButton){
+        isSwiped = false
+        val animation = TranslateAnimation(0f, 0f, 0f, 0f)
+        animation.duration = 500
+        animation.fillAfter = true
+        cardView.startAnimation(animation)
+        setViewGone(swipeDeleteButton)
+    }
 }
