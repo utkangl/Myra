@@ -5,23 +5,18 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import android.widget.HorizontalScrollView
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.getColor
-import com.example.falci.R
+import com.example.falci.*
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
-import com.example.falci.internalClasses.dataClasses.postHoroscopeData
 
 class AnimationHelper(private val context: Context) {
 
@@ -30,13 +25,12 @@ class AnimationHelper(private val context: Context) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         val newWidth = (370 * scale + 0.5f).toInt()
         val newHeight = (450 * scale + 0.5f).toInt()
+        isBurcCardOpen = true
         animateBurcCardSize(burcCard, newWidth, newHeight, {
+            setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle,backArrowCard,burcCardInnerLayout)
+        }, {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
             params.addRule(RelativeLayout.CENTER_IN_PARENT, 1)
-            setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle,backArrowCard,burcCardInnerLayout)
-
-        }, {
-//            setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle,backArrowCard,burcCardInnerLayout)
         })
     }
 
@@ -45,6 +39,10 @@ class AnimationHelper(private val context: Context) {
     fun animateBurcCardOut(burcCard: CardView, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView, backArrowCard: CardView,settingsButtonCard:CardView,clickToGetHoroscopeText:TextView) {
         val scale = context.resources.displayMetrics.density
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
+        isBurcCardOpen = false
+        isGeneralModeSelected = false
+        isLoveModeSelected = false
+        isCareerModeSelected = false
 
         val oldWidth = (340 * scale + 0.5f).toInt()
         val oldHeight = (80 * scale + 0.5f).toInt()
@@ -55,6 +53,13 @@ class AnimationHelper(private val context: Context) {
 
         animateBurcCardSize(burcCard,oldWidth,oldHeight,  {
             setViewInvisible(burcCardInnerLayout, learnYourBurcButton,timeIntervalsScrollContainer, MiraBurcCardTop,MiraBurcCardTopTriangle)
+            burcCard.findViewById<CardView>(R.id.generalSignBackground).visibility = View.INVISIBLE
+            burcCard.findViewById<CardView>(R.id.loveSignBackground).visibility = View.INVISIBLE
+            burcCard.findViewById<CardView>(R.id.careerSignBackground).visibility = View.INVISIBLE
+            burcCard.findViewById<ImageView>(R.id.timeIntervalDailySelectedBG).visibility = View.INVISIBLE
+            burcCard.findViewById<ImageView>(R.id.timeIntervalWeeklySelectedBG).visibility = View.INVISIBLE
+            burcCard.findViewById<ImageView>(R.id.timeIntervalMonthlySelectedBG).visibility = View.INVISIBLE
+            burcCard.findViewById<ImageView>(R.id.timeIntervalYearlySelectedBG).visibility = View.INVISIBLE
             params.addRule(RelativeLayout.CENTER_IN_PARENT, 0)
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
         }, {

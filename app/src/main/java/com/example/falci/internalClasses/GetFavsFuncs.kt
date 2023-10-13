@@ -88,7 +88,6 @@ class GetFavsFuncs {
 
                         for (i in 0 until favHoroscopeLinearLayout.childCount) {
                             val childView: View = favHoroscopeLinearLayout.getChildAt(i)
-                            println(scrollY - lastScrollY)
                             if (childView is FavCardView) {
                                 if (scrollY - lastScrollY > 8 ||  scrollY - lastScrollY < -8){
                                     if (swipeBack) {
