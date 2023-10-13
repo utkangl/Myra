@@ -104,15 +104,20 @@ class MainActivity : AppCompatActivity() {
 
         burcCard.setOnClickListener {
             if(authenticated.isLoggedIn) {
-                clickToGetHoroscopeText.visibility = View.INVISIBLE
-                setViewGone(learnYourBurcButton, settingsButtonCard)
-                animationHelper.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle,backArrowCard,clickToGetHoroscopeText)
+                setViewInvisible(clickToGetHoroscopeText)
+                setViewGone(settingsButtonCard)
+                animationHelper.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle,backArrowCard)
             }
             else {
                 val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                 val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
             }
         }
+
+        backArrow.setOnClickListener{
+            animationHelper.animateBurcCardOut(burcCard, miraBurcCardTop,miraBurcCardTopTriangle,backArrowCard,settingsButtonCard,clickToGetHoroscopeText)
+        }
+
 
         val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
