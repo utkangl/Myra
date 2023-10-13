@@ -27,6 +27,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPlanetExplanationJsonValue
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPlanetZodiacExplanationJsonValue
+import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.authenticated
@@ -108,7 +109,10 @@ class ProfileFragment : Fragment() {
         editprofilebutton.setOnClickListener {
             // change to editProfile screen if user is logged in
 
-            if (authenticated.isLoggedIn){ replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment()) }
+            if (authenticated.isLoggedIn){
+                if (getProfileAgain){ makeGetProfileRequest(urls.getProfileURL, requireContext()) { _, _ -> } }
+                replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment())
+            }
 
             // change to Login screen if user is not logged in
             if (!authenticated.isLoggedIn){
@@ -190,7 +194,6 @@ class ProfileFragment : Fragment() {
 
             fun updateUIWithResult(result: String) {
                 requireActivity().runOnUiThread {
-                    // UI üzerinde sonucu güncelleyin
                     burcExplanationText.text = result
                 }
             }

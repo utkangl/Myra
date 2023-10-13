@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_main)
+
+        getProfileAgain = false
 
         val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
 
@@ -267,6 +270,9 @@ class MainActivity : AppCompatActivity() {
             // and set the response to UserProfileDataClass's instance
             if(authenticated.isLoggedIn){
                 makeGetProfileRequest(urls.getProfileURL,this) { _, _ -> }
+                val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                val intent = Intent(this, ProfileActivity::class.java)
+                ContextCompat.startActivity(this, intent, options.toBundle())
             }
 
             // when user clicks to profile button but did not login, navigate user to loginSignUp activity
@@ -288,8 +294,10 @@ class MainActivity : AppCompatActivity() {
                 generalSign.layoutParams = generalSignParams
                 loveSign.layoutParams = loveSignParams
                 careerSign.layoutParams = careerSignParams
-                val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                val intent = Intent(this, CompleteProfile::class.java); startActivity(intent,options.toBundle())
+                Handler(Looper.getMainLooper()).postDelayed({
+                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                    val intent = Intent(this, CompleteProfile::class.java); startActivity(intent,options.toBundle())
+                }, 500)
             }
         }
 
@@ -306,7 +314,7 @@ class MainActivity : AppCompatActivity() {
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard,settingsButtonCard, miraMainMenu)
                         HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager,this)
-                    }, 300)
+                    }, 500)
                 }
             }else{
                 // if user is not logged in, close burcCard and then after 300ms make the transition
@@ -315,7 +323,7 @@ class MainActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent,options.toBundle())
-                }, 300)
+                }, 500)
             }
         }
     } // end of onCreate function

@@ -9,10 +9,11 @@ import android.widget.*
 import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertDateTimeToTimestamp
 import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 class InternalFunctions {
 
@@ -63,20 +64,18 @@ class InternalFunctions {
         }
 
         fun updateBirthDayIfChanged(jsonField: String, birthDateField: TextView, birthTimeField: TextView, userProfile: UserProfileDataClass, editProfileJson: JSONObject) {
+            val (formattedDate, formattedTime) = TimeFormatFunctions.convertTimestampToDateTime(userProfile.birth_day!!.toLong())
+            println(formattedDate)
+            println(formattedTime)
             val newBirthDate = birthDateField.text.toString()
             val newBirthTime = birthTimeField.text.toString()
-            val currentBirthDay = separateBirthDate(userProfile.birth_day!!)
-            val currentBirthTime = separateBirthTime(userProfile.birth_day!!)
 
-            if (newBirthDate != currentBirthDay || newBirthTime != currentBirthTime) {
-                val combinedBirthDay = "$newBirthDate $newBirthTime +0000"
-                val combinedBirthDayDataModel = "${newBirthDate}T${newBirthTime}Z"
-                editProfileJson.put(jsonField, combinedBirthDay)
-                userProfile.birth_day = combinedBirthDayDataModel
-                println(combinedBirthDayDataModel)
+            if (newBirthDate != formattedDate || newBirthTime != formattedTime) {
+                val timestamp = convertDateTimeToTimestamp(newBirthDate, newBirthTime)
+                editProfileJson.put(jsonField, timestamp)
+                userProfile.birth_day = timestamp.toString()
             }
         }
-
     }
 
     object AddTextWatcher{
@@ -120,17 +119,33 @@ class InternalFunctions {
     }
 
     object TimeFormatFunctions{
-        fun separateBirthTime(birthDay: String): String {
-            val parts = birthDay.split("T")
-            if (parts.size > 1) {
-                return parts[1].substring(0, 8)
-            }
-            return "separating failed"
+        fun convertTimestampToDateTime(timestamp: Long): Pair<String, String> {
+            val date = Date(timestamp * 1000)
+            val dateSdf = SimpleDateFormat("yyyy-MM-dd")
+            val timeSdf = SimpleDateFormat("HH:mm:ss")
+            val formattedDate = dateSdf.format(date)
+            val formattedTime = timeSdf.format(date)
+            return Pair(formattedDate, formattedTime)
+        }
+        fun convertDateTimeToTimestamp(dateStr: String, timeStr: String): Long {
+            val dateTimeStr = "$dateStr $timeStr"
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date = sdf.parse(dateTimeStr)
+            return date!!.time / 1000
         }
 
-        fun separateBirthDate(birthDay: String): String {
-            return birthDay.split("T")[0]
-        }
+
+//        fun separateBirthTime(birthDay: String): String {
+//            val parts = birthDay.split("T")
+//            if (parts.size > 1) {
+//                return parts[1].substring(0, 8)
+//            }
+//            return "separating failed"
+//        }
+//
+//        fun separateBirthDate(birthDay: String): String {
+//            return birthDay.split("T")[0]
+//        }
     }
 
     object AnimateCardSize{
@@ -139,7 +154,7 @@ class InternalFunctions {
             val newWidth = (targetWidthDp * scale + 0.5f).toInt()
             val newHeight = (targetHeightDp * scale + 0.5f).toInt()
             if (targetScrollBottomMargin != null){
-                val newScrollBottomMargin = (targetScrollBottomMargin!! * scale + 0.5f).toInt()
+                val newScrollBottomMargin = (targetScrollBottomMargin * scale + 0.5f).toInt()
                 val scrollParams = scroll?.layoutParams as RelativeLayout.LayoutParams
                 scrollParams.bottomMargin = newScrollBottomMargin
             }

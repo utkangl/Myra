@@ -73,7 +73,7 @@ object HoroscopeFunctions {
         val getLoveHoroscopeJson = createJsonObject(
             "type" to postHoroscopeData.type.toString(),
             "time_interval" to postHoroscopeData.time_interval.toString(),
-            "lookup_user" to lookupUserJson)
+            "lookup_user" to getPartnerProfile.id)
 
         val gson = Gson()
         println(getLoveHoroscopeJson)

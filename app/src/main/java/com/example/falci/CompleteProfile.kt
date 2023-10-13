@@ -3,15 +3,12 @@ package com.example.falci
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
-import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.res.ResourcesCompat
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
@@ -22,7 +19,9 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.dataClasses.*
+import com.google.gson.Gson
 import org.json.JSONObject
+import java.util.*
 
 var navigateToSignUp = false
 
@@ -96,21 +95,21 @@ class CompleteProfile : AppCompatActivity() {
         var step = 0
 
         completeProfilePickersContainer.setOnClickListener{ println(step); println(allowNext) }
-        // this function will put date and time inputs in one variable
-        fun formatDateAndTime(date: String, time: String): String {
-            return ("$date $time +0000")
-        }
+
 
         // create Json, fill with inputs, post it, handle response with response code,toast detail
         fun completeProfile(){
 
             // create the json object that will be posted as completeProfileJson
             //fill json with the user inputs, format date and time into one variable before fill
-            val formattedDate = formatDateAndTime(userCompleteProfile.date, userCompleteProfile.time)
+            val calendar = Calendar.getInstance()
+            calendar.set(completeProfileTimeStamp.year, completeProfileTimeStamp.month, completeProfileTimeStamp.day, completeProfileTimeStamp.hour, completeProfileTimeStamp.minute)
+            val completeProfileBirthday = calendar.timeInMillis / 1000
+
             val zodiacInfoJson = createJsonObject(
                 "name" to userCompleteProfile.name,
                 "location" to userCompleteProfile.location,
-                "birthDay" to formattedDate,
+                "birthDay" to completeProfileBirthday.toString(),
                 "gender" to userCompleteProfile.gender,
                 "occupation" to userCompleteProfile.occupation
             )
@@ -128,10 +127,13 @@ class CompleteProfile : AppCompatActivity() {
             // if response code is success set isFromSignin true and navigate to main activity
             // main activity will directly navigate user to login screen when isFromSignIn is true
             // if response code is error just toast the error
+            println(completeProfileJSON)
             postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, this)
             { responseBody, _ ->
                 val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                 val detail = responseJson?.optString("detail")
+                val errorCode = responseJson?.optString("error_code")
+                println(errorCode)
 
                 if (statusCode == 200){
                     this.runOnUiThread{
@@ -161,13 +163,16 @@ class CompleteProfile : AppCompatActivity() {
 
         // fill partner profile json with partner's data class
         fun createLookupUserJson(){
-            val formattedDate = formatDateAndTime(partnerProfile.partnerDate, partnerProfile.partnerTime)
-            lookupUserJson = createJsonObject(
-                "name" to partnerProfile.partnerName,
-                "gender" to partnerProfile.partnerGender,
-                "birth_day" to formattedDate,
-                "birth_place" to partnerProfile.partnerLocation,
-                "occupation" to partnerProfile.partnerOccupation
+            val calendar = Calendar.getInstance()
+            calendar.set(partnerProfileTimeStamp.year, partnerProfileTimeStamp.month, partnerProfileTimeStamp.day, partnerProfileTimeStamp.hour, partnerProfileTimeStamp.minute)
+            val partnerBirthDay = calendar.timeInMillis
+            postLookupUserJson = createJsonObject(
+                "name" to postPartnerProfile.partnerName,
+                "gender" to postPartnerProfile.partnerGender,
+                "birth_day" to partnerBirthDay,
+                "birth_place" to postPartnerProfile.partnerLocation,
+                "occupation" to postPartnerProfile.partnerOccupation,
+                "relationship_status" to postPartnerProfile.partnerRelationStatus
             )
         }
 
@@ -176,7 +181,7 @@ class CompleteProfile : AppCompatActivity() {
          fun setName(){
              allowNext = false
              if (isFromLoveHoroscope && namePick.text.length >= 2){
-                 partnerProfile.partnerName = namePick.text.toString()
+                 postPartnerProfile.partnerName = namePick.text.toString()
                  allowNext = true; star1.startColorAnimation()
              }else{
                  if (namePick.text.length >= 2) {
@@ -194,7 +199,7 @@ class CompleteProfile : AppCompatActivity() {
         fun setGender(){
             setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
                 if (selectedGender != "Pick your gender") {
-                    if (isFromLoveHoroscope) partnerProfile.partnerGender = selectedGender; allowNext = true; star2.startColorAnimation()
+                    if (isFromLoveHoroscope) postPartnerProfile.partnerGender = selectedGender; allowNext = true; star2.startColorAnimation()
                     if (!isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true; star2.startColorAnimation()
 
                 } else this.runOnUiThread { Toast.makeText(this, "pick your gender", Toast.LENGTH_SHORT).show(); allowNext = false
@@ -203,24 +208,40 @@ class CompleteProfile : AppCompatActivity() {
         }
         // set date field of CompleteProfileUserDataClass's instance w/ user's date input
         fun setDate(){
-            val selectedYear = datePick.year
-            val selectedMonth =  datePick.month + 1
-            val selectedDay = datePick.dayOfMonth
-            val selectedDate = "$selectedYear-$selectedMonth-$selectedDay"
-            println(selectedYear)
-            allowNext = (selectedYear < 2020)
-            if (isFromLoveHoroscope)  partnerProfile.partnerDate = selectedDate; star3.startColorAnimation()
-            if (!isFromLoveHoroscope) userCompleteProfile.date = selectedDate; star3.startColorAnimation()
+            val year = datePick.year
+            val month =  datePick.month + 1
+            val day = datePick.dayOfMonth
+            allowNext = (datePick.year < 2020)
+            if (isFromLoveHoroscope)  {
+                partnerProfileTimeStamp.year = year
+                partnerProfileTimeStamp.month = month
+                partnerProfileTimeStamp.day = day
+                star3.startColorAnimation()
+            }
+            if (!isFromLoveHoroscope) {
+                completeProfileTimeStamp.year = year
+                completeProfileTimeStamp.month = month
+                completeProfileTimeStamp.day = day
+                star3.startColorAnimation()
+            }
         }
 
         // set time field of CompleteProfileUserDataClass's instance w/ user's time input
         @SuppressLint("StopShip")
         fun setTime(){
-            val selectedHour = timePick.hour
-            val selectedMinute = timePick.minute
-            val selectedTime = "$selectedHour:$selectedMinute:00"
-            if (isFromLoveHoroscope)  partnerProfile.partnerTime = selectedTime; star4.startColorAnimation()
-            if (!isFromLoveHoroscope) userCompleteProfile.time = selectedTime; star4.startColorAnimation()
+            val hour = timePick.hour
+            val minute = timePick.minute
+
+            if (isFromLoveHoroscope) {
+                partnerProfileTimeStamp.hour = hour
+                partnerProfileTimeStamp.minute = minute
+                star4.startColorAnimation()
+            }
+            if (!isFromLoveHoroscope) {
+                completeProfileTimeStamp.hour = hour
+                completeProfileTimeStamp.minute = minute
+                star4.startColorAnimation()
+            }
         }
 
         // set location field of CompleteProfileUserDataClass's instance w/ user's location input
@@ -248,30 +269,42 @@ class CompleteProfile : AppCompatActivity() {
         // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
         fun setOccupation(){
             setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
-                if (isFromLoveHoroscope) {
-                    partnerProfile.partnerOccupation = selectedOccupation
-                    createLookupUserJson()
-                    println(lookupUserJson)
-                    setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
-                    getLoveHoroscope(thinkingAnimation, this)
-                }
-                else{
-                    if (selectedOccupation != "Pick your occupation" ){
-                        userCompleteProfile.occupation = selectedOccupation
-                        step = 6; star6.startColorAnimation()
-                    } else{
-                        step = 5
-                    }
-                }
+                if (selectedOccupation != "Pick your occupation" ){
+                    if (isFromLoveHoroscope) {postPartnerProfile.partnerOccupation = selectedOccupation}
+                    if (!isFromLoveHoroscope) {userCompleteProfile.occupation = selectedOccupation}
+                    step = 6; star6.startColorAnimation()
+                } else step = 5
             }
         }
 
         // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
         fun setRelation(){
             allowNext = false
+            val gson = Gson()
+
             setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
                 if (selectedRelation != "Medeni durumunuzu Seciniz") {
-                    userCompleteProfile.relation = selectedRelation
+
+                    if (isFromLoveHoroscope) {
+                        postPartnerProfile.partnerRelationStatus = selectedRelation
+                        createLookupUserJson()
+                        setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
+                        postJsonWithHeader(urls.partnerProfileURL, postLookupUserJson, this) { responseBody, _ ->
+                            val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                            val detail = responseJson?.optString("detail")
+                            val errorCode = responseJson?.optString("error_code")
+                            println("detail bu $detail")
+                            println("errorCode bu $errorCode")
+                            getPartnerProfile = gson.fromJson(responseBody, GetPartnerProfileDataClass::class.java)
+                            if (statusCode == 201) {
+                                println("responseBody is $responseBody")
+                                getLoveHoroscope(thinkingAnimation, this)
+                            }
+                        }
+                    }
+                    if (!isFromLoveHoroscope){
+                        userCompleteProfile.relation = selectedRelation
+                    }
                     step = 7; star7.startColorAnimation()
                 } else step = 6
             }

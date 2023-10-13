@@ -11,6 +11,7 @@ data class URLDataClass(
     var chatGptURL: String,
     var getHoroscopeURL: String,
     var favouriteHoroscopeURL: String,
+    var partnerProfileURL: String,
 )
 
 
@@ -25,4 +26,5 @@ val urls = URLDataClass(
     chatGptURL= "https://api.atlasuavteam.com/gpt/chat/",
     getHoroscopeURL= "https://api.atlasuavteam.com/api/fortune/",
     favouriteHoroscopeURL = "https://api.atlasuavteam.com/api/favourite/",
+    partnerProfileURL = "https://api.atlasuavteam.com/api/lookup_user/",
 )

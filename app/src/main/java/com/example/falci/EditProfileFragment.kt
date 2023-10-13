@@ -1,6 +1,5 @@
 package com.example.falci
 
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import org.json.JSONObject
@@ -19,25 +17,20 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
 import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthDate
-import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.separateBirthTime
+import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertTimestampToDateTime
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
-import kotlin.concurrent.thread
+import com.example.falci.internalClasses.statusCode
+
 
 val editProfileJson = JSONObject()
-
+var getProfileAgain = false
 class EditProfileFragment : Fragment() {
 
     private lateinit var locationService: LocationService
-
-    @RequiresApi(Build.VERSION_CODES.M)
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,58 +60,59 @@ class EditProfileFragment : Fragment() {
         val relationshipStatusFieldHint = v.findViewById<TextView>(R.id.relationshipStatusFieldHint)
         val editProfileGeneralLayout = v.findViewById<RelativeLayout>(R.id.editProfileGeneralLayout)
 
-        val workerThread = thread(start = true) {
-            nameField.text = userProfile.first_name
-            genderField.text = userProfile.gender
-            birthDateField.text = separateBirthDate(userProfile.birth_day!!)
-            birthTimeField.text = separateBirthTime(userProfile.birth_day!!)
-            locationField.text = userProfile.birth_place
-            occupationField.text = userProfile.occupation
-            relationShipStatusField.text = userProfile.relationship_status
+        val (formattedDate, formattedTime) = convertTimestampToDateTime(userProfile.birth_day!!.toLong())
+        nameField.text = userProfile.first_name
+        genderField.text = userProfile.gender
+        birthDateField.text = formattedDate
+        birthTimeField.text = formattedTime
+        locationField.text = userProfile.birth_place
+        occupationField.text = userProfile.occupation
+        relationShipStatusField.text = userProfile.relationship_status
 
-            setViewGone(savebutton)
+        setViewGone(savebutton)
 
-            val textWatcher = object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-                override fun afterTextChanged(s: Editable?) {
-                    setViewVisible(savebutton)
-                }
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
-
-            // Add TextWatcher to each EditText
-            addTextWatcher(nameField,genderField,birthDateField,birthTimeField,locationField,occupationField,relationShipStatusField, textWatcher = textWatcher)
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+                setViewVisible(savebutton)
+            }
         }
 
+        // Add TextWatcher to each EditText
+        addTextWatcher(nameField,genderField,birthDateField,birthTimeField,locationField,occupationField,relationShipStatusField, textWatcher = textWatcher)
 
-        val workerThread1 = thread(start = true) {
-            savebutton.setOnClickListener {
-                // Add values to EditProfileJson if changed
-                updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name!!)
-                updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender!!)
-                updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
-                updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place!!)
-                updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation!!)
-                updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status!!)
+        savebutton.setOnClickListener {
+            // Add values to EditProfileJson if changed
+            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name!!)
+            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender!!)
+            updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
+            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place!!)
+            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation!!)
+            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status!!)
 
-                // Save changes
-                userProfile.apply {
-                    first_name = nameField.text.toString()
-                    gender = genderField.text.toString()
-                    birth_day = birthDateField.text.toString()
-                    birth_place = locationField.text.toString()
-                    occupation = occupationField.text.toString()
-                    relationship_status = relationShipStatusField.text.toString()
-                }
-
-
-                putEditProfileJson(urls.editProfileURL, editProfileJson, requireContext()) {_,_->}
-
-                setViewGone(savebutton)
-                parentFragmentManager.popBackStack()
+            // Save changes
+            userProfile.apply {
+                first_name = nameField.text.toString()
+                gender = genderField.text.toString()
+                birth_day = birthDateField.text.toString()
+                birth_place = locationField.text.toString()
+                occupation = occupationField.text.toString()
+                relationship_status = relationShipStatusField.text.toString()
             }
+
+            println("yolladigim json $editProfileJson")
+            putEditProfileJson(urls.editProfileURL, editProfileJson, requireContext()) {_,_->
+                if (statusCode == 200){
+                    requireActivity().runOnUiThread { setViewGone(savebutton) }
+                    parentFragmentManager.popBackStack()
+                    getProfileAgain = true
+                }
+            }
+
+
         }
 
 
@@ -134,11 +128,10 @@ class EditProfileFragment : Fragment() {
                 val selectedDay = editProfileDatePicker.dayOfMonth
                 val editProfileSelectedDate = "$selectedYear-$selectedMonth-$selectedDay"
                 birthDateField.text = editProfileSelectedDate
-
+                println(birthDateField.text)
                 setViewVisible(editProfileGeneralLayout)
                 setViewGone(editProfileDatePicker, savedatebutton)
             }
-
         }
         birthTimeField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)
@@ -150,7 +143,7 @@ class EditProfileFragment : Fragment() {
                 val selectedMinute = editProfileTimePicker.minute
                 val editProfileSelectedTime = "$selectedHour:$selectedMinute:00"
                 birthTimeField.text = editProfileSelectedTime
-
+                println(birthTimeField.text)
                 setViewGone(editProfileTimePicker,savedatebutton)
                 setViewVisible(editProfileGeneralLayout)
             }

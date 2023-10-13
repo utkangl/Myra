@@ -1,11 +1,6 @@
 package com.example.falci.internalClasses
 
-import android.app.ActivityOptions
 import android.content.Context
-import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
-import com.example.falci.ProfileActivity
-import com.example.falci.R
 import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
@@ -60,9 +55,6 @@ class ProfileFunctions {
                         val gson = Gson()
                         userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
                         //and navigate user to ProfileActivity
-                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-                            val intent = Intent(context, ProfileActivity::class.java)
-                            startActivity(context, intent, options.toBundle())
 
                     }
                 }
@@ -93,7 +85,6 @@ class ProfileFunctions {
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body()?.string()
-
                     statusCode = response.code()
                     if (statusCode == 401){
                         println("unauthorized 401, taking new access token")
@@ -177,7 +168,5 @@ class ProfileFunctions {
                 return "JSON data could not be solved."
             }
         }
-
-
     }
 }

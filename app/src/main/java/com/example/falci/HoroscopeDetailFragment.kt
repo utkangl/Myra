@@ -46,7 +46,6 @@ class HoroscopeDetailFragment : Fragment() {
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
         val favouriteThisHoroscope = v.findViewById<ImageView>(R.id.favouriteThisHoroscope)
         val favTitleInputLayout = v.findViewById<RelativeLayout>(R.id.favTitleInputLayout)
-        val horoscopeDetailScroll = v.findViewById<ScrollView>(R.id.horoscopeDetailScroll)
         val favHoroscopeTitleInput = v.findViewById<EditText>(R.id.favHoroscopeTitleInput)
 
         var inTitleInput = false
@@ -130,6 +129,7 @@ class HoroscopeDetailFragment : Fragment() {
                         { responseBody, _ ->
                             val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                             val detail = responseJson?.optString("detail")
+                            println(statusCode)
                             if (statusCode == 201){
                                 println(responseJson)
                                 favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
