@@ -22,12 +22,12 @@ class InternalFunctions {
                 component.visibility = View.VISIBLE
             }
         }
-        fun <T : View> setViewVisibleWithAnimation(context: Context, vararg components: T) {
+        fun <T : View> setViewVisibleWithAnimation(context: Context, vararg components: T?) {
             for (component in components) {
                 val fadeOut = AnimatorInflater.loadAnimator(context, R.animator.fade_in)
                 fadeOut.setTarget(component)
                 fadeOut.start()
-                component.visibility = View.VISIBLE
+                component!!.visibility = View.VISIBLE
             }
         }
 
@@ -36,6 +36,13 @@ class InternalFunctions {
                 component.visibility = View.GONE
             }
         }
+
+        fun <T : View> setViewInvisible(vararg components: T) {
+            for (component in components) {
+                component.visibility = View.INVISIBLE
+            }
+        }
+
         fun <T : View> setViewGoneWithAnimation(context: Context, vararg components: T) {
             for (component in components) {
                 component.visibility = View.GONE
@@ -127,15 +134,17 @@ class InternalFunctions {
     }
 
     object AnimateCardSize{
-        fun animateCardSize(context: Context, targetWidthDp: Int, targetHeightDp: Int, targetCard: View, scroll: ScrollView? = null, targetScrollBottomMargin: Int? = null) {
+        fun animateCardSize(context: Context, targetWidthDp: Int, targetHeightDp: Int, targetCard: View, scroll: ScrollView? = null, targetScrollBottomMargin: Int? = null, animationDuration: Long = 300) {
             val scale = context.resources.displayMetrics.density
             val newWidth = (targetWidthDp * scale + 0.5f).toInt()
             val newHeight = (targetHeightDp * scale + 0.5f).toInt()
-            val newScrollBottomMargin = (targetScrollBottomMargin!! * scale + 0.5f).toInt()
+            if (targetScrollBottomMargin != null){
+                val newScrollBottomMargin = (targetScrollBottomMargin!! * scale + 0.5f).toInt()
+                val scrollParams = scroll?.layoutParams as RelativeLayout.LayoutParams
+                scrollParams.bottomMargin = newScrollBottomMargin
+            }
             val params = targetCard.layoutParams as RelativeLayout.LayoutParams
-            val scrollParams = scroll?.layoutParams as RelativeLayout.LayoutParams
 
-            scrollParams.bottomMargin = newScrollBottomMargin
 
             val animatorWidth = ValueAnimator.ofInt(targetCard.width, newWidth)
             animatorWidth.addUpdateListener { animation ->
@@ -153,7 +162,7 @@ class InternalFunctions {
 
             val animatorSet = AnimatorSet()
             animatorSet.playTogether(animatorWidth, animatorHeight)
-            animatorSet.duration = 300
+                animatorSet.duration = animationDuration
             animatorSet.start()
         }
     }
