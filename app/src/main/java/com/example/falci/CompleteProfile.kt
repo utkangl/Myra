@@ -299,7 +299,7 @@ class CompleteProfile : AppCompatActivity() {
                             getPartnerProfile = gson.fromJson(responseBody, GetPartnerProfileDataClass::class.java)
                             if (statusCode == 201) {
                                 println("responseBody is $responseBody")
-                                getLoveHoroscope(thinkingAnimation, this)
+                                getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
                             }
                         }
                     }

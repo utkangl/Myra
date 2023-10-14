@@ -69,11 +69,11 @@ object HoroscopeFunctions {
         }
     }
 
-    fun getLoveHoroscope(animationView: LottieAnimationView, context: Context){
+    fun getLoveHoroscope(animationView: LottieAnimationView, context: Context, id: Int){
         val getLoveHoroscopeJson = createJsonObject(
             "type" to postHoroscopeData.type.toString(),
             "time_interval" to postHoroscopeData.time_interval.toString(),
-            "lookup_user" to getPartnerProfile.id)
+            "lookup_user" to id)
 
         val gson = Gson()
         println(getLoveHoroscopeJson)

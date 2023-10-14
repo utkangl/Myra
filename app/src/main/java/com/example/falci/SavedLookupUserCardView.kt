@@ -1,6 +1,5 @@
 package com.example.falci
 
-import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
@@ -11,12 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.AnimationHelper
-import com.example.falci.internalClasses.InternalFunctions
-import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
+
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
+import com.example.falci.internalClasses.dataClasses.getPartnerProfile
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
-import com.example.falci.internalClasses.statusCode
 import okhttp3.*
 import java.io.IOException
 
@@ -32,6 +30,8 @@ class SavedLookupUserCardView constructor(
     private val background: ImageView
     private val savedUsername: TextView
     private var isSelected = false
+    var id: Int? = null
+
 
     init {
         LayoutInflater.from(context).inflate(R.layout.lookup_user_card_view, this, true)
@@ -42,10 +42,11 @@ class SavedLookupUserCardView constructor(
         val animationHelper = AnimationHelper(context)
         cardView.setOnClickListener {
             if (!isSelected) {
+                getPartnerProfile.id = id!!
+                println(getPartnerProfile.id)
                 selectCard(allCards)
                 val scale = context.resources.displayMetrics.density
                 val buttonParams = learnYourBurcButton.layoutParams as LayoutParams
-
                 animationHelper.animateBurcCardSize(burcCard, 380, 645, {
                     buttonParams.topMargin = (100 * scale + 0.5f).toInt()
                     setViewVisibleWithAnimation(context, learnYourBurcButton)
@@ -102,7 +103,6 @@ object DestroySavedLookUpUserFunc {
                     destroyUserStatusCode = response.code()
                     if (destroyUserStatusCode == 204) {
                         activity.runOnUiThread {
-                            println("CardView'a uzun basıldı!")
                             val animation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
                             savedLookupUserCardView.startAnimation(animation)
                             savedUsersLinearContainer.removeView(savedLookupUserCardView)

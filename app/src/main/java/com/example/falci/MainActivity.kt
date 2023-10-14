@@ -24,6 +24,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.DestroySavedLookUpUserFunc.destroySavedLookUpUser
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.checkIsAccessExpired
+import com.example.falci.internalClasses.HoroscopeFunctions.getLoveHoroscope
 import com.example.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         getProfileAgain = false
         isSavedUsersLoaded = false
+        isBurcCardOpen = false
         val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
 
         val currentTime = System.currentTimeMillis() / 1000
@@ -247,11 +249,12 @@ class MainActivity : AppCompatActivity() {
                                         for (user in savedLookupUserList) {
                                             val savedLookupUserCardView = SavedLookupUserCardView(context, cardList,burcCard,learnYourBurcButton)
                                             savedLookupUserCardView.findViewById<TextView>(R.id.savedUsername).text = user.name
+                                            savedLookupUserCardView.id = user.id
                                             savedUsersLinearContainer.addView(savedLookupUserCardView)
                                             cardList.add(savedLookupUserCardView)
                                             savedLookupUserCardView.setOnLongClickListener {
                                                 val builder = AlertDialog.Builder(this@MainActivity)
-                                                builder.setMessage("Merte götten tekte girmek istediğine emin misin?")
+                                                builder.setMessage("Do You Want to Delete This LookupUser Entirely?")
 
                                                 builder.setPositiveButton("Yes") { _, _ ->
                                                     destroySavedLookUpUser(
@@ -458,6 +461,20 @@ class MainActivity : AppCompatActivity() {
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu)
                         HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                    }, 500)
+                }
+                if (isFromLoveHoroscope){
+                    animationHelper.animateBurcCardOut(
+                        burcCard,
+                        miraBurcCardTop,
+                        miraBurcCardTopTriangle,
+                        backArrowCard,
+                        settingsButtonCard,
+                        clickToGetHoroscopeText
+                    )
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
                     }, 500)
                 }
             } else {
