@@ -56,7 +56,7 @@ class ProfileFragment : Fragment() {
         val profileFragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
         val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
 
-        println("profile içinden yazıyorum ${userProfile.first_name}")
+        println("profile içinden yazıyorum $userProfile")
         // set firstLetter variable with the first letter of UserProfileDataClass's name field
         val firstLetter = userProfile.first_name!!.first().toString().uppercase()
         firstLetterView.text = firstLetter
@@ -198,17 +198,14 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-//            burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
-            fun performLongRunningTask() {
-                GlobalScope.launch(Dispatchers.IO) {
-                    val planetExplanation = getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)
-                    val zodiacExplanation = getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)
-                    val result = " $planetName ; $planetExplanation $planetName ve $sign birlikteliği $zodiacExplanation"
-                    updateUIWithResult(result)
-                }
-            }
+            burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
-            performLongRunningTask()
+            val planetExplanation = getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)
+            val zodiacExplanation = getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)
+            val result = " $planetName ; $planetExplanation $planetName ve $sign birlikteliği $zodiacExplanation"
+            updateUIWithResult(result)
+
+
 
             planetLayouts.forEachIndexed { index, layout ->
                 layout.setOnClickListener {

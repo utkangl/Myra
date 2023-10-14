@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/savedLookupUserCard"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="#423E71"
+        app:cardCornerRadius="15dp">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:id="@+id/savedLookupUserSelectedBG"
+            android:visibility="invisible"
+            android:contentDescription="@string/time_interval_card_background"
+            android:background="#9169F0">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/savedUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/arima_madurai_light"
+            android:text="@string/user"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="17sp">
+        </TextView>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

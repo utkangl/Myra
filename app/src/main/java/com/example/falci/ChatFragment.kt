@@ -52,7 +52,6 @@ class ChatFragment : Fragment() {
         val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
 
-
         val chatFuncs = ChatFuncs()
 
         chatFuncs.getOldMessages(requireContext(), activity!! ,threadNumber!!, oldMessages, chatAdapter, messages, chatListView)

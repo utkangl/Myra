@@ -89,8 +89,8 @@
 
     <!--mira image-->
     <ImageView
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:id="@+id/MiraBurcCardTop"
         android:elevation="6dp"
         android:layout_centerHorizontal="true"
@@ -120,8 +120,8 @@
     <!--    burc card-->
     <androidx.cardview.widget.CardView
         android:id="@+id/burcCard"
-        android:layout_width="340dp"
-        android:layout_height="80dp"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50dp"
@@ -159,8 +159,8 @@
             <!--burc explanation text scroll-->
             <ScrollView
                 android:id="@+id/burcCardExplanationTextScroll"
-                android:layout_width="320dp"
-                android:layout_height="87dp"
+                android:layout_width="350dp"
+                android:layout_height="95dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
                 android:visibility="visible">
@@ -196,14 +196,14 @@
             <!--general sign card-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/generalSign"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/selectedModeTitle"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginEnd="20dp"
                 android:layout_toStartOf="@+id/loveSign"
                 android:animateLayoutChanges="true"
-                app:cardBackgroundColor="#47386F"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
 
 
@@ -245,14 +245,14 @@
             <!--love sign card-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/loveSign"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/selectedModeTitle"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="35dp"
                 android:animateLayoutChanges="true"
                 android:visibility="visible"
-                app:cardBackgroundColor="#47386F"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
                 <TextView
                     android:layout_width="wrap_content"
@@ -291,15 +291,15 @@
             <!--career sign card-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/careerSign"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_below="@+id/selectedModeTitle"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="35dp"
                 android:layout_toEndOf="@+id/loveSign"
                 android:animateLayoutChanges="true"
                 android:visibility="visible"
-                app:cardBackgroundColor="#47386F"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
 
 
@@ -342,12 +342,12 @@
             <!--daily button-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/timeIntervalDaily"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="45dp"
                 android:layout_below="@id/selectedModeTitle"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="140dp"
-                app:cardBackgroundColor="#47386F"
+                android:layout_marginTop="170dp"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
 
                 <ImageView
@@ -374,13 +374,13 @@
             <!--weekly button-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/timeIntervalWeekly"
-                android:layout_width="135dp"
+                android:layout_width="150dp"
                 android:layout_height="45dp"
                 android:layout_below="@id/selectedModeTitle"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="140dp"
+                android:layout_marginTop="170dp"
                 android:layout_marginEnd="30dp"
-                app:cardBackgroundColor="#47386F"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
 
                 <ImageView
@@ -407,12 +407,12 @@
             <!--monthly button-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/timeIntervalMonthly"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="45dp"
                 android:layout_below="@id/timeIntervalDaily"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
-                app:cardBackgroundColor="#47386F"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
 
                 <ImageView
@@ -439,13 +439,13 @@
             <!--yearly button-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/timeIntervalYearly"
-                android:layout_width="135dp"
+                android:layout_width="150dp"
                 android:layout_height="45dp"
                 android:layout_below="@id/timeIntervalWeekly"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
-                app:cardBackgroundColor="#47386F"
+                app:cardBackgroundColor="#423E71"
                 app:cardCornerRadius="15dp">
 
                 <ImageView
@@ -470,7 +470,7 @@
             </androidx.cardview.widget.CardView>
 
             <HorizontalScrollView
-                android:id="@+id/timeIntervalsScrollContainer"
+                android:id="@+id/savedUsersScrollContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/timeIntervalMonthly"
@@ -484,6 +484,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/savedUsersLinearContainer"
                     android:orientation="horizontal"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp">
@@ -492,73 +493,26 @@
                         android:layout_width="50dp"
                         android:layout_height="45dp"
                         android:id="@+id/addLookupUser"
+                        app:cardBackgroundColor="#423E71"
                         android:layout_marginEnd="10dp"
                         app:cardCornerRadius="15dp">
-
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/add_lookupuser_card"
+                            android:background="@drawable/add_user_icon"
+                            android:contentDescription="time interval card add icon">
+                        </ImageView>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/addLookupUserBG"
+                            android:visibility="invisible"
+                            android:background="@drawable/add_lookup_user_card"
                             android:contentDescription="time interval card background"
                             android:src="@drawable/add_user_icon">
                         </ImageView>
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        app:cardBackgroundColor="#47386F"
-                        app:cardCornerRadius="15dp">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="45dp"
-                            android:visibility="invisible"
-                            android:contentDescription="time interval card background"
-                            android:background="#9169F0">
-                        </ImageView>
-
-                        <TextView
-                            android:id="@+id/savedUsername1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/arima_madurai_light"
-                            android:text="User1"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="17sp">
-                        </TextView>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        app:cardCornerRadius="15dp"
-                        app:cardBackgroundColor="#47386F">
-
-                        <ImageView
-                            android:layout_width="80dp"
-                            android:layout_height="45dp"
-                            android:visibility="invisible"
-                            android:contentDescription="time interval card background"
-                            android:background="@drawable/selected_lookupuser_card">
-                        </ImageView>
-
-                        <TextView
-                            android:id="@+id/savedUsername2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/arima_madurai_light"
-                            android:text="User1"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="17sp">
-                        </TextView>
-                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
 
@@ -568,11 +522,11 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/learnYourBurcButton"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="65dp"
                 android:layout_below="@id/timeIntervalMonthly"
-                android:layout_marginLeft="85dp"
+                android:layout_marginLeft="65dp"
                 android:layout_marginTop="55dp"
-                android:layout_marginRight="85dp"
+                android:layout_marginRight="65dp"
                 android:background="@drawable/get_horoscope_button_background"
                 android:fontFamily="@font/arima_madurai_bold"
                 android:gravity="center"
@@ -580,7 +534,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="Get your Horoscope"
-                android:visibility="gone">
+                android:visibility="invisible">
             </androidx.appcompat.widget.AppCompatButton>
         </RelativeLayout>
 

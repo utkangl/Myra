@@ -23,10 +23,8 @@ class AnimationHelper(private val context: Context) {
     fun animateBurcCardIn(burcCard: CardView, burcCardInnerLayout: RelativeLayout, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView, backArrowCard: CardView) {
         val scale = context.resources.displayMetrics.density
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
-        val newWidth = (370 * scale + 0.5f).toInt()
-        val newHeight = (450 * scale + 0.5f).toInt()
         isBurcCardOpen = true
-        animateBurcCardSize(burcCard, newWidth, newHeight, {
+        animateBurcCardSize(burcCard, 380, 500, {
             setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle,backArrowCard,burcCardInnerLayout)
         }, {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
@@ -34,24 +32,18 @@ class AnimationHelper(private val context: Context) {
         })
     }
 
-
-
     fun animateBurcCardOut(burcCard: CardView, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView, backArrowCard: CardView,settingsButtonCard:CardView,clickToGetHoroscopeText:TextView) {
-        val scale = context.resources.displayMetrics.density
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         isBurcCardOpen = false
         isGeneralModeSelected = false
         isLoveModeSelected = false
         isCareerModeSelected = false
 
-        val oldWidth = (340 * scale + 0.5f).toInt()
-        val oldHeight = (80 * scale + 0.5f).toInt()
-
         val learnYourBurcButton = burcCard.findViewById<AppCompatButton>(R.id.learnYourBurcButton)
         val burcCardInnerLayout = burcCard.findViewById<RelativeLayout>(R.id.burcCardInnerLayout)
-        val timeIntervalsScrollContainer = burcCard.findViewById<HorizontalScrollView>(R.id.timeIntervalsScrollContainer)
+        val timeIntervalsScrollContainer = burcCard.findViewById<HorizontalScrollView>(R.id.savedUsersScrollContainer)
 
-        animateBurcCardSize(burcCard,oldWidth,oldHeight,  {
+        animateBurcCardSize(burcCard,340,80,  {
             setViewInvisible(burcCardInnerLayout, learnYourBurcButton,timeIntervalsScrollContainer, MiraBurcCardTop,MiraBurcCardTopTriangle)
             burcCard.findViewById<CardView>(R.id.generalSignBackground).visibility = View.INVISIBLE
             burcCard.findViewById<CardView>(R.id.loveSignBackground).visibility = View.INVISIBLE
@@ -71,14 +63,18 @@ class AnimationHelper(private val context: Context) {
      fun animateBurcCardSize(burcCard: CardView,  newWidth: Int, newHeight: Int, onAnimationStart: () -> Unit, onAnimationEnd: () -> Unit) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
 
-        val animatorWidth = ValueAnimator.ofInt(burcCard.width, newWidth)
+         val scale = context.resources.displayMetrics.density
+         val newW = (newWidth * scale + 0.5f).toInt()
+         val newH = (newHeight * scale + 0.5f).toInt()
+
+         val animatorWidth = ValueAnimator.ofInt(burcCard.width, newW)
         animatorWidth.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
             params.width = value
             burcCard.layoutParams = params
         }
 
-        val animatorHeight = ValueAnimator.ofInt(burcCard.height, newHeight)
+        val animatorHeight = ValueAnimator.ofInt(burcCard.height, newH)
         animatorHeight.addUpdateListener { animation ->
             val value = animation.animatedValue as Int
             params.height = value
@@ -87,7 +83,7 @@ class AnimationHelper(private val context: Context) {
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(animatorWidth, animatorHeight)
-        animatorSet.duration = 130
+        animatorSet.duration = 100
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {

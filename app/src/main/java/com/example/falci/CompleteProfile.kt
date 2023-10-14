@@ -165,11 +165,11 @@ class CompleteProfile : AppCompatActivity() {
         fun createLookupUserJson(){
             val calendar = Calendar.getInstance()
             calendar.set(partnerProfileTimeStamp.year, partnerProfileTimeStamp.month, partnerProfileTimeStamp.day, partnerProfileTimeStamp.hour, partnerProfileTimeStamp.minute)
-            val partnerBirthDay = calendar.timeInMillis
+            val partnerBirthDay = calendar.timeInMillis / 1000
             postLookupUserJson = createJsonObject(
                 "name" to postPartnerProfile.partnerName,
                 "gender" to postPartnerProfile.partnerGender,
-                "birth_day" to partnerBirthDay,
+                "birth_day" to partnerBirthDay.toString(),
                 "birth_place" to postPartnerProfile.partnerLocation,
                 "occupation" to postPartnerProfile.partnerOccupation,
                 "relationship_status" to postPartnerProfile.partnerRelationStatus
@@ -288,8 +288,9 @@ class CompleteProfile : AppCompatActivity() {
                     if (isFromLoveHoroscope) {
                         postPartnerProfile.partnerRelationStatus = selectedRelation
                         createLookupUserJson()
+                        println(postLookupUserJson)
                         setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
-                        postJsonWithHeader(urls.partnerProfileURL, postLookupUserJson, this) { responseBody, _ ->
+                        postJsonWithHeader(urls.lookupUserURL, postLookupUserJson, this) { responseBody, _ ->
                             val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                             val detail = responseJson?.optString("detail")
                             val errorCode = responseJson?.optString("error_code")
