@@ -225,7 +225,7 @@
                     android:id="@+id/generalSignBackground"
                     android:layout_gravity="center"
                     android:visibility="invisible"
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="#1c1444"
                     app:cardCornerRadius="15dp"
                     tools:ignore="VisualLintBounds">
 
@@ -271,8 +271,8 @@
                     android:id="@+id/loveSignBackground"
                     android:layout_gravity="center"
                     android:visibility="invisible"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="15dp"
+                    app:cardBackgroundColor="#1c1444"
+                    app:cardCornerRadius="16dp"
                     tools:ignore="VisualLintBounds">
 
                     <ImageView
@@ -282,7 +282,7 @@
                         android:background="@drawable/selected_mode_love_card"
                         android:contentDescription="love sign card's image"
                         android:padding="9dp"
-                        android:src="@drawable/selected_mode_love_image">
+                        android:src="@drawable/heart">
                     </ImageView>
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
@@ -320,7 +320,7 @@
                     android:id="@+id/careerSignBackground"
                     android:layout_gravity="center"
                     android:visibility="invisible"
-                    app:cardBackgroundColor="@color/white"
+                    app:cardBackgroundColor="#1c1444"
                     app:cardCornerRadius="15dp"
                     tools:ignore="VisualLintBounds">
 
