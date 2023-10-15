@@ -19,7 +19,7 @@
             android:name=".ProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.Falci"
-            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

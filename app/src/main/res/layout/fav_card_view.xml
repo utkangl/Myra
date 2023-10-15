@@ -12,6 +12,8 @@
         android:layout_height="140dp"
         android:id="@+id/swipe_delete_image_button"
         android:src="@drawable/trash_can"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
         android:background="@drawable/delete_bg"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
