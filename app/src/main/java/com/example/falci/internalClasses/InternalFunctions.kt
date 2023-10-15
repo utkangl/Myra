@@ -38,9 +38,9 @@ class InternalFunctions {
             }
         }
 
-        fun <T : View> setViewInvisible(vararg components: T) {
+        fun setViewInvisible(vararg components: View?) {
             for (component in components) {
-                component.visibility = View.INVISIBLE
+                component!!.visibility = View.INVISIBLE
             }
         }
 

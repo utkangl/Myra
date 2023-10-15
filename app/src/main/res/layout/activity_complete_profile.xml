@@ -190,7 +190,7 @@
                                     android:background="@drawable/common_next_button"
 
                                     android:fontFamily="@font/arima_madurai_bold"
-                                    android:text="Sehrini Sec"
+                                    android:text="@string/sehrini_sec"
                                     android:textAllCaps="false"
                                     android:textColor="@color/white"
                                     android:textSize="24sp">

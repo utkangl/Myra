@@ -9,7 +9,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import com.example.falci.internalClasses.AnimationHelper
+import com.example.falci.internalClasses.BurcCardFunctions
 
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
@@ -39,7 +39,7 @@ class SavedLookupUserCardView constructor(
         background = findViewById(R.id.savedLookupUserSelectedBG)
         savedUsername = findViewById(R.id.savedUsername)
 
-        val animationHelper = AnimationHelper(context)
+        val burcCardFunctions = BurcCardFunctions(context)
         cardView.setOnClickListener {
             if (!isSelected) {
                 getPartnerProfile.id = id!!
@@ -47,11 +47,9 @@ class SavedLookupUserCardView constructor(
                 selectCard(allCards)
                 val scale = context.resources.displayMetrics.density
                 val buttonParams = learnYourBurcButton.layoutParams as LayoutParams
-                animationHelper.animateBurcCardSize(burcCard, 380, 645, {
-                    buttonParams.topMargin = (100 * scale + 0.5f).toInt()
-                    setViewVisibleWithAnimation(context, learnYourBurcButton)
-                }, {
-                })
+                burcCardFunctions.animateBurcCardSize(burcCard, 380, 655, {
+                    buttonParams.topMargin = (110 * scale + 0.5f).toInt()
+                    setViewVisibleWithAnimation(context, learnYourBurcButton)}, {})
             }
         }
         cardView.setOnLongClickListener {
@@ -75,7 +73,15 @@ class SavedLookupUserCardView constructor(
     }
 }
 
-object DestroySavedLookUpUserFunc {
+object ExportLookupUserCardFunctions {
+
+    fun deselectAllCards(cardList: MutableList<SavedLookupUserCardView>){
+        if (cardList.isNotEmpty()) {
+            for (card in cardList) {
+                card.deselectCard()
+            }
+        }
+    }
     fun destroySavedLookUpUser(
         userID: Int?,
         cardList: MutableList<SavedLookupUserCardView>,

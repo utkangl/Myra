@@ -108,7 +108,7 @@
         android:layout_height="75dp"
         android:id="@+id/MiraBurcCardTopTriangle"
         android:layout_above="@id/burcCard"
-        android:elevation="0dp"
+        android:elevation="7dp"
         android:layout_toStartOf="@+id/MiraBurcCardTop"
         android:src="@drawable/horoscope_detail_card_triangle"
         android:layout_marginEnd="-11dp"
@@ -355,7 +355,8 @@
                     android:layout_height="match_parent"
                     android:visibility="invisible"
                     android:id="@+id/timeIntervalDailySelectedBG"
-                    android:background="@drawable/selected_time_interval_card">
+                    android:background="@drawable/selected_time_interval_card"
+                    android:contentDescription="daily button background image">
                 </ImageView>
 
                 <TextView
@@ -388,7 +389,8 @@
                     android:layout_height="match_parent"
                     android:visibility="invisible"
                     android:id="@+id/timeIntervalWeeklySelectedBG"
-                    android:background="@drawable/selected_time_interval_card">
+                    android:background="@drawable/selected_time_interval_card"
+                    android:contentDescription="weekly button background image">
                 </ImageView>
 
                 <TextView
@@ -420,7 +422,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/timeIntervalMonthlySelectedBG"
                     android:visibility="invisible"
-                    android:background="@drawable/selected_time_interval_card">
+                    android:background="@drawable/selected_time_interval_card"
+                    android:contentDescription="monthly button background image">
                 </ImageView>
 
                 <TextView
@@ -453,7 +456,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/timeIntervalYearlySelectedBG"
                     android:visibility="invisible"
-                    android:background="@drawable/selected_time_interval_card">
+                    android:background="@drawable/selected_time_interval_card"
+                    android:contentDescription="yearly button background image">
                 </ImageView>
 
                 <TextView
@@ -525,7 +529,7 @@
                 android:layout_height="65dp"
                 android:layout_below="@id/timeIntervalMonthly"
                 android:layout_marginLeft="65dp"
-                android:layout_marginTop="55dp"
+                android:layout_marginTop="35dp"
                 android:layout_marginRight="65dp"
                 android:background="@drawable/get_horoscope_button_background"
                 android:fontFamily="@font/arima_madurai_bold"
