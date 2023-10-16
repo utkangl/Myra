@@ -21,6 +21,7 @@
         android:visibility="gone">
     </ImageButton>
 
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="140dp"
@@ -28,48 +29,69 @@
         app:cardCornerRadius="15dp"
         android:visibility="visible">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/favCardImageBackground"
-            android:src="@drawable/fav_card_background"
-            android:contentDescription="color_of_favcard">
-        </ImageView>
+            android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/favCardTitle"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:padding="9dp"
-            android:fontFamily="@font/arima_madurai_bold"
-            android:textSize="15sp"
-            android:gravity="start"
-            android:textColor="@color/white"
-            android:layout_gravity="top"
-            android:text="Title Of The Horoscope">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/favCardImageBackground"
+                android:src="@drawable/fav_card_background"
+                android:contentDescription="color_of_favcard">
+            </ImageView>
 
-        </TextView>
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/favCardTitle"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:padding="9dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:textSize="15sp"
+                android:gravity="start"
+                android:textColor="@color/white"
+                android:layout_gravity="top"
+                android:text="Title Of The Horoscope">
+            </TextView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="255"
-            android:maxHeight="80dp"
-            android:id="@+id/favCardExplanation"
-            android:layout_marginStart="3dp"
-            android:layout_marginBottom="7dp"
-            android:paddingStart="9dp"
-            android:paddingEnd="9dp"
-            android:paddingBottom="9dp"
-            android:fontFamily="@font/arima_madurai_light"
-            android:textSize="13sp"
-            android:gravity="center_vertical"
-            android:textColor="@color/white"
-            android:layout_gravity="bottom"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit. ">
-        </TextView>
+            <ImageButton
+                android:id="@+id/click_delete_image_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_toEndOf="@id/favCardTitle"
+                android:background="@drawable/baseline_remove_circle_24"
+                android:contentDescription=" image button for click delete fav horoscope card"
+                android:elevation="5dp"
+                android:visibility="gone">
+            </ImageButton>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="255"
+                android:maxHeight="80dp"
+                android:id="@+id/favCardExplanation"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="7dp"
+                android:paddingStart="9dp"
+                android:paddingEnd="9dp"
+                android:paddingBottom="9dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textSize="13sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit. ">
+            </TextView>
+
+        </RelativeLayout>
+
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

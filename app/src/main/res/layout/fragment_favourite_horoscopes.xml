@@ -13,7 +13,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:id="@+id/favourite_horoscopes_topImage"
         android:background="#5b54b1"
         android:contentDescription="favourites screen top banner">
@@ -21,17 +21,35 @@
 
     <TextView
         android:id="@+id/favourite_horoscopes_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center"
-        android:text="FAVORI BURCLAR"
+        android:text="FAVOURITES"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="25sp"
         tools:ignore="TextSizeCheck">
     </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:id="@+id/editFavourites"
+        android:textAlignment="center"
+        android:inputType="textLongMessage"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:background="@drawable/selected_mode_love_card"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:textColor="@color/white"
+        android:text="Edit Favourites">
+    </TextView>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/searchFavHoroscopeCardView"

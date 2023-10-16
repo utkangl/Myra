@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -40,6 +41,7 @@ class BurcCardFunctions(
     private val generalSign: CardView? = null,
     private val loveSign: CardView? = null,
     private val careerSign: CardView? = null,
+    private val selectedModeTitle: TextView? = null,
 ) {
 
     fun animateBurcCardIn(
@@ -257,6 +259,12 @@ class BurcCardFunctions(
         postHoroscopeData.time_interval = null
         learnYourBurcButtonParams.topMargin = (35 * scale + 0.5f).toInt()
         postHoroscopeData.type = type
+        setViewInvisible(selectedModeTitle)
+        val animation = AnimationUtils.loadAnimation(context, R.anim.activity_slide_down)
+        selectedModeTitle!!.startAnimation(animation)
+        selectedModeTitle.text = type.uppercase()
+        setViewVisible(selectedModeTitle)
+
         ExportLookupUserCardFunctions.deselectAllCards(cardList)
         when (type) {
             "general" -> {

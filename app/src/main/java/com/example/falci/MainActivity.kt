@@ -3,7 +3,6 @@ package com.example.falci
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -99,10 +98,11 @@ class MainActivity : AppCompatActivity() {
         val miraMainMenu = findViewById<ImageView>(R.id.miraMainMenu)
         val clickToGetHoroscopeText = findViewById<TextView>(R.id.ClickToGetHoroscopeText)
         val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
+        val selectedModeTitle = findViewById<TextView>(R.id.selectedModeTitle)
 
         val burcCardFunctions = BurcCardFunctions(this, learnYourBurcButton, savedUsersScrollContainer,
             burcCard, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG,
-            timeIntervalYearlySelectedBG, savedUsersLinearContainer, this,generalSign, loveSign, careerSign
+            timeIntervalYearlySelectedBG, savedUsersLinearContainer, this,generalSign, loveSign, careerSign, selectedModeTitle
         )
 
         // if user has came to this activity from signUp fragment, then directly navigate user to
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, ProfileActivity::class.java)
                     ContextCompat.startActivity(this, intent, options.toBundle())
-                }, 500)
+                }, 5000)
             }
 
             // when user clicks to profile button but did not login, navigate user to loginSignUp activity

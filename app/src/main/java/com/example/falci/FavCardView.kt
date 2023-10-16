@@ -9,31 +9,34 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import androidx.cardview.widget.CardView
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.dataClasses.favouriteHoroscope
 import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 
 var swipeBack = false
-
 @SuppressLint("ClickableViewAccessibility")
 class FavCardView constructor(
     context: Context,
 ): RelativeLayout(context) {
     private val cardView: CardView
     private val swipeDeleteButton: ImageButton
+    private val clickDeleteButton: ImageButton
     private var startX: Float = 0f
     private var swipeDistance: Float = 0f
     private val maxSwipeDistance = 160f
     private val swipeThreshold = 10
     var isSwiped = false
+    var isEditing = false
 
     init {
         LayoutInflater.from(context).inflate(R.layout.fav_card_view, this, true)
         cardView = findViewById(R.id.favCard)
         swipeDeleteButton = findViewById(R.id.swipe_delete_image_button)
-
+        clickDeleteButton = findViewById(R.id.click_delete_image_button)
 
         favouriteHoroscope.id = getHoroscopeData.favourite_id
         println(getHoroscopeData.favourite_id)
+
 
         setOnTouchListener { _, event ->
             when (event.action) {
@@ -66,6 +69,20 @@ class FavCardView constructor(
             true
         }
     }
+
+
+    fun visibleClickDeleteButtons(context: Context){
+        if (!isEditing){
+            setViewVisibleWithAnimation(context, clickDeleteButton)
+        }
+    }
+
+//    fun invisibleClickDeleteButtons(context: Context){
+//        if (!isEditing){
+//            setViewGoneWithAnimation(context,clickDeleteButton)
+//            isEditing = false
+//        }
+//    }
 }
 
 object SwipeBack {

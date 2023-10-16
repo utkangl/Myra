@@ -15,6 +15,7 @@ import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
 import com.example.falci.internalClasses.dataClasses.urls
+import com.example.falci.internalClasses.listOfFavCards
 
 var navigateBackToProfileActivity = false
 var navigateToFavs = false
@@ -37,6 +38,7 @@ class FavouriteHoroscopesFragment : Fragment() {
         val searchFavHoroscope = v.findViewById<EditText>(R.id.searchFavHoroscope)
         val cancelFavSearchFilter = v.findViewById<ImageButton>(R.id.cancelFavSearchFilter)
         val favouriteHoroscopesScrollview = v.findViewById<ScrollView>(R.id.favourite_horoscopes_scrollview)
+        val editFavourites = v.findViewById<TextView>(R.id.editFavourites)
 
         val getFavsFuncs = GetFavsFuncs()
 
@@ -50,6 +52,18 @@ class FavouriteHoroscopesFragment : Fragment() {
             favouriteHoroscopesScrollview
         )
 
+        editFavourites.setOnClickListener{
+            for (card in listOfFavCards){
+//                if (card.isEditing){
+//                    card.invisibleClickDeleteButtons(requireContext())
+//                    editFavourites.text = "Edit Favourites"
+//                }
+                if (!card.isEditing){
+                    editFavourites.text = "Done"
+                    card.visibleClickDeleteButtons(requireContext())
+                }
+            }
+        }
 
         favouriteHoroscopesScrollview.setOnTouchListener { _, _ ->
             val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -66,8 +80,6 @@ class FavouriteHoroscopesFragment : Fragment() {
         }
         // call callback to navigate user to main activity when back button is pressed
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
-
         return v
 
     }

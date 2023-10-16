@@ -25,7 +25,7 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
 
         val currentTime = System.currentTimeMillis() / 1000
         if(currentTime - savedTokenCreationTime > 600000){ didLogin = false } // refresh token lasts 30 minutes
-
+        //didLogin = false
         // if didLogin is true and the token in sharedPreferences is not null or empty
         if (didLogin && !savedAccessToken.isNullOrEmpty()){
             println("user tokens are saved in device, didLogin is true, user automatically will be logged in until logout ")

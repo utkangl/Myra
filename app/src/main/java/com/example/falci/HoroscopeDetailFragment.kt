@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -96,15 +95,6 @@ class HoroscopeDetailFragment : Fragment() {
         }
         // call callback to navigate user to main activity when back button is pressed
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
-//        textToSpeech = TextToSpeech(requireContext()) { status ->
-//            if (status != TextToSpeech.ERROR) {
-//                val locale = Locale("tr", "TR")
-//                textToSpeech.language = locale
-//
-//            }
-//        }
-//
 
         if (getHoroscopeData.is_favourite){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}
 

@@ -23,9 +23,12 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
+var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
+var listOfFavCards = mutableListOf<FavCardView>()
+
+
 class GetFavsFuncs {
     private var loadMore = true
-    private var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
     fun getFavouriteHoroscopes(
         animationView: LottieAnimationView,
         context: Context,
@@ -237,6 +240,7 @@ class GetFavsFuncs {
         val summary = fortuneItem.fortune?.prompt?.summary
         val favCardView = FavCardView(context)
         val swipeDeleteButton = favCardView.findViewById<ImageButton>(R.id.swipe_delete_image_button)
+        val clickDeleteButton = favCardView.findViewById<ImageButton>(R.id.click_delete_image_button)
         val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
         val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
 
@@ -250,6 +254,7 @@ class GetFavsFuncs {
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.fragment_slide_down)
         favCardView.startAnimation(animation)
+        listOfFavCards.add(favCardView)
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {
@@ -278,6 +283,12 @@ class GetFavsFuncs {
             swipeBack = false
         }
 
+        clickDeleteButton.setOnClickListener {
+            val favHoroscopeId = fortuneItem.id
+            println(favHoroscopeId)
+            destroyFavHoroscope(context = context, activity = Activity(), favouriteThisHoroscope = null, favHoroscopeId = favHoroscopeId)
+            favHoroscopeLinearLayout.removeView(favCardView)
+        }
 
     }
 }
