@@ -54,11 +54,11 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         editFavourites.setOnClickListener{
             for (card in listOfFavCards){
-//                if (card.isEditing){
-//                    card.invisibleClickDeleteButtons(requireContext())
-//                    editFavourites.text = "Edit Favourites"
-//                }
-                if (!card.isEditing){
+                if (card.isEditing){
+                    card.invisibleClickDeleteButtons(requireContext())
+                    editFavourites.text = "Edit Favourites"
+                }
+                else{
                     editFavourites.text = "Done"
                     card.visibleClickDeleteButtons(requireContext())
                 }

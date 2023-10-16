@@ -42,7 +42,6 @@
         android:layout_alignParentEnd="true"
         android:gravity="center"
         android:padding="5dp"
-        android:background="@drawable/selected_mode_love_card"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/arima_madurai_bold"

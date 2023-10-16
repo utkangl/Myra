@@ -8,6 +8,8 @@ import android.view.animation.TranslateAnimation
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import androidx.cardview.widget.CardView
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.dataClasses.favouriteHoroscope
@@ -74,20 +76,22 @@ class FavCardView constructor(
     fun visibleClickDeleteButtons(context: Context){
         if (!isEditing){
             setViewVisibleWithAnimation(context, clickDeleteButton)
+            isEditing = true
         }
     }
 
-//    fun invisibleClickDeleteButtons(context: Context){
-//        if (!isEditing){
-//            setViewGoneWithAnimation(context,clickDeleteButton)
-//            isEditing = false
-//        }
-//    }
+    fun invisibleClickDeleteButtons(context: Context){
+        if (isEditing){
+            setViewGoneWithAnimation(context,clickDeleteButton)
+            isEditing = false
+        }
+    }
 }
 
 object SwipeBack {
     fun swipeBack(favCardView: FavCardView) {
         if (favCardView.isSwiped && swipeBack) {
+            setViewGone(favCardView.findViewById<ImageButton>(R.id.swipe_delete_image_button))
             swipeBack = false
             favCardView.isSwiped = false
             val animation = TranslateAnimation(0f, 0f, 0f, 0f)
