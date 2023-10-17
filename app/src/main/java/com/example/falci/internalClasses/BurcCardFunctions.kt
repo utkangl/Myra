@@ -52,7 +52,7 @@ class BurcCardFunctions(
         backArrowCard: CardView
     ) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
-        isBurcCardOpen = true
+        controlVariables.isBurcCardOpen = true
         animateBurcCardSize(burcCard, 380, 500, {
             setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle, backArrowCard, burcCardInnerLayout)
         }, {
@@ -64,10 +64,10 @@ class BurcCardFunctions(
     fun animateBurcCardOut(burcCard: CardView, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView,
                            backArrowCard: CardView, settingsButtonCard: CardView, clickToGetHoroscopeText: TextView) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
-        isBurcCardOpen = false
-        isGeneralModeSelected = false
-        isLoveModeSelected = false
-        isCareerModeSelected = false
+        controlVariables.isBurcCardOpen = false
+        controlVariables.isGeneralModeSelected = false
+        controlVariables.isLoveModeSelected = false
+        controlVariables.isCareerModeSelected = false
 
         val learnYourBurcButton = burcCard.findViewById<AppCompatButton>(R.id.learnYourBurcButton)
         val burcCardInnerLayout = burcCard.findViewById<RelativeLayout>(R.id.burcCardInnerLayout)
@@ -128,14 +128,14 @@ class BurcCardFunctions(
     }
 
     fun handleIsSelected(isGeneral: Boolean, isLove: Boolean, isCareer: Boolean, isFromLove: Boolean) {
-        isGeneralModeSelected = isGeneral
-        isLoveModeSelected = isLove
-        isCareerModeSelected = isCareer
-        isFromLoveHoroscope = isFromLove
+        controlVariables.isGeneralModeSelected = isGeneral
+        controlVariables.isLoveModeSelected = isLove
+        controlVariables.isCareerModeSelected = isCareer
+        controlVariables.isFromLoveHoroscope = isFromLove
     }
 
     fun handleTimeIntervalSelect(time_interval: String) {
-        if (isFromLoveHoroscope) {
+        if (controlVariables.isFromLoveHoroscope) {
             setViewInvisible(learnYourBurcButton)
             ExportLookupUserCardFunctions.deselectAllCards(cardList)
         }
@@ -143,8 +143,8 @@ class BurcCardFunctions(
         animateCardSize(context, 380, 580, burcCard!!, animationDuration = 200)
         postHoroscopeData.time_interval = time_interval
 
-        if (!timeIntervalSelected) {
-            timeIntervalSelected = true
+        if (!controlVariables.isTimeIntervalSelected) {
+            controlVariables.isTimeIntervalSelected = true
             if (postHoroscopeData.type == "love") {
                 setViewVisibleWithAnimation(context, savedUsersScrollContainer)
             }
@@ -235,7 +235,7 @@ class BurcCardFunctions(
                                 true
                             }
                         }
-                        isSavedUsersLoaded = true
+                        controlVariables.isSavedUsersLoaded = true
                     }
                 }
             }
@@ -253,7 +253,7 @@ class BurcCardFunctions(
         val generalSignBackground = generalSign.findViewById<CardView>(R.id.generalSignBackground)
         val loveSignBackground = loveSign.findViewById<CardView>(R.id.loveSignBackground)
         val careerSignBackground = careerSign.findViewById<CardView>(R.id.careerSignBackground)
-        timeIntervalSelected = false
+        controlVariables.isTimeIntervalSelected = false
         animateCardSize(context, 380, 500, burcCard!!, animationDuration = 200)
         setViewInvisible(learnYourBurcButton, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG, savedUsersScrollContainer)
         postHoroscopeData.time_interval = null
@@ -278,7 +278,7 @@ class BurcCardFunctions(
                     newTopMarginForModeCards; careerSignParams.topMargin = oldTopMarginForModeCards
                 setViewVisibleWithAnimation(context, loveSignBackground)
                 setViewInvisible(generalSignBackground, careerSignBackground)
-                if (!isSavedUsersLoaded) {
+                if (!controlVariables.isSavedUsersLoaded) {
                     learnYourBurcButtonParams.topMargin = (55 * scale + 0.5f).toInt()
                     getSavedLookUpUsers(context)
                 }

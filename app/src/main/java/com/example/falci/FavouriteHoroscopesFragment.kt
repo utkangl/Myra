@@ -17,8 +17,6 @@ import com.example.falci.internalClasses.GetFavsFuncs
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.listOfFavCards
 
-var navigateBackToProfileActivity = false
-var navigateToFavs = false
 var numOfCards = 0
 
 class FavouriteHoroscopesFragment : Fragment() {

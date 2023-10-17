@@ -30,14 +30,8 @@ import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPl
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
-import com.example.falci.internalClasses.dataClasses.authenticated
-import com.example.falci.internalClasses.dataClasses.tokensDataClass
-import com.example.falci.internalClasses.dataClasses.urls
-import com.example.falci.internalClasses.dataClasses.userProfile
+import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 @Suppress("DEPRECATION")
@@ -110,7 +104,7 @@ class ProfileFragment : Fragment() {
             // change to editProfile screen if user is logged in
 
             if (authenticated.isLoggedIn){
-                if (getProfileAgain){ makeGetProfileRequest(urls.getProfileURL, requireContext()) { _, _ -> } }
+                if (controlVariables.getProfileAgain){ makeGetProfileRequest(urls.getProfileURL, requireContext()) { _, _ -> } }
                 replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment())
             }
 
@@ -201,7 +195,7 @@ class ProfileFragment : Fragment() {
             burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
             val planetExplanation = getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)
-            val zodiacExplanation = getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)
+            val zodiacExplanation = getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign)
             val result = " $planetName ; $planetExplanation $planetName ve $sign birlikteliği $zodiacExplanation"
             updateUIWithResult(result)
 

@@ -2,8 +2,6 @@ package com.example.falci.internalClasses.dataClasses
 
 import org.json.JSONObject
 
-var isFromLoveHoroscope= false
-var navigateToHoroscope = false
 lateinit var postLookupUserJson: JSONObject
 
 data class postPartnerProfileDataClass(

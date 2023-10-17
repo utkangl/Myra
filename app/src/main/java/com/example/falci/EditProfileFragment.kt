@@ -21,13 +21,13 @@ import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.c
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
+import com.example.falci.internalClasses.dataClasses.controlVariables
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userProfile
 import com.example.falci.internalClasses.statusCode
 
 
 val editProfileJson = JSONObject()
-var getProfileAgain = false
 class EditProfileFragment : Fragment() {
 
     private lateinit var locationService: LocationService
@@ -108,11 +108,9 @@ class EditProfileFragment : Fragment() {
                 if (statusCode == 200){
                     requireActivity().runOnUiThread { setViewGone(savebutton) }
                     parentFragmentManager.popBackStack()
-                    getProfileAgain = true
+                    controlVariables.getProfileAgain = true
                 }
             }
-
-
         }
 
 

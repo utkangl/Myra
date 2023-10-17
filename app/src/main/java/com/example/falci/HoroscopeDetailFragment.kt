@@ -80,11 +80,11 @@ class HoroscopeDetailFragment : Fragment() {
                 if (inTitleInput){
                     Toast.makeText(context, "sent your title!!", Toast.LENGTH_SHORT).show()
                 } else {
-                    if (navigateBackToProfileActivity){
-                        navigateBackToProfileActivity = false
+                    if (controlVariables.navigateBackToProfileActivity){
+                        controlVariables.navigateBackToProfileActivity = false
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val intent = Intent(requireContext(), ProfileActivity::class.java); startActivity(intent,options.toBundle())
-                        navigateToFavs = true
+                        controlVariables.navigateToFavs = true
                     } else{
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)

@@ -23,7 +23,6 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import java.util.*
 
-var navigateToSignUp = false
 
 class CompleteProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -180,7 +179,7 @@ class CompleteProfile : AppCompatActivity() {
         // and  set name field of CompleteProfileUserDataClass's instance w/ user's name input
          fun setName(){
              allowNext = false
-             if (isFromLoveHoroscope && namePick.text.length >= 2){
+             if (controlVariables.isFromLoveHoroscope && namePick.text.length >= 2){
                  postPartnerProfile.partnerName = namePick.text.toString()
                  allowNext = true; star1.startColorAnimation()
              }else{
@@ -199,8 +198,8 @@ class CompleteProfile : AppCompatActivity() {
         fun setGender(){
             setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
                 if (selectedGender != "Pick your gender") {
-                    if (isFromLoveHoroscope) postPartnerProfile.partnerGender = selectedGender; allowNext = true; star2.startColorAnimation()
-                    if (!isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true; star2.startColorAnimation()
+                    if (controlVariables.isFromLoveHoroscope) postPartnerProfile.partnerGender = selectedGender; allowNext = true; star2.startColorAnimation()
+                    if (!controlVariables.isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true; star2.startColorAnimation()
 
                 } else this.runOnUiThread { Toast.makeText(this, "pick your gender", Toast.LENGTH_SHORT).show(); allowNext = false
                 }
@@ -212,13 +211,13 @@ class CompleteProfile : AppCompatActivity() {
             val month =  datePick.month + 1
             val day = datePick.dayOfMonth
             allowNext = (datePick.year < 2020)
-            if (isFromLoveHoroscope)  {
+            if (controlVariables.isFromLoveHoroscope)  {
                 partnerProfileTimeStamp.year = year
                 partnerProfileTimeStamp.month = month
                 partnerProfileTimeStamp.day = day
                 star3.startColorAnimation()
             }
-            if (!isFromLoveHoroscope) {
+            if (!controlVariables.isFromLoveHoroscope) {
                 completeProfileTimeStamp.year = year
                 completeProfileTimeStamp.month = month
                 completeProfileTimeStamp.day = day
@@ -232,12 +231,12 @@ class CompleteProfile : AppCompatActivity() {
             val hour = timePick.hour
             val minute = timePick.minute
 
-            if (isFromLoveHoroscope) {
+            if (controlVariables.isFromLoveHoroscope) {
                 partnerProfileTimeStamp.hour = hour
                 partnerProfileTimeStamp.minute = minute
                 star4.startColorAnimation()
             }
-            if (!isFromLoveHoroscope) {
+            if (!controlVariables.isFromLoveHoroscope) {
                 completeProfileTimeStamp.hour = hour
                 completeProfileTimeStamp.minute = minute
                 star4.startColorAnimation()
@@ -270,8 +269,8 @@ class CompleteProfile : AppCompatActivity() {
         fun setOccupation(){
             setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
                 if (selectedOccupation != "Pick your occupation" ){
-                    if (isFromLoveHoroscope) {postPartnerProfile.partnerOccupation = selectedOccupation}
-                    if (!isFromLoveHoroscope) {userCompleteProfile.occupation = selectedOccupation}
+                    if (controlVariables.isFromLoveHoroscope) {postPartnerProfile.partnerOccupation = selectedOccupation}
+                    if (!controlVariables.isFromLoveHoroscope) {userCompleteProfile.occupation = selectedOccupation}
                     step = 6; star6.startColorAnimation()
                 } else step = 5
             }
@@ -285,7 +284,7 @@ class CompleteProfile : AppCompatActivity() {
             setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
                 if (selectedRelation != "Medeni durumunuzu Seciniz") {
 
-                    if (isFromLoveHoroscope) {
+                    if (controlVariables.isFromLoveHoroscope) {
                         postPartnerProfile.partnerRelationStatus = selectedRelation
                         createLookupUserJson()
                         println(postLookupUserJson)
@@ -303,7 +302,7 @@ class CompleteProfile : AppCompatActivity() {
                             }
                         }
                     }
-                    if (!isFromLoveHoroscope){
+                    if (!controlVariables.isFromLoveHoroscope){
                         userCompleteProfile.relation = selectedRelation
                     }
                     step = 7; star7.startColorAnimation()
@@ -387,7 +386,7 @@ class CompleteProfile : AppCompatActivity() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (step == 0){
-                    navigateToSignUp = if (isFromLoveHoroscope){
+                    controlVariables.navigateToSignUp = if (controlVariables.isFromLoveHoroscope){
                         val options = ActivityOptions.makeCustomAnimation(applicationContext, R.anim.activity_slide_down, 0)
                         val intent = Intent(applicationContext, MainActivity::class.java);startActivity(intent, options.toBundle())
                         false

@@ -1,6 +1,11 @@
 package com.example.falci.internalClasses
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import com.example.falci.ProfileActivity
+import com.example.falci.R
 import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
@@ -54,8 +59,10 @@ class ProfileFunctions {
                     if (getProfileStatusCode == 200){
                         val gson = Gson()
                         userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
+                        val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                        val intent = Intent(context, ProfileActivity::class.java)
+                        ContextCompat.startActivity(context, intent, options.toBundle())
                         //and navigate user to ProfileActivity
-
                     }
                 }
             })

@@ -3,6 +3,7 @@ package com.example.falci
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToFragment
+import com.example.falci.internalClasses.dataClasses.controlVariables
 
 
 class LoginSignupActivity : AppCompatActivity() {
@@ -10,12 +11,12 @@ class LoginSignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_signup)
         // directly navigate to login fragment when this activity is created
-        if (!navigateToSignUp) replaceLoginActivityToFragment(supportFragmentManager, Loginfragment())
+        if (!controlVariables.navigateToSignUp) replaceLoginActivityToFragment(supportFragmentManager, Loginfragment())
 
 
-        if (navigateToSignUp){
+        if (controlVariables.navigateToSignUp){
             replaceLoginActivityToFragment(supportFragmentManager, SignUpFragment())
-            navigateToSignUp = false
+            controlVariables.navigateToSignUp = false
         }
 
 

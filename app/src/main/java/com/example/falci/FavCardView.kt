@@ -12,10 +12,10 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
+import com.example.falci.internalClasses.dataClasses.controlVariables
 import com.example.falci.internalClasses.dataClasses.favouriteHoroscope
 import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 
-var swipeBack = false
 @SuppressLint("ClickableViewAccessibility")
 class FavCardView constructor(
     context: Context,
@@ -49,9 +49,9 @@ class FavCardView constructor(
                 // on swipe left
                 MotionEvent.ACTION_MOVE -> {
                     val dx = event.x - startX
-                    if (dx < 0 && !isSwiped && !swipeBack && kotlin.math.abs(dx) >= swipeThreshold) {
+                    if (dx < 0 && !isSwiped && !controlVariables.swipeBack && kotlin.math.abs(dx) >= swipeThreshold) {
                         isSwiped = true
-                        swipeBack = true
+                        controlVariables.swipeBack = true
                         val animation = TranslateAnimation(0f, -maxSwipeDistance, 0f, 0f)
                         animation.duration = 200
                         animation.fillAfter = true
@@ -90,9 +90,9 @@ class FavCardView constructor(
 
 object SwipeBack {
     fun swipeBack(favCardView: FavCardView) {
-        if (favCardView.isSwiped && swipeBack) {
+        if (favCardView.isSwiped && controlVariables.swipeBack) {
             setViewGone(favCardView.findViewById<ImageButton>(R.id.swipe_delete_image_button))
-            swipeBack = false
+            controlVariables.swipeBack = false
             favCardView.isSwiped = false
             val animation = TranslateAnimation(0f, 0f, 0f, 0f)
             animation.duration = 500

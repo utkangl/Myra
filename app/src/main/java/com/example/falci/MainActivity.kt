@@ -17,7 +17,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -33,13 +32,6 @@ import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToF
 import com.example.falci.internalClasses.dataClasses.*
 import okhttp3.*
 
-
-var isBurcCardOpen = false
-var isGeneralModeSelected = false
-var isLoveModeSelected = false
-var isCareerModeSelected = false
-var isSavedUsersLoaded = false
-var timeIntervalSelected = false
 var cardList: MutableList<SavedLookupUserCardView> = mutableListOf()
 var savedLookupUserList: List<SavedLookUpUsersDataClass> = emptyList()
 
@@ -55,9 +47,9 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_main)
 
-        getProfileAgain = false
-        isSavedUsersLoaded = false
-        isBurcCardOpen = false
+        controlVariables.getProfileAgain = false
+        controlVariables.isSavedUsersLoaded = false
+        controlVariables.isBurcCardOpen = false
         val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
 
         val currentTime = System.currentTimeMillis() / 1000
@@ -114,12 +106,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         //navigate user directly to horoscope, when horoscope mode is love and when user is navigated to main screen from lookup user's complete profile
-        if (navigateToHoroscope) {
+        if (controlVariables.navigateToHoroscope) {
             println("navigating to horoscope detail")
             replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
             setViewGone(burcCard, settingsButtonCard, miraMainMenu)
-            navigateToHoroscope = false
-            isFromLoveHoroscope = false
+            controlVariables.navigateToHoroscope = false
+            controlVariables.isFromLoveHoroscope = false
         }
 
         val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
@@ -133,11 +125,9 @@ class MainActivity : AppCompatActivity() {
             // and set the response to UserProfileDataClass's instance
             if (authenticated.isLoggedIn) {
                 makeGetProfileRequest(urls.getProfileURL, this) { _, _ -> }
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    ContextCompat.startActivity(this, intent, options.toBundle())
-                }, 5000)
+//                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+//                    val intent = Intent(this, ProfileActivity::class.java)
+//                    ContextCompat.startActivity(this, intent, options.toBundle())
             }
 
             // when user clicks to profile button but did not login, navigate user to loginSignUp activity
@@ -152,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         burcCard.setOnClickListener {
             burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
 
-            if (!isBurcCardOpen) {
+            if (!controlVariables.isBurcCardOpen) {
                 if (authenticated.isLoggedIn) {
                     setViewInvisible(clickToGetHoroscopeText)
                     setViewGone(settingsButtonCard)
@@ -172,25 +162,25 @@ class MainActivity : AppCompatActivity() {
             careerSignParams.topMargin = oldTopMarginForModeCards
         }
 
-        backArrowCard.setOnClickListener { if (isBurcCardOpen) { handleCloseBurcCard() } }
+        backArrowCard.setOnClickListener { if (controlVariables.isBurcCardOpen) { handleCloseBurcCard() } }
         backArrow.setOnClickListener {
             backArrowCard.performClick()
         }
 
         generalSign.setOnClickListener {
-            if (!isGeneralModeSelected) {
+            if (!controlVariables.isGeneralModeSelected) {
                 burcCardFunctions.handleModeSelect("general")
                 burcCardFunctions.handleIsSelected(isGeneral = true, isLove = false, isCareer = false, isFromLove = false)
             }
         }
         loveSign.setOnClickListener {
-            if (!isLoveModeSelected) {
+            if (!controlVariables.isLoveModeSelected) {
                 burcCardFunctions.handleModeSelect("love")
                 burcCardFunctions.handleIsSelected(isGeneral = false, isLove = true, isCareer = false, isFromLove = true)
             }
         }
         careerSign.setOnClickListener {
-            if (!isCareerModeSelected) {
+            if (!controlVariables.isCareerModeSelected) {
                 burcCardFunctions.handleModeSelect("career")
                 burcCardFunctions.handleIsSelected(isGeneral = false, isLove = false, isCareer = true, isFromLove = false)
             }
@@ -203,7 +193,7 @@ class MainActivity : AppCompatActivity() {
 
         addLookupUser.setOnClickListener {
             // if horoscope type is love, navigate user to complete profile screen to get lookup user's profile
-            if (isFromLoveHoroscope) {
+            if (controlVariables.isFromLoveHoroscope) {
                 setViewVisibleWithAnimation(this, addLookupUser.findViewById<ImageView>(R.id.addLookupUserBG))
                 handleCloseBurcCard()
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -214,14 +204,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         learnYourBurcButton.setOnClickListener {
-            navigateBackToProfileActivity = false
+            controlVariables.navigateBackToProfileActivity = false
 
             // if user is logged in, close burcCard and then after 300ms make the transition
             // to horoscope detail fragment, but until api response with horoscope
             // play thinking animation
             if (authenticated.isLoggedIn) {
                 // if horoscope type is not love, call get horoscope function
-                if (!isFromLoveHoroscope) {
+                if (!controlVariables.isFromLoveHoroscope) {
                     burcCardFunctions.animateBurcCardOut(
                         burcCard,
                         miraBurcCardTop,
@@ -235,7 +225,7 @@ class MainActivity : AppCompatActivity() {
                         HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
                     }, 500)
                 }
-                if (isFromLoveHoroscope) {
+                if (controlVariables.isFromLoveHoroscope) {
                     burcCardFunctions.animateBurcCardOut(
                         burcCard,
                         miraBurcCardTop,
@@ -277,7 +267,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
         if (currentFragment == null) {
-            if (!isBurcCardOpen) {
+            if (!controlVariables.isBurcCardOpen) {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage("Do You Want To Exit?")
                 builder.setPositiveButton("Yes") { _, _ -> moveTaskToBack(true);finishAffinity() }

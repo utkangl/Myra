@@ -93,7 +93,7 @@ class GetFavsFuncs {
                             val childView: View = favHoroscopeLinearLayout.getChildAt(i)
                             if (childView is FavCardView) {
                                 if (scrollY - lastScrollY > 8 ||  scrollY - lastScrollY < -8){
-                                    if (swipeBack) {
+                                    if (controlVariables.swipeBack) {
                                         SwipeBack.swipeBack(childView)
                                     }
                                 }
@@ -258,7 +258,7 @@ class GetFavsFuncs {
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {
-            if (!swipeBack) {
+            if (!controlVariables.swipeBack) {
                 getHoroscopeData.id = fortuneItem.fortune?.id
                 getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
                 getHoroscopeData.good = fortuneItem.fortune?.prompt?.good
@@ -266,9 +266,9 @@ class GetFavsFuncs {
                 getHoroscopeData.summary = fortuneItem.fortune?.prompt?.summary
                 getHoroscopeData.is_favourite = true
                 getHoroscopeData.favourite_id = fortuneItem.id
-                navigateToHoroscope = true
-                navigateBackToProfileActivity = true
-                swipeBack = false
+                controlVariables.navigateToHoroscope = true
+                controlVariables.navigateBackToProfileActivity = true
+                controlVariables.swipeBack = false
                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(context, intent, options.toBundle())
@@ -280,7 +280,7 @@ class GetFavsFuncs {
             println(favHoroscopeId)
             destroyFavHoroscope(context = context, activity = Activity(), favouriteThisHoroscope = null, favHoroscopeId = favHoroscopeId)
             favHoroscopeLinearLayout.removeView(favCardView)
-            swipeBack = false
+            controlVariables.swipeBack = false
         }
 
         clickDeleteButton.setOnClickListener {

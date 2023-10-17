@@ -5,15 +5,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceProfileActivityToFragment
+import com.example.falci.internalClasses.dataClasses.controlVariables
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         // directly navigate to profile fragment when this activity is created
-        println(navigateToFavs)
-        if (!navigateToFavs) replaceProfileActivityToFragment(supportFragmentManager, ProfileFragment())
-        if (navigateToFavs)  replaceProfileActivityToFragment(supportFragmentManager, FavouriteHoroscopesFragment()); navigateToFavs = false
+        println(controlVariables.navigateToFavs)
+        if (!controlVariables.navigateToFavs) replaceProfileActivityToFragment(supportFragmentManager, ProfileFragment())
+        if (controlVariables.navigateToFavs)  replaceProfileActivityToFragment(supportFragmentManager, FavouriteHoroscopesFragment()); controlVariables.navigateToFavs = false
     }
 
      // when user press back button, simply go back if there are fragments in the backstack
