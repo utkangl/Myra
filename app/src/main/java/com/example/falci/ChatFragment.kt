@@ -46,7 +46,6 @@ class ChatFragment : Fragment() {
         val messages = mutableListOf<ChatMessage>()
         val oldMessages = mutableListOf<ChatMessage>()
 
-
         threadNumber = getHoroscopeData.thread
 
         val chatAdapter = ChatAdapter(requireContext(), messages)
@@ -56,14 +55,11 @@ class ChatFragment : Fragment() {
 
         chatFuncs.getOldMessages(requireContext(), activity!! ,threadNumber!!, oldMessages, chatAdapter, messages, chatListView)
 
-
         closeKeyBoardLayout.setOnClickListener{
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
-
-
 
         messageInput.setOnClickListener{
             val scale = requireContext().resources.displayMetrics.density

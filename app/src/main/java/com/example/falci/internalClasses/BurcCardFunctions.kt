@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.HorizontalScrollView
@@ -13,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import com.example.falci.*
@@ -49,12 +51,15 @@ class BurcCardFunctions(
         burcCardInnerLayout: RelativeLayout,
         MiraBurcCardTop: ImageView,
         MiraBurcCardTopTriangle: ImageView,
-        backArrowCard: CardView
+        backArrowCard: CardView,
+        mainActivityGeneralLayout: RelativeLayout
     ) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         controlVariables.isBurcCardOpen = true
         animateBurcCardSize(burcCard, 380, 500, {
             setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle, backArrowCard, burcCardInnerLayout)
+            burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
+            mainActivityGeneralLayout.background = getDrawable(context,R.drawable.space_background)
         }, {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
             params.addRule(RelativeLayout.CENTER_IN_PARENT, 1)
@@ -113,7 +118,7 @@ class BurcCardFunctions(
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(animatorWidth, animatorHeight)
-        animatorSet.duration = 100
+        animatorSet.duration = 180
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {

@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_main)
+        val mainActivityGeneralLayout = findViewById<RelativeLayout>(R.id.mainActivityGeneralLayout)
+        mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background,theme)
 
         controlVariables.getProfileAgain = false
         controlVariables.isSavedUsersLoaded = false
@@ -91,6 +93,11 @@ class MainActivity : AppCompatActivity() {
         val clickToGetHoroscopeText = findViewById<TextView>(R.id.ClickToGetHoroscopeText)
         val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
         val selectedModeTitle = findViewById<TextView>(R.id.selectedModeTitle)
+        val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
+        val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
+        val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
+        val scale = this.resources.displayMetrics.density
+        val oldTopMarginForModeCards = (45 * scale + 0.5f).toInt()
 
         val burcCardFunctions = BurcCardFunctions(this, learnYourBurcButton, savedUsersScrollContainer,
             burcCard, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG,
@@ -114,24 +121,10 @@ class MainActivity : AppCompatActivity() {
             controlVariables.isFromLoveHoroscope = false
         }
 
-        val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
-        val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
-        val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
-        val scale = this.resources.displayMetrics.density
-        val oldTopMarginForModeCards = (45 * scale + 0.5f).toInt()
-
         settingsButton.setOnClickListener {
-            // when user clicks to profile button and if user is logged in, get profile informations
-            // and set the response to UserProfileDataClass's instance
             if (authenticated.isLoggedIn) {
                 makeGetProfileRequest(urls.getProfileURL, this) { _, _ -> }
-//                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-//                    val intent = Intent(this, ProfileActivity::class.java)
-//                    ContextCompat.startActivity(this, intent, options.toBundle())
-            }
-
-            // when user clicks to profile button but did not login, navigate user to loginSignUp activity
-            if (!authenticated.isLoggedIn) {
+            } else {
                 if (savedInstanceState == null) {
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
@@ -140,13 +133,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         burcCard.setOnClickListener {
-            burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
-
             if (!controlVariables.isBurcCardOpen) {
                 if (authenticated.isLoggedIn) {
                     setViewInvisible(clickToGetHoroscopeText)
                     setViewGone(settingsButtonCard)
-                    burcCardFunctions.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard)
+                    burcCardFunctions.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard,mainActivityGeneralLayout)
                 } else {
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
@@ -156,6 +147,7 @@ class MainActivity : AppCompatActivity() {
 
         fun handleCloseBurcCard(){
             burcCard.setCardBackgroundColor(Color.parseColor("#1c1444"))
+            mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background,theme)
             burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard, settingsButtonCard, clickToGetHoroscopeText)
             generalSignParams.topMargin = oldTopMarginForModeCards
             loveSignParams.topMargin = oldTopMarginForModeCards
@@ -163,9 +155,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         backArrowCard.setOnClickListener { if (controlVariables.isBurcCardOpen) { handleCloseBurcCard() } }
-        backArrow.setOnClickListener {
-            backArrowCard.performClick()
-        }
+        backArrow.setOnClickListener {backArrowCard.performClick()}
 
         generalSign.setOnClickListener {
             if (!controlVariables.isGeneralModeSelected) {
@@ -199,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, CompleteProfile::class.java); startActivity(intent, options.toBundle())
-                }, 500)
+                }, 250)
             }
         }
 
@@ -212,52 +202,30 @@ class MainActivity : AppCompatActivity() {
             if (authenticated.isLoggedIn) {
                 // if horoscope type is not love, call get horoscope function
                 if (!controlVariables.isFromLoveHoroscope) {
-                    burcCardFunctions.animateBurcCardOut(
-                        burcCard,
-                        miraBurcCardTop,
-                        miraBurcCardTopTriangle,
-                        backArrowCard,
-                        settingsButtonCard,
-                        clickToGetHoroscopeText
-                    )
+                    handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu)
                         HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
-                    }, 500)
+                    }, 250)
                 }
                 if (controlVariables.isFromLoveHoroscope) {
-                    burcCardFunctions.animateBurcCardOut(
-                        burcCard,
-                        miraBurcCardTop,
-                        miraBurcCardTopTriangle,
-                        backArrowCard,
-                        settingsButtonCard,
-                        clickToGetHoroscopeText
-                    )
+                    handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu)
                         getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
-                    }, 500)
+                    }, 250)
                 }
             } else {
                 // if user is not logged in, close burcCard and then after 300ms make the transition
                 // to login signup activity
-                burcCardFunctions.animateBurcCardOut(
-                    burcCard,
-                    miraBurcCardTop,
-                    miraBurcCardTopTriangle,
-                    backArrowCard,
-                    settingsButtonCard,
-                    clickToGetHoroscopeText
-                )
+                burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard, settingsButtonCard, clickToGetHoroscopeText)
                 Handler(Looper.getMainLooper()).postDelayed({
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
-                }, 500)
+                }, 250)
             }
         }
     } // end of onCreate function
-
 
     // if back button is pressed in main activity, check if you are in main activity or,
     // a fragment that hosted by the main activity. If you are in main activity then show
