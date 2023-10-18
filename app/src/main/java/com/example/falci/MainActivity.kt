@@ -54,12 +54,9 @@ class MainActivity : AppCompatActivity() {
         val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
 
         val currentTime = System.currentTimeMillis() / 1000
-        val savedTokenCreationTime = tokensSharedPreferences.getLong(
-            "token_creation_time",
-            0
-        ) // it is set in last login, does not matter if remember me is checked or not, saved until logout
-        println(savedTokenCreationTime)
-        println(currentTime)
+        val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time", 0)
+
+        println( "it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
         checkIsAccessExpired(currentTime, savedTokenCreationTime, 9000, this) // if it has been more than 15 minutes till creation, refresh
         if (currentTime - savedTokenCreationTime > 6000000) {
             authenticated.isLoggedIn = false

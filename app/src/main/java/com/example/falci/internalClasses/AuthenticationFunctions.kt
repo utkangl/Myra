@@ -127,10 +127,12 @@ class AuthenticationFunctions() {
                             if (newAccessToken != null && newRefreshToken!= null) {
                                 tokensDataClass.accessToken = newAccessToken
                                 tokensDataClass.refreshToken = newRefreshToken
+                                tokensDataClass.tokensCreatedAt = System.currentTimeMillis() / 1000
                                 val sharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
                                 val editor = sharedPreferences.edit()
                                 editor.putString("access_token", newAccessToken)
                                 editor.putString("refresh_token", newRefreshToken)
+                                editor.putLong("token_creation_time", tokensDataClass.tokensCreatedAt)
                                 editor.apply()
                             }
                         }

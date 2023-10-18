@@ -85,6 +85,17 @@ class ProfileFragment : Fragment() {
         val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
         val burcExplanationTextScroll = zodiacexplanationcard.findViewById<ScrollView>(R.id.burcExplanationTextScroll)
 
+        getHoroscopeData.apply {
+            id = null
+            thread = null
+            summary = null
+            good = null
+            bad =  null
+            time_remaining = null
+            score = null
+            is_favourite = false
+            favourite_id = null
+        }
 
         // if user click to zodiac card, make the card larger and set other components invisible
         zodiacCard.setOnClickListener {

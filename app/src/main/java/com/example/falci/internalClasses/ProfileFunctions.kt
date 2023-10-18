@@ -56,13 +56,11 @@ class ProfileFunctions {
                     if (getProfileStatusCode == 200){
                         val gson = Gson()
                         userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
-                        if (!controlVariables.getProfileAgain){
+                        if (!controlVariables.getProfileAgain && !userProfile.first_name.isNullOrEmpty()){
                             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                             val intent = Intent(context, ProfileActivity::class.java)
                             ContextCompat.startActivity(context, intent, options.toBundle())
-                        }
-
-                        //and navigate user to ProfileActivity
+                        } else println("get profile req atan fonksiyonun içinden yazıyorum $userProfile")
                     }
                 }
             })
