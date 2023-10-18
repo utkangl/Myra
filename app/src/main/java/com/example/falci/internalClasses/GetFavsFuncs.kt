@@ -156,7 +156,6 @@ class GetFavsFuncs {
         context: Context
     ) {
 
-
         searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
             for (i in 0 until favHoroscopeLinearLayout.childCount) {
                 val childView: View = favHoroscopeLinearLayout.getChildAt(i)
@@ -174,7 +173,8 @@ class GetFavsFuncs {
                 CoroutineScope(Dispatchers.Main).launch {
                     for (fortuneItem in listOfFavouriteHoroscopes.results) {
                         val summary = fortuneItem.fortune?.prompt?.summary
-                        if (summary?.contains(searchText, ignoreCase = true) == true) {
+                        val title = fortuneItem.title
+                        if (summary?.contains(searchText, ignoreCase = true) == true || title.contains(searchText, ignoreCase = true)) {
                             createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
                             val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                             inputMethodManager.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
@@ -201,16 +201,29 @@ class GetFavsFuncs {
             val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
             CoroutineScope(Dispatchers.Main).launch {
-                for (fortuneItem in listOfFavouriteHoroscopes.results) {
+                println(allFavouriteHoroscopes.size)
+                for (fortuneItem in allFavouriteHoroscopes){
                     val summary = fortuneItem.fortune?.prompt?.summary
-                    if (summary?.contains("", ignoreCase = true) == true) {
+                    val title = fortuneItem.title
+                    if (summary?.contains("", ignoreCase = true) == true || title.contains("", ignoreCase = true)) {
                         createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
                         val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
                     }
                 }
+//                for (fortuneItem in listOfFavouriteHoroscopes.results) {
+//                    val summary = fortuneItem.fortune?.prompt?.summary
+//                    val title = fortuneItem.title
+//                    if (summary?.contains("", ignoreCase = true) == true && title.contains("", ignoreCase = true)) {
+//                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+//                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
+//                    }
+//                }
             }
         }
+
+
         CoroutineScope(Dispatchers.Main).launch {
             for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
                 val fortuneItem = listOfFavouriteHoroscopes.results[i]

@@ -96,7 +96,7 @@ class HoroscopeDetailFragment : Fragment() {
         // call callback to navigate user to main activity when back button is pressed
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
-        if (getHoroscopeData.is_favourite){favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)}
+        if (getHoroscopeData.is_favourite){requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)} }
 
         favouriteThisHoroscope.setOnClickListener{
             println("favori mi ? ${getHoroscopeData.is_favourite}")
@@ -122,7 +122,7 @@ class HoroscopeDetailFragment : Fragment() {
                             println(statusCode)
                             if (statusCode == 201){
                                 println(responseJson)
-                                favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
+                                requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)}
                                 getHoroscopeData.is_favourite = true
                                 favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
                                 getHoroscopeData.favourite_id = favouriteHoroscope.id
@@ -134,7 +134,7 @@ class HoroscopeDetailFragment : Fragment() {
                             }
                             if (statusCode == 208){
                                 println(detail)
-                                favouriteThisHoroscope.setImageResource(R.drawable.purple_star_icon)
+                                requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)}
                                 favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
                                 requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
                                 getHoroscopeData.is_favourite = true
@@ -207,9 +207,9 @@ class HoroscopeDetailFragment : Fragment() {
 
                         if (statusCode == 204){
                             getHoroscopeData.is_favourite = false
-                            activity.runOnUiThread{ Toast.makeText(context, "204 deleted" , Toast.LENGTH_SHORT).show() }
+                            activity.runOnUiThread{ Toast.makeText(context, "204 deleted" , Toast.LENGTH_SHORT).show()
                             println("is this horoscope favourite ${getHoroscopeData.is_favourite}")
-                            favouriteThisHoroscope?.setImageResource(R.drawable.white_star_icon)
+                            favouriteThisHoroscope?.setImageResource(R.drawable.heart)}
                         }
 
                         if (statusCode == 404){
