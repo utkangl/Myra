@@ -202,6 +202,7 @@ class EditProfileFragment : Fragment() {
                     remove() // Geri çağrıyı kaldır
                     isEnabled = false // Geri çağrıyı devre dışı bırak
                     requireActivity().onBackPressedDispatcher.onBackPressed()
+                    controlVariables.inLocationPickCard = false
                 }
             }
         }
