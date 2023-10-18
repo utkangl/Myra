@@ -112,7 +112,8 @@ class InternalFunctions {
     object SetupFieldClickListener{
         fun setupFieldClickListener(field: TextView, spinner: Spinner, hintView: View) {
             field.setOnClickListener {
-                setViewVisible(spinner)
+                //setViewVisible(spinner)
+                spinner.performClick()
                 setViewGone(hintView)
             }
         }

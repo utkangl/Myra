@@ -175,20 +175,14 @@ class GetFavsFuncs {
             }
         }
         cancelFavSearchFilter.setOnClickListener {
-            if (searchFavHoroscope.text.toString() != "") {
-                favHoroscopeLinearLayout.removeAllViews()
-                searchFavHoroscope.setText("")
-                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-                CoroutineScope(Dispatchers.Main).launch {
-                    for (fortuneItem in allFavouriteHoroscopes.reversed()) {
-                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-                    }
+            favHoroscopeLinearLayout.removeAllViews()
+            searchFavHoroscope.setText("")
+            val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
+            CoroutineScope(Dispatchers.Main).launch {
+                for (fortuneItem in allFavouriteHoroscopes.reversed()) {
+                    createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
                 }
-            } else {
-                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-                println("no keyword was given")
             }
         }
         CoroutineScope(Dispatchers.Main).launch {

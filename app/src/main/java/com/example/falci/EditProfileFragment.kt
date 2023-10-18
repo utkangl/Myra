@@ -16,7 +16,7 @@ import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfC
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
-import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
+ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
