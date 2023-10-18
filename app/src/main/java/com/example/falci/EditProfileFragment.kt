@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import org.json.JSONObject
@@ -15,6 +16,8 @@ import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfC
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
 import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertTimestampToDateTime
@@ -176,6 +179,7 @@ class EditProfileFragment : Fragment() {
         locationService.initializeAutoCompleteTextView(cityInput)
 
         locationField.setOnClickListener {
+            controlVariables.inLocationPickCard = true
             setViewGone(editProfileGeneralLayout)
             setViewVisible(editProfileLocationCardView)
         }
@@ -184,8 +188,25 @@ class EditProfileFragment : Fragment() {
             setViewGone(editProfileLocationCardView)
             setViewVisible(editProfileGeneralLayout)
             locationField.text = cityInput.text.toString()
+            controlVariables.inLocationPickCard = false
             locationService.hideKeyboard(requireView())
         }
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (controlVariables.inLocationPickCard) {
+                    setViewInvisible(editProfileLocationCardView)
+                    setViewVisibleWithAnimation(requireContext(),editProfileGeneralLayout)
+                    controlVariables.inLocationPickCard = false
+                } else {
+                    remove() // Geri çağrıyı kaldır
+                    isEnabled = false // Geri çağrıyı devre dışı bırak
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        }
+        callback.isEnabled = true
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         return v
     }

@@ -254,10 +254,11 @@ class CompleteProfile : AppCompatActivity() {
                 locationService.initializeAutoCompleteTextView(cityInput)
                 setViewGone(locationPickFirstLayout)
                 setViewVisible(locationPickSecondLayout)
-
+                controlVariables.inLocationPickCard = true
                 cityInput.setOnItemClickListener { _, _, _, _ ->
                     setViewGoneWithAnimation(this,locationPickSecondLayout)
                     setViewVisibleWithAnimation(this,locationPickFirstLayout)
+                    controlVariables.inLocationPickCard = false
                     locationService.hideKeyboard(cityInput)
                     locationPick.text = cityInput.text.toString()
                         allowNext = true; star5.startColorAnimation(); nextButton.performClick()
@@ -385,6 +386,12 @@ class CompleteProfile : AppCompatActivity() {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+
+                if (controlVariables.inLocationPickCard){
+                    setViewVisible(locationPickFirstLayout)
+                    setViewGone(locationPickSecondLayout)
+                }
+
                 if (step == 0){
                     controlVariables.navigateToSignUp = if (controlVariables.isFromLoveHoroscope){
                         val options = ActivityOptions.makeCustomAnimation(applicationContext, R.anim.activity_slide_down, 0)
@@ -416,9 +423,11 @@ class CompleteProfile : AppCompatActivity() {
                 }
 
                 if (step == 4){
-                    step = 3
-                    setViewGoneWithAnimation(applicationContext, locationPickContainer, nextButton)
-                    setViewVisibleWithAnimation(applicationContext, timePickContainer, timePickNextButton)
+                    if (!controlVariables.inLocationPickCard){
+                        step = 3
+                        setViewGoneWithAnimation(applicationContext, locationPickContainer, nextButton)
+                        setViewVisibleWithAnimation(applicationContext, timePickContainer, timePickNextButton)
+                    }
                 }
 
                 if (step == 5){

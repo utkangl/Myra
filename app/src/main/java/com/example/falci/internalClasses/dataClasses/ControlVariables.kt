@@ -14,6 +14,7 @@ data class ControlVariables(
     var navigateToSignUp: Boolean,
     var isFromLoveHoroscope: Boolean,
     var navigateToHoroscope: Boolean,
+    var inLocationPickCard: Boolean,
 )
 
 var controlVariables = ControlVariables(
@@ -30,4 +31,5 @@ var controlVariables = ControlVariables(
     navigateToSignUp = false,
     isFromLoveHoroscope = false,
     navigateToHoroscope = false,
+    inLocationPickCard = false,
 )
