@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
+import com.example.falci.internalClasses.dataClasses.controlVariables
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.listOfFavCards
 
@@ -39,6 +40,9 @@ class FavouriteHoroscopesFragment : Fragment() {
         val editFavourites = v.findViewById<TextView>(R.id.editFavourites)
 
         val getFavsFuncs = GetFavsFuncs()
+
+
+        controlVariables.swipeBack = false
 
         getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
 

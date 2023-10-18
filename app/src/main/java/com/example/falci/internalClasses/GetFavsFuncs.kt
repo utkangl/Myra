@@ -155,7 +155,19 @@ class GetFavsFuncs {
         favHoroscopeLinearLayout: LinearLayout,
         context: Context
     ) {
+
+
         searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
+            for (i in 0 until favHoroscopeLinearLayout.childCount) {
+                val childView: View = favHoroscopeLinearLayout.getChildAt(i)
+                if (childView is FavCardView) {
+                    if (controlVariables.swipeBack) {
+                        SwipeBack.swipeBack(childView)
+                        controlVariables.swipeBack = false
+                    }
+                }
+            }
+
             if (actionId == EditorInfo.IME_ACTION_SEND) {
                 val searchText = searchFavHoroscope.text.toString()
                 favHoroscopeLinearLayout.removeAllViews()
@@ -175,13 +187,27 @@ class GetFavsFuncs {
             }
         }
         cancelFavSearchFilter.setOnClickListener {
+            for (i in 0 until favHoroscopeLinearLayout.childCount) {
+                val childView: View = favHoroscopeLinearLayout.getChildAt(i)
+                if (childView is FavCardView) {
+                    if (controlVariables.swipeBack) {
+                        SwipeBack.swipeBack(childView)
+                        controlVariables.swipeBack = false
+                    }
+                }
+            }
             favHoroscopeLinearLayout.removeAllViews()
             searchFavHoroscope.setText("")
             val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
             CoroutineScope(Dispatchers.Main).launch {
-                for (fortuneItem in allFavouriteHoroscopes.reversed()) {
-                    createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                for (fortuneItem in listOfFavouriteHoroscopes.results) {
+                    val summary = fortuneItem.fortune?.prompt?.summary
+                    if (summary?.contains("", ignoreCase = true) == true) {
+                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
+                    }
                 }
             }
         }
