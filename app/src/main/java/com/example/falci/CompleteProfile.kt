@@ -69,6 +69,9 @@ class CompleteProfile : AppCompatActivity() {
         val timePick = findViewById<TimePicker>(R.id.timePick)
         val datePick = findViewById<DatePicker>(R.id.datePick)
 
+        val calendarForMaxDate = Calendar.getInstance()
+        val maxDate = calendarForMaxDate.timeInMillis
+        datePick.maxDate = maxDate
 
 
         // multiple spinner will be used in that screen, this function aims to reduce repeating code
