@@ -114,7 +114,7 @@ class ProfileFragment : Fragment() {
         editprofilebutton.setOnClickListener {
             // change to editProfile screen if user is logged in
             if (authenticated.isLoggedIn){
-                if (controlVariables.getProfileAgain){ makeGetProfileRequest(urls.getProfileURL, requireContext()) { _, _ -> } }
+                if (controlVariables.getProfileAgain){ makeGetProfileRequest(urls.getProfileURL, requireContext(),null,null) { _, _ -> } }
                 replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment())
             }
 

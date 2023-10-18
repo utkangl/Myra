@@ -3,7 +3,9 @@ package com.example.falci.internalClasses
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.widget.ImageButton
 import androidx.core.content.ContextCompat
+import com.example.falci.MainActivity
 import com.example.falci.ProfileActivity
 import com.example.falci.R
 import com.example.falci.internalClasses.dataClasses.*
@@ -16,7 +18,7 @@ import java.io.InputStream
 
 class ProfileFunctions {
     object ProfileFunctions{
-        fun makeGetProfileRequest(url: String,  context: Context, callback: (String?, Exception?) -> Unit) {
+        fun makeGetProfileRequest(url: String,  context: Context, activity: MainActivity?, settingsButton: ImageButton?, callback: (String?, Exception?) -> Unit) {
 
             println("get profile sending access token ${tokensDataClass.accessToken}")
 
@@ -47,7 +49,7 @@ class ProfileFunctions {
                             context,
                         ) { responseBody401, exception ->
                             if (responseBody401 != null) {
-                                makeGetProfileRequest(url,  context, callback)
+                                makeGetProfileRequest(url,  context, activity, settingsButton, callback)
                             } else {
                                 println(exception)
                             }
@@ -60,6 +62,7 @@ class ProfileFunctions {
                             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                             val intent = Intent(context, ProfileActivity::class.java)
                             ContextCompat.startActivity(context, intent, options.toBundle())
+                            activity?.runOnUiThread{settingsButton?.isEnabled = true}
                         } else println("get profile req atan fonksiyonun içinden yazıyorum $userProfile")
                     }
                 }

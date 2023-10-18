@@ -151,8 +151,6 @@ class HoroscopeDetailFragment : Fragment() {
                                 getHoroscopeData.is_favourite = false
                             }
                         }
-
-
                         true
                     } else {
                         false

@@ -113,15 +113,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsButton.setOnClickListener {
-            if (authenticated.isLoggedIn) {
-                makeGetProfileRequest(urls.getProfileURL, this) { _, _ -> }
-            } else {
-                if (savedInstanceState == null) {
-                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+            if (settingsButton.isEnabled){
+                settingsButton.isEnabled = false
+                if (authenticated.isLoggedIn) {
+                    makeGetProfileRequest(urls.getProfileURL, this,this,settingsButton) { _, _ -> }
+                }
+                else {
+                    if (savedInstanceState == null) {
+                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                        val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+                        settingsButton.isEnabled = true
+                    }
                 }
             }
-    }
+        }
 
         burcCard.setOnClickListener {
             if (!controlVariables.isInDelay){
