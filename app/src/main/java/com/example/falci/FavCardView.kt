@@ -16,6 +16,8 @@ import com.example.falci.internalClasses.dataClasses.controlVariables
 import com.example.falci.internalClasses.dataClasses.favouriteHoroscope
 import com.example.falci.internalClasses.dataClasses.getHoroscopeData
 
+var timeWhenSwiped: Long = 0
+
 @SuppressLint("ClickableViewAccessibility")
 class FavCardView constructor(
     context: Context,
@@ -48,6 +50,7 @@ class FavCardView constructor(
 
                 // on swipe left
                 MotionEvent.ACTION_MOVE -> {
+                    timeWhenSwiped = System.currentTimeMillis()
                     val dx = event.x - startX
                     if (dx < 0 && !isSwiped && !controlVariables.swipeBack && kotlin.math.abs(dx) >= swipeThreshold) {
                         isSwiped = true
@@ -63,7 +66,7 @@ class FavCardView constructor(
 
                 // on click
                 MotionEvent.ACTION_UP -> {
-                    if (!isSwiped && !isEditing) {
+                    if (!isEditing) {
                         performClick()
                     }
                 }

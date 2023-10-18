@@ -246,6 +246,7 @@ class GetFavsFuncs {
         favHoroscopeLinearLayout.addView(favCardView)
 
         favCardView.setOnClickListener {
+            println(controlVariables.swipeBack)
             if (!controlVariables.swipeBack) {
                 getHoroscopeData.id = fortuneItem.fortune?.id
                 getHoroscopeData.thread = fortuneItem.fortune?.prompt?.thread
@@ -260,7 +261,12 @@ class GetFavsFuncs {
                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(context, intent, options.toBundle())
-            } else println("swipeBack was true, cant navigate to horoscope")
+            } else {
+                if (System.currentTimeMillis() - timeWhenSwiped > 95){
+                    SwipeBack.swipeBack(favCardView)
+                    println("ANNENŞN AMINA GŞREWYŞM IRSOH ÖIXH")
+                }
+            }
         }
 
         swipeDeleteButton.setOnClickListener {
