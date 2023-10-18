@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:id="@+id/savedLookupUserCard"
         android:layout_marginEnd="10dp"
         app:cardBackgroundColor="#423E71"
@@ -23,12 +23,14 @@
             android:id="@+id/savedUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="60dp"
             android:layout_gravity="center"
+            android:singleLine="true"
             android:fontFamily="@font/arima_madurai_light"
             android:text="@string/user"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="17sp">
+            android:textSize="14sp">
         </TextView>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

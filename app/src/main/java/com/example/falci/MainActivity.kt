@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         splashViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[SplashViewModel::class.java]
         installSplashScreen().apply {
-            setKeepOnScreenCondition {
-                (splashViewModel as SplashViewModel).isLoading.value  // keep showing splash screen until launching is over
-            }
+            setKeepOnScreenCondition { (splashViewModel as SplashViewModel).isLoading.value}  // keep showing splash screen until launching is over
         }
         setContentView(R.layout.activity_main)
         val mainActivityGeneralLayout = findViewById<RelativeLayout>(R.id.mainActivityGeneralLayout)
