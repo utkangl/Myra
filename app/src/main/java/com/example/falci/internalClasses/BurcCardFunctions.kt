@@ -57,10 +57,11 @@ class BurcCardFunctions(
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         controlVariables.isBurcCardOpen = true
         animateBurcCardSize(burcCard, 380, 500, {
-            setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle, backArrowCard, burcCardInnerLayout)
+            setViewVisibleWithAnimation(context, backArrowCard, burcCardInnerLayout)
             burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
             mainActivityGeneralLayout.background = getDrawable(context,R.drawable.space_background)
         }, {
+            setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle)
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
             params.addRule(RelativeLayout.CENTER_IN_PARENT, 1)
         })
@@ -118,7 +119,7 @@ class BurcCardFunctions(
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(animatorWidth, animatorHeight)
-        animatorSet.duration = 180
+        animatorSet.duration = 130
 
         animatorSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {

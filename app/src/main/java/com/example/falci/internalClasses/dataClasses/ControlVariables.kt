@@ -15,6 +15,7 @@ data class ControlVariables(
     var isFromLoveHoroscope: Boolean,
     var navigateToHoroscope: Boolean,
     var inLocationPickCard: Boolean,
+    var isInDelay: Boolean,
 )
 
 var controlVariables = ControlVariables(
@@ -32,4 +33,5 @@ var controlVariables = ControlVariables(
     isFromLoveHoroscope = false,
     navigateToHoroscope = false,
     inLocationPickCard = false,
+    isInDelay = false,
 )

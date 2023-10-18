@@ -121,17 +121,19 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
                 }
             }
-        }
+    }
 
         burcCard.setOnClickListener {
-            if (!controlVariables.isBurcCardOpen) {
-                if (authenticated.isLoggedIn) {
-                    setViewInvisible(clickToGetHoroscopeText)
-                    setViewGoneWithAnimation(this,settingsButtonCard, miraMainMenu)
-                    burcCardFunctions.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard,mainActivityGeneralLayout)
-                } else {
-                    val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                    val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+            if (!controlVariables.isInDelay){
+                if (!controlVariables.isBurcCardOpen) {
+                    if (authenticated.isLoggedIn) {
+                        setViewInvisible(clickToGetHoroscopeText)
+                        setViewGoneWithAnimation(this,settingsButtonCard, miraMainMenu)
+                        burcCardFunctions.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard,mainActivityGeneralLayout)
+                    } else {
+                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                        val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+                    }
                 }
             }
         }
@@ -193,22 +195,25 @@ class MainActivity : AppCompatActivity() {
             // play thinking animation
             if (authenticated.isLoggedIn) {
                 if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected){
+                    controlVariables.isInDelay = true
                     // if horoscope type is not love, call get horoscope function
                     if (!controlVariables.isFromLoveHoroscope) {
                         handleCloseBurcCard()
                         Handler(Looper.getMainLooper()).postDelayed({
                             setViewGone(burcCard, settingsButtonCard, miraMainMenu)
                             HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
-                        }, 250)
+                        }, 150)
+                        setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                     }
                     if (controlVariables.isFromLoveHoroscope) {
                         handleCloseBurcCard()
                         Handler(Looper.getMainLooper()).postDelayed({
                             setViewGone(burcCard, settingsButtonCard, miraMainMenu)
                             getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
-                        }, 250)
+                        }, 150)
+                        setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                     }
-                } else this.runOnUiThread{ Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show()}
+                } else this.runOnUiThread{Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show()}
 
             } else {
                 // if user is not logged in, close burcCard and then after 300ms make the transition

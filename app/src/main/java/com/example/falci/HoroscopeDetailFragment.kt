@@ -48,6 +48,7 @@ class HoroscopeDetailFragment : Fragment() {
         val favHoroscopeTitleInput = v.findViewById<EditText>(R.id.favHoroscopeTitleInput)
 
         var inTitleInput = false
+        controlVariables.isInDelay = false
 
         if (getHoroscopeData.time_remaining != null){
             val builder = AlertDialog.Builder(requireContext())
