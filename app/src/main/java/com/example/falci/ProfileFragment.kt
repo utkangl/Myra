@@ -28,7 +28,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPlanetExplanationJsonValue
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.getPlanetZodiacExplanationJsonValue
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
-import com.example.falci.internalClasses.TransitionToFragment
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceProfileActivityToFragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
@@ -102,7 +102,6 @@ class ProfileFragment : Fragment() {
 
         editprofilebutton.setOnClickListener {
             // change to editProfile screen if user is logged in
-
             if (authenticated.isLoggedIn){
                 if (controlVariables.getProfileAgain){ makeGetProfileRequest(urls.getProfileURL, requireContext()) { _, _ -> } }
                 replaceProfileFragmentWithAnimation(parentFragmentManager, EditProfileFragment())
@@ -280,14 +279,7 @@ class ProfileFragment : Fragment() {
 
             } else{requireActivity().runOnUiThread { Toast.makeText(requireContext(), "can not logout without logging in", Toast.LENGTH_LONG).show()} }
         }
-
-
-        showFavHoroscopesLayout.setOnClickListener{
-                TransitionToFragment.ReplaceActivityToFragment.replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())
-        }
-
-
-
+        showFavHoroscopesLayout.setOnClickListener{ replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())}
         return v
     }
 }

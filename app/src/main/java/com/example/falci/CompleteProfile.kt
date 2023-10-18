@@ -395,7 +395,6 @@ class CompleteProfile : AppCompatActivity() {
                         val intent = Intent(applicationContext, LoginSignupActivity::class.java);startActivity(intent, options.toBundle())
                         true
                     }
-
                 }
 
                 if (step == 1){

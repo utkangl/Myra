@@ -63,7 +63,7 @@ class FavCardView constructor(
 
                 // on click
                 MotionEvent.ACTION_UP -> {
-                    if (!isSwiped) {
+                    if (!isSwiped && !isEditing) {
                         performClick()
                     }
                 }

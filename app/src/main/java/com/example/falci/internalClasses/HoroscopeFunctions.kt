@@ -1,5 +1,6 @@
 package com.example.falci.internalClasses
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.FragmentManager
@@ -94,8 +95,10 @@ object HoroscopeFunctions {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
                         controlVariables.navigateToHoroscope = true
+                        val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                         val intent = Intent(context, MainActivity::class.java)
-                        context.startActivity(intent)
+                        context.startActivity(intent, options.toBundle())
+
                     }
 
                     if (responseBody != null) {

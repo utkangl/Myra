@@ -47,25 +47,9 @@ class GetFavsFuncs {
             val response = client.newCall(request).execute()
 
             when (val getFavsStatusCode = response.code()) {
-                401 -> handleUnauthorized(
-                    animationView,
-                    context,
-                    searchFavHoroscope,
-                    cancelFavSearchFilter,
-                    favHoroscopeLinearLayout,
-                    getFavsUrl,
-                    favouriteHoroscopesScrollview
-                )
+                401 -> handleUnauthorized(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, getFavsUrl, favouriteHoroscopesScrollview)
                 200 -> {
-                    handleSuccessfulResponse(
-                        response,
-                        gson,
-                        animationView,
-                        searchFavHoroscope,
-                        cancelFavSearchFilter,
-                        favHoroscopeLinearLayout,
-                        context
-                    )
+                    handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context)
 
                     var lastScrollY = 0
                     favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
@@ -76,15 +60,7 @@ class GetFavsFuncs {
                             if (listOfFavouriteHoroscopes.next.isNullOrEmpty()) println("this is the last page")
                             if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count && loadMore) {
                                 println(listOfFavouriteHoroscopes.next)
-                                getFavouriteHoroscopes(
-                                    animationView,
-                                    context,
-                                    searchFavHoroscope,
-                                    cancelFavSearchFilter,
-                                    favHoroscopeLinearLayout,
-                                    listOfFavouriteHoroscopes.next!!,
-                                    favouriteHoroscopesScrollview
-                                )
+                                getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, listOfFavouriteHoroscopes.next!!, favouriteHoroscopesScrollview)
                                 loadMore = false
                             }
                         }
@@ -149,17 +125,8 @@ class GetFavsFuncs {
         }
     }
 
-    private suspend fun handleSuccessfulResponse(
-        response: Response,
-        gson: Gson,
-        animationView: LottieAnimationView,
-        searchFavHoroscope: EditText,
-        cancelFavSearchFilter: ImageButton,
-        favHoroscopeLinearLayout: LinearLayout,
-        context: Context
-    ) {
+    private fun handleSuccessfulResponse(response: Response, gson: Gson, animationView: LottieAnimationView, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, context: Context) {
         val responseBody = response.body()?.string()
-        delay(1000)
 
         animationView.post {
             setViewGone(animationView)
@@ -195,9 +162,10 @@ class GetFavsFuncs {
                 CoroutineScope(Dispatchers.Main).launch {
                     for (fortuneItem in listOfFavouriteHoroscopes.results) {
                         val summary = fortuneItem.fortune?.prompt?.summary
-
                         if (summary?.contains(searchText, ignoreCase = true) == true) {
                             createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                            val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                            inputMethodManager.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
                         }
                     }
                 }

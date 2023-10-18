@@ -25,6 +25,7 @@ import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.checkIsAccessExpired
 import com.example.falci.internalClasses.HoroscopeFunctions.getLoveHoroscope
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
@@ -136,7 +137,7 @@ class MainActivity : AppCompatActivity() {
             if (!controlVariables.isBurcCardOpen) {
                 if (authenticated.isLoggedIn) {
                     setViewInvisible(clickToGetHoroscopeText)
-                    setViewGone(settingsButtonCard)
+                    setViewGoneWithAnimation(this,settingsButtonCard, miraMainMenu)
                     burcCardFunctions.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard,mainActivityGeneralLayout)
                 } else {
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
@@ -147,6 +148,7 @@ class MainActivity : AppCompatActivity() {
 
         fun handleCloseBurcCard(){
             burcCard.setCardBackgroundColor(Color.parseColor("#1c1444"))
+            setViewVisibleWithAnimation(this,miraMainMenu,settingsButtonCard)
             mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background,theme)
             burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard, settingsButtonCard, clickToGetHoroscopeText)
             generalSignParams.topMargin = oldTopMarginForModeCards

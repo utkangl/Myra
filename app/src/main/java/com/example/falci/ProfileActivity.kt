@@ -12,7 +12,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         // directly navigate to profile fragment when this activity is created
-        println(controlVariables.navigateToFavs)
+        println("favorilere yonendir ${controlVariables.navigateToFavs}")
         if (!controlVariables.navigateToFavs) replaceProfileActivityToFragment(supportFragmentManager, ProfileFragment())
         if (controlVariables.navigateToFavs)  replaceProfileActivityToFragment(supportFragmentManager, FavouriteHoroscopesFragment()); controlVariables.navigateToFavs = false
     }

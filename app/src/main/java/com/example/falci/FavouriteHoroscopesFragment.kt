@@ -40,15 +40,7 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         val getFavsFuncs = GetFavsFuncs()
 
-        getFavsFuncs.getFavouriteHoroscopes(
-            favHoroscopeLoadingAnimation,
-            requireContext(),
-            searchFavHoroscope,
-            cancelFavSearchFilter,
-            favHoroscopeLinearLayout,
-            urls.favouriteHoroscopeURL,
-            favouriteHoroscopesScrollview
-        )
+        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
 
         editFavourites.setOnClickListener{
             for (card in listOfFavCards){

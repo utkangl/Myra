@@ -133,19 +133,6 @@ class InternalFunctions {
             val date = sdf.parse(dateTimeStr)
             return date!!.time / 1000
         }
-
-
-//        fun separateBirthTime(birthDay: String): String {
-//            val parts = birthDay.split("T")
-//            if (parts.size > 1) {
-//                return parts[1].substring(0, 8)
-//            }
-//            return "separating failed"
-//        }
-//
-//        fun separateBirthDate(birthDay: String): String {
-//            return birthDay.split("T")[0]
-//        }
     }
 
     object AnimateCardSize{
