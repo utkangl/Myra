@@ -74,7 +74,9 @@ class LocationService(private val context: Context) {
 
                 val selectedCity = autoCompleteTextView.text.toString()
 
-                if (controlVariables.isFromLoveHoroscope) postPartnerProfile.partnerLocation = selectedCity; else userCompleteProfile.location = selectedCity
+                if (controlVariables.isFromLoveHoroscope) {
+                    postPartnerProfile.partnerLocation = selectedCity
+                } else userCompleteProfile.location = selectedCity
 
                 isCitySelected = selectedCity in response.autocompletePredictions.map {
                     it.getFullText(null).toString()

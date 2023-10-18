@@ -1,6 +1,5 @@
 package com.example.falci
 
-import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
@@ -226,7 +225,6 @@ class CompleteProfile : AppCompatActivity() {
         }
 
         // set time field of CompleteProfileUserDataClass's instance w/ user's time input
-        @SuppressLint("StopShip")
         fun setTime(){
             val hour = timePick.hour
             val minute = timePick.minute
