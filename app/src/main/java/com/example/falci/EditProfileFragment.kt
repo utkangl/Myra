@@ -46,11 +46,14 @@ class EditProfileFragment : Fragment() {
         val locationField = v.findViewById<TextView>(R.id.locationEditText)
         val occupationField = v.findViewById<TextView>(R.id.occupationEditText)
         val relationShipStatusField = v.findViewById<TextView>(R.id.relationshipStatusEditText)
+
         val savebutton = v.findViewById<AppCompatButton>(R.id.savebutton)
         val savedatebutton = v.findViewById<AppCompatButton>(R.id.savedatebutton)
         val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
+
         val editProfileDatePicker = v.findViewById<DatePicker>(R.id.editProfileDatePicker)
         val editProfileTimePicker = v.findViewById<TimePicker>(R.id.editProfileTimePicker)
+
         val genderPickSpinner = v.findViewById<Spinner>(R.id.editProfile_genderpick_spinner)
         val occupationSpinner = v.findViewById<Spinner>(R.id.editProfile_OccupationPickSpinner)
         val maritalStatusSpinner = v.findViewById<Spinner>(R.id.editProfile_marital_status_spinner)
@@ -58,7 +61,10 @@ class EditProfileFragment : Fragment() {
         val genderFieldHint = v.findViewById<TextView>(R.id.genderFieldHint)
         val occupationFieldHint = v.findViewById<TextView>(R.id.occupationFieldHint)
         val relationshipStatusFieldHint = v.findViewById<TextView>(R.id.relationshipStatusFieldHint)
+
         val editProfileGeneralLayout = v.findViewById<RelativeLayout>(R.id.editProfileGeneralLayout)
+
+        println(userProfile)
 
         val (formattedDate, formattedTime) = convertTimestampToDateTime(userProfile.birth_day!!.toLong())
         nameField.text = userProfile.first_name
@@ -97,7 +103,7 @@ class EditProfileFragment : Fragment() {
             userProfile.apply {
                 first_name = nameField.text.toString()
                 gender = genderField.text.toString()
-                birth_day = birthDateField.text.toString()
+               // birth_day = birthDateField.text.toString()
                 birth_place = locationField.text.toString()
                 occupation = occupationField.text.toString()
                 relationship_status = relationShipStatusField.text.toString()
@@ -110,9 +116,9 @@ class EditProfileFragment : Fragment() {
                     parentFragmentManager.popBackStack()
                     controlVariables.getProfileAgain = true
                 }
+                else println(statusCode)
             }
         }
-
 
         backArrow.setOnClickListener { parentFragmentManager.popBackStack() }
 
@@ -161,8 +167,7 @@ class EditProfileFragment : Fragment() {
 
         val maritalStatusAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, R.layout.custom_spinner_item)
         val isUserInteractedMarital = false
-        setupSpinnerAndField(maritalStatusSpinner, relationshipStatusFieldHint,maritalStatusAdapter,isUserInteractedMarital){selectedMaritalStatus -> occupationField.text = selectedMaritalStatus}
-
+        setupSpinnerAndField(maritalStatusSpinner, relationshipStatusFieldHint,maritalStatusAdapter,isUserInteractedMarital){selectedMaritalStatus -> relationShipStatusField.text = selectedMaritalStatus}
 
         val cityInput = v.findViewById<AutoCompleteTextView>(R.id.searchCity)
         val editProfileLocationCardView = v.findViewById<CardView>(R.id.editProfileLocationCardView)
