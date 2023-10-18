@@ -4,7 +4,7 @@ import org.json.JSONObject
 
 lateinit var postLookupUserJson: JSONObject
 
-data class PostPartnerProfileDataClass(
+data class postPartnerProfileDataClass(
 var partnerName: String,
 var partnerGender: String,
 var partnerDate: String,
@@ -13,7 +13,7 @@ var partnerLocation: String,
 var partnerOccupation: String,
 var partnerRelationStatus: String
 )
-val postPartnerProfile = PostPartnerProfileDataClass(
+val postPartnerProfile = postPartnerProfileDataClass(
     partnerName = "",
     partnerGender = "",
     partnerDate =  "",

@@ -7,12 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.HorizontalScrollView
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -197,21 +192,24 @@ class MainActivity : AppCompatActivity() {
             // to horoscope detail fragment, but until api response with horoscope
             // play thinking animation
             if (authenticated.isLoggedIn) {
-                // if horoscope type is not love, call get horoscope function
-                if (!controlVariables.isFromLoveHoroscope) {
-                    handleCloseBurcCard()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
-                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
-                    }, 250)
-                }
-                if (controlVariables.isFromLoveHoroscope) {
-                    handleCloseBurcCard()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
-                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
-                    }, 250)
-                }
+                if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected){
+                    // if horoscope type is not love, call get horoscope function
+                    if (!controlVariables.isFromLoveHoroscope) {
+                        handleCloseBurcCard()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                            HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                        }, 250)
+                    }
+                    if (controlVariables.isFromLoveHoroscope) {
+                        handleCloseBurcCard()
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                            getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
+                        }, 250)
+                    }
+                } else this.runOnUiThread{ Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show()}
+
             } else {
                 // if user is not logged in, close burcCard and then after 300ms make the transition
                 // to login signup activity

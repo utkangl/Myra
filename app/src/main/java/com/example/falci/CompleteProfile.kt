@@ -33,6 +33,7 @@ class CompleteProfile : AppCompatActivity() {
 
         val nextButton = findViewById<AppCompatButton>(R.id.next_button)
         val timePickNextButton = findViewById<AppCompatButton>(R.id.timePickNextButton)
+        val datePickNextButton = findViewById<AppCompatButton>(R.id.datePickNextButton)
 
         val namePickContainer = findViewById<RelativeLayout>(R.id.namePickContainer)
         val genderPickContainer = findViewById<RelativeLayout>(R.id.genderPickContainer)
@@ -301,9 +302,7 @@ class CompleteProfile : AppCompatActivity() {
                             }
                         }
                     }
-                    if (!controlVariables.isFromLoveHoroscope){
-                        userCompleteProfile.relation = selectedRelation
-                    }
+                    if (!controlVariables.isFromLoveHoroscope){ userCompleteProfile.relation = selectedRelation     }
                     step = 7; star7.startColorAnimation()
                 } else step = 6
             }
@@ -330,11 +329,16 @@ class CompleteProfile : AppCompatActivity() {
             }
 
             if (step == 2){
-                setViewGoneWithAnimation(this,genderPickContainer)
-                setViewVisibleWithAnimation(this,datePickContainer)
+                allowNext = false
+                setViewGoneWithAnimation(this,genderPickContainer, nextButton)
+                setViewVisibleWithAnimation(this,datePickContainer,datePickNextButton)
                 setDate()
-                if (step == 2 && allowNext){
-                    allowNext = false; step = 3
+                datePickNextButton.setOnClickListener{
+                    allowNext = true
+                    step = 3
+                    setViewVisibleWithAnimation(this,nextButton)
+                    setViewGoneWithAnimation(this,datePickContainer)
+                    nextButton.performClick()
                 }
             }
 
@@ -410,14 +414,14 @@ class CompleteProfile : AppCompatActivity() {
 
                 if (step == 2){
                     step = 1
-                    setViewGoneWithAnimation(applicationContext, datePickContainer)
-                    setViewVisibleWithAnimation(applicationContext, genderPickContainer)
+                    setViewGoneWithAnimation(applicationContext, datePickContainer,datePickNextButton)
+                    setViewVisibleWithAnimation(applicationContext, genderPickContainer,nextButton)
                 }
 
                 if (step == 3){
                     step = 2
-                    setViewGoneWithAnimation(applicationContext, timePickContainer)
-                    setViewVisibleWithAnimation(applicationContext, datePickContainer, nextButton)
+                    setViewGoneWithAnimation(applicationContext, timePickContainer, timePickNextButton)
+                    setViewVisibleWithAnimation(applicationContext, datePickContainer, datePickNextButton)
                 }
 
                 if (step == 4){

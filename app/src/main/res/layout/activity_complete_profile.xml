@@ -278,6 +278,22 @@
                     android:visibility="gone"
                     android:animateLayoutChanges="true">
 
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/datePickNextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_marginStart="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="120dp"
+                            android:background="@drawable/common_next_button"
+                            android:fontFamily="@font/arima_madurai_bold"
+                            android:text="@string/devam"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="24sp">
+                        </androidx.appcompat.widget.AppCompatButton>
+
                         <DatePicker
                             android:id="@+id/datePick"
                             android:layout_width="wrap_content"
