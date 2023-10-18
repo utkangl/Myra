@@ -155,18 +155,6 @@ class ProfileFragment : Fragment() {
             planetSignToImageMap["Sco"] = R.drawable.scorpio
             planetSignToImageMap["Sag"] = R.drawable.sagittarius
 
-            val planetToColorMap = mutableMapOf<String, Int>()
-            planetToColorMap["Jupiter"] = resources.getColor(R.color.jupiter)
-            planetToColorMap["Mars"] = resources.getColor(R.color.mars)
-            planetToColorMap["Mercury"] = resources.getColor(R.color.mercury)
-            planetToColorMap["Neptune"] = resources.getColor(R.color.neptune)
-            planetToColorMap["Saturn"] = resources.getColor(R.color.saturn)
-            planetToColorMap["Sun"] = resources.getColor(R.color.sun)
-            planetToColorMap["Uranus"] = resources.getColor(R.color.uranus)
-            planetToColorMap["Venus"] = resources.getColor(R.color.venus)
-            planetToColorMap["Moon"] = resources.getColor(R.color.moon)
-
-
             burcexplanationplanetimage.setImageResource(planetImages[0])
             burcexplanationplanettext.text = planetNames[0]
             var planetName = planetNames[0]
@@ -200,43 +188,48 @@ class ProfileFragment : Fragment() {
 
 
 
+            var currentIndex = 0
+
             planetLayouts.forEachIndexed { index, layout ->
                 layout.setOnClickListener {
-                    burcexplanationplanetimage.startAnimation(fadeOut)
-                    burcexplanationplanettext.startAnimation(fadeOut)
-                    planetHoroscopeImageCard.startAnimation(fadeOut)
-                    planetHoroscopeText.startAnimation(fadeOut)
+                    if (index != currentIndex){
+                        currentIndex = index
+                        burcexplanationplanetimage.startAnimation(fadeOut)
+                        burcexplanationplanettext.startAnimation(fadeOut)
+                        planetHoroscopeImageCard.startAnimation(fadeOut)
+                        planetHoroscopeText.startAnimation(fadeOut)
 
-                    val upAnimation = AnimationUtils.loadAnimation(context, R.anim.zodiacexp_slide_up)
-                    val downAnimation = AnimationUtils.loadAnimation(context, R.anim.activity_slide_down)
-                    burcExplanationText.startAnimation(upAnimation)
+                        val upAnimation = AnimationUtils.loadAnimation(context, R.anim.zodiacexp_slide_up)
+                        val downAnimation = AnimationUtils.loadAnimation(context, R.anim.activity_slide_down)
+                        burcExplanationText.startAnimation(upAnimation)
 
-                    fadeOut.setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationStart(animation: Animation?) {
-                        }
+                        fadeOut.setAnimationListener(object : Animation.AnimationListener {
+                            override fun onAnimationStart(animation: Animation?) {
+                            }
 
-                        override fun onAnimationEnd(animation: Animation?) {
-                            burcexplanationplanetimage.setImageResource(planetImages[index])
-                            burcexplanationplanettext.text = planetNames[index]
+                            override fun onAnimationEnd(animation: Animation?) {
+                                burcexplanationplanetimage.setImageResource(planetImages[index])
+                                burcexplanationplanettext.text = planetNames[index]
 
-                            planetName = planetNames[index]
-                            sign = planetSignMap[planetName]
-                            planetHoroscopeText.text = sign
-                            burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+                                planetName = planetNames[index]
+                                sign = planetSignMap[planetName]
+                                planetHoroscopeText.text = sign
+                                burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
-                            planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
+                                planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
 
-                            burcexplanationplanetimage.startAnimation(fadeIn)
-                            burcexplanationplanettext.startAnimation(fadeIn)
-                            planetHoroscopeImageCard.startAnimation(fadeIn)
-                            planetHoroscopeText.startAnimation(fadeIn)
-                            burcExplanationText.startAnimation(downAnimation)
-                        }
+                                burcexplanationplanetimage.startAnimation(fadeIn)
+                                burcexplanationplanettext.startAnimation(fadeIn)
+                                planetHoroscopeImageCard.startAnimation(fadeIn)
+                                planetHoroscopeText.startAnimation(fadeIn)
+                                burcExplanationText.startAnimation(downAnimation)
+                            }
 
-                        override fun onAnimationRepeat(animation: Animation?) {
-                            // do nothing
-                        }
-                    })
+                            override fun onAnimationRepeat(animation: Animation?) {
+                                // do nothing
+                            }
+                        })
+                    }
                 }
             }
 
