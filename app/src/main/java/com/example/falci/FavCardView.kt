@@ -50,7 +50,6 @@ class FavCardView constructor(
 
                 // on swipe left
                 MotionEvent.ACTION_MOVE -> {
-                    timeWhenSwiped = System.currentTimeMillis()
                     val dx = event.x - startX
                     if (dx < 0 && !isSwiped && !controlVariables.swipeBack && kotlin.math.abs(dx) >= swipeThreshold) {
                         isSwiped = true
@@ -60,6 +59,7 @@ class FavCardView constructor(
                         animation.fillAfter = true
                         setViewVisible(swipeDeleteButton)
                         cardView.startAnimation(animation)
+                        timeWhenSwiped = System.currentTimeMillis()
                     }
                     swipeDistance = dx
                 }

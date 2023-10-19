@@ -49,7 +49,7 @@ class GetFavsFuncs {
             when (val getFavsStatusCode = response.code()) {
                 401 -> handleUnauthorized(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, getFavsUrl, favouriteHoroscopesScrollview)
                 200 -> {
-                    handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context)
+                    handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context,favouriteHoroscopesScrollview)
 
                     var lastScrollY = 0
                     favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
@@ -125,9 +125,8 @@ class GetFavsFuncs {
         }
     }
 
-    private fun handleSuccessfulResponse(response: Response, gson: Gson, animationView: LottieAnimationView, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, context: Context) {
+    private fun handleSuccessfulResponse(response: Response, gson: Gson, animationView: LottieAnimationView, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, context: Context,favouriteHoroscopesScrollview: ScrollView) {
         val responseBody = response.body()?.string()
-
         animationView.post {
             setViewGone(animationView)
             animationView.cancelAnimation()
@@ -135,8 +134,11 @@ class GetFavsFuncs {
 
         // Parse the response and update the listOfFavouriteHoroscopes
         listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
-        allFavouriteHoroscopes.addAll(listOfFavouriteHoroscopes.results)
-        println(" size bu: ${allFavouriteHoroscopes.size}")
+        for (item in listOfFavouriteHoroscopes.results){
+            println(item.id)
+        }
+//        allFavouriteHoroscopes.addAll(listOfFavouriteHoroscopes.results)
+//        println(" size bu: ${allFavouriteHoroscopes.size}")
         loadMore = true
 
         searchAndDisplayFilteredResults(
@@ -144,7 +146,10 @@ class GetFavsFuncs {
             searchFavHoroscope,
             cancelFavSearchFilter,
             favHoroscopeLinearLayout,
-            context
+            context,
+            favouriteHoroscopesScrollview,
+            animationView,
+
         )
     }
 
@@ -153,7 +158,9 @@ class GetFavsFuncs {
         searchFavHoroscope: EditText,
         cancelFavSearchFilter: ImageButton,
         favHoroscopeLinearLayout: LinearLayout,
-        context: Context
+        context: Context,
+        favouriteHoroscopesScrollview:ScrollView,
+        animationView: LottieAnimationView
     ) {
 
         searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
@@ -201,25 +208,35 @@ class GetFavsFuncs {
             val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
             CoroutineScope(Dispatchers.Main).launch {
-                println(allFavouriteHoroscopes.size)
-                for (fortuneItem in allFavouriteHoroscopes){
-                    val summary = fortuneItem.fortune?.prompt?.summary
-                    val title = fortuneItem.title
-                    if (summary?.contains("", ignoreCase = true) == true || title.contains("", ignoreCase = true)) {
-                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
-                    }
-                }
-//                for (fortuneItem in listOfFavouriteHoroscopes.results) {
+//                println(allFavouriteHoroscopes.size)
+//                for (fortuneItem in allFavouriteHoroscopes){
 //                    val summary = fortuneItem.fortune?.prompt?.summary
 //                    val title = fortuneItem.title
-//                    if (summary?.contains("", ignoreCase = true) == true && title.contains("", ignoreCase = true)) {
+//                    if (summary?.contains("", ignoreCase = true) == true || title.contains("", ignoreCase = true)) {
 //                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
 //                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
 //                    }
 //                }
+                getFavouriteHoroscopes(
+                    animationView,
+                    context,
+                    searchFavHoroscope,
+                    cancelFavSearchFilter,
+                    favHoroscopeLinearLayout,
+                    urls.favouriteHoroscopeURL,
+                    favouriteHoroscopesScrollview
+                )
+
+                for (fortuneItem in listOfFavouriteHoroscopes.results) {
+                    val summary = fortuneItem.fortune?.prompt?.summary
+                    val title = fortuneItem.title
+                    if (summary?.contains("", ignoreCase = true) == true && title.contains("", ignoreCase = true)) {
+                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
+                    }
+                }
             }
         }
 
@@ -245,7 +262,7 @@ class GetFavsFuncs {
         val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
         val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
 
-        favCardTitle.text = fortuneItem.title
+        favCardTitle.text = fortuneItem.id.toString()
         favCardExplanation.text = summary
 
         favCardView.layoutParams = ViewGroup.LayoutParams(
@@ -275,10 +292,9 @@ class GetFavsFuncs {
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(context, intent, options.toBundle())
             } else {
-                if (System.currentTimeMillis() - timeWhenSwiped > 95){
+                if (System.currentTimeMillis() - timeWhenSwiped > 350){
                     SwipeBack.swipeBack(favCardView)
-                    println("ANNENŞN AMINA GŞREWYŞM IRSOH ÖIXH")
-                }
+                } else println(System.currentTimeMillis() - timeWhenSwiped )
             }
         }
 
