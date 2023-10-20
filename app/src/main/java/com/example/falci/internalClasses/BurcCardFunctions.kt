@@ -46,14 +46,8 @@ class BurcCardFunctions(
     private val selectedModeTitle: TextView? = null,
 ) {
 
-    fun animateBurcCardIn(
-        burcCard: CardView,
-        burcCardInnerLayout: RelativeLayout,
-        MiraBurcCardTop: ImageView,
-        MiraBurcCardTopTriangle: ImageView,
-        backArrowCard: CardView,
-        mainActivityGeneralLayout: RelativeLayout
-    ) {
+    fun animateBurcCardIn(burcCard: CardView, burcCardInnerLayout: RelativeLayout, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView,
+                          backArrowCard: CardView, mainActivityGeneralLayout: RelativeLayout) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         controlVariables.isBurcCardOpen = true
         animateBurcCardSize(burcCard, 380, 500, {
@@ -141,40 +135,49 @@ class BurcCardFunctions(
     }
 
     fun handleTimeIntervalSelect(time_interval: String) {
-        if (controlVariables.isFromLoveHoroscope) {
-            setViewInvisible(learnYourBurcButton)
-            ExportLookupUserCardFunctions.deselectAllCards(cardList)
-        }
 
-        animateCardSize(context, 380, 580, burcCard!!, animationDuration = 200)
-        postHoroscopeData.time_interval = time_interval
+        if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected){
+            if (controlVariables.isFromLoveHoroscope) {
+                setViewInvisible(learnYourBurcButton)
+                ExportLookupUserCardFunctions.deselectAllCards(cardList)
+            }
 
-        if (!controlVariables.isTimeIntervalSelected) {
-            controlVariables.isTimeIntervalSelected = true
-            if (postHoroscopeData.type == "love") {
-                setViewVisibleWithAnimation(context, savedUsersScrollContainer)
-            }
-            if (postHoroscopeData.type != "love") {
-                setViewVisibleWithAnimation(context, learnYourBurcButton)
-            }
-        }
+            animateCardSize(context, 380, 580, burcCard!!, animationDuration = 200)
+            postHoroscopeData.time_interval = time_interval
 
-        when (time_interval) {
-            "daily" -> {
-                setViewVisibleWithAnimation(context, timeIntervalDailySelectedBG)
-                setViewInvisible(timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG)
+            if (!controlVariables.isTimeIntervalSelected) {
+                controlVariables.isTimeIntervalSelected = true
+                if (postHoroscopeData.type == "love") {
+                    setViewVisibleWithAnimation(context, savedUsersScrollContainer)
+                }
+                if (postHoroscopeData.type != "love") {
+                    setViewVisibleWithAnimation(context, learnYourBurcButton)
+                }
             }
-            "weekly" -> {
-                setViewVisibleWithAnimation(context, timeIntervalWeeklySelectedBG)
-                setViewInvisible(timeIntervalDailySelectedBG, timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG)
-            }
-            "monthly" -> {
-                setViewVisibleWithAnimation(context, timeIntervalMonthlySelectedBG)
-                setViewInvisible(timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalYearlySelectedBG)
-            }
-            "yearly" -> {
-                setViewVisibleWithAnimation(context, timeIntervalYearlySelectedBG)
-                setViewInvisible(timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG)
+
+            if (time_interval != controlVariables.selectedTimeInterval){
+                when (time_interval) {
+                    "daily" -> {
+                        setViewVisibleWithAnimation(context, timeIntervalDailySelectedBG)
+                        setViewInvisible(timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG)
+                        controlVariables.selectedTimeInterval = time_interval
+                    }
+                    "weekly" -> {
+                        setViewVisibleWithAnimation(context, timeIntervalWeeklySelectedBG)
+                        setViewInvisible(timeIntervalDailySelectedBG, timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG)
+                        controlVariables.selectedTimeInterval = time_interval
+                    }
+                    "monthly" -> {
+                        setViewVisibleWithAnimation(context, timeIntervalMonthlySelectedBG)
+                        setViewInvisible(timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalYearlySelectedBG)
+                        controlVariables.selectedTimeInterval = time_interval
+                    }
+                    "yearly" -> {
+                        setViewVisibleWithAnimation(context, timeIntervalYearlySelectedBG)
+                        setViewInvisible(timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG)
+                        controlVariables.selectedTimeInterval = time_interval
+                    }
+                }
             }
         }
     }
@@ -261,7 +264,8 @@ class BurcCardFunctions(
         val careerSignBackground = careerSign.findViewById<CardView>(R.id.careerSignBackground)
         controlVariables.isTimeIntervalSelected = false
         animateCardSize(context, 380, 500, burcCard!!, animationDuration = 200)
-        setViewInvisible(learnYourBurcButton, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG, savedUsersScrollContainer)
+        setViewInvisible(learnYourBurcButton, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG,
+                        timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG, savedUsersScrollContainer)
         postHoroscopeData.time_interval = null
         learnYourBurcButtonParams.topMargin = (35 * scale + 0.5f).toInt()
         postHoroscopeData.type = type

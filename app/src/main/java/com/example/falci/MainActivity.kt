@@ -151,6 +151,7 @@ class MainActivity : AppCompatActivity() {
             generalSignParams.topMargin = oldTopMarginForModeCards
             loveSignParams.topMargin = oldTopMarginForModeCards
             careerSignParams.topMargin = oldTopMarginForModeCards
+            controlVariables.selectedTimeInterval = null
         }
 
         backArrowCard.setOnClickListener { if (controlVariables.isBurcCardOpen) { handleCloseBurcCard() } }

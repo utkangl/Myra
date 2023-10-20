@@ -17,6 +17,7 @@ data class ControlVariables(
     var inLocationPickCard: Boolean,
     var isInDelay: Boolean,
     var isSearchTextChanged: Boolean,
+    var selectedTimeInterval: String?,
 )
 
 var controlVariables = ControlVariables(
@@ -36,4 +37,5 @@ var controlVariables = ControlVariables(
     inLocationPickCard = false,
     isInDelay = false,
     isSearchTextChanged = false,
+    selectedTimeInterval = null,
 )
