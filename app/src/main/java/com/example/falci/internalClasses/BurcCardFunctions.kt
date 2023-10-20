@@ -53,9 +53,9 @@ class BurcCardFunctions(
         animateBurcCardSize(burcCard, 380, 500, {
             setViewVisibleWithAnimation(context, backArrowCard, burcCardInnerLayout)
             burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
-            mainActivityGeneralLayout.background = getDrawable(context,R.drawable.space_background)
         }, {
             setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle)
+            mainActivityGeneralLayout.background = getDrawable(context,R.drawable.space_background)
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
             params.addRule(RelativeLayout.CENTER_IN_PARENT, 1)
         })
