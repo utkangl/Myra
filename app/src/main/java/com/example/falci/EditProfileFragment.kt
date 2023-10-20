@@ -128,7 +128,7 @@ class EditProfileFragment : Fragment() {
         birthDateField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)
             setViewVisible(editProfileDatePicker, savedatebutton)
-
+            controlVariables.inPicker = true
             savedatebutton.setOnClickListener {
                 val selectedYear = editProfileDatePicker.year
                 val selectedMonth = editProfileDatePicker.month + 1
@@ -138,14 +138,15 @@ class EditProfileFragment : Fragment() {
                 println(birthDateField.text)
                 setViewVisible(editProfileGeneralLayout)
                 setViewGone(editProfileDatePicker, savedatebutton)
+                controlVariables.inPicker = false
             }
         }
         birthTimeField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)
             setViewVisible(editProfileTimePicker,savedatebutton)
+            controlVariables.inPicker = true
 
             savedatebutton.setOnClickListener {
-
                 val selectedHour = editProfileTimePicker.hour
                 val selectedMinute = editProfileTimePicker.minute
                 val editProfileSelectedTime = "$selectedHour:$selectedMinute:00"
@@ -153,6 +154,7 @@ class EditProfileFragment : Fragment() {
                 println(birthTimeField.text)
                 setViewGone(editProfileTimePicker,savedatebutton)
                 setViewVisible(editProfileGeneralLayout)
+                controlVariables.inPicker = false
             }
         }
 
@@ -198,6 +200,11 @@ class EditProfileFragment : Fragment() {
                     setViewInvisible(editProfileLocationCardView)
                     setViewVisibleWithAnimation(requireContext(),editProfileGeneralLayout)
                     controlVariables.inLocationPickCard = false
+                }
+                else if (controlVariables.inPicker) {
+                    setViewInvisible(editProfileDatePicker, editProfileTimePicker,savedatebutton)
+                    setViewVisibleWithAnimation(requireContext(),editProfileGeneralLayout)
+                    controlVariables.inPicker = false
                 } else {
                     remove() // Geri çağrıyı kaldır
                     isEnabled = false // Geri çağrıyı devre dışı bırak

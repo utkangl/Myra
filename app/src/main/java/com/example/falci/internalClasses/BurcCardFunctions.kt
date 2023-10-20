@@ -263,6 +263,7 @@ class BurcCardFunctions(
         val loveSignBackground = loveSign.findViewById<CardView>(R.id.loveSignBackground)
         val careerSignBackground = careerSign.findViewById<CardView>(R.id.careerSignBackground)
         controlVariables.isTimeIntervalSelected = false
+        controlVariables.selectedTimeInterval = null
         animateCardSize(context, 380, 500, burcCard!!, animationDuration = 200)
         setViewInvisible(learnYourBurcButton, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG,
                         timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG, savedUsersScrollContainer)

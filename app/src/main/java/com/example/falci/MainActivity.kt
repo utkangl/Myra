@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time", 0)
 
         println( "it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
-        checkIsAccessExpired(currentTime, savedTokenCreationTime, 9000, this) // if it has been more than 15 minutes till creation, refresh
-        if (currentTime - savedTokenCreationTime > 6000000) {
+        checkIsAccessExpired(currentTime, savedTokenCreationTime, 750, this) // if it has been more than 15 minutes till creation, refresh
+        if (currentTime - savedTokenCreationTime > 600000) {
             authenticated.isLoggedIn = false
         } // refresh token lasts 30 minutes
 
