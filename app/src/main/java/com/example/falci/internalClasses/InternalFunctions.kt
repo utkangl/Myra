@@ -7,9 +7,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import com.example.falci.R
-import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
-import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertDateTimeToTimestamp
 import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
 import org.json.JSONObject
@@ -87,33 +86,29 @@ class InternalFunctions {
         }
     }
 
-    object SetupSpinnerAndField{
-        fun setupSpinnerAndField(
-            spinner: Spinner,
-            hintView: View,
-            adapter:  ArrayAdapter<CharSequence>,
-            isUserInteractedFlag: Boolean,
-            onItemSelectedAction: (String) -> Unit
-        ) {
+    object SpinnerFunctions{
+        fun setSpinner(context: Context,spinner: Spinner, hint: TextView, dataResId: Int, defaultText: String, onItemSelectedAction: (String) -> Unit) {
+            val adapter = ArrayAdapter.createFromResource(context, dataResId, R.layout.custom_spinner_item)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
-            var isUserInteracted = isUserInteractedFlag
+
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    if (isUserInteracted) {
-                        val selectedValue = parent?.getItemAtPosition(position) as? String
-                        selectedValue?.let { onItemSelectedAction(it) }
-                        setViewVisible(hintView) ; setViewGone(spinner)
-                    } else { isUserInteracted = true }
+                    val selectedValue = parent?.getItemAtPosition(position) as? String
+                    setViewVisibleWithAnimation(context,hint)
+                    if (selectedValue != null && selectedValue != defaultText) {
+                        onItemSelectedAction(selectedValue)
+                    } else println("duzgun bir sey secmedi")
                 }
-                override fun onNothingSelected(parent: AdapterView<*>?) { println("Nothing Selected") }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    println("Nothing Selected")
+                }
             }
         }
-    }
-    object SetupFieldClickListener{
+
         fun setupFieldClickListener(field: TextView, spinner: Spinner, hintView: View) {
             field.setOnClickListener {
-                //setViewVisible(spinner)
                 spinner.performClick()
                 setViewInvisible(hintView)
             }

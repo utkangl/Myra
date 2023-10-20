@@ -18,10 +18,10 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
  import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
-import com.example.falci.internalClasses.InternalFunctions.SetupFieldClickListener.setupFieldClickListener
-import com.example.falci.internalClasses.InternalFunctions.SetupSpinnerAndField.setupSpinnerAndField
+import com.example.falci.internalClasses.InternalFunctions.SpinnerFunctions.setSpinner
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertTimestampToDateTime
 import com.example.falci.internalClasses.InternalFunctions.UpdateProfileFieldIfChanged.updateBirthDayIfChanged
+import com.example.falci.internalClasses.InternalFunctions.SpinnerFunctions.setupFieldClickListener
 import com.example.falci.internalClasses.LocationService
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.putEditProfileJson
 import com.example.falci.internalClasses.dataClasses.controlVariables
@@ -162,17 +162,15 @@ class EditProfileFragment : Fragment() {
         setupFieldClickListener(occupationField, occupationSpinner, occupationFieldHint)
         setupFieldClickListener(relationShipStatusField, maritalStatusSpinner, relationshipStatusFieldHint)
 
-        val genderAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.genders, R.layout.custom_spinner_item)
-        val isUserInteractedGender = false
-        setupSpinnerAndField(genderPickSpinner, genderFieldHint,genderAdapter,isUserInteractedGender){selectedGender -> genderField.text = selectedGender}
 
-        val occupationAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.occupations, R.layout.custom_spinner_item)
-        val isUserInteractedOccupation = false
-        setupSpinnerAndField(occupationSpinner, occupationFieldHint,occupationAdapter,isUserInteractedOccupation){selectedOccupation -> occupationField.text = selectedOccupation}
+        setSpinner(requireContext(),genderPickSpinner, genderFieldHint, R.array.genders, "Pick your gender")
+        {selectedGender -> genderField.text = selectedGender}
 
-        val maritalStatusAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.marital_status, R.layout.custom_spinner_item)
-        val isUserInteractedMarital = false
-        setupSpinnerAndField(maritalStatusSpinner, relationshipStatusFieldHint,maritalStatusAdapter,isUserInteractedMarital){selectedMaritalStatus -> relationShipStatusField.text = selectedMaritalStatus}
+        setSpinner(requireContext(),occupationSpinner, occupationFieldHint, R.array.occupations, "Pick your occupation")
+        {selectedOccupation -> occupationField.text = selectedOccupation}
+
+        setSpinner(requireContext(),maritalStatusSpinner, relationshipStatusFieldHint, R.array.marital_status, "Medeni durumunuzu Seciniz")
+        {selectedMaritalStatus -> relationShipStatusField.text = selectedMaritalStatus}
 
         val cityInput = v.findViewById<AutoCompleteTextView>(R.id.searchCity)
         val editProfileLocationCardView = v.findViewById<CardView>(R.id.editProfileLocationCardView)
