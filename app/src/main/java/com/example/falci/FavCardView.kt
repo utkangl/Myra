@@ -51,7 +51,7 @@ class FavCardView constructor(
                 // on swipe left
                 MotionEvent.ACTION_MOVE -> {
                     val dx = event.x - startX
-                    if (dx < 0 && !isSwiped && !controlVariables.swipeBack && kotlin.math.abs(dx) >= swipeThreshold) {
+                    if (dx < 0 && !isSwiped && !controlVariables.swipeBack && kotlin.math.abs(dx) >= swipeThreshold && !isEditing) {
                         isSwiped = true
                         controlVariables.swipeBack = true
                         val animation = TranslateAnimation(0f, -maxSwipeDistance, 0f, 0f)

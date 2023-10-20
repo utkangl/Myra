@@ -23,7 +23,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-var allFavouriteHoroscopes = mutableListOf<FortuneItem>()
 var listOfFavCards = mutableListOf<FavCardView>()
 
 
@@ -163,6 +162,14 @@ class GetFavsFuncs {
         animationView: LottieAnimationView
     ) {
 
+        CoroutineScope(Dispatchers.Main).launch {
+            for (i in listOfFavouriteHoroscopes.results.indices) {
+                val fortuneItem = listOfFavouriteHoroscopes.results[i]
+                createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
+                numOfCards += 1
+            }
+        }
+
         searchFavHoroscope.setOnEditorActionListener { _, actionId, _ ->
             for (i in 0 until favHoroscopeLinearLayout.childCount) {
                 val childView: View = favHoroscopeLinearLayout.getChildAt(i)
@@ -193,61 +200,34 @@ class GetFavsFuncs {
                 false
             }
         }
+
         cancelFavSearchFilter.setOnClickListener {
-            for (i in 0 until favHoroscopeLinearLayout.childCount) {
-                val childView: View = favHoroscopeLinearLayout.getChildAt(i)
-                if (childView is FavCardView) {
-                    if (controlVariables.swipeBack) {
-                        SwipeBack.swipeBack(childView)
-                        controlVariables.swipeBack = false
-                    }
-                }
-            }
-            favHoroscopeLinearLayout.removeAllViews()
-            searchFavHoroscope.setText("")
-            val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-            CoroutineScope(Dispatchers.Main).launch {
-//                println(allFavouriteHoroscopes.size)
-//                for (fortuneItem in allFavouriteHoroscopes){
-//                    val summary = fortuneItem.fortune?.prompt?.summary
-//                    val title = fortuneItem.title
-//                    if (summary?.contains("", ignoreCase = true) == true || title.contains("", ignoreCase = true)) {
-//                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-//                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
-//                    }
-//                }
-                getFavouriteHoroscopes(
-                    animationView,
-                    context,
-                    searchFavHoroscope,
-                    cancelFavSearchFilter,
-                    favHoroscopeLinearLayout,
-                    urls.favouriteHoroscopeURL,
-                    favouriteHoroscopesScrollview
-                )
+            println("yazdırıyom bak ${searchFavHoroscope.text}")
+            if (searchFavHoroscope.text.toString() != "") controlVariables.isSearchTextChanged = true
 
-                for (fortuneItem in listOfFavouriteHoroscopes.results) {
-                    val summary = fortuneItem.fortune?.prompt?.summary
-                    val title = fortuneItem.title
-                    if (summary?.contains("", ignoreCase = true) == true && title.contains("", ignoreCase = true)) {
-                        createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-                        val inputMethodManagerr = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManagerr.hideSoftInputFromWindow(searchFavHoroscope.windowToken, 0)
+            if (controlVariables.isSearchTextChanged){
+                listOfFavCards = mutableListOf()
+                for (i in 0 until favHoroscopeLinearLayout.childCount) {
+                    val childView: View = favHoroscopeLinearLayout.getChildAt(i)
+                    if (childView is FavCardView) {
+                        if (controlVariables.swipeBack) {
+                            SwipeBack.swipeBack(childView)
+                            controlVariables.swipeBack = false
+                        }
                     }
                 }
+                favHoroscopeLinearLayout.removeAllViews()
+                searchFavHoroscope.setText("")
+                val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
+                CoroutineScope(Dispatchers.Main).launch {
+                    getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
+                    numOfCards = 0
+                }
+                controlVariables.isSearchTextChanged = false
             }
         }
 
-
-        CoroutineScope(Dispatchers.Main).launch {
-            for (i in listOfFavouriteHoroscopes.results.indices.reversed()) {
-                val fortuneItem = listOfFavouriteHoroscopes.results[i]
-                createAndAddFavCardView(context, favHoroscopeLinearLayout, fortuneItem)
-                numOfCards += 1
-            }
-        }
     }
 
     private fun createAndAddFavCardView(
