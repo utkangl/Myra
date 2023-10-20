@@ -37,7 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/favCardImageBackground"
-                android:src="@drawable/fav_card_background"
                 android:contentDescription="color_of_favcard">
             </ImageView>
 

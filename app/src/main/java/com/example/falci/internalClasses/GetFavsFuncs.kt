@@ -241,8 +241,19 @@ class GetFavsFuncs {
         val clickDeleteButton = favCardView.findViewById<ImageButton>(R.id.click_delete_image_button)
         val favCardTitle = favCardView.findViewById<TextView>(R.id.favCardTitle)
         val favCardExplanation = favCardView.findViewById<TextView>(R.id.favCardExplanation)
+        val favCardImageBackground = favCardView.findViewById<ImageView>(R.id.favCardImageBackground)
 
-        favCardTitle.text = fortuneItem.id.toString()
+
+        favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_career)
+        favCardTitle.text = fortuneItem.title
+        val fortuneType = fortuneItem.fortune?.type
+        println(fortuneType)
+        when(fortuneType){
+            "career" -> favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_career)
+            "love" -> favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_love)
+            "general" -> favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_general)
+        }
+
         favCardExplanation.text = summary
 
         favCardView.layoutParams = ViewGroup.LayoutParams(
