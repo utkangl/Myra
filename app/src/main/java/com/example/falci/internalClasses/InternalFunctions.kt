@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 import com.example.falci.R
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.example.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertDateTimeToTimestamp
 import com.example.falci.internalClasses.dataClasses.UserProfileDataClass
@@ -114,7 +115,7 @@ class InternalFunctions {
             field.setOnClickListener {
                 //setViewVisible(spinner)
                 spinner.performClick()
-                setViewGone(hintView)
+                setViewInvisible(hintView)
             }
         }
     }
