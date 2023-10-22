@@ -3,6 +3,7 @@ package com.example.falci
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,8 +45,8 @@ class HoroscopeDetailFragment : Fragment() {
         val horoscopeText = v.findViewById<TextView>(R.id.horoscope_textView)
         val miraHoroscopeDetailBottom = v.findViewById<ImageView>(R.id.miraHoroscopeDetailBottom)
         val favouriteThisHoroscope = v.findViewById<ImageView>(R.id.favouriteThisHoroscope)
-        val favTitleInputLayout = v.findViewById<RelativeLayout>(R.id.favTitleInputLayout)
-        val favHoroscopeTitleInput = v.findViewById<EditText>(R.id.favHoroscopeTitleInput)
+//        val favTitleInputLayout = v.findViewById<RelativeLayout>(R.id.favTitleInputLayout)
+//        val favHoroscopeTitleInput = v.findViewById<EditText>(R.id.favHoroscopeTitleInput)
 
         var inTitleInput = false
         controlVariables.isInDelay = false
@@ -99,73 +100,81 @@ class HoroscopeDetailFragment : Fragment() {
 
         if (getHoroscopeData.is_favourite){requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)} }
 
+
         favouriteThisHoroscope.setOnClickListener{
             println("favori mi ? ${getHoroscopeData.is_favourite}")
 
-            if (!getHoroscopeData.is_favourite){
-                setViewVisibleWithAnimation(requireContext(), favTitleInputLayout)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Başlık Al")
+            builder.setMessage("Lütfen bir başlık girin:")
 
-                inTitleInput = true
+            val input = EditText(requireContext())
+            builder.setView(input)
 
-                favHoroscopeTitleInput.setOnEditorActionListener { _, actionId, _ ->
-                    if (actionId == EditorInfo.IME_ACTION_SEND) {
-                        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.hideSoftInputFromWindow(favHoroscopeTitleInput.windowToken, 0)
-
-                        val gson = Gson()
-                        createFavouriteHoroscope.title = favHoroscopeTitleInput.text.toString()
-                        createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
-                        val favouriteHoroscopeJson = createJsonObject("title" to createFavouriteHoroscope.title, "fortune" to createFavouriteHoroscope.horoscopeId!!.toInt())
-                        postJsonWithHeader(urls.favouriteHoroscopeURL, favouriteHoroscopeJson,  requireContext())
-                        { responseBody, _ ->
-                            val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                            val detail = responseJson?.optString("detail")
-                            println(statusCode)
-                            if (statusCode == 201){
-                                println(responseJson)
-                                requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)}
-                                getHoroscopeData.is_favourite = true
-                                favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
-                                getHoroscopeData.favourite_id = favouriteHoroscope.id
-                                requireActivity().runOnUiThread{
-                                    Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show()
-                                    setViewGone(favTitleInputLayout)
-                                    inTitleInput = false
-                                }
-                            }
-                            if (statusCode == 208){
-                                println(detail)
-                                requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)}
-                                favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
-                                requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                                getHoroscopeData.is_favourite = true
-                            }
-                            if (statusCode == 400){
-                                println(detail)
-                                requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                                getHoroscopeData.is_favourite = false
-                            }
-                            if (statusCode == 404){
-                                println(detail)
-                                requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
-                                getHoroscopeData.is_favourite = false
+            builder.setPositiveButton("Tamam") { dialog: DialogInterface, _: Int ->
+                val title = input.text.toString()
+                println("basligi yazıyom ${createFavouriteHoroscope.title}")
+                createFavouriteHoroscope.title = title
+                dialog.dismiss()
+                println("basligi yazıyom ${createFavouriteHoroscope.title}")
+                if (!getHoroscopeData.is_favourite){
+                    val gson = Gson()
+                    createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
+                    val favouriteHoroscopeJson = createJsonObject("title" to createFavouriteHoroscope.title, "fortune" to createFavouriteHoroscope.horoscopeId!!.toInt())
+                    postJsonWithHeader(urls.favouriteHoroscopeURL, favouriteHoroscopeJson,  requireContext())
+                    { responseBody, _ ->
+                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                        val detail = responseJson?.optString("detail")
+                        println(statusCode)
+                        if (statusCode == 201){
+                            println(responseJson)
+                            requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)}
+                            getHoroscopeData.is_favourite = true
+                            favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
+                            getHoroscopeData.favourite_id = favouriteHoroscope.id
+                            requireActivity().runOnUiThread{
+                                Toast.makeText(requireContext(), "201 fav success" , Toast.LENGTH_SHORT).show()
+                                inTitleInput = false
                             }
                         }
-                        true
-                    } else {
-                        false
+                        if (statusCode == 208){
+                            println(detail)
+                            requireActivity().runOnUiThread{favouriteThisHoroscope.setImageResource(R.drawable.filled_heart)}
+                            favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
+                            requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
+                            getHoroscopeData.is_favourite = true
+                        }
+                        if (statusCode == 400){
+                            println(detail)
+                            requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
+                            getHoroscopeData.is_favourite = false
+                        }
+                        if (statusCode == 404){
+                            println(detail)
+                            requireActivity().runOnUiThread{ Toast.makeText(requireContext(), detail , Toast.LENGTH_SHORT).show() }
+                            getHoroscopeData.is_favourite = false
+                        }
                     }
                 }
             }
+
+            builder.setNegativeButton("İptal") { dialog: DialogInterface, _: Int ->
+                dialog.dismiss()
+            }
+
+            val dialog = builder.create()
+            if (!getHoroscopeData.is_favourite) dialog.show()
+
+
             // if already fav, destroy on click
             if (getHoroscopeData.is_favourite){
                 println("favori mi ? ${getHoroscopeData.is_favourite}")
                 favouriteHoroscope.id = getHoroscopeData.favourite_id
                 println("destroya giden fav horoscope id: ${favouriteHoroscope.id}")
                 destroyFavHoroscope(requireActivity(),requireContext(),favouriteThisHoroscope, favouriteHoroscope.id)
-
             }
         } // end of favouriteThisHoroscope.setOnClickListener
+
         return v // end of onCreateView
     }
 
