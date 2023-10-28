@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "127227634926",
+    "project_id": "myra-7881f",
+    "storage_bucket": "myra-7881f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127227634926:android:7cbc4999e766123f6cffff",
+        "android_client_info": {
+          "package_name": "com.example.falci"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0TDOW0ZrSog3P-ojHksGR5w9R_yIDdFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

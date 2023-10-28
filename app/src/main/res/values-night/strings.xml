@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="change_language">Change Language</string>
+    <string name="info">Info</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="lock_image">lock image</string>
+    <string name="settings">SETTINGS</string>
+    <string name="settings_screen_top_banner">settings screen top banner</string>
+    <string name="coin_image">coin image</string>
+    <string name="payment_method_image">payment method image</string>
+    <string name="language_image">language image</string>
+    <string name="info_image">info image</string>
+    <string name="privacy_policy_image">privacy policy image</string>
+</resources>

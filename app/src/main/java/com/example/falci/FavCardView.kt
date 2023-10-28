@@ -22,12 +22,13 @@ var timeWhenSwiped: Long = 0
 class FavCardView constructor(
     context: Context,
 ): RelativeLayout(context) {
+    private val scale = context.resources.displayMetrics.density
     private val cardView: CardView
     private val swipeDeleteButton: ImageButton
     private val clickDeleteButton: ImageButton
     private var startX: Float = 0f
     private var swipeDistance: Float = 0f
-    private val maxSwipeDistance = 160f
+    private val maxSwipeDistance = (68 * scale + 0.5).toFloat()
     private val swipeThreshold = 10
     var isSwiped = false
     var isEditing = false

@@ -50,6 +50,36 @@
         <item>Sports and Recreation</item>
         <item>Government and Public Administration</item>
     </string-array>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="account">Account</string>
+    <string name="change_your_password">Change Your Password</string>
+    <string name="seperatorline">seperatorline</string>
+    <string name="buy_myra_coins">Buy Myra Coins</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="support">Support</string>
+    <string name="change_language">Change Language</string>
+    <string name="info">Info</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="lock_image">lock image</string>
+    <string name="settings">SETTINGS</string>
+    <string name="settings_screen_top_banner">settings screen top banner</string>
+    <string name="coin_image">coin image</string>
+    <string name="payment_method_image">payment method image</string>
+    <string name="language_image">language image</string>
+    <string name="info_image">info image</string>
+    <string name="privacy_policy_image">privacy policy image</string>
 
 
 </resources>

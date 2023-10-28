@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,10 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import okhttp3.*
+
 
 var cardList: MutableList<SavedLookupUserCardView> = mutableListOf()
 var savedLookupUserList: List<SavedLookUpUsersDataClass> = emptyList()
@@ -95,6 +99,17 @@ class MainActivity : AppCompatActivity() {
             timeIntervalYearlySelectedBG, savedUsersLinearContainer, this,generalSign, loveSign, careerSign, selectedModeTitle
         )
 
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task: Task<String> ->
+                if (!task.isSuccessful) {
+                    Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                    return@addOnCompleteListener
+                }
+
+                // Token başarıyla alındı.
+                val token = task.result
+                Log.d("TAG", "FCM registration token: $token")
+            }
         // if user has came to this activity from signUp fragment, then directly navigate user to
         // loginSignUp activity to login first
         if (authenticated.isFromSignIn) {

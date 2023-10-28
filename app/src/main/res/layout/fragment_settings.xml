@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SettingsFragment"
+    android:background="@drawable/space_background">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/settings_screen_topImage"
+        android:background="#5b54b1"
+        android:contentDescription="@string/settings_screen_top_banner">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/settings_screen_title"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:gravity="center"
+        android:text="@string/settings"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        tools:ignore="TextSizeCheck">
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="25dp"
+        app:cardBackgroundColor="#C1C1C1"
+        app:cardCornerRadius="17dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/AccountTitle"
+                android:text="@string/account"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:textColor="@color/black"
+                android:textSize="32sp">
+            </TextView>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/LockImage"
+                android:layout_below="@id/AccountTitle"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/baseline_lock_24"
+                android:contentDescription="@string/lock_image">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/ChangePasswordText"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/LockImage"
+                android:layout_below="@id/AccountTitle"
+                android:text="@string/change_your_password"
+                android:textStyle="bold"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/black"
+                android:textSize="24sp">
+            </TextView>
+
+            <ImageView
+                android:layout_width="310dp"
+                android:layout_height="2dp"
+                android:src="@drawable/seperator_line_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/ChangePasswordText"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/seperatorline">
+            </ImageView>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CoinImage"
+                android:layout_below="@id/LockImage"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/baseline_attach_money_24"
+                android:contentDescription="@string/coin_image">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/BuyCoinText"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/LockImage"
+                android:layout_below="@id/ChangePasswordText"
+                android:text="@string/buy_myra_coins"
+                android:textStyle="bold"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/black"
+                android:textSize="24sp">
+            </TextView>
+
+            <ImageView
+                android:layout_width="310dp"
+                android:layout_height="2dp"
+                android:src="@drawable/seperator_line_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/CoinImage"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/seperatorline">
+            </ImageView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/PaymentImage"
+                android:layout_below="@id/CoinImage"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/baseline_credit_card_24"
+                android:contentDescription="@string/payment_method_image">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/PaymentMethodText"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/PaymentImage"
+                android:layout_below="@id/BuyCoinText"
+                android:text="@string/payment_method"
+                android:textStyle="bold"
+                android:layout_marginTop="17dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/black"
+                android:textSize="24sp">
+            </TextView>
+
+            <ImageView
+                android:layout_width="310dp"
+                android:layout_height="2dp"
+                android:src="@drawable/seperator_line_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/PaymentImage"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/seperatorline">
+            </ImageView>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/SupportTitle"
+                android:layout_below="@id/PaymentImage"
+                android:text="@string/support"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:textColor="@color/black"
+                android:textSize="32sp">
+            </TextView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/LanguageImage"
+                android:layout_below="@id/SupportTitle"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/baseline_language_24"
+                android:contentDescription="@string/language_image">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/ChangeLanguageText"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/LanguageImage"
+                android:layout_below="@id/SupportTitle"
+                android:text="@string/change_language"
+                android:textStyle="bold"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/black"
+                android:textSize="24sp">
+            </TextView>
+
+            <ImageView
+                android:layout_width="310dp"
+                android:layout_height="2dp"
+                android:src="@drawable/seperator_line_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/ChangeLanguageText"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/seperatorline">
+            </ImageView>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/InfoImage"
+                android:layout_below="@id/LanguageImage"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/baseline_info_24"
+                android:contentDescription="@string/info_image">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/InfoText"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/LockImage"
+                android:layout_below="@id/ChangeLanguageText"
+                android:text="@string/info"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/black"
+                android:textSize="24sp">
+            </TextView>
+
+            <ImageView
+                android:layout_width="310dp"
+                android:layout_height="2dp"
+                android:src="@drawable/seperator_line_grey"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/InfoImage"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/seperatorline">
+            </ImageView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/PrivacyPolicyImage"
+                android:layout_below="@id/InfoImage"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/baseline_policy_24"
+                android:contentDescription="@string/privacy_policy_image">
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/PrivacyPolicyText"
+                android:layout_centerHorizontal="true"
+                android:layout_toEndOf="@+id/PrivacyPolicyImage"
+                android:layout_below="@id/InfoText"
+                android:text="@string/privacy_policy"
+                android:textStyle="bold"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="35dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:textColor="@color/black"
+                android:textSize="24sp">
+            </TextView>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
