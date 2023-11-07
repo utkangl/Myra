@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "127227634926",
-    "project_id": "myra-7881f",
-    "storage_bucket": "myra-7881f.appspot.com"
+    "project_number": "598823240866",
+    "project_id": "mira-a90d1",
+    "storage_bucket": "mira-a90d1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:127227634926:android:7cbc4999e766123f6cffff",
+        "mobilesdk_app_id": "1:598823240866:android:f3bc310c9b676d815603fb",
         "android_client_info": {
           "package_name": "com.example.falci"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB0TDOW0ZrSog3P-ojHksGR5w9R_yIDdFI"
+          "current_key": "AIzaSyCyaB5Ais9I3tj3VtUD-jw43RZ_mD1Tj68"
         }
       ],
       "services": {

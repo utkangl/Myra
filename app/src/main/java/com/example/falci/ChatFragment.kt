@@ -39,7 +39,6 @@ class ChatFragment : Fragment() {
         val sendUserMessage = v.findViewById<ImageButton>(R.id.sendUserMessage)
         val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
 
-        val closeKeyBoardLayout = v.findViewById<RelativeLayout>(R.id.closeKeyBoardLayout)
 
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
@@ -54,12 +53,6 @@ class ChatFragment : Fragment() {
         val chatFuncs = ChatFuncs()
 
         chatFuncs.getOldMessages(requireContext(), activity!! ,threadNumber!!, oldMessages, chatAdapter, messages, chatListView)
-
-        closeKeyBoardLayout.setOnClickListener{
-            val imm =
-                requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(it.windowToken, 0)
-        }
 
         messageInput.setOnClickListener{
             val scale = requireContext().resources.displayMetrics.density

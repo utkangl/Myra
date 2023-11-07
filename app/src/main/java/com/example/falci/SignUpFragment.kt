@@ -13,7 +13,9 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.falci.internalClasses.*
 import com.example.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.example.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToFragment
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToSignUpFragment
+import com.example.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.example.falci.internalClasses.dataClasses.controlVariables
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.dataClasses.userRegister
@@ -59,8 +61,9 @@ class SignUpFragment : Fragment() {
                         requireActivity().runOnUiThread {
                             Toast.makeText(requireContext(), "Basari ile kayit olundu", Toast.LENGTH_SHORT).show()
                             controlVariables.isFromLoveHoroscope = false
-                            val intent = Intent(requireActivity(), CompleteProfile::class.java)
-                            startActivity(intent)
+                            replaceLoginActivityToSignUpFragment(parentFragmentManager,EmailVerificationFragment())
+//                            val intent = Intent(requireActivity(), CompleteProfile::class.java)
+//                            startActivity(intent)
                         }
                     }
 

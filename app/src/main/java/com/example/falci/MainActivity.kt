@@ -27,8 +27,9 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.example.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.example.falci.internalClasses.dataClasses.*
-import com.google.android.gms.tasks.Task
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import okhttp3.*
 
 
@@ -37,6 +38,8 @@ var savedLookupUserList: List<SavedLookUpUsersDataClass> = emptyList()
 
 class MainActivity : AppCompatActivity() {
     private lateinit var splashViewModel: ViewModel
+    private var mInterstitialAd: InterstitialAd? = null
+    private final var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         splashViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[SplashViewModel::class.java]
@@ -44,6 +47,53 @@ class MainActivity : AppCompatActivity() {
             setKeepOnScreenCondition { (splashViewModel as SplashViewModel).isLoading.value}  // keep showing splash screen until launching is over
         }
         setContentView(R.layout.activity_main)
+
+
+        var adRequest = AdRequest.Builder().build()
+        MobileAds.initialize(this) {}
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError?.toString()!!)
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+            }
+        })
+
+
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdClicked() {
+                // Called when a click is recorded for an ad.
+                Log.d(TAG, "Ad was clicked.")
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                Log.d(TAG, "Ad dismissed fullscreen content.")
+                mInterstitialAd = null
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                // Called when ad fails to show.
+                Log.e(TAG, "Ad failed to show fullscreen content.")
+                mInterstitialAd = null
+            }
+
+            override fun onAdImpression() {
+                // Called when an impression is recorded for an ad.
+                Log.d(TAG, "Ad recorded an impression.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+                Log.d(TAG, "Ad showed fullscreen content.")
+            }
+        }
+
         val mainActivityGeneralLayout = findViewById<RelativeLayout>(R.id.mainActivityGeneralLayout)
         mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background,theme)
 
@@ -99,17 +149,17 @@ class MainActivity : AppCompatActivity() {
             timeIntervalYearlySelectedBG, savedUsersLinearContainer, this,generalSign, loveSign, careerSign, selectedModeTitle
         )
 
-        FirebaseMessaging.getInstance().token
-            .addOnCompleteListener { task: Task<String> ->
-                if (!task.isSuccessful) {
-                    Log.w("TAG", "Fetching FCM registration token failed", task.exception)
-                    return@addOnCompleteListener
-                }
-
-                // Token başarıyla alındı.
-                val token = task.result
-                Log.d("TAG", "FCM registration token: $token")
-            }
+//        FirebaseMessaging.getInstance().token
+//            .addOnCompleteListener { task: Task<String> ->
+//                if (!task.isSuccessful) {
+//                    Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+//                    return@addOnCompleteListener
+//                }
+//
+//                // Token başarıyla alındı.
+//                val token = task.result
+//                Log.d("TAG", "FCM registration token: $token")
+//            }
         // if user has came to this activity from signUp fragment, then directly navigate user to
         // loginSignUp activity to login first
         if (authenticated.isFromSignIn) {
@@ -128,6 +178,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsButton.setOnClickListener {
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(this)
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.")
+            }
+
             if (settingsButton.isEnabled){
                 settingsButton.isEnabled = false
                 if (authenticated.isLoggedIn) {

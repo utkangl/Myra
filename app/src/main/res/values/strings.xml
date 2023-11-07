@@ -80,6 +80,13 @@
     <string name="language_image">language image</string>
     <string name="info_image">info image</string>
     <string name="privacy_policy_image">privacy policy image</string>
+    <string name="first_digit">first digit</string>
+    <string name="second_digit">second digit</string>
+    <string name="thirth_digit">thirth digit</string>
+    <string name="forth_digit">forth digit</string>
+    <string name="fifth_digit">fifth digit</string>
+    <string name="sixth_digit">sixth digit</string>
+    <string name="ayarlar">Ayarlar</string>
 
 
 </resources>

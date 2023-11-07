@@ -19,6 +19,7 @@ data class ControlVariables(
     var isSearchTextChanged: Boolean,
     var selectedTimeInterval: String?,
     var inPicker: Boolean,
+    var allowCheck: Boolean,
 )
 
 var controlVariables = ControlVariables(
@@ -40,4 +41,5 @@ var controlVariables = ControlVariables(
     isSearchTextChanged = false,
     selectedTimeInterval = null,
     inPicker = false,
+    allowCheck = false,
 )

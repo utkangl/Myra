@@ -34,7 +34,6 @@ import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
 import org.json.JSONObject
 
-@Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -78,6 +77,7 @@ class ProfileFragment : Fragment() {
         val planetHoroscopeImageCard = v.findViewById<CardView>(R.id.planet_horoscope_image_card)
         val zodiacexplanationcard = v.findViewById<RelativeLayout>(R.id.zodiacexplanationcard)
         val showFavHoroscopesLayout = v.findViewById<RelativeLayout>(R.id.showFavHoroscopesLayout)
+        val navigateToSettingsContainerLayout = v.findViewById<RelativeLayout>(R.id.navigateToSettingsContainerLayout)
         val burcexplanationplanetimage = burcexplanationplanet.findViewById<ImageView>(R.id.burcexplanationplanetimage)
         val planetHoroscopeImage = v.findViewById<ImageView>(R.id.planet_horoscope_image)
         val burcexplanationplanettext = zodiacexplanationcard.findViewById<TextView>(R.id.burcexplanationplanettext)
@@ -246,12 +246,6 @@ class ProfileFragment : Fragment() {
 
         }
 
-
-
-
-
-
-
           // check if user is logged in, if so create json, post it,
          // handle the response with response codes. If 205 navigate user to login and toast success
         //  else if 400, toast the error, if user is not logged in, toast error
@@ -284,6 +278,7 @@ class ProfileFragment : Fragment() {
             } else{requireActivity().runOnUiThread { Toast.makeText(requireContext(), "can not logout without logging in", Toast.LENGTH_LONG).show()} }
         }
         showFavHoroscopesLayout.setOnClickListener{ replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())}
+        navigateToSettingsContainerLayout.setOnClickListener{ replaceProfileActivityToFragment(parentFragmentManager, SettingsFragment())}
         return v
     }
 }

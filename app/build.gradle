@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -32,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
@@ -63,8 +65,10 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.6.1"
 
 
-    implementation(platform("com.google.firebase:firebase-bom:32.4.1"))
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
 
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.android.gms:play-services-ads:22.5.0")
+
 }

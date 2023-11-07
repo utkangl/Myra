@@ -271,7 +271,7 @@ class BurcCardFunctions(
         learnYourBurcButtonParams.topMargin = (35 * scale + 0.5f).toInt()
         postHoroscopeData.type = type
         setViewInvisible(selectedModeTitle)
-        val animation = AnimationUtils.loadAnimation(context, R.anim.activity_slide_down)
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
         selectedModeTitle!!.startAnimation(animation)
         selectedModeTitle.text = type.uppercase()
         setViewVisible(selectedModeTitle)

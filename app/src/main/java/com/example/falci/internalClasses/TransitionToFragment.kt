@@ -26,8 +26,6 @@ class TransitionToFragment {
                 .commit()
         }
 
-
-
         fun replaceLoginActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fragment_slide_down, 0, R.anim.fragment_slide_down, R.anim.slide_up)

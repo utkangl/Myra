@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/miraChatScreen"
-            android:src="@drawable/mira_chat_screen">
+            android:background="@drawable/mira_chat_screen_sky">
         </ImageView>
     </RelativeLayout>
 
@@ -81,7 +81,7 @@
         android:layout_marginBottom="25dp"
         android:layout_marginStart="4dp"
         android:src="@drawable/cancel_icon"
-        android:background="@color/black"
+        android:background="#292859"
         android:visibility="invisible"
         tools:ignore="VisualLintBounds">
     </ImageButton>
@@ -95,17 +95,11 @@
         android:layout_marginStart="12dp"
         android:layout_marginBottom="25dp"
         android:layout_toEndOf="@id/chatFragmentMessageInputText"
-        android:background="@color/black"
+        android:background="#292859"
         android:padding="4dp"
         android:src="@drawable/send_icon"
         android:visibility="visible"
         tools:ignore="SpeakableTextPresentCheck">
     </ImageButton>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_alignParentTop="true"
-        android:id="@+id/closeKeyBoardLayout">
-    </RelativeLayout>
 </RelativeLayout>
