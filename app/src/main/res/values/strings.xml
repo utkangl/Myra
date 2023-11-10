@@ -127,6 +127,33 @@
     <string name="is">Is</string>
     <string name="iliski_durumu">Iliski Durumu</string>
     <string name="card_view_bu">card view bu</string>
+    <string name="horoscopetype_timeinterval">HoroscopeType/TimeInterval</string>
+    <string name="current_coin">Current Coin</string>
+    <string name="imagebutton_of_profile">imageButton of profile</string>
+    <string name="mira_with_table_on_main_menu">mira with table on main menu</string>
+    <string name="back_arrow_image_button">back arrow image button</string>
+    <string name="main_menu_mira">main menu mira</string>
+    <string name="main_menu_mira_triangle">main menu mira triangle</string>
+    <string name="click_to_get_horoscope">Click to Get Horoscope</string>
+    <string name="ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz">Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.</string>
+    <string name="genel">GENEL</string>
+    <string name="general_sign_card_s_image">general sign card\'s image</string>
+    <string name="ask">ASK</string>
+    <string name="love_sign_card_s_image">love sign card\'s image</string>
+    <string name="career">KARİYER</string>
+    <string name="career_sign_card_s_image">career sign card\'s image</string>
+    <string name="daily_button_background_image">daily button background image</string>
+    <string name="weekly_button_background_image">weekly button background image</string>
+    <string name="monthly_button_background_image">monthly button background image</string>
+    <string name="aylik">AYLIK</string>
+    <string name="yearly_button_background_image">yearly button background image</string>
+    <string name="yillik">YILLIK</string>
+    <string name="time_interval_card_add_icon">time interval card add icon</string>
+    <string name="get_your_horoscope">Get your Horoscope</string>
+    <string name="haftalik">HAFTALIK</string>
+    <string name="gunluk">GUNLUK</string>
+    <string name="use_coin">Use Coin!</string>
+    <string name="watch_ad_and_earn_coin">Watch Ad and Earn Coin</string>
 
 
 </resources>

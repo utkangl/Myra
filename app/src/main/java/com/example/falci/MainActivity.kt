@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +32,8 @@ import com.example.falci.internalClasses.dataClasses.*
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import okhttp3.*
 
 
@@ -38,8 +42,9 @@ var savedLookupUserList: List<SavedLookUpUsersDataClass> = emptyList()
 
 class MainActivity : AppCompatActivity() {
     private lateinit var splashViewModel: ViewModel
-    private var mInterstitialAd: InterstitialAd? = null
+    private var rewardedAd: RewardedAd? = null
     private final var TAG = "MainActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         splashViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[SplashViewModel::class.java]
@@ -50,22 +55,20 @@ class MainActivity : AppCompatActivity() {
 
 
         var adRequest = AdRequest.Builder().build()
-        MobileAds.initialize(this) {}
-
-        InterstitialAd.load(this,"ca-app-pub-9194768212989464/6155709222", adRequest, object : InterstitialAdLoadCallback() {
+        RewardedAd.load(this,"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError?.toString()!!)
-                mInterstitialAd = null
+                rewardedAd = null
             }
 
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+            override fun onAdLoaded(ad: RewardedAd) {
                 Log.d(TAG, "Ad was loaded.")
-                mInterstitialAd = interstitialAd
+                rewardedAd = ad
             }
         })
 
 
-        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+        rewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
             override fun onAdClicked() {
                 // Called when a click is recorded for an ad.
                 Log.d(TAG, "Ad was clicked.")
@@ -73,14 +76,15 @@ class MainActivity : AppCompatActivity() {
 
             override fun onAdDismissedFullScreenContent() {
                 // Called when ad is dismissed.
+                // Set the ad reference to null so you don't show the ad a second time.
                 Log.d(TAG, "Ad dismissed fullscreen content.")
-                mInterstitialAd = null
+                rewardedAd = null
             }
 
             override fun onAdFailedToShowFullScreenContent(p0: AdError) {
                 // Called when ad fails to show.
                 Log.e(TAG, "Ad failed to show fullscreen content.")
-                mInterstitialAd = null
+                rewardedAd = null
             }
 
             override fun onAdImpression() {
@@ -138,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         val clickToGetHoroscopeText = findViewById<TextView>(R.id.ClickToGetHoroscopeText)
         val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
         val selectedModeTitle = findViewById<TextView>(R.id.selectedModeTitle)
+        val useOrGainCoinMenuCard = findViewById<CardView>(R.id.useOrGainCoinMenuCard)
         val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
         val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
@@ -178,12 +183,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsButton.setOnClickListener {
-            if (mInterstitialAd != null) {
-                mInterstitialAd?.show(this)
-            } else {
-                Log.d("TAG", "The interstitial ad wasn't ready yet.")
-            }
-
             if (settingsButton.isEnabled){
                 settingsButton.isEnabled = false
                 if (authenticated.isLoggedIn) {
@@ -275,12 +274,25 @@ class MainActivity : AppCompatActivity() {
                     controlVariables.isInDelay = true
                     // if horoscope type is not love, call get horoscope function
                     if (!controlVariables.isFromLoveHoroscope) {
-                        handleCloseBurcCard()
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
-                            HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
-                        }, 150)
-                        setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+                        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
+                        useOrGainCoinMenuCard.startAnimation(animation)
+                        useOrGainCoinMenuCard.visibility = View.VISIBLE
+//                        handleCloseBurcCard()
+//                        rewardedAd?.let { ad ->
+//                            ad.show(this, OnUserEarnedRewardListener { _ ->
+//                                // Handle the reward.
+////                                val rewardAmount = rewardItem.amount
+////                                val rewardType = rewardItem.type
+//                                Log.d(TAG, "User earned the reward.")
+//                            })
+//                        } ?: run {
+//                            Log.d(TAG, "The rewarded ad wasn't ready yet.")
+//                        }
+//                        Handler(Looper.getMainLooper()).postDelayed({
+//                            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+//                            HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+//                        }, 150)
+//                        setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                     }
                     if (controlVariables.isFromLoveHoroscope) {
                         handleCloseBurcCard()

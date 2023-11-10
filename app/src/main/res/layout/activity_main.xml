@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:id="@+id/mainActivityGeneralLayout"
     android:background="@drawable/main_menu_background"
-    tools:ignore="HardcodedText,UnusedAttribute">
+    tools:ignore="UnusedAttribute">
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/person_icon"
-            android:contentDescription="imageButton of profile"
+            android:contentDescription="@string/imagebutton_of_profile"
             tools:ignore="TouchTargetSizeCheck">
         </ImageButton>
 
@@ -56,7 +56,7 @@
         android:layout_width="350dp"
         android:layout_height="350dp"
         android:layout_centerInParent="true"
-        android:contentDescription="mira with table on main menu"
+        android:contentDescription="@string/mira_with_table_on_main_menu"
         android:src="@drawable/mira_main__menu"
         tools:ignore="ImageContrastCheck">
 
@@ -81,7 +81,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="12dp"
             android:background="@drawable/back_arrow"
-            android:contentDescription="back arrow image button"
+            android:contentDescription="@string/back_arrow_image_button"
             tools:ignore="VisualLintBounds">
         </ImageButton>
 
@@ -98,7 +98,7 @@
         android:layout_marginBottom="-45dp"
         android:src="@drawable/mira_horoscope_detail_top"
         tools:ignore="NegativeMargin"
-        android:contentDescription="main menu mira"
+        android:contentDescription="@string/main_menu_mira"
         android:visibility="invisible">
     </ImageView>
 
@@ -113,7 +113,7 @@
         android:src="@drawable/horoscope_detail_card_triangle"
         android:layout_marginEnd="-11dp"
         android:layout_marginBottom="-20dp"
-        android:contentDescription="main menu mira triangle"
+        android:contentDescription="@string/main_menu_mira_triangle"
         android:visibility="invisible">
     </ImageView>
 
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arima_madurai_light"
-            android:text="Click to Get Horoscope"
+            android:text="@string/click_to_get_horoscope"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25sp"
@@ -173,7 +173,7 @@
                     android:fontFamily="@font/arima_madurai_light"
                     android:padding="10dp"
                     android:paddingBottom="15dp"
-                    android:text="Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.  "
+                    android:text="@string/ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz"
                     android:textColor="@color/white"
                     android:textSize="11sp">
                 </TextView>
@@ -188,7 +188,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:text="GENEL"
+                android:text="@string/genel"
                 android:textColor="@color/white"
                 android:textSize="25sp">
             </TextView>
@@ -213,7 +213,7 @@
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="GENEL"
+                    android:text="@string/genel"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="17sp">
@@ -234,7 +234,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@drawable/selected_mode_general_card"
-                        android:contentDescription="general sign card's image"
+                        android:contentDescription="@string/general_sign_card_s_image"
                         android:padding="7dp"
                         android:src="@drawable/selected_mode_general_image">
                     </ImageView>
@@ -259,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="ASK"
+                    android:text="@string/ask"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="17sp">
@@ -280,7 +280,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@drawable/selected_mode_love_card"
-                        android:contentDescription="love sign card's image"
+                        android:contentDescription="@string/love_sign_card_s_image"
                         android:padding="9dp"
                         android:src="@drawable/heart">
                     </ImageView>
@@ -308,7 +308,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="KARİYER"
+                    android:text="@string/career"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="17sp">
@@ -330,7 +330,7 @@
                         android:elevation="5dp"
                         android:layout_gravity="center"
                         android:background="@drawable/selected_mode_career_card"
-                        android:contentDescription="career sign card's image"
+                        android:contentDescription="@string/career_sign_card_s_image"
                         android:padding="8dp"
                         android:src="@drawable/selected_mode_career_image">
 
@@ -356,7 +356,7 @@
                     android:visibility="invisible"
                     android:id="@+id/timeIntervalDailySelectedBG"
                     android:background="@drawable/selected_time_interval_card"
-                    android:contentDescription="daily button background image">
+                    android:contentDescription="@string/daily_button_background_image">
                 </ImageView>
 
                 <TextView
@@ -365,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="GUNLUK"
+                    android:text="@string/gunluk"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp">
@@ -390,7 +390,7 @@
                     android:visibility="invisible"
                     android:id="@+id/timeIntervalWeeklySelectedBG"
                     android:background="@drawable/selected_time_interval_card"
-                    android:contentDescription="weekly button background image">
+                    android:contentDescription="@string/weekly_button_background_image">
                 </ImageView>
 
                 <TextView
@@ -399,7 +399,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="HAFTALIK"
+                    android:text="@string/haftalik"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp">
@@ -423,7 +423,7 @@
                     android:id="@+id/timeIntervalMonthlySelectedBG"
                     android:visibility="invisible"
                     android:background="@drawable/selected_time_interval_card"
-                    android:contentDescription="monthly button background image">
+                    android:contentDescription="@string/monthly_button_background_image">
                 </ImageView>
 
                 <TextView
@@ -432,7 +432,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="AYLIK"
+                    android:text="@string/aylik"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp">
@@ -457,7 +457,7 @@
                     android:id="@+id/timeIntervalYearlySelectedBG"
                     android:visibility="invisible"
                     android:background="@drawable/selected_time_interval_card"
-                    android:contentDescription="yearly button background image">
+                    android:contentDescription="@string/yearly_button_background_image">
                 </ImageView>
 
                 <TextView
@@ -466,7 +466,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="YILLIK"
+                    android:text="@string/yillik"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp">
@@ -504,7 +504,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/add_user_icon"
-                            android:contentDescription="time interval card add icon">
+                            android:contentDescription="@string/time_interval_card_add_icon">
                         </ImageView>
                         <ImageView
                             android:layout_width="match_parent"
@@ -512,7 +512,7 @@
                             android:id="@+id/addLookupUserBG"
                             android:visibility="invisible"
                             android:background="@drawable/add_lookup_user_card"
-                            android:contentDescription="time interval card background"
+                            android:contentDescription="@string/time_interval_card_background"
                             android:src="@drawable/add_user_icon">
                         </ImageView>
                     </androidx.cardview.widget.CardView>
@@ -536,12 +536,98 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:text="Get your Horoscope"
+                android:text="@string/get_your_horoscope"
                 android:visibility="invisible">
             </androidx.appcompat.widget.AppCompatButton>
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        app:cardElevation="8dp"
+        android:id="@+id/useOrGainCoinMenuCard"
+        app:cardBackgroundColor="#C1C1C1"
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="25dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/useOrGainCoinMenuCardContainerLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/useOrGainCoinMenuTitle"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:text="@string/horoscopetype_timeinterval">
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/useOrGainCoinMenuCurrentCoinText"
+                android:layout_below="@+id/useOrGainCoinMenuTitle"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:text="@string/current_coin"
+                android:drawableStart="@drawable/baseline_currency_bitcoin_24">
+            </TextView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:id="@+id/UseCoinButton"
+                android:background="@drawable/get_horoscope_button_background"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="@string/use_coin"
+                android:gravity="center">
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:id="@+id/separatorLine"
+                android:layout_below="@+id/UseCoinButton"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/seperator_line_grey">
+            </ImageView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:id="@+id/WatchAdToEarnCoinButton"
+                android:background="@drawable/get_horoscope_button_background"
+                android:layout_below="@id/separatorLine"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:text="@string/watch_ad_and_earn_coin"
+                android:gravity="center">
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </RelativeLayout>
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
