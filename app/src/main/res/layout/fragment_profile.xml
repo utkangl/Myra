@@ -17,9 +17,9 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:textSize="30sp"
         android:textColor="@color/white"
-        android:text="Profile"
+        android:text="@string/profile"
         android:layout_centerHorizontal="true"
-        tools:ignore="HardcodedText">
+        >
 
     </TextView>
 
@@ -71,14 +71,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
 
-                    android:contentDescription="profile name first letter"
+                    android:contentDescription="@string/profile_name_first_letter"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:paddingTop="8dp"
-                    android:text=" "
+                    android:text="@string/emptystring"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="45sp"
-                    tools:ignore="HardcodedText">
+                    >
 
                 </TextView>
 
@@ -94,11 +94,11 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginStart="20dp"
 
-                android:text="Doga"
+                android:text="@string/doga"
                 android:textSize="24sp"
                 android:fontFamily="@font/arima_madurai_bold"
                 android:textColor="@color/white"
-                tools:ignore="HardcodedText">
+                >
             </TextView>
 
             <TextView
@@ -110,12 +110,12 @@
                 android:layout_marginTop="85dp"
                 android:layout_marginStart="20dp"
 
-                android:text="Ikizler"
+                android:text="@string/ikizler"
                 android:textSize="20sp"
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white"
 
-                tools:ignore="HardcodedText">
+                >
             </TextView>
 
 
@@ -198,10 +198,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Jupiter"
+                            android:text="@string/jupiter"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -236,10 +236,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Mars"
+                            android:text="@string/mars"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -274,10 +274,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Mercury"
+                            android:text="@string/mercury"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -312,10 +312,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Neptune"
+                            android:text="@string/neptune"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -350,10 +350,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Saturn"
+                            android:text="@string/saturn"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -389,10 +389,9 @@
                             android:layout_marginStart="60dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Sun"
+                            android:text="@string/sun"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            android:textSize="20sp">
                         </TextView>
 
                     </RelativeLayout>
@@ -427,10 +426,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Uranus"
+                            android:text="@string/uranus"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -466,10 +465,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Venus"
+                            android:text="@string/venus"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -504,10 +503,10 @@
                             android:layout_marginStart="40dp"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
-                            android:text="Moon"
+                            android:text="@string/moon"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            tools:ignore="HardcodedText">
+                            >
                         </TextView>
 
                     </RelativeLayout>
@@ -569,7 +568,7 @@
                     android:text=""
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText">
+                    >
                 </TextView>
 
                 <!--             planet image-->
@@ -602,10 +601,9 @@
                     android:layout_toEndOf="@+id/burcexplanationplanet"
 
                     android:fontFamily="@font/arima_madurai_bold"
-                    android:text="PLANET"
+                    android:text="@string/planet"
                     android:textColor="@color/white"
-                    android:textSize="25sp"
-                    tools:ignore="HardcodedText">
+                    android:textSize="25sp">
 
                 </TextView>
 
@@ -624,10 +622,9 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/burcExplanationText"
                         android:fontFamily="@font/arima_madurai_light"
-                        android:text="En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol. "
+                        android:text="@string/en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol"
                         android:textColor="@color/white"
-                        android:textSize="15sp"
-                        tools:ignore="HardcodedText">
+                        android:textSize="15sp">
                     </TextView>
                 </ScrollView>
 
@@ -712,10 +709,10 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:gravity="center"
-                    android:text="Favori Burcların"
+                    android:text="@string/favori_burclar_n"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText">
+                    >
                 </TextView>
             </RelativeLayout>
 
@@ -742,7 +739,7 @@
                     android:text="@string/ayarlar"
                     android:textColor="@color/white"
                     android:textSize="20sp"
-                    tools:ignore="HardcodedText">
+                    >
                 </TextView>
 
             </RelativeLayout>
@@ -760,13 +757,13 @@
         android:layout_marginBottom="18dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:text="Cikis Yap"
+        android:text="@string/cikis_yap"
         android:textSize="17sp"
         android:textAlignment="center"
         android:fontFamily="@font/arima_madurai_bold"
         android:textColor="@color/white"
         android:textAllCaps="false"
-        tools:ignore="HardcodedText">
+        >
     </androidx.appcompat.widget.AppCompatButton>
 
 

@@ -168,7 +168,7 @@
 <!--                    android:textColorHint="@color/white"-->
 <!--                    android:autofillHints=""-->
 <!--                    android:inputType="textLongMessage"-->
-<!--                    tools:ignore="HardcodedText" />-->
+<!--                     />-->
 <!--            </androidx.cardview.widget.CardView>-->
 
 <!--        </androidx.cardview.widget.CardView>-->

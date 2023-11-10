@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         var adRequest = AdRequest.Builder().build()
         MobileAds.initialize(this) {}
 
-        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(this,"ca-app-pub-9194768212989464/6155709222", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError?.toString()!!)
                 mInterstitialAd = null

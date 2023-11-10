@@ -40,7 +40,9 @@ class AuthenticationFunctions() {
                     override fun onResponse(call: Call, response: Response) {
                         statusCode = response.code()
                         val responseBody = response.body()?.string()
+                        println("responseBody $responseBody")
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                        println("responseJson $responseJson")
                         val accessToken = responseJson?.optString("access")
                         val refreshToken = responseJson?.optString("refresh")
 

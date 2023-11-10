@@ -12,6 +12,7 @@ data class URLDataClass(
     var getHoroscopeURL: String,
     var favouriteHoroscopeURL: String,
     var lookupUserURL: String,
+    var emailVerificationURL: String,
 )
 
 
@@ -27,4 +28,5 @@ val urls = URLDataClass(
     getHoroscopeURL= "https://api.atlasuavteam.com/api/fortune/",
     favouriteHoroscopeURL = "https://api.atlasuavteam.com/api/favourite/",
     lookupUserURL = "https://api.atlasuavteam.com/api/lookup_user/",
+    emailVerificationURL = "https://api.atlasuavteam.com/auth/verify/",
 )

@@ -55,7 +55,7 @@
         android:background="@drawable/chat_input_back_ground"
         android:drawablePadding="10dp"
         android:fontFamily="@font/arima_madurai_light"
-        android:hint="Message to Mira"
+        android:hint="@string/message_to_mira"
         android:inputType="textImeMultiLine"
         android:paddingStart="20dp"
         android:paddingEnd="35dp"
@@ -67,7 +67,7 @@
 
         android:textSize="24sp"
 
-        tools:ignore="HardcodedText"
+
         android:autofillHints="" />
 
     <ImageButton

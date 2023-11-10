@@ -44,8 +44,8 @@
         android:fontFamily="@font/arima_madurai_bold"
         android:textSize="28sp"
         android:textColor="@color/white"
-        android:text="Profilini Duzenle"
-        tools:ignore="HardcodedText">
+        android:text="@string/profilini_duzenle"
+        >
     </TextView>
 
     <TextView
@@ -55,11 +55,11 @@
         android:layout_above="@id/nameEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
-        android:text="Adin"
+        android:text="@string/adin"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
         <EditText
@@ -87,11 +87,11 @@
         android:layout_above="@id/genderEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
-        android:text="Cinsiyet"
+        android:text="@string/cinsiyet"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
     <TextView
@@ -136,11 +136,11 @@
         android:layout_above="@id/birthDateEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
-        android:text="Dogum Tarihi"
+        android:text="@string/dogum_tarihi"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
     <TextView
@@ -169,11 +169,11 @@
         android:layout_above="@id/birthTimeEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-15dp"
-        android:text="Dogum Saati"
+        android:text="@string/dogum_saati"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
     <TextView
@@ -200,11 +200,11 @@
         android:layout_above="@id/locationEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
-        android:text="Dogum Yeri"
+        android:text="@string/dogum_yeri"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
     <TextView
@@ -231,11 +231,11 @@
         android:layout_above="@id/occupationEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
-        android:text="Is"
+        android:text="@string/is"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
     <TextView
@@ -277,11 +277,11 @@
         android:layout_above="@id/relationshipStatusEditText"
         android:layout_marginStart="45dp"
         android:layout_marginBottom="-55dp"
-        android:text="Iliski Durumu"
+        android:text="@string/iliski_durumu"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
         android:textSize="18sp"
-        tools:ignore="HardcodedText">
+        >
     </TextView>
 
     <TextView
@@ -407,12 +407,12 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="100dp"
         android:layout_marginTop="75dp"
-        android:text="card view bu"
+        android:text="@string/card_view_bu"
         android:visibility="invisible"
         app:cardBackgroundColor="#80000000"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
-        tools:ignore="HardcodedText">
+        >
 
         <AutoCompleteTextView
             android:id="@+id/searchCity"
@@ -423,7 +423,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/arima_madurai_light"
 
-            android:hint="Enter a city"
+            android:hint="@string/enter_a_city"
 
             android:imeOptions="actionSend"
 

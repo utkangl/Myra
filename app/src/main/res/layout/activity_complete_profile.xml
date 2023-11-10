@@ -77,8 +77,8 @@
                             android:textSize="15sp"
                             android:textColor="@color/white"
                             android:textAlignment="center"
-                            android:text="şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf"
-                            tools:ignore="HardcodedText">
+                            android:text="@string/sldmvbasl_dm_fdnbklnsdfb_lsdbnmdfbml_lsbfmlksfbmlkm_dslbmsdlm_lksfblksfdmbkldsmf_lsdbmldbmklsbf_sldmdsf"
+                            >
 
                         </TextView>
                 </androidx.cardview.widget.CardView>

@@ -87,6 +87,46 @@
     <string name="fifth_digit">fifth digit</string>
     <string name="sixth_digit">sixth digit</string>
     <string name="ayarlar">Ayarlar</string>
+    <string name="delete_fav_card_background">delete fav card background</string>
+    <string name="title_of_the_horoscope">Title Of The Horoscope</string>
+    <string name="image_button_for_click_delete_fav_horoscope_card">image button for click delete fav horoscope card</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_dapibus_diam_quis_imperdiet_accumsan_maecenas_vitae_ex_sed_ipsum_aliquam_interdum_sed_ut_velit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit.</string>
+    <string name="message_to_mira">Message to Mira</string>
+    <string name="sldmvbasl_dm_fdnbklnsdfb_lsdbnmdfbml_lsbfmlksfbmlkm_dslbmsdlm_lksfblksfdmbkldsmf_lsdbmldbmklsbf_sldmdsf">şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf</string>
+    <string name="edit_favourites">Edit Favourites</string>
+    <string name="favourites">FAVOURITES</string>
+    <string name="cancel_fav_search_filter">cancel fav search filter</string>
+    <string name="bilgilerinizi_girin">Bilgilerinizi Girin</string>
+    <string name="sifremi_unuttum">Sifremi unuttum</string>
+    <string name="hesab_n_z_yok_mu_hesap_a_n">Hesabınız yok mu, hesap açın</string>
+    <string name="profile">Profile</string>
+    <string name="profile_name_first_letter">profile name first letter</string>
+    <string name="emptystring" />
+    <string name="venus">Venus</string>
+    <string name="saturn">Saturn</string>
+    <string name="neptune">Neptune</string>
+    <string name="mars">Mars</string>
+    <string name="jupiter">Jupiter</string>
+    <string name="mercury">Mercury</string>
+    <string name="sun">Sun</string>
+    <string name="moon">Moon</string>
+    <string name="uranus">Uranus</string>
+    <string name="doga">Doga</string>
+    <string name="ikizler">Ikizler</string>
+    <string name="planet">PLANET</string>
+    <string name="en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol">En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.</string>
+    <string name="favori_burclar_n">Favori Burcların</string>
+    <string name="favourites_screen_top_banner">favourites screen top banner</string>
+    <string name="cikis_yap">Cikis Yap</string>
+    <string name="profilini_duzenle">Profilini Duzenle</string>
+    <string name="adin">Adin</string>
+    <string name="cinsiyet">Cinsiyet</string>
+    <string name="dogum_tarihi">Dogum Tarihi</string>
+    <string name="dogum_saati">Dogum Saati</string>
+    <string name="dogum_yeri">Dogum Yeri</string>
+    <string name="is">Is</string>
+    <string name="iliski_durumu">Iliski Durumu</string>
+    <string name="card_view_bu">card view bu</string>
 
 
 </resources>

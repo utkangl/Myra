@@ -7,7 +7,7 @@
     android:background="@drawable/gradient_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FavouriteHoroscopesFragment"
-    tools:ignore="HardcodedText">
+    >
 
 
 
@@ -16,7 +16,7 @@
         android:layout_height="120dp"
         android:id="@+id/favourite_horoscopes_topImage"
         android:background="#5b54b1"
-        android:contentDescription="favourites screen top banner">
+        android:contentDescription="@string/favourites_screen_top_banner">
     </ImageView>
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center"
-        android:text="FAVOURITES"
+        android:text="@string/favourites"
         android:textColor="@color/white"
         android:textSize="25sp"
         tools:ignore="TextSizeCheck">
@@ -38,7 +38,6 @@
         android:layout_height="30dp"
         android:id="@+id/editFavourites"
         android:textAlignment="center"
-        android:inputType="textLongMessage"
         android:layout_alignParentEnd="true"
         android:gravity="center"
         android:padding="5dp"
@@ -46,7 +45,7 @@
         android:layout_marginTop="80dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:textColor="@color/white"
-        android:text="Edit Favourites">
+        android:text="@string/edit_favourites">
     </TextView>
 
 
@@ -98,7 +97,7 @@
                 android:src="@drawable/cancel_icon"
                 android:backgroundTint="#242526"
                 android:visibility="visible"
-                android:contentDescription="cancel fav search filter">
+                android:contentDescription="@string/cancel_fav_search_filter">
             </ImageButton>
         </RelativeLayout>
 

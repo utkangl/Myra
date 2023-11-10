@@ -9,9 +9,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import com.example.falci.internalClasses.dataClasses.controlVariables
+import com.example.falci.internalClasses.dataClasses.tokensDataClass
+import com.example.falci.internalClasses.dataClasses.urls
+import okhttp3.*
+import java.io.IOException
 
 class EmailVerificationFragment : Fragment() {
     private lateinit var firstDigit: EditText
@@ -63,15 +68,44 @@ class EmailVerificationFragment : Fragment() {
             if (controlVariables.allowCheck){
                 inputCode = "${firstDigit.text}${secondDigit.text}${thirdDigit.text}${forthDigit.text}${fifthDigit.text}${sixthDigit.text}"
                 println(inputCode)
-                if (inputCode == "123456"){
-                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                    val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
-                }
+
+                println("${urls.emailVerificationURL}$inputCode")
+                checkEmail()
             }
         }
         return v
     }
 
+    private fun checkEmail(){
+        val apiUrl = "${urls.emailVerificationURL}$inputCode"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url(apiUrl)
+            .get()
+            .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("exception $e")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                println("response $response")
+                val responseCode = response.code()
+                println("responseCode $responseCode")
+                if (responseCode == 200){
+                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                    val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
+                } else{
+                    requireActivity().runOnUiThread{
+                        Toast.makeText(requireContext(), "Some Error Occured, Probably You Entered The Wrong Code $responseCode", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        })
+    }
     fun focusToNextEditText() {
         when {
             firstDigit.isFocused -> secondDigit.requestFocus()

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    tools:ignore="HardcodedText"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageButton
@@ -17,7 +15,7 @@
         android:background="@drawable/delete_bg"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:contentDescription="delete fav card background"
+        android:contentDescription="@string/delete_fav_card_background"
         android:visibility="gone">
     </ImageButton>
 
@@ -37,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/favCardImageBackground"
-                android:contentDescription="color_of_favcard">
+                android:contentDescription="@string/color_of_favcard">
             </ImageView>
 
             <TextView
@@ -52,7 +50,7 @@
                 android:gravity="start"
                 android:textColor="@color/white"
                 android:layout_gravity="top"
-                android:text="Title Of The Horoscope">
+                android:text="@string/title_of_the_horoscope">
             </TextView>
 
             <ImageButton
@@ -64,7 +62,7 @@
                 android:layout_marginBottom="1dp"
                 android:layout_toEndOf="@id/favCardTitle"
                 android:background="@drawable/baseline_remove_circle_24"
-                android:contentDescription=" image button for click delete fav horoscope card"
+                android:contentDescription="@string/image_button_for_click_delete_fav_horoscope_card"
                 android:elevation="5dp"
                 android:visibility="gone">
             </ImageButton>
@@ -87,7 +85,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/white"
                 android:layout_alignParentBottom="true"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit. ">
+                android:text="@string/lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_dapibus_diam_quis_imperdiet_accumsan_maecenas_vitae_ex_sed_ipsum_aliquam_interdum_sed_ut_velit">
             </TextView>
 
         </RelativeLayout>

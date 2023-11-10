@@ -37,10 +37,10 @@
             android:layout_marginBottom="25dp"
 
             android:fontFamily="@font/arima_madurai_bold"
-            android:text="Bilgilerinizi Girin"
+            android:text="@string/bilgilerinizi_girin"
             android:textColor="@color/white"
             android:textSize="32sp"
-            tools:ignore="HardcodedText">
+            >
 
         </TextView>
 
@@ -88,10 +88,10 @@
             android:layout_marginEnd="75dp"
 
             android:fontFamily="@font/arima_madurai_bold"
-            android:text="Sifremi unuttum"
+            android:text="@string/sifremi_unuttum"
             android:textColor="@color/white"
             android:textStyle="italic"
-            tools:ignore="HardcodedText">
+            >
 
         </com.example.falci.LinkTextView>
 
@@ -128,10 +128,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/arima_madurai_bold"
-            android:text="Hesabınız yok mu, hesap açın"
+            android:text="@string/hesab_n_z_yok_mu_hesap_a_n"
             android:textColor="@color/white"
             android:textStyle="italic"
-            tools:ignore="HardcodedText">
+            >
         </com.example.falci.LinkTextView>
 
     </RelativeLayout>

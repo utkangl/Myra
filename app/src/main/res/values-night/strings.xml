@@ -1,5 +1,74 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Falci</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="devam">Devam</string>
+    <string name="enter_a_city">Enter a city</string>
+    <string name="isminiz">Isminiz</string>
+    <string name="sehrini_sec">Sehrini Sec</string>
+    <string name="sifre">Sifre</string>
+    <string name="empty" />
+    <string name="remember_me">Remember me</string>
+    <string name="favorileri_ara">Favorileri ara…</string>
+    <string name="color_of_favcard">color of favCard</string>
+    <string name="time_interval_card_background">time interval card background</string>
+    <string name="user">User</string>
+
+    <string-array name="marital_status">
+        <item>Medeni durumunuzu Seciniz</item>
+        <item>Single</item>
+        <item>Married</item>
+    </string-array>
+
+    <string-array name="genders">
+        <item>Pick your gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="occupations">
+        <item>Pick your occupation</item>
+        <item>Healthcare and Medicine</item>
+        <item>Education and Teaching</item>
+        <item>Information Technology (IT)</item>
+        <item>Business and Management</item>
+        <item>Sales and Marketing</item>
+        <item>Engineering</item>
+        <item>Arts and Entertainment</item>
+        <item>Construction and Trades</item>
+        <item>Law and Legal Services</item>
+        <item>Science and Research</item>
+        <item>Social Services and Nonprofits</item>
+        <item>Finance and Accounting</item>
+        <item>Agriculture and Farming</item>
+        <item>Hospitality and Tourism</item>
+        <item>Media and Communication</item>
+        <item>Manufacturing and Production</item>
+        <item>Transportation and Logistics</item>
+        <item>Administration and Office Support</item>
+        <item>Sports and Recreation</item>
+        <item>Government and Public Administration</item>
+    </string-array>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="account">Account</string>
+    <string name="change_your_password">Change Your Password</string>
+    <string name="seperatorline">seperatorline</string>
+    <string name="buy_myra_coins">Buy Myra Coins</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="support">Support</string>
     <string name="change_language">Change Language</string>
     <string name="info">Info</string>
     <string name="privacy_policy">Privacy Policy</string>
@@ -11,4 +80,42 @@
     <string name="language_image">language image</string>
     <string name="info_image">info image</string>
     <string name="privacy_policy_image">privacy policy image</string>
+    <string name="first_digit">first digit</string>
+    <string name="second_digit">second digit</string>
+    <string name="thirth_digit">thirth digit</string>
+    <string name="forth_digit">forth digit</string>
+    <string name="fifth_digit">fifth digit</string>
+    <string name="sixth_digit">sixth digit</string>
+    <string name="ayarlar">Ayarlar</string>
+    <string name="delete_fav_card_background">delete fav card background</string>
+    <string name="title_of_the_horoscope">Title Of The Horoscope</string>
+    <string name="image_button_for_click_delete_fav_horoscope_card">image button for click delete fav horoscope card</string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_dapibus_diam_quis_imperdiet_accumsan_maecenas_vitae_ex_sed_ipsum_aliquam_interdum_sed_ut_velit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit.</string>
+    <string name="message_to_mira">Message to Mira</string>
+    <string name="sldmvbasl_dm_fdnbklnsdfb_lsdbnmdfbml_lsbfmlksfbmlkm_dslbmsdlm_lksfblksfdmbkldsmf_lsdbmldbmklsbf_sldmdsf">şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf</string>
+    <string name="edit_favourites">Edit Favourites</string>
+    <string name="favourites">FAVOURITES</string>
+    <string name="cancel_fav_search_filter">cancel fav search filter</string>
+    <string name="bilgilerinizi_girin">Bilgilerinizi Girin</string>
+    <string name="sifremi_unuttum">Sifremi unuttum</string>
+    <string name="hesab_n_z_yok_mu_hesap_a_n">Hesabınız yok mu, hesap açın</string>
+    <string name="profile">Profile</string>
+    <string name="profile_name_first_letter">profile name first letter</string>
+    <string name="emptystring" />
+    <string name="venus">Venus</string>
+    <string name="saturn">Saturn</string>
+    <string name="neptune">Neptune</string>
+    <string name="mars">Mars</string>
+    <string name="jupiter">Jupiter</string>
+    <string name="mercury">Mercury</string>
+    <string name="sun">Sun</string>
+    <string name="moon">Moon</string>
+    <string name="uranus">Uranus</string>
+    <string name="doga">Doga</string>
+    <string name="ikizler">Ikizler</string>
+    <string name="planet">PLANET</string>
+    <string name="en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol">En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol En doğru burç yorumunu sana vermemiz için bilgilerini doğru girdiğinden emin ol.</string>
+    <string name="favori_burclar_n">Favori Burcların</string>
+
+
 </resources>
