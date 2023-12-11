@@ -91,7 +91,7 @@ object ExportLookupUserCardFunctions {
         context: Context
     ) {
         if (userID != null) {
-            val apiUrl = "https://api.atlasuavteam.com/api/lookup_user/$userID/"
+            val apiUrl = "https://api.kircibros.com/api/lookup_user/$userID/"
             val client = OkHttpClient()
             val request = Request.Builder()
                 .url(apiUrl)
@@ -106,7 +106,7 @@ object ExportLookupUserCardFunctions {
 
                 override fun onResponse(call: Call, response: Response) {
                     println(response)
-                    destroyUserStatusCode = response.code()
+                    destroyUserStatusCode = response.code
                     if (destroyUserStatusCode == 204) {
                         activity.runOnUiThread {
                             val animation = AnimationUtils.loadAnimation(context, R.anim.fade_out)

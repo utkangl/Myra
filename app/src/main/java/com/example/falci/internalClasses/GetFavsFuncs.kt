@@ -45,7 +45,7 @@ class GetFavsFuncs {
             showLoadingAnimation(animationView)
             val response = client.newCall(request).execute()
 
-            when (val getFavsStatusCode = response.code()) {
+            when (val getFavsStatusCode = response.code) {
                 401 -> handleUnauthorized(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, getFavsUrl, favouriteHoroscopesScrollview)
                 200 -> {
                     handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context,favouriteHoroscopesScrollview)
@@ -125,7 +125,7 @@ class GetFavsFuncs {
     }
 
     private fun handleSuccessfulResponse(response: Response, gson: Gson, animationView: LottieAnimationView, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, context: Context,favouriteHoroscopesScrollview: ScrollView) {
-        val responseBody = response.body()?.string()
+        val responseBody = response.body?.string()
         animationView.post {
             setViewGone(animationView)
             animationView.cancelAnimation()

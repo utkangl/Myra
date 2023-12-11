@@ -10,107 +10,115 @@
     >
 
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:id="@+id/favourite_horoscopes_topImage"
-        android:background="#5b54b1"
-        android:contentDescription="@string/favourites_screen_top_banner">
-    </ImageView>
-
-    <TextView
-        android:id="@+id/favourite_horoscopes_title"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/arima_madurai_bold"
-        android:gravity="center"
-        android:text="@string/favourites"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        tools:ignore="TextSizeCheck">
-    </TextView>
+        android:layout_height="wrap_content"
+        android:id="@+id/favHoroscopesContainer">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:id="@+id/editFavourites"
-        android:textAlignment="center"
-        android:layout_alignParentEnd="true"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/arima_madurai_bold"
-        android:textColor="@color/white"
-        android:text="@string/edit_favourites">
-    </TextView>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/searchFavHoroscopeCardView"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/favourite_horoscopes_topImage"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
-
-        android:visibility="visible"
-        app:cardBackgroundColor="#242526"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="0dp">
-
-        <EditText
-            android:id="@+id/searchFavHoroscope"
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@android:color/transparent"
-            android:drawableStart="@drawable/search_icon"
-            android:drawablePadding="15dp"
-            android:fontFamily="@font/arima_madurai_light"
-            android:hint="@string/favorileri_ara"
-            android:imeOptions="actionSend"
-            android:paddingStart="25dp"
-            android:paddingEnd="10dp"
-            android:textAlignment="textStart"
+            android:layout_height="120dp"
+            android:id="@+id/favourite_horoscopes_topImage"
+            android:background="#5b54b1"
+            android:contentDescription="@string/favourites_screen_top_banner">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/favourite_horoscopes_title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:gravity="center"
+            android:text="@string/favourites"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            tools:ignore="VisualLintTextFieldSize"
-            android:autofillHints=""
-            android:inputType="textLongMessage" />
+            android:textSize="25sp"
+            tools:ignore="TextSizeCheck">
+        </TextView>
 
-        <RelativeLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/editFavourites"
+            android:textAlignment="center"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:textColor="@color/white"
+            android:text="@string/edit_favourites">
+        </TextView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/searchFavHoroscopeCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:id="@+id/cancelFavSearchFilter"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/cancel_icon"
-                android:backgroundTint="#242526"
-                android:visibility="visible"
-                android:contentDescription="@string/cancel_fav_search_filter">
-            </ImageButton>
-        </RelativeLayout>
+            android:layout_height="60dp"
+            android:layout_below="@+id/favourite_horoscopes_topImage"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+
+            android:visibility="visible"
+            app:cardBackgroundColor="#242526"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp">
+
+            <EditText
+                android:id="@+id/searchFavHoroscope"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@android:color/transparent"
+                android:drawableStart="@drawable/search_icon"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/arima_madurai_light"
+                android:hint="@string/favorileri_ara"
+                android:imeOptions="actionSend"
+                android:paddingStart="25dp"
+                android:paddingEnd="10dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                tools:ignore="VisualLintTextFieldSize"
+                android:autofillHints=""
+                android:inputType="textLongMessage" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/cancelFavSearchFilter"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/cancel_icon"
+                    android:backgroundTint="#242526"
+                    android:visibility="visible"
+                    android:contentDescription="@string/cancel_fav_search_filter">
+                </ImageButton>
+            </RelativeLayout>
 
 
 
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+
 
     <ScrollView
         android:id="@+id/favourite_horoscopes_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/searchFavHoroscopeCardView"
+        android:layout_below="@+id/favHoroscopesContainer"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="0dp"
         android:padding="8dp"

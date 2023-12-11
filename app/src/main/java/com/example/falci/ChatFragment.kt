@@ -18,6 +18,7 @@ import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunction
 import com.example.falci.internalClasses.dataClasses.*
 import com.example.falci.internalClasses.statusCode
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -147,7 +148,7 @@ class ChatFragment : Fragment() {
         val chatclient = OkHttpClient()
 
         val requestBody =
-            RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
 
         val request = Request.Builder()
             .url(url)
@@ -165,8 +166,8 @@ class ChatFragment : Fragment() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body()?.string()
-                statusCode = response.code()
+                val responseBody = response.body?.string()
+                statusCode = response.code
                 if (statusCode == 401){
                     println("unauthorized 401, taking new access token")
                     AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->

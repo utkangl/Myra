@@ -92,7 +92,7 @@ class EmailVerificationFragment : Fragment() {
 
             override fun onResponse(call: Call, response: Response) {
                 println("response $response")
-                val responseCode = response.code()
+                val responseCode = response.code
                 println("responseCode $responseCode")
                 if (responseCode == 200){
                     val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)

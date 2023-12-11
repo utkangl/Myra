@@ -181,7 +181,7 @@ class HoroscopeDetailFragment : Fragment() {
     object DestroyFavHoroscope{
         fun destroyFavHoroscope(activity: Activity, context: Context, favouriteThisHoroscope: ImageView?, favHoroscopeId: Int?){
             if (favHoroscopeId != null){
-                val apiUrl = "https://api.atlasuavteam.com/api/favourite/$favHoroscopeId/"
+                val apiUrl = "https://api.kircibros.com/api/favourite/$favHoroscopeId/"
                 val client = OkHttpClient()
                 val request = Request.Builder()
                     .url(apiUrl)
@@ -196,7 +196,7 @@ class HoroscopeDetailFragment : Fragment() {
 
                     override fun onResponse(call: Call, response: Response) {
                         println(response)
-                        statusCode = response.code()
+                        statusCode = response.code
                         println("destroy fav horoscope response code $statusCode")
 
                         if (statusCode == 401){

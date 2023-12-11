@@ -35,6 +35,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import okhttp3.*
+import org.w3c.dom.Text
 
 
 var cardList: MutableList<SavedLookupUserCardView> = mutableListOf()
@@ -49,13 +50,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         splashViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[SplashViewModel::class.java]
         installSplashScreen().apply {
-            setKeepOnScreenCondition { (splashViewModel as SplashViewModel).isLoading.value}  // keep showing splash screen until launching is over
+            setKeepOnScreenCondition { (splashViewModel as SplashViewModel).isLoading.value }  // keep showing splash screen until launching is over
         }
         setContentView(R.layout.activity_main)
 
 
         var adRequest = AdRequest.Builder().build()
-        RewardedAd.load(this,"ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
+        RewardedAd.load(this, "ca-app-pub-3940256099942544/5224354917", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError?.toString()!!)
                 rewardedAd = null
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        rewardedAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+        rewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdClicked() {
                 // Called when a click is recorded for an ad.
                 Log.d(TAG, "Ad was clicked.")
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val mainActivityGeneralLayout = findViewById<RelativeLayout>(R.id.mainActivityGeneralLayout)
-        mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background,theme)
+        mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
 
         controlVariables.getProfileAgain = false
         controlVariables.isSavedUsersLoaded = false
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         val currentTime = System.currentTimeMillis() / 1000
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time", 0)
 
-        println( "it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
+        println("it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
         checkIsAccessExpired(currentTime, savedTokenCreationTime, 750, this) // if it has been more than 15 minutes till creation, refresh
         if (currentTime - savedTokenCreationTime > 600000) {
             authenticated.isLoggedIn = false
@@ -142,16 +143,24 @@ class MainActivity : AppCompatActivity() {
         val clickToGetHoroscopeText = findViewById<TextView>(R.id.ClickToGetHoroscopeText)
         val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
         val selectedModeTitle = findViewById<TextView>(R.id.selectedModeTitle)
+
         val useOrGainCoinMenuCard = findViewById<CardView>(R.id.useOrGainCoinMenuCard)
+        val closeUseOrGainCoinMenuCard = findViewById<ImageButton>(R.id.closeUseOrGainCoinMenuCardButton)
+        val useOrGainCoinMenuCurrentCoinText = findViewById<TextView>(R.id.useOrGainCoinMenuCurrentCoinText)
+        val useOrGainCoinMenuTitle = findViewById<TextView>(R.id.useOrGainCoinMenuTitle)
+        val watchAdToEarnCoinButton = findViewById<AppCompatButton>(R.id.WatchAdToEarnCoinButton)
+        val useCoinButton = findViewById<AppCompatButton>(R.id.UseCoinButton)
+
         val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
         val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
         val scale = this.resources.displayMetrics.density
         val oldTopMarginForModeCards = (45 * scale + 0.5f).toInt()
 
-        val burcCardFunctions = BurcCardFunctions(this, learnYourBurcButton, savedUsersScrollContainer,
+        val burcCardFunctions = BurcCardFunctions(
+            this, learnYourBurcButton, savedUsersScrollContainer,
             burcCard, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG, timeIntervalMonthlySelectedBG,
-            timeIntervalYearlySelectedBG, savedUsersLinearContainer, this,generalSign, loveSign, careerSign, selectedModeTitle
+            timeIntervalYearlySelectedBG, savedUsersLinearContainer, this, generalSign, loveSign, careerSign, selectedModeTitle
         )
 
 //        FirebaseMessaging.getInstance().token
@@ -183,12 +192,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsButton.setOnClickListener {
-            if (settingsButton.isEnabled){
+            if (settingsButton.isEnabled) {
                 settingsButton.isEnabled = false
                 if (authenticated.isLoggedIn) {
-                    makeGetProfileRequest(urls.getProfileURL, this,this,settingsButton) { _, _ -> }
-                }
-                else {
+                    makeGetProfileRequest(urls.getProfileURL, this, this, settingsButton) { _, _ -> }
+                } else {
                     if (savedInstanceState == null) {
                         val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                         val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
@@ -199,33 +207,56 @@ class MainActivity : AppCompatActivity() {
         }
 
         burcCard.setOnClickListener {
-            if (!controlVariables.isInDelay){
+            if (!controlVariables.isInDelay) {
                 if (!controlVariables.isBurcCardOpen) {
                     if (authenticated.isLoggedIn) {
                         setViewInvisible(clickToGetHoroscopeText)
-                        setViewGoneWithAnimation(this,settingsButtonCard, miraMainMenu)
-                        burcCardFunctions.animateBurcCardIn(burcCard, burcCardInnerLayout, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard,mainActivityGeneralLayout)
+                        setViewGoneWithAnimation(this, settingsButtonCard, miraMainMenu)
+                        burcCardFunctions.animateBurcCardIn(
+                            burcCard,
+                            burcCardInnerLayout,
+                            miraBurcCardTop,
+                            miraBurcCardTopTriangle,
+                            backArrowCard,
+                            mainActivityGeneralLayout
+                        )
                     } else {
                         val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                         val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
                     }
+                } else {
+                    println("controlVariables.isBurcCardOpen is ${controlVariables.isBurcCardOpen}")
                 }
+            } else {
+                println("controlVariables.isInDelay is ${controlVariables.isInDelay}")
+
             }
         }
 
-        fun handleCloseBurcCard(){
+        fun handleCloseBurcCard() {
             burcCard.setCardBackgroundColor(Color.parseColor("#1c1444"))
-            setViewVisibleWithAnimation(this,miraMainMenu,settingsButtonCard)
-            mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background,theme)
-            burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard, settingsButtonCard, clickToGetHoroscopeText)
+            setViewVisibleWithAnimation(this, miraMainMenu, settingsButtonCard)
+            mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
+            burcCardFunctions.animateBurcCardOut(
+                burcCard,
+                miraBurcCardTop,
+                miraBurcCardTopTriangle,
+                backArrowCard,
+                settingsButtonCard,
+                clickToGetHoroscopeText
+            )
             generalSignParams.topMargin = oldTopMarginForModeCards
             loveSignParams.topMargin = oldTopMarginForModeCards
             careerSignParams.topMargin = oldTopMarginForModeCards
             controlVariables.selectedTimeInterval = null
         }
 
-        backArrowCard.setOnClickListener { if (controlVariables.isBurcCardOpen) { handleCloseBurcCard() } }
-        backArrow.setOnClickListener {backArrowCard.performClick()}
+        backArrowCard.setOnClickListener {
+            if (controlVariables.isBurcCardOpen) {
+                handleCloseBurcCard()
+            }
+        }
+        backArrow.setOnClickListener { backArrowCard.performClick() }
 
         generalSign.setOnClickListener {
             if (!controlVariables.isGeneralModeSelected) {
@@ -263,47 +294,82 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        learnYourBurcButton.setOnClickListener {
+        closeUseOrGainCoinMenuCard.setOnClickListener {
+            setViewGoneWithAnimation(this, useOrGainCoinMenuCard)
+            controlVariables.isInDelay = false
+        }
+
+        useCoinButton.setOnClickListener {
+            controlVariables.navigateBackToProfileActivity = false
+            if (coin.current_coin >= 10){
+                coin.current_coin -= 10
+                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
+                controlVariables.isInDelay = true
+                // if horoscope type is not love, call get horoscope function
+                if (!controlVariables.isFromLoveHoroscope) {
+                    handleCloseBurcCard()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                    }, 150)
+                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+                }
+                if (controlVariables.isFromLoveHoroscope) {
+                    handleCloseBurcCard()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
+                    }, 150)
+                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+                }
+            }
+        }
+
+        watchAdToEarnCoinButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
 
-            // if user is logged in, close burcCard and then after 300ms make the transition
-            // to horoscope detail fragment, but until api response with horoscope
-            // play thinking animation
+            rewardedAd?.let { ad ->
+                ad.show(this, OnUserEarnedRewardListener { _ ->
+                    // Handle the reward.
+                    coin.current_coin += 20
+                    Log.d(TAG, "User earned the reward.")
+                })
+            } ?: run {
+                Log.d(TAG, "The rewarded ad wasn't ready yet.")
+            }
+            controlVariables.isInDelay = true
+            // if horoscope type is not love, call get horoscope function
+            if (!controlVariables.isFromLoveHoroscope) {
+                coin.current_coin -= 10
+                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
+                handleCloseBurcCard()
+                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                    HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                }, 150)
+                setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+            }
+            if (controlVariables.isFromLoveHoroscope) {
+                coin.current_coin -= 10
+                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
+                handleCloseBurcCard()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                    getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
+                }, 150)
+                setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+            }
+        }
+        learnYourBurcButton.setOnClickListener {
+            controlVariables.navigateBackToProfileActivity = false
             if (authenticated.isLoggedIn) {
-                if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected){
+                if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected) {
                     controlVariables.isInDelay = true
-                    // if horoscope type is not love, call get horoscope function
-                    if (!controlVariables.isFromLoveHoroscope) {
-                        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
-                        useOrGainCoinMenuCard.startAnimation(animation)
-                        useOrGainCoinMenuCard.visibility = View.VISIBLE
-//                        handleCloseBurcCard()
-//                        rewardedAd?.let { ad ->
-//                            ad.show(this, OnUserEarnedRewardListener { _ ->
-//                                // Handle the reward.
-////                                val rewardAmount = rewardItem.amount
-////                                val rewardType = rewardItem.type
-//                                Log.d(TAG, "User earned the reward.")
-//                            })
-//                        } ?: run {
-//                            Log.d(TAG, "The rewarded ad wasn't ready yet.")
-//                        }
-//                        Handler(Looper.getMainLooper()).postDelayed({
-//                            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
-//                            HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
-//                        }, 150)
-//                        setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
-                    }
-                    if (controlVariables.isFromLoveHoroscope) {
-                        handleCloseBurcCard()
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
-                            getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id)
-                        }, 150)
-                        setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
-                    }
-                } else this.runOnUiThread{Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show()}
-
+                    setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
+                    useOrGainCoinMenuCurrentCoinText.text = "${coin.current_coin.toString()} coin You Have"
+                    useOrGainCoinMenuTitle.text = "${postHoroscopeData.type.toString().uppercase()} / ${postHoroscopeData.time_interval.toString().uppercase()}"
+                } else this.runOnUiThread { Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show() }
             } else {
                 // if user is not logged in, close burcCard and then after 300ms make the transition
                 // to login signup activity

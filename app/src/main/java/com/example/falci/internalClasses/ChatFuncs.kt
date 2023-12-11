@@ -16,7 +16,7 @@ import java.io.IOException
 
 class ChatFuncs {
     fun getOldMessages(context: Context, activity: FragmentActivity, threadNumber: Int, oldMessages: MutableList<ChatMessage>, chatAdapter: ChatAdapter, messages: MutableList<ChatMessage>, chatListView: ListView){
-        val apiUrl = "https://api.atlasuavteam.com/gpt/chat/$threadNumber/"
+        val apiUrl = "https://api.kircibros.com/gpt/chat/$threadNumber/"
         val client = OkHttpClient()
 
         val request = Request.Builder()
@@ -30,8 +30,8 @@ class ChatFuncs {
                 println("exception $e")
             }
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body()?.string()
-                statusCode = response.code()
+                val responseBody = response.body?.string()
+                statusCode = response.code
                 println("get thread response code $statusCode")
 
                 if (statusCode == 401){

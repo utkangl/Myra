@@ -23,7 +23,7 @@ class InternalFunctions {
                 component.visibility = View.VISIBLE
             }
         }
-        fun <T : View> setViewVisibleWithAnimation(context: Context, vararg components: T?) {
+        fun <T : View>setViewVisibleWithAnimation(context: Context, vararg components: T?) {
             for (component in components) {
                 val fadeOut = AnimatorInflater.loadAnimator(context, R.animator.fade_in)
                 fadeOut.setTarget(component)

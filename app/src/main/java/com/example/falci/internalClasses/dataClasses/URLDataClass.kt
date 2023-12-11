@@ -17,16 +17,17 @@ data class URLDataClass(
 
 
 val urls = URLDataClass(
-    loginURL= "https://api.atlasuavteam.com/auth/token/",
-    logoutURL= "https://api.atlasuavteam.com/auth/logout/",
-    signUpURL= "https://api.atlasuavteam.com/auth/register/",
-    completeProfileURL= "https://api.atlasuavteam.com/auth/profile/complete/",
-    refreshURL= "https://api.atlasuavteam.com/auth/token/refresh/",
-    getProfileURL= "https://api.atlasuavteam.com/auth/profile/",
-    editProfileURL= "https://api.atlasuavteam.com/auth/profile/edit/",
-    chatGptURL= "https://api.atlasuavteam.com/gpt/chat/",
-    getHoroscopeURL= "https://api.atlasuavteam.com/api/fortune/",
-    favouriteHoroscopeURL = "https://api.atlasuavteam.com/api/favourite/",
-    lookupUserURL = "https://api.atlasuavteam.com/api/lookup_user/",
-    emailVerificationURL = "https://api.atlasuavteam.com/auth/verify/",
+    loginURL= "https://api.kircibros.com/auth/token/",
+    logoutURL= "https://api.kircibros.com/auth/logout/",
+    signUpURL= "https://api.kircibros.com/auth/register/",
+    completeProfileURL= "https://api.kircibros.com/auth/profile/complete/",
+    refreshURL= "https://api.kircibros.com/auth/token/refresh/",
+    getProfileURL= "https://api.kircibros.com/auth/profile/",
+    editProfileURL= "https://api.kircibros.com/auth/profile/edit/",
+    chatGptURL= "https://api.kircibros.com/gpt/chat/",
+    getHoroscopeURL= "https://api.kircibros.com/api/fortune/",
+    favouriteHoroscopeURL = "https://api.kircibros.com/api/favourite/",
+    lookupUserURL = "https://api.kircibros.com/api/lookup_user/",
+    emailVerificationURL = "https://api.kircibros.com/auth/verify/",
+    
 )

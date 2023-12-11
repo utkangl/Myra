@@ -197,8 +197,8 @@ class BurcCardFunctions(
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body()?.string()
-                statusCode = response.code()
+                val responseBody = response.body?.string()
+                statusCode = response.code
 
                 if (statusCode == 401) {
                     println("unauthorized 401, taking new access token")

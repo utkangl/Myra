@@ -9,14 +9,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.example.falci.internalClasses.GetFavsFuncs
 import com.example.falci.internalClasses.dataClasses.controlVariables
+import com.example.falci.internalClasses.dataClasses.listOfFavouriteHoroscopes
 import com.example.falci.internalClasses.dataClasses.urls
 import com.example.falci.internalClasses.listOfFavCards
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
+import com.example.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
+
 
 var numOfCards = 0
 
@@ -29,7 +34,7 @@ class FavouriteHoroscopesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_favourite_horoscopes, container, false)
-
+        controlVariables.favsSwipedDown = false
         numOfCards = 0
 
         val favHoroscopeLinearLayout = v.findViewById<LinearLayout>(R.id.favourite_horoscopes_linearlayout)
@@ -38,6 +43,7 @@ class FavouriteHoroscopesFragment : Fragment() {
         val cancelFavSearchFilter = v.findViewById<ImageButton>(R.id.cancelFavSearchFilter)
         val favouriteHoroscopesScrollview = v.findViewById<ScrollView>(R.id.favourite_horoscopes_scrollview)
         val editFavourites = v.findViewById<TextView>(R.id.editFavourites)
+        val favHoroscopesContainer = v.findViewById<RelativeLayout>(R.id.favHoroscopesContainer)
 
         val getFavsFuncs = GetFavsFuncs()
 
@@ -64,6 +70,38 @@ class FavouriteHoroscopesFragment : Fragment() {
             inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
         }
 
+        favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
+
+            var lastScrollPosition = 0
+
+                val scrollY = favouriteHoroscopesScrollview.scrollY
+                val scrollDirection = if (scrollY > lastScrollPosition) {
+                    ScrollDirection.DOWN
+                } else {
+                    ScrollDirection.UP
+                }
+
+                when {
+                    scrollDirection == ScrollDirection.DOWN && scrollY > 400 -> {
+                        println("suraya girdim ama değişken false değil")
+                        println("degisken ${controlVariables.favsSwipedDown}")
+                        if (!controlVariables.favsSwipedDown) {
+                            setViewGoneWithAnimation(requireContext(), favHoroscopesContainer)
+                            controlVariables.favsSwipedDown = true
+                        }
+                    }
+                    scrollDirection == ScrollDirection.UP && scrollY > -150 -> {
+                        println("buraya girdim ama değişken true değil")
+                        println("degisken ${controlVariables.favsSwipedDown} ve yukarı kaydırdın")
+                        if (controlVariables.favsSwipedDown) {
+                            println("su an visible yapmam lazm aq")
+                            setViewVisibleWithAnimation(requireContext(), favHoroscopesContainer)
+                            controlVariables.favsSwipedDown = false
+                        }
+                    }
+                }
+        }
+
         // create callback variable which will handle onBackPressed and navigate to main activity
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -77,6 +115,8 @@ class FavouriteHoroscopesFragment : Fragment() {
         return v
 
     }
-
+    enum class ScrollDirection {
+        UP, DOWN
+    }
 
 }

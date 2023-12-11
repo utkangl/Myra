@@ -20,6 +20,7 @@ data class ControlVariables(
     var selectedTimeInterval: String?,
     var inPicker: Boolean,
     var allowCheck: Boolean,
+    var favsSwipedDown: Boolean,
 )
 
 var controlVariables = ControlVariables(
@@ -42,4 +43,5 @@ var controlVariables = ControlVariables(
     selectedTimeInterval = null,
     inPicker = false,
     allowCheck = false,
+    favsSwipedDown = false,
 )

@@ -11,6 +11,7 @@ import com.example.falci.R
 import com.example.falci.internalClasses.dataClasses.*
 import com.google.gson.Gson
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -36,8 +37,8 @@ class ProfileFunctions {
                     println("failure")
                 }
                 override fun onResponse(call: Call, response: Response) {
-                    val getProfileStatusCode = response.code()
-                    val responseBody = response.body()?.string()
+                    val getProfileStatusCode = response.code
+                    val responseBody = response.body?.string()
 
                     println("response code $getProfileStatusCode")
                     callback(responseBody, null)
@@ -73,7 +74,7 @@ class ProfileFunctions {
             val editProfileClient = OkHttpClient()
 
             val requestBody = RequestBody.create(
-                MediaType.parse("application/json; charset=utf-8"),
+                "application/json; charset=utf-8".toMediaTypeOrNull(),
                 json.toString()
             )
 
@@ -92,8 +93,8 @@ class ProfileFunctions {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val responseBody = response.body()?.string()
-                    statusCode = response.code()
+                    val responseBody = response.body?.string()
+                    statusCode = response.code
                     if (statusCode == 401){
                         println("unauthorized 401, taking new access token")
                         AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(

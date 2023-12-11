@@ -6,6 +6,7 @@ import com.example.falci.internalClasses.dataClasses.JWTTokensDataClass
 import com.example.falci.internalClasses.dataClasses.tokensDataClass
 import com.example.falci.internalClasses.dataClasses.urls
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -26,7 +27,7 @@ class AuthenticationFunctions() {
 
             fun postJsonNoHeader(url: String, json: JSONObject,  callback: (String?, Exception?) -> Unit) {
 
-                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+                val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -38,8 +39,8 @@ class AuthenticationFunctions() {
                     }
 
                     override fun onResponse(call: Call, response: Response) {
-                        statusCode = response.code()
-                        val responseBody = response.body()?.string()
+                        statusCode = response.code
+                        val responseBody = response.body?.string()
                         println("responseBody $responseBody")
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                         println("responseJson $responseJson")
@@ -63,7 +64,7 @@ class AuthenticationFunctions() {
 
             fun postJsonWithHeader(url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
 
-                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+                val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -76,7 +77,7 @@ class AuthenticationFunctions() {
                     }
 
                     override fun onResponse(call: Call, response: Response) {
-                        statusCode = response.code()
+                        statusCode = response.code
                         if (statusCode == 401){
                             println("unauthorized 401, taking new access token")
                             takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
@@ -89,7 +90,7 @@ class AuthenticationFunctions() {
                             }
                         }
 
-                        val responseBody = response.body()?.string()
+                        val responseBody = response.body?.string()
                         println("statusCode $statusCode")
                         callback(responseBody, null)
                     }
@@ -100,7 +101,7 @@ class AuthenticationFunctions() {
 
                 val refreshJson = createJsonObject("refresh" to tokensDataClass.refreshToken)
                 println(tokensDataClass)
-                val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), refreshJson.toString())
+                val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), refreshJson.toString())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -113,12 +114,12 @@ class AuthenticationFunctions() {
 
                     override fun onResponse(call: Call, response: Response) {
 
-                        val newTokenStatusCode = response.code()
+                        val newTokenStatusCode = response.code
                         println("new token statusCode $newTokenStatusCode")
                         if (newTokenStatusCode == 401){ println("yeni token alma fonksiyonu da 401 ") }
 
 
-                        val responseBody = response.body()?.string()
+                        val responseBody = response.body?.string()
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
 
                         if (newTokenStatusCode == 200){
