@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Loginfragment">
+    tools:context="com.utkangul.falci.Loginfragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
         </EditText>
 
-        <com.example.falci.LinkTextView
+        <com.utkangul.falci.LinkTextView
             android:id="@+id/loginFragmentForgotMyPasswordLinkedText"
 
             android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
             android:textStyle="italic"
             >
 
-        </com.example.falci.LinkTextView>
+        </com.utkangul.falci.LinkTextView>
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -120,7 +120,7 @@
         </androidx.appcompat.widget.AppCompatButton>
 
 
-        <com.example.falci.LinkTextView
+        <com.utkangul.falci.LinkTextView
             android:id="@+id/loginfragmentsignuplinkedtext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
             android:textColor="@color/white"
             android:textStyle="italic"
             >
-        </com.example.falci.LinkTextView>
+        </com.utkangul.falci.LinkTextView>
 
     </RelativeLayout>
 

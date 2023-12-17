@@ -112,7 +112,7 @@
                 </ImageView>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:id="@+id/BuyCoinText"
                     android:layout_centerHorizontal="true"

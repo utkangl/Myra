@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.falci'
+    namespace 'com.utkangul.falci'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.falci"
+        applicationId "com.utkangul.falci"
         minSdk 24
         targetSdk 33
         versionCode 1
