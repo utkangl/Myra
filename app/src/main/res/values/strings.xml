@@ -67,7 +67,7 @@
     <string name="change_your_password">Change Your Password</string>
     <string name="seperatorline">seperatorline</string>
     <string name="buy_myra_coins">Buy Myra Coins</string>
-    <string name="payment_method">Payment Method</string>
+    <string name="delete_account">Delete My Account</string>
     <string name="support">Support</string>
     <string name="change_language">Change Language</string>
     <string name="info">Info</string>
@@ -154,6 +154,17 @@
     <string name="gunluk">GUNLUK</string>
     <string name="use_coin">Use 10 Coin!</string>
     <string name="watch_ad_and_earn_coin">Watch Ad and Earn Coin</string>
+    <string name="buy_5_coins">5 Coin</string>
+    <string name="buy_25_coins">25 Coin</string>
+    <string name="buy_50_coins">50 Coin</string>
+    <string name="subscribe_weekly">Weekly</string>
+    <string name="subscribe_monthly">Monthly</string>
+    <string name="subscribe_yearly">Yearly</string>
+    <string name="one_time_purchases">One Time Purchases</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="in_app_products">In App Products</string>
+    <string name="sample_price_text">price</string>
+    <string name="coins_and_subscriptions"><![CDATA[Coins & Subscriptions]]></string>
 
 
 </resources>

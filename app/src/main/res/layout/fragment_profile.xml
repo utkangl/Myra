@@ -77,11 +77,8 @@
                     android:text="@string/emptystring"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="45sp"
-                    >
-
+                    android:textSize="45sp">
                 </TextView>
-
 
             </androidx.cardview.widget.CardView>
 
@@ -113,11 +110,8 @@
                 android:text="@string/ikizler"
                 android:textSize="20sp"
                 android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
-
-                >
+                android:textColor="@color/white">
             </TextView>
-
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/profilefragmenteditprofilebutton"
@@ -131,6 +125,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/editprofile"
 
+                android:gravity="center"
                 android:fontFamily="@font/arima_madurai_light"
                 android:text="Profilini Düzenle"
                 android:textAllCaps="false"
@@ -179,7 +174,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="9dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -219,7 +217,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -257,7 +258,10 @@
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="2dp"
-                        tools:ignore="VisualLintBounds">
+                        tools:ignore="VisualLintBounds"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -295,7 +299,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -333,7 +340,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -372,7 +382,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -409,7 +422,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -448,7 +464,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -486,7 +505,10 @@
                         android:layout_width="115dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="2dp">
+                        android:layout_marginEnd="2dp"
+                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <ImageView
                             android:layout_width="30dp"
@@ -640,13 +662,11 @@
                     android:visibility="invisible"
                     app:cardBackgroundColor="#47386F"
                     app:cardCornerRadius="75dp">
-
                     <ImageButton
                         android:id="@+id/back_arrow"
                         android:layout_width="45dp"
                         android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="12dp"
                         android:background="@drawable/back_arrow"
                         tools:ignore="VisualLintBounds">
                     </ImageButton>
@@ -664,7 +684,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/profileViewBottomCard"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="160dp"
         android:layout_below="@+id/zodiaccard"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="40dp"
@@ -683,21 +703,34 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/bottomcardseperator"
+                android:id="@+id/bottomcardseperator1"
                 android:layout_width="350dp"
                 android:layout_height="2dp"
-                android:layout_centerInParent="true"
+                android:layout_below="@+id/showFavHoroscopesLayout"
+                android:layout_centerHorizontal="true"
+                app:cardBackgroundColor="@color/white">
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/bottomcardseperator2"
+                android:layout_width="350dp"
+                android:layout_height="2dp"
+                android:layout_below="@+id/navigateToSettingsContainerLayout"
+                android:layout_centerHorizontal="true"
                 app:cardBackgroundColor="@color/white">
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:id="@+id/showFavHoroscopesLayout">
+                android:id="@+id/showFavHoroscopesLayout"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="40dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/white_star_icon">
                 </ImageView>
@@ -719,14 +752,17 @@
             <RelativeLayout
                 android:id="@+id/navigateToSettingsContainerLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/bottomcardseperator"
-                android:gravity="center_vertical">
+                android:layout_height="52dp"
+                android:layout_below="@+id/bottomcardseperator1"
+                android:gravity="center_vertical"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="40dp"
                     android:src="@drawable/settingsbutton">
                 </ImageView>
 
@@ -744,26 +780,56 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@id/bottomcardseperator2"
+                android:id="@+id/navigateToPurchaseContainerLayout"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/mira_coin">
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="105dp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:gravity="center"
+                    android:text="@string/coins_and_subscriptions"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+            </RelativeLayout>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logoutButton"
         android:layout_width="170dp"
         android:layout_height="48dp"
-        android:background="@drawable/common_next_button"
-        android:id="@+id/logoutButton"
-        android:paddingTop="0dp"
-        android:layout_marginBottom="18dp"
+        android:layout_below="@+id/profileViewBottomCard"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/cikis_yap"
-        android:textSize="17sp"
-        android:textAlignment="center"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/common_next_button"
         android:fontFamily="@font/arima_madurai_bold"
-        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/cikis_yap"
         android:textAllCaps="false"
-        >
+        android:textColor="@color/white"
+        android:textSize="17sp">
     </androidx.appcompat.widget.AppCompatButton>
 
 

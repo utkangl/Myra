@@ -220,6 +220,8 @@
                                             android:id="@+id/cityInput"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:inputType="textLongMessage"
+                                            android:maxLines="3"
                                             android:layout_marginTop="40dp"
                                             android:fontFamily="@font/arima_madurai_light"
                                             android:hint="@string/enter_a_city"

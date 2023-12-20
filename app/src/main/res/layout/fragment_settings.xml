@@ -54,123 +54,142 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/AccountTitle"
                     android:text="@string/account"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="35dp"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:textColor="@color/black"
                     android:textSize="32sp">
                 </TextView>
 
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/LockImage"
-                    android:layout_below="@id/AccountTitle"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/baseline_lock_24"
-                    android:contentDescription="@string/lock_image">
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:id="@+id/ChangePasswordText"
-                    android:layout_centerHorizontal="true"
-                    android:layout_toEndOf="@+id/LockImage"
-                    android:layout_below="@id/AccountTitle"
-                    android:text="@string/change_your_password"
-                    android:textStyle="bold"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:textColor="@color/black"
-                    android:textSize="24sp">
-                </TextView>
-
-                <ImageView
-                    android:layout_width="310dp"
-                    android:layout_height="2dp"
-                    android:src="@drawable/seperator_line_grey"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/ChangePasswordText"
-                    android:layout_marginTop="8dp"
-                    android:contentDescription="@string/seperatorline">
-                </ImageView>
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/CoinImage"
-                    android:layout_below="@id/LockImage"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/baseline_attach_money_24"
-                    android:contentDescription="@string/coin_image">
-                </ImageView>
-
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:id="@+id/BuyCoinText"
-                    android:layout_centerHorizontal="true"
-                    android:layout_toEndOf="@+id/LockImage"
-                    android:layout_below="@id/ChangePasswordText"
-                    android:text="@string/buy_myra_coins"
-                    android:textStyle="bold"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:textColor="@color/black"
-                    android:textSize="24sp">
-                </TextView>
+                    android:layout_height="wrap_content"
+                    android:id="@+id/changePasswordContainerLayout"
+                    android:layout_below="@+id/AccountTitle"
+                    android:layout_marginTop="12dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/LockImage"
+                        android:paddingTop="4dp"
+                        android:layout_marginStart="35dp"
+                        android:src="@drawable/baseline_lock_24"
+                        android:contentDescription="@string/lock_image">
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:id="@+id/ChangePasswordText"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toEndOf="@+id/LockImage"
+                        android:text="@string/change_your_password"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:textColor="@color/black"
+                        android:textSize="24sp">
+                    </TextView>
+                </RelativeLayout>
 
                 <ImageView
                     android:layout_width="310dp"
                     android:layout_height="2dp"
+                    android:id="@+id/seperatorline1"
                     android:src="@drawable/seperator_line_grey"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/CoinImage"
-                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/changePasswordContainerLayout"
                     android:contentDescription="@string/seperatorline">
                 </ImageView>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/PaymentImage"
-                    android:layout_below="@id/CoinImage"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/baseline_credit_card_24"
-                    android:contentDescription="@string/payment_method_image">
-                </ImageView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:id="@+id/PaymentMethodText"
-                    android:layout_centerHorizontal="true"
-                    android:layout_toEndOf="@+id/PaymentImage"
-                    android:layout_below="@id/BuyCoinText"
-                    android:text="@string/payment_method"
-                    android:textStyle="bold"
-                    android:layout_marginTop="17dp"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:textColor="@color/black"
-                    android:textSize="24sp">
-                </TextView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/seperatorline1"
+                    android:id="@+id/buyCoinContainerLayout"
+                    android:layout_marginTop="15dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:id="@+id/CoinImage"
+                        android:layout_marginStart="35dp"
+                        android:src="@drawable/baseline_attach_money_24"
+                        android:contentDescription="@string/coin_image">
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:id="@+id/BuyCoinText"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toEndOf="@+id/CoinImage"
+                        android:text="@string/coins_and_subscriptions"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:textColor="@color/black"
+                        android:textSize="24sp">
+                    </TextView>
+                </RelativeLayout>
 
                 <ImageView
                     android:layout_width="310dp"
                     android:layout_height="2dp"
+                    android:id="@+id/seperatorline2"
                     android:src="@drawable/seperator_line_grey"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/PaymentImage"
-                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/buyCoinContainerLayout"
+                    android:contentDescription="@string/seperatorline">
+                </ImageView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/seperatorline2"
+                    android:id="@+id/deleteAccountContainerLayout"
+                    android:layout_marginTop="15dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/deleteAccountImage"
+                        android:paddingTop="4dp"
+                        android:layout_marginStart="35dp"
+                        android:src="@drawable/account_icon"
+                        android:contentDescription="@string/payment_method_image">
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:id="@+id/deleteAccountText"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toEndOf="@+id/deleteAccountImage"
+                        android:text="@string/delete_account"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:textColor="@color/black"
+                        android:textSize="24sp">
+                    </TextView>
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:layout_width="310dp"
+                    android:layout_height="2dp"
+                    android:id="@+id/seperatorline3"
+                    android:src="@drawable/seperator_line_grey"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/deleteAccountContainerLayout"
                     android:contentDescription="@string/seperatorline">
                 </ImageView>
 
@@ -179,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/SupportTitle"
-                    android:layout_below="@id/PaymentImage"
+                    android:layout_below="@id/deleteAccountContainerLayout"
                     android:text="@string/support"
                     android:layout_marginTop="25dp"
                     android:layout_marginStart="20dp"
@@ -188,88 +207,114 @@
                     android:textSize="32sp">
                 </TextView>
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/LanguageImage"
-                    android:layout_below="@id/SupportTitle"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/baseline_language_24"
-                    android:contentDescription="@string/language_image">
-                </ImageView>
+                    android:id="@+id/changeLanguageContainerLayout"
+                    android:layout_below="@+id/SupportTitle"
+                    android:layout_marginTop="12dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/LanguageImage"
+                        android:paddingTop="4dp"
+                        android:layout_marginStart="35dp"
+                        android:src="@drawable/baseline_language_24"
+                        android:contentDescription="@string/language_image">
+                    </ImageView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:id="@+id/ChangeLanguageText"
-                    android:layout_centerHorizontal="true"
-                    android:layout_toEndOf="@+id/LanguageImage"
-                    android:layout_below="@id/SupportTitle"
-                    android:text="@string/change_language"
-                    android:textStyle="bold"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:textColor="@color/black"
-                    android:textSize="24sp">
-                </TextView>
+                    <TextView
+                        android:id="@+id/ChangeLanguageText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/LanguageImage"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:text="@string/change_language"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold">
+                    </TextView>
+
+                </RelativeLayout>
 
                 <ImageView
                     android:layout_width="310dp"
                     android:layout_height="2dp"
+                    android:id="@+id/seperatorline4"
                     android:src="@drawable/seperator_line_grey"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/ChangeLanguageText"
-                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/changeLanguageContainerLayout"
                     android:contentDescription="@string/seperatorline">
                 </ImageView>
 
-
-                <ImageView
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/InfoImage"
-                    android:layout_below="@id/LanguageImage"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/baseline_info_24"
-                    android:contentDescription="@string/info_image">
-                </ImageView>
+                    android:id="@+id/infoContainerLayout"
+                    android:layout_below="@+id/changeLanguageContainerLayout"
+                    android:layout_marginTop="12dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:id="@+id/InfoText"
-                    android:layout_centerHorizontal="true"
-                    android:layout_toEndOf="@+id/LockImage"
-                    android:layout_below="@id/ChangeLanguageText"
-                    android:text="@string/info"
-                    android:textStyle="bold"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:textColor="@color/black"
-                    android:textSize="24sp">
-                </TextView>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/InfoImage"
+                        android:layout_marginStart="35dp"
+                        android:paddingTop="4dp"
+                        android:src="@drawable/baseline_info_24"
+                        android:contentDescription="@string/info_image">
+                    </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:id="@+id/InfoText"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toEndOf="@+id/InfoImage"
+                        android:text="@string/info"
+                        android:textStyle="bold"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/arima_madurai_light"
+                        android:textColor="@color/black"
+                        android:textSize="24sp">
+                    </TextView>
+
+                </RelativeLayout>
+
 
                 <ImageView
                     android:layout_width="310dp"
                     android:layout_height="2dp"
+                    android:id="@+id/seperatorline5"
                     android:src="@drawable/seperator_line_grey"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/InfoImage"
-                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/infoContainerLayout"
                     android:contentDescription="@string/seperatorline">
                 </ImageView>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/privacyPolicyContainerLayout"
+                android:layout_below="@+id/infoContainerLayout"
+                android:layout_marginTop="12dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/PrivacyPolicyImage"
-                    android:layout_below="@id/InfoImage"
+                    android:paddingTop="4dp"
                     android:layout_marginStart="35dp"
-                    android:layout_marginTop="30dp"
                     android:src="@drawable/baseline_policy_24"
                     android:contentDescription="@string/privacy_policy_image">
                 </ImageView>
@@ -280,16 +325,27 @@
                     android:id="@+id/PrivacyPolicyText"
                     android:layout_centerHorizontal="true"
                     android:layout_toEndOf="@+id/PrivacyPolicyImage"
-                    android:layout_below="@id/InfoText"
                     android:text="@string/privacy_policy"
                     android:textStyle="bold"
-                    android:layout_marginTop="18dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginBottom="35dp"
                     android:fontFamily="@font/arima_madurai_light"
                     android:textColor="@color/black"
                     android:textSize="24sp">
                 </TextView>
+
+            </RelativeLayout>
+
+
+                <ImageView
+                    android:layout_width="310dp"
+                    android:layout_height="2dp"
+                    android:id="@+id/seperatorline6"
+                    android:src="@drawable/seperator_line_grey"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/privacyPolicyContainerLayout"
+                    android:layout_marginBottom="35dp"
+                    android:contentDescription="@string/seperatorline">
+                </ImageView>
 
             </RelativeLayout>
 

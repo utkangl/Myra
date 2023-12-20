@@ -27,8 +27,7 @@
             android:layout_width="45dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginStart="12dp"
-            android:background="@drawable/back_arrow"
+            android:background="@drawable/back_arrow_white"
             tools:ignore="ContentDescription,TouchTargetSizeCheck,VisualLintBounds,SpeakableTextPresentCheck">
         </ImageButton>
 
