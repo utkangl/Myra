@@ -12,8 +12,14 @@ import com.revenuecat.purchases.*
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
 import com.revenuecat.purchases.models.*
+import com.utkangul.falci.internalClasses.AuthenticationFunctions
+import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
+import com.utkangul.falci.internalClasses.InternalFunctions
+import com.utkangul.falci.internalClasses.dataClasses.postHoroscopeData
 import com.utkangul.falci.internalClasses.dataClasses.revenueCatOneTimeCoinPackages
 import com.utkangul.falci.internalClasses.dataClasses.revenueCatSubscriptionPackages
+import com.utkangul.falci.internalClasses.dataClasses.urls
+import com.utkangul.falci.internalClasses.statusCode
 
 
 class PurchaseFragment : Fragment() {
@@ -59,8 +65,17 @@ class PurchaseFragment : Fragment() {
             override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                 println(storeTransaction)
                 println(customerInfo)
-            }
+                println("satin alimi basarili")
+                val userId = Purchases.sharedInstance.appUserID
+                val revenuecatUserIdJson = AuthenticationFunctions.CreateJsonObject.createJsonObject(
+                    "user_id" to userId
+                )
 
+                postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
+                { responseBody, exception ->
+                    println("responseBody $responseBody")
+                }
+            }
             override fun onError(error: PurchasesError, userCancelled: Boolean) {
                 println(error)
                 println(userCancelled)

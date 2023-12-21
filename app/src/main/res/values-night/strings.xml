@@ -67,7 +67,7 @@
     <string name="change_your_password">Change Your Password</string>
     <string name="seperatorline">seperatorline</string>
     <string name="buy_myra_coins">Buy Myra Coins</string>
-    <string name="payment_method">Payment Method</string>
+    <string name="delete_account">Delete My Account</string>
     <string name="support">Support</string>
     <string name="change_language">Change Language</string>
     <string name="info">Info</string>
@@ -164,6 +164,8 @@
     <string name="subscriptions">Subscriptions</string>
     <string name="in_app_products">In App Products</string>
     <string name="sample_price_text">price</string>
+    <string name="coins_and_subscriptions"><![CDATA[Coins & Subscriptions]]></string>
+    <string name="refresh_icon_for_resend_verification_email_card">refresh icon for resend verification email card</string>
 
 
 </resources>

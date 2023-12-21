@@ -165,6 +165,7 @@
     <string name="in_app_products">In App Products</string>
     <string name="sample_price_text">price</string>
     <string name="coins_and_subscriptions"><![CDATA[Coins & Subscriptions]]></string>
+    <string name="refresh_icon_for_resend_verification_email_card">refresh icon for resend verification email card</string>
 
 
 </resources>

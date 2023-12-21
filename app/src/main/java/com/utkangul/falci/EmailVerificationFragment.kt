@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
@@ -73,6 +75,23 @@ class EmailVerificationFragment : Fragment() {
                 checkEmail()
             }
         }
+
+        val resendCard = v.findViewById<CardView>(R.id.resendEmail)
+        val resendEmailImage = v.findViewById<ImageView>(R.id.resendEmailImage)
+        resendEmailImage.setOnClickListener{resendCard.performClick()}
+        resendCard.setOnClickListener{
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(urls.resendVerificationEmail)
+                .get()
+                .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                .build()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) { println("exception $e") }
+                override fun onResponse(call: Call, response: Response) { val responseCode = response.code;println("responseCode $responseCode")}
+            })
+        }
+
         return v
     }
 

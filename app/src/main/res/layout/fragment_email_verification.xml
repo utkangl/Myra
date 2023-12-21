@@ -170,4 +170,24 @@
         android:layout_centerHorizontal="true">
     </androidx.appcompat.widget.AppCompatButton>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_toEndOf="@id/checkVerificationCodeButton"
+        android:layout_below="@+id/digitsLinearContainer"
+        android:layout_marginTop="107dp"
+        android:layout_marginStart="15dp"
+        app:cardBackgroundColor="#242854"
+        android:id="@+id/resendEmail"
+        app:cardCornerRadius="15dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resendEmailImage"
+            android:src="@drawable/baseline_refresh_24"
+            android:layout_gravity="center"
+            android:contentDescription="@string/refresh_icon_for_resend_verification_email_card">
+        </ImageView>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
