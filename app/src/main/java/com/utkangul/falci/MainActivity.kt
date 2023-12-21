@@ -50,10 +50,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder().build()
         RewardedAd.load(this, "ca-app-pub-9194768212989464/2985888856", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.toString()!!)
+                Log.d(TAG, adError.toString())
                 rewardedAd = null
             }
 
@@ -357,7 +357,7 @@ class MainActivity : AppCompatActivity() {
             } ?: run {
                 Log.d(TAG, "The rewarded ad wasn't ready yet.")
                 this.runOnUiThread{
-                    Toast.makeText(this, "There was an error while loading the ad", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "There was an error while loading the ad, please try again after a few seconds", Toast.LENGTH_SHORT).show()
                 }
             }
 

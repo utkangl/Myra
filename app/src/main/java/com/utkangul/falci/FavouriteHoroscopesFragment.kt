@@ -15,8 +15,7 @@ import com.utkangul.falci.internalClasses.GetFavsFuncs
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.urls
 import com.utkangul.falci.internalClasses.listOfFavCards
-import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
-import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
+
 
 
 var numOfCards = 0
@@ -39,7 +38,6 @@ class FavouriteHoroscopesFragment : Fragment() {
         val cancelFavSearchFilter = v.findViewById<ImageButton>(R.id.cancelFavSearchFilter)
         val favouriteHoroscopesScrollview = v.findViewById<ScrollView>(R.id.favourite_horoscopes_scrollview)
         val editFavourites = v.findViewById<TextView>(R.id.editFavourites)
-        val favHoroscopesContainer = v.findViewById<RelativeLayout>(R.id.favHoroscopesContainer)
 
         val getFavsFuncs = GetFavsFuncs()
 
@@ -95,28 +93,28 @@ class FavouriteHoroscopesFragment : Fragment() {
 //            true
 //        }
 
-        favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
-            favouriteHoroscopesScrollview.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-                val scrollDifference = scrollY - oldScrollY
-                println(scrollDifference)
-                when {
-                    scrollDifference > 100 -> {
-                        // Aşağı kaydırma işlemi
-                        if (!controlVariables.favsSwipedDown) {
-                            setViewGoneWithAnimation(requireContext(), favHoroscopesContainer)
-                            controlVariables.favsSwipedDown = true
-                        }
-                    }
-                    scrollDifference < -60 -> {
-                        // Yukarı kaydırma işlemi
-                        if (controlVariables.favsSwipedDown) {
-                            setViewVisibleWithAnimation(requireContext(), favHoroscopesContainer)
-                            controlVariables.favsSwipedDown = false
-                        }
-                    }
-                }
-            }
-        }
+//        favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
+//            favouriteHoroscopesScrollview.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+//                val scrollDifference = scrollY - oldScrollY
+//                println(scrollDifference)
+//                when {
+//                    scrollDifference > 100 -> {
+//                        // Aşağı kaydırma işlemi
+//                        if (!controlVariables.favsSwipedDown) {
+//                            setViewGoneWithAnimation(requireContext(), favHoroscopesContainer)
+//                            controlVariables.favsSwipedDown = true
+//                        }
+//                    }
+//                    scrollDifference < -60 -> {
+//                        // Yukarı kaydırma işlemi
+//                        if (controlVariables.favsSwipedDown) {
+//                            setViewVisibleWithAnimation(requireContext(), favHoroscopesContainer)
+//                            controlVariables.favsSwipedDown = false
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
 
         // create callback variable which will handle onBackPressed and navigate to main activity
@@ -132,8 +130,8 @@ class FavouriteHoroscopesFragment : Fragment() {
         return v
 
     }
-    enum class ScrollDirection {
-        UP, DOWN
-    }
+//    enum class ScrollDirection {
+//        UP, DOWN
+//    }
 
 }
