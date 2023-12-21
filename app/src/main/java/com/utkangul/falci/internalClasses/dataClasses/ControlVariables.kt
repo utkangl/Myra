@@ -23,6 +23,7 @@ data class ControlVariables(
     var favsSwipedDown: Boolean,
     var isFromCompleteLookup: Boolean,
     var isFromAddLookupUser: Boolean,
+    var resendMailCountdownFinished: Boolean,
 )
 
 var controlVariables = ControlVariables(
@@ -48,4 +49,5 @@ var controlVariables = ControlVariables(
     favsSwipedDown = false,
     isFromCompleteLookup = false,
     isFromAddLookupUser = false,
+    resendMailCountdownFinished = true,
 )

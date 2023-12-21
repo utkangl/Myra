@@ -191,4 +191,27 @@
         </ImageView>
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resendEmailCountdownTextview"
+        android:layout_below="@id/checkVerificationCodeButton"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        tools:ignore="SelectableText">
+    </TextView>
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/takeInfoEmailVerification"
+        android:layout_below="@id/digitsLinearContainer"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="112dp"
+        android:layout_toStartOf="@id/checkVerificationCodeButton"
+        android:background="@drawable/baseline_info_24"
+        android:contentDescription="@string/sample_description">
+    </ImageView>
+
 </RelativeLayout>
