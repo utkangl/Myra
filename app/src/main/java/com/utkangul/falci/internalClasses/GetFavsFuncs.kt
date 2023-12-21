@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit
 
 var listOfFavCards = mutableListOf<FavCardView>()
 
-
 class GetFavsFuncs {
     private var loadMore = true
     fun getFavouriteHoroscopes(
@@ -40,7 +39,7 @@ class GetFavsFuncs {
     ) {
         val gson = Gson()
 
-         val client = OkHttpClient.Builder()
+        val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
@@ -54,9 +53,26 @@ class GetFavsFuncs {
             val response = client.newCall(request).execute()
 
             when (val getFavsStatusCode = response.code) {
-                401 -> handleUnauthorized(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, getFavsUrl, favouriteHoroscopesScrollview)
+                401 -> handleUnauthorized(
+                    animationView,
+                    context,
+                    searchFavHoroscope,
+                    cancelFavSearchFilter,
+                    favHoroscopeLinearLayout,
+                    getFavsUrl,
+                    favouriteHoroscopesScrollview
+                )
                 200 -> {
-                    handleSuccessfulResponse(response, gson, animationView, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, context,favouriteHoroscopesScrollview)
+                    handleSuccessfulResponse(
+                        response,
+                        gson,
+                        animationView,
+                        searchFavHoroscope,
+                        cancelFavSearchFilter,
+                        favHoroscopeLinearLayout,
+                        context,
+                        favouriteHoroscopesScrollview
+                    )
 
                     var lastScrollY = 0
                     favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
@@ -67,7 +83,15 @@ class GetFavsFuncs {
                             if (listOfFavouriteHoroscopes.next.isNullOrEmpty()) println("this is the last page")
                             if (!listOfFavouriteHoroscopes.next.isNullOrEmpty() && numOfCards < listOfFavouriteHoroscopes.count && loadMore) {
                                 println(listOfFavouriteHoroscopes.next)
-                                getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, listOfFavouriteHoroscopes.next!!, favouriteHoroscopesScrollview)
+                                getFavouriteHoroscopes(
+                                    animationView,
+                                    context,
+                                    searchFavHoroscope,
+                                    cancelFavSearchFilter,
+                                    favHoroscopeLinearLayout,
+                                    listOfFavouriteHoroscopes.next!!,
+                                    favouriteHoroscopesScrollview
+                                )
                                 loadMore = false
                             }
                         }
@@ -75,7 +99,7 @@ class GetFavsFuncs {
                         for (i in 0 until favHoroscopeLinearLayout.childCount) {
                             val childView: View = favHoroscopeLinearLayout.getChildAt(i)
                             if (childView is FavCardView) {
-                                if (scrollY - lastScrollY > 8 ||  scrollY - lastScrollY < -8){
+                                if (scrollY - lastScrollY > 8 || scrollY - lastScrollY < -8) {
                                     if (controlVariables.swipeBack) {
                                         SwipeBack.swipeBack(childView)
                                     }
@@ -85,12 +109,11 @@ class GetFavsFuncs {
                         lastScrollY = scrollY
                     }
                 }
-                else ->{
+                else -> {
                     println("Response code was: $getFavsStatusCode")
-                    Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
                     val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                     val intent = Intent(context, ProfileActivity::class.java)
-                    startActivity(context,intent,options.toBundle())
+                    startActivity(context, intent, options.toBundle())
                 }
 
             }
@@ -140,7 +163,16 @@ class GetFavsFuncs {
         }
     }
 
-    private fun handleSuccessfulResponse(response: Response, gson: Gson, animationView: LottieAnimationView, searchFavHoroscope: EditText, cancelFavSearchFilter: ImageButton, favHoroscopeLinearLayout: LinearLayout, context: Context,favouriteHoroscopesScrollview: ScrollView) {
+    private fun handleSuccessfulResponse(
+        response: Response,
+        gson: Gson,
+        animationView: LottieAnimationView,
+        searchFavHoroscope: EditText,
+        cancelFavSearchFilter: ImageButton,
+        favHoroscopeLinearLayout: LinearLayout,
+        context: Context,
+        favouriteHoroscopesScrollview: ScrollView
+    ) {
         val responseBody = response.body?.string()
         animationView.post {
             setViewGone(animationView)
@@ -149,7 +181,7 @@ class GetFavsFuncs {
 
         // Parse the response and update the listOfFavouriteHoroscopes
         listOfFavouriteHoroscopes = gson.fromJson(responseBody, ListOfFavouriteHoroscopesDataClass::class.java)
-        for (item in listOfFavouriteHoroscopes.results){
+        for (item in listOfFavouriteHoroscopes.results) {
             println(item.id)
         }
 //        allFavouriteHoroscopes.addAll(listOfFavouriteHoroscopes.results)
@@ -165,7 +197,7 @@ class GetFavsFuncs {
             favouriteHoroscopesScrollview,
             animationView,
 
-        )
+            )
     }
 
     private fun searchAndDisplayFilteredResults(
@@ -174,7 +206,7 @@ class GetFavsFuncs {
         cancelFavSearchFilter: ImageButton,
         favHoroscopeLinearLayout: LinearLayout,
         context: Context,
-        favouriteHoroscopesScrollview:ScrollView,
+        favouriteHoroscopesScrollview: ScrollView,
         animationView: LottieAnimationView
     ) {
 
@@ -221,7 +253,7 @@ class GetFavsFuncs {
             println("yazdırıyom bak ${searchFavHoroscope.text}")
             if (searchFavHoroscope.text.toString() != "") controlVariables.isSearchTextChanged = true
 
-            if (controlVariables.isSearchTextChanged){
+            if (controlVariables.isSearchTextChanged) {
                 listOfFavCards = mutableListOf()
                 for (i in 0 until favHoroscopeLinearLayout.childCount) {
                     val childView: View = favHoroscopeLinearLayout.getChildAt(i)
@@ -237,7 +269,15 @@ class GetFavsFuncs {
                 val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
                 CoroutineScope(Dispatchers.Main).launch {
-                    getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
+                    getFavouriteHoroscopes(
+                        animationView,
+                        context,
+                        searchFavHoroscope,
+                        cancelFavSearchFilter,
+                        favHoroscopeLinearLayout,
+                        urls.favouriteHoroscopeURL,
+                        favouriteHoroscopesScrollview
+                    )
                     numOfCards = 0
                 }
                 controlVariables.isSearchTextChanged = false
@@ -264,7 +304,7 @@ class GetFavsFuncs {
         favCardTitle.text = fortuneItem.title
         val fortuneType = fortuneItem.fortune?.type
         println(fortuneType)
-        when(fortuneType){
+        when (fortuneType) {
             "career" -> favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_career)
             "love" -> favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_love)
             "general" -> favCardImageBackground.setBackgroundResource(R.drawable.fav_card_background_general)
@@ -299,9 +339,9 @@ class GetFavsFuncs {
                 val intent = Intent(context, MainActivity::class.java)
                 startActivity(context, intent, options.toBundle())
             } else {
-                if (System.currentTimeMillis() - timeWhenSwiped > 350){
+                if (System.currentTimeMillis() - timeWhenSwiped > 350) {
                     SwipeBack.swipeBack(favCardView)
-                } else println(System.currentTimeMillis() - timeWhenSwiped )
+                } else println(System.currentTimeMillis() - timeWhenSwiped)
             }
         }
 

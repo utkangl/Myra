@@ -9,19 +9,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.utkangul.falci.internalClasses.AuthenticationFunctions
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.utkangul.falci.internalClasses.dataClasses.authenticated
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
-import com.utkangul.falci.internalClasses.statusCode
 import okhttp3.*
-import org.json.JSONObject
 import java.io.IOException
 
 

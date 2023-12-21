@@ -41,7 +41,7 @@ var savedLookupUserList: List<SavedLookUpUsersDataClass> = emptyList()
 class MainActivity : AppCompatActivity() {
     private lateinit var splashViewModel: ViewModel
     private var rewardedAd: RewardedAd? = null
-    private final var TAG = "MainActivity"
+    private var TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         RewardedAd.load(this, "ca-app-pub-9194768212989464/2985888856", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError.toString())
+                println(adError.toString())
                 rewardedAd = null
             }
 
@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) { println("exception $e") }
                     override fun onResponse(call: Call, response: Response) {
-                        println("response code annen : ${response.code}")
+                        println("response code : ${response.code}")
                         println("response : $response")
                         if (response.code == 401){
                             AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
@@ -408,6 +408,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
         learnYourBurcButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
             if (authenticated.isLoggedIn) {

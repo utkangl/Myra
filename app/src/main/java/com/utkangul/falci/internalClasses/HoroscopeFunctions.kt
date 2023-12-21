@@ -3,7 +3,6 @@ package com.utkangul.falci.internalClasses
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
@@ -54,7 +53,6 @@ object HoroscopeFunctions {
                         }else {
                             val errorDetail = responseJson.optString("detail")
                             println(errorDetail)
-                            Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
                             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                             val intent = Intent(context, ProfileActivity::class.java)
                             startActivity(context,intent,options.toBundle())
@@ -116,7 +114,6 @@ object HoroscopeFunctions {
                         else {
                             val errorDetail = errorResponseJson.optString("detail")
                             println(errorDetail)
-                            Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
                             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                             val intent = Intent(context, ProfileActivity::class.java)
                             startActivity(context,intent,options.toBundle())

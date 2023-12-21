@@ -1,21 +1,26 @@
 package com.utkangul.falci
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.revenuecat.purchases.*
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.models.*
 import com.utkangul.falci.internalClasses.AuthenticationFunctions
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
+import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.dataClasses.revenueCatOneTimeCoinPackages
 import com.utkangul.falci.internalClasses.dataClasses.revenueCatSubscriptionPackages
 import com.utkangul.falci.internalClasses.dataClasses.urls
-
+import com.utkangul.falci.internalClasses.statusCode
 
 class PurchaseFragment : Fragment() {
 
@@ -66,19 +71,36 @@ class PurchaseFragment : Fragment() {
         var fiftyCoinStoreProduct: GoogleStoreProduct? = null
 
 
-
         //onCompleted , onError situations for purchase callback
         val makepurchaseCallback = object : PurchaseCallback {
             override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                 println(storeTransaction)
                 println(customerInfo)
-                println("satin alimi basarili")
+                Toast.makeText(context, "Your Purchase Was Successfull", Toast.LENGTH_SHORT).show()
                 val userId = Purchases.sharedInstance.appUserID
                 val revenuecatUserIdJson = AuthenticationFunctions.CreateJsonObject.createJsonObject("user_id" to userId)
                 postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
-                { responseBody, exception ->
-                    exception?.printStackTrace()
+                { responseBody, exception -> exception?.printStackTrace()
                     println("responseBody $responseBody")
+                    when (statusCode) {
+                        200 -> { Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show() }
+                        401 -> {
+                            takeFreshTokens(urls.refreshURL,requireContext()){ responseBody401, exception401 ->
+                                if (exception401 != null) exception401.printStackTrace()
+                                else{
+                                    if (responseBody401 != null) {
+                                        postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext()){ _ , _ -> }
+                                    }
+                                }
+                            }
+                        }
+                        else -> {
+                            Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
+                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                            val intent = Intent(context, ProfileActivity::class.java)
+                            ContextCompat.startActivity(requireContext(), intent, options.toBundle())
+                        }
+                    }
                 }
             }
             override fun onError(error: PurchasesError, userCancelled: Boolean) {

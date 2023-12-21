@@ -67,7 +67,7 @@ class HoroscopeDetailFragment : Fragment() {
         // is user clicks to mira image at the bottom, navigate user to chat w/ mira screen
         miraHoroscopeDetailBottom.setOnClickListener{
             isFromHoroscope = true
-            replaceMainActivityToFragment(parentFragmentManager, com.utkangul.falci.ChatFragment())
+            replaceMainActivityToFragment(parentFragmentManager, ChatFragment())
             }
 
         // create callback variable which will handle onBackPressed and navigate to main activity

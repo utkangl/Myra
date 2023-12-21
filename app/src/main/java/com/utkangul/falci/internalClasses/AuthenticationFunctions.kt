@@ -7,6 +7,7 @@ import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -15,7 +16,7 @@ import kotlin.properties.Delegates
 
 var statusCode by Delegates.notNull<Int>()
 
-class AuthenticationFunctions() {
+class AuthenticationFunctions {
 
 
     object PostJsonFunctions{
@@ -27,7 +28,7 @@ class AuthenticationFunctions() {
 
             fun postJsonNoHeader(url: String, json: JSONObject,  callback: (String?, Exception?) -> Unit) {
 
-                val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
+                val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -64,7 +65,7 @@ class AuthenticationFunctions() {
 
             fun postJsonWithHeader(url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
 
-                val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
+                val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)
@@ -101,7 +102,7 @@ class AuthenticationFunctions() {
 
                 val refreshJson = createJsonObject("refresh" to tokensDataClass.refreshToken)
                 println(tokensDataClass)
-                val requestBody = RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), refreshJson.toString())
+                val requestBody = refreshJson.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val request = Request.Builder()
                     .url(url)
                     .post(requestBody)

@@ -3,7 +3,7 @@ package com.utkangul.falci.internalClasses.dataClasses
 data class UserStatusDataClass(
     val coin: Int,
     val premium: List<Premium>,
-    val campain: List<Campaign> // Dikkat: JSON'da "campaign" olarak geçiyor, burada "campain" olarak kullanıldı
+    val campain: List<Campaign>
 )
 
 var userStatusDataClass = UserStatusDataClass(
