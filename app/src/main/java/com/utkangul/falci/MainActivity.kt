@@ -30,7 +30,9 @@ import com.utkangul.falci.internalClasses.dataClasses.*
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.gson.Gson
 import okhttp3.*
+import java.io.IOException
 
 
 var cardList: MutableList<SavedLookupUserCardView> = mutableListOf()
@@ -175,6 +177,42 @@ class MainActivity : AppCompatActivity() {
             setViewGone(burcCard, settingsButtonCard, miraMainMenu)
             controlVariables.navigateToHoroscope = false
             controlVariables.isFromLoveHoroscope = false
+        }
+
+        if (authenticated.isLoggedIn){
+            val url = urls.userStatusURL
+            val client = OkHttpClient()
+            fun getUserStatus(url:String, client: OkHttpClient,context: Context){
+                val request = Request.Builder()
+                    .url(url)
+                    .get()
+                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                    .build()
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) { println("exception $e") }
+                    override fun onResponse(call: Call, response: Response) {
+                        println("response code : ${response.code}")
+                        println("response : $response")
+                        if (response.code == 401){
+                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
+                                if (responseBody != null) {
+                                    println(tokensDataClass.accessToken)
+                                    getUserStatus(url, client, context)
+                                } else {
+                                    println(exception)
+                                }
+                            }
+                        }
+                        if (response.code ==200){
+                            val responseBody = response.body?.string()
+                            val gson = Gson()
+                            val userStatusDataClass: UserStatusDataClass =  gson.fromJson(responseBody, UserStatusDataClass::class.java)
+                            println(userStatusDataClass)
+                        }
+                    }
+                })
+            }
+            getUserStatus(url,client, this)
         }
 
         settingsButton.setOnClickListener {

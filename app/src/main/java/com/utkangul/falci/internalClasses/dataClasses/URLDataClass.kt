@@ -14,6 +14,7 @@ data class URLDataClass(
     var lookupUserURL: String,
     var emailVerificationURL: String,
     var deleteAccountURL: String,
+    var userStatusURL: String,
 )
 
 val urls = URLDataClass(
@@ -25,9 +26,10 @@ val urls = URLDataClass(
     getProfileURL= "https://api.kircibros.com/auth/profile/",
     editProfileURL= "https://api.kircibros.com/auth/profile/edit/",
     chatGptURL= "https://api.kircibros.com/gpt/chat/",
-    getHoroscopeURL= "https://api.kircibros.com/api/fortune/",
+    getHoroscopeURL= "https://api.kircibros.com/api/fortune_new/",
     favouriteHoroscopeURL = "https://api.kircibros.com/api/favourite/",
     lookupUserURL = "https://api.kircibros.com/api/lookup_user/",
     emailVerificationURL = "https://api.kircibros.com/auth/verify/",
     deleteAccountURL = "https://api.kircibros.com/auth/profile/delete/",
+    userStatusURL = "https://api.kircibros.com/purchase/detail/",
 )
