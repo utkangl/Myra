@@ -68,6 +68,7 @@ class EmailVerificationFragment : Fragment() {
                 override fun onTick(millisUntilFinished: Long) {
                     // Geri sayım süresi her saniye azaldıkça burası çalışır
                     remainingTimeMillis = millisUntilFinished
+                    controlVariables.resendMailCountdownFinished = false
                     updateCountdownUI()
                 }
 
@@ -125,8 +126,9 @@ class EmailVerificationFragment : Fragment() {
         resendEmailImage.setOnClickListener{resendCard.performClick()}
         resendCard.setOnClickListener{
             if (controlVariables.resendMailCountdownFinished){
-                controlVariables.resendMailCountdownFinished = false
+                remainingTimeMillis = 120000
                 startCountdownTimer()
+                updateCountdownUI()
                 val client = OkHttpClient()
                 val request = Request.Builder()
                     .url(urls.resendVerificationEmail)
