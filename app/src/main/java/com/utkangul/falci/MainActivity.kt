@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             authenticated.isLoggedIn = false
         } // refresh token lasts 30 minutes
 
+
         val burcCard = findViewById<CardView>(R.id.burcCard)
         val burcCardInnerLayout = findViewById<RelativeLayout>(R.id.burcCardInnerLayout)
         val miraBurcCardTop = findViewById<ImageView>(R.id.MiraBurcCardTop)
@@ -147,6 +148,8 @@ class MainActivity : AppCompatActivity() {
         val useOrGainCoinMenuTitle = findViewById<TextView>(R.id.useOrGainCoinMenuTitle)
         val watchAdToEarnCoinButton = findViewById<AppCompatButton>(R.id.WatchAdToEarnCoinButton)
         val useCoinButton = findViewById<AppCompatButton>(R.id.UseCoinButton)
+        val coinAmountContainerLayout = findViewById<RelativeLayout>(R.id.coinAmountContainerLayout)
+        val coinAmountText = findViewById<TextView>(R.id.coinAmountText)
 
         val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
@@ -174,7 +177,7 @@ class MainActivity : AppCompatActivity() {
         if (controlVariables.navigateToHoroscope) {
             println("navigating to horoscope detail")
             replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
-            setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+            setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
             controlVariables.navigateToHoroscope = false
             controlVariables.isFromLoveHoroscope = false
         }
@@ -191,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) { println("exception $e") }
                     override fun onResponse(call: Call, response: Response) {
-                        println("response code : ${response.code}")
+                        println("response code annen : ${response.code}")
                         println("response : $response")
                         if (response.code == 401){
                             AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
@@ -206,8 +209,13 @@ class MainActivity : AppCompatActivity() {
                         if (response.code ==200){
                             val responseBody = response.body?.string()
                             val gson = Gson()
-                            val userStatusDataClass: UserStatusDataClass =  gson.fromJson(responseBody, UserStatusDataClass::class.java)
+                            userStatusDataClass =  gson.fromJson(responseBody, UserStatusDataClass::class.java)
                             println(userStatusDataClass)
+                            coin.current_coin = userStatusDataClass.coin
+                            runOnUiThread{
+                                useOrGainCoinMenuCurrentCoinText.text = "${userStatusDataClass.coin}"
+                                coinAmountText.text = "${userStatusDataClass.coin}"
+                            }
                         }
                     }
                 })
@@ -235,7 +243,7 @@ class MainActivity : AppCompatActivity() {
                 if (!controlVariables.isBurcCardOpen) {
                     if (authenticated.isLoggedIn) {
                         setViewInvisible(clickToGetHoroscopeText)
-                        setViewGoneWithAnimation(this, settingsButtonCard, miraMainMenu)
+                        setViewGoneWithAnimation(this, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
                         burcCardFunctions.animateBurcCardIn(
                             burcCard,
                             burcCardInnerLayout,
@@ -259,7 +267,7 @@ class MainActivity : AppCompatActivity() {
 
         fun handleCloseBurcCard() {
             burcCard.setCardBackgroundColor(Color.parseColor("#1c1444"))
-            setViewVisibleWithAnimation(this, miraMainMenu, settingsButtonCard)
+            setViewVisibleWithAnimation(this, miraMainMenu, settingsButtonCard,coinAmountContainerLayout)
             mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
             burcCardFunctions.animateBurcCardOut(
                 burcCard,
@@ -311,6 +319,7 @@ class MainActivity : AppCompatActivity() {
             // if horoscope type is love, navigate user to complete profile screen to get lookup user's profile
             if (controlVariables.isFromLoveHoroscope) {
                 setViewVisibleWithAnimation(this, addLookupUser.findViewById<ImageView>(R.id.addLookupUserBG))
+                useOrGainCoinMenuTitle.text = "${postHoroscopeData.type.toString().uppercase()} / ${postHoroscopeData.time_interval.toString().uppercase()}"
                 setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
                 controlVariables.isFromAddLookupUser = true
             }
@@ -323,7 +332,7 @@ class MainActivity : AppCompatActivity() {
 
         useCoinButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
-            if (coin.current_coin >= 10){
+            if (userStatusDataClass.coin >= 10){
                 coin.current_coin -= 10
                 setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
                 controlVariables.isInDelay = true
@@ -331,7 +340,7 @@ class MainActivity : AppCompatActivity() {
                 if (!controlVariables.isFromLoveHoroscope) {
                     handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
                         HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
@@ -339,7 +348,7 @@ class MainActivity : AppCompatActivity() {
                 if (controlVariables.isFromLoveHoroscope) {
                     handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
                         getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
@@ -377,7 +386,7 @@ class MainActivity : AppCompatActivity() {
                 if (!controlVariables.isFromLoveHoroscope) {
                     coin.current_coin -= 10
                     Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
                         HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
@@ -386,7 +395,7 @@ class MainActivity : AppCompatActivity() {
                 if (controlVariables.isFromLoveHoroscope && !controlVariables.isFromAddLookupUser) {
                     coin.current_coin -= 10
                     Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu)
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
                         getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
@@ -398,7 +407,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "There was an error while loading the ad, please try again after a few seconds", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
         learnYourBurcButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
@@ -406,7 +414,6 @@ class MainActivity : AppCompatActivity() {
                 if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected) {
                     controlVariables.isInDelay = true
                     setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
-                    useOrGainCoinMenuCurrentCoinText.text = "${coin.current_coin.toString()} coin You Have"
                     useOrGainCoinMenuTitle.text = "${postHoroscopeData.type.toString().uppercase()} / ${postHoroscopeData.time_interval.toString().uppercase()}"
                 } else this.runOnUiThread { Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show() }
             } else {

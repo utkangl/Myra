@@ -65,10 +65,11 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
 
-        android:textSize="24sp"
+        android:textSize="24dp"
 
 
-        android:autofillHints="" />
+        android:autofillHints=""
+        tools:ignore="SpUsage" />
 
     <ImageButton
         android:layout_width="50dp"

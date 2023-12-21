@@ -5,5 +5,5 @@ data class Coin(
 )
 
 var coin = Coin(
-    current_coin = 5
+    current_coin = 0
 )

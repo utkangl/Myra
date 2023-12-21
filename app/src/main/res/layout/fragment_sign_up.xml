@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpFragment"
-    tools:ignore="UnusedAttribute">
+    android:background="@drawable/falci_background"
+    tools:ignore="UnusedAttribute, SpUsage">
 
 
         <TextView
@@ -21,7 +22,7 @@
             android:fontFamily="@font/arima_madurai_bold"
             android:text="Bilgilerinizi Girin Lutfen"
             android:textColor="@color/white"
-            android:textSize="32sp"
+            android:textSize="32dp"
             tools:ignore="HardcodedText,TextSizeCheck">
 
         </TextView>
@@ -49,19 +50,19 @@
                 android:id="@+id/signUpFragmentUsernameText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints="emailAddress"
                 android:background="@drawable/common_text_input_field"
-                android:maxLength="255"
                 android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
                 android:hint="Email"
-                android:textColorHint="@color/white"
+                android:inputType="textEmailAddress"
+                android:maxLength="255"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
-                android:textSize="24sp"
-                android:inputType="textEmailAddress"
-                android:autofillHints="emailAddress"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="24dp"
+                tools:ignore="HardcodedText,VisualLintTextFieldSize,TextSizeCheck" />
 
         </androidx.cardview.widget.CardView>
 
@@ -77,23 +78,24 @@
             android:layout_marginLeft="55dp"
             android:layout_marginRight="55dp"
             app:cardCornerRadius="20dp">
+
             <EditText
                 android:id="@+id/signUpFragmentPasswordText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints="password"
                 android:background="@drawable/common_text_input_field"
-                android:maxLength="255"
                 android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
                 android:hint="Sifre"
-                android:textColorHint="@color/white"
+                android:inputType="textPassword"
+                android:maxLength="255"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
-                android:textSize="24sp"
-                android:inputType="textPassword"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize"
-                android:autofillHints="password" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="24dp"
+                tools:ignore="HardcodedText,VisualLintTextFieldSize,TextSizeCheck" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -108,39 +110,39 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="55dp"
             app:cardCornerRadius="20dp">
+
             <EditText
                 android:id="@+id/signUpFragmentPasswordAgainText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:autofillHints="password"
                 android:background="@drawable/common_text_input_field"
-                android:maxLength="255"
                 android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
                 android:hint="Tekrardan Sifre"
-                android:textColorHint="@color/white"
+                android:inputType="textPassword"
+                android:maxLength="255"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
-                android:textSize="24sp"
-                android:inputType="textPassword"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize"
-                android:autofillHints="password" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="24dp"
+                tools:ignore="HardcodedText,VisualLintTextFieldSize,TextSizeCheck" />
         </androidx.cardview.widget.CardView>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/signupfragmentsignupbutton"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_below="@+id/signUpFragmentPasswordAgain"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="110dp"
-            android:layout_marginRight="75dp"
-            android:background="@drawable/common_next_button"
-            android:fontFamily="@font/arima_madurai_bold"
-            android:text="Kayit Ol"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText,VisualLintButtonSize">
-        </androidx.appcompat.widget.AppCompatButton>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signupfragmentsignupbutton"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_below="@+id/signUpFragmentPasswordAgain"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginRight="75dp"
+        android:background="@drawable/common_next_button"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="Kayit Ol"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        tools:ignore="HardcodedText,VisualLintButtonSize,TextSizeCheck"></androidx.appcompat.widget.AppCompatButton>
 </RelativeLayout>

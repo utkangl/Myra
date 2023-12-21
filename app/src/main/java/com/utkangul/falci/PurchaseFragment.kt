@@ -61,6 +61,18 @@ class PurchaseFragment : Fragment() {
         val yearlySubsPriceText = v.findViewById<TextView>(R.id.yearlySubs_price_textView)
 
 
+        var weeklySubsStoreProduct: GoogleStoreProduct? = null
+        var monthlySubsStoreProduct: GoogleStoreProduct? = null
+        var yearlySubsStoreProduct: GoogleStoreProduct? = null
+
+
+        var fiveCoinStoreProduct: GoogleStoreProduct? = null
+        var twentyFiveCoinStoreProduct: GoogleStoreProduct? = null
+        var fiftyCoinStoreProduct: GoogleStoreProduct? = null
+
+
+
+        //onCompleted , onError situations for purchase callback
         val makepurchaseCallback = object : PurchaseCallback {
             override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                 println(storeTransaction)
@@ -73,6 +85,7 @@ class PurchaseFragment : Fragment() {
 
                 postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
                 { responseBody, exception ->
+                    exception?.printStackTrace()
                     println("responseBody $responseBody")
                 }
             }
@@ -82,20 +95,9 @@ class PurchaseFragment : Fragment() {
             }
         }
 
-        var weeklySubsStoreProduct: GoogleStoreProduct? = null
-        var monthlySubsStoreProduct: GoogleStoreProduct? = null
-        var yearlySubsStoreProduct: GoogleStoreProduct? = null
-
-        var fiveCoinStoreProduct: GoogleStoreProduct? = null
-        var twentyFiveCoinStoreProduct: GoogleStoreProduct? = null
-        var fiftyCoinStoreProduct: GoogleStoreProduct? = null
-
 
         //set storeProducts
-        Purchases.sharedInstance.getOfferingsWith({ error ->
-            println(error)
-        })
-        { offerings ->
+        Purchases.sharedInstance.getOfferingsWith({ error -> println(error) }) { offerings ->
             offerings.current?.availablePackages?.takeUnless { it.isEmpty() }?.let {
 
                 for ((index, subsPackage) in offerings.current!!.availablePackages.withIndex()) {
@@ -123,8 +125,11 @@ class PurchaseFragment : Fragment() {
                 twentyFiveCoinStoreProduct = revenueCatOneTimeCoinPackages.twentyFiveCoinPackage?.product?.googleProduct!!
                 fiftyCoinStoreProduct = revenueCatOneTimeCoinPackages.fiftyCoinPackage?.product?.googleProduct!!
 
+                println(" yaraamm ${fiveCoinStoreProduct!!.productDetails.name}")
+
             }
         }
+
 
         //Set Prices Texts
         fiveCoinPriceText.text        =fiveCoinStoreProduct?.price?.formatted
@@ -133,6 +138,15 @@ class PurchaseFragment : Fragment() {
         weeklySubsPriceText.text      =weeklySubsStoreProduct?.price?.formatted
         monthlySubsPriceText.text     =monthlySubsStoreProduct?.price?.formatted
         yearlySubsPriceText.text      =yearlySubsStoreProduct?.price?.formatted
+
+
+        // Set Display Names
+        fiveCoinText.text = fiveCoinStoreProduct?.productDetails?.name
+        twentyFiveCoinText.text = twentyFiveCoinStoreProduct?.productDetails?.name
+        fiftyCoinText.text = fiftyCoinStoreProduct?.productDetails?.name
+        weeklySubsTextView.text = weeklySubsStoreProduct?.productDetails?.name
+        monthlySubsTextView.text = monthlySubsStoreProduct?.productDetails?.name
+        yearlySubsTextView.text = yearlySubsStoreProduct?.productDetails?.name
 
 
         // Make Purchase for MyraCoin
@@ -163,7 +177,6 @@ class PurchaseFragment : Fragment() {
             Purchases.sharedInstance.purchase(params, makepurchaseCallback)
         }
 
-
-            return v
+        return v
     } // end of onCreateView
 } // end of class

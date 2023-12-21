@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
     android:background="@drawable/gradient_background"
-    tools:ignore="ContentDescription">
+    tools:ignore="ContentDescription, SpUsage">
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_marginBottom="10dp"
         android:id="@+id/profileTitle"
         android:fontFamily="@font/arima_madurai_bold"
-        android:textSize="30sp"
+        android:textSize="30dp"
         android:textColor="@color/white"
         android:text="@string/profile"
         android:layout_centerHorizontal="true"
@@ -77,7 +77,7 @@
                     android:text="@string/emptystring"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="45sp">
+                    android:textSize="45dp">
                 </TextView>
 
             </androidx.cardview.widget.CardView>
@@ -92,7 +92,7 @@
                 android:layout_marginStart="20dp"
 
                 android:text="@string/doga"
-                android:textSize="24sp"
+                android:textSize="24dp"
                 android:fontFamily="@font/arima_madurai_bold"
                 android:textColor="@color/white"
                 >
@@ -108,7 +108,7 @@
                 android:layout_marginStart="20dp"
 
                 android:text="@string/ikizler"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white">
             </TextView>
@@ -130,7 +130,7 @@
                 android:text="Profilini Düzenle"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="13dp"
                 tools:ignore="HardcodedText,TextSizeCheck">
             </androidx.appcompat.widget.AppCompatButton>
 
@@ -198,7 +198,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/jupiter"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -239,7 +239,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/mars"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -280,7 +280,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/mercury"
                             android:textColor="@color/white"
-                            android:textSize="18sp"
+                            android:textSize="18dp"
                             >
                         </TextView>
 
@@ -321,7 +321,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/neptune"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -362,7 +362,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/saturn"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -404,7 +404,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/sun"
                             android:textColor="@color/white"
-                            android:textSize="20sp">
+                            android:textSize="20dp">
                         </TextView>
 
                     </RelativeLayout>
@@ -444,7 +444,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/uranus"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -486,7 +486,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/venus"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -527,7 +527,7 @@
                             android:gravity="center_vertical"
                             android:text="@string/moon"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="20dp"
                             >
                         </TextView>
 
@@ -589,7 +589,7 @@
                     android:fontFamily="@font/arima_madurai_bold"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     >
                 </TextView>
 
@@ -625,7 +625,7 @@
                     android:fontFamily="@font/arima_madurai_bold"
                     android:text="@string/planet"
                     android:textColor="@color/white"
-                    android:textSize="25sp">
+                    android:textSize="25dp">
 
                 </TextView>
 
@@ -646,7 +646,7 @@
                         android:fontFamily="@font/arima_madurai_light"
                         android:text="@string/en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol"
                         android:textColor="@color/white"
-                        android:textSize="15sp">
+                        android:textSize="15dp">
                     </TextView>
                 </ScrollView>
 
@@ -744,7 +744,7 @@
                     android:gravity="center"
                     android:text="@string/favori_burclar_n"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     >
                 </TextView>
             </RelativeLayout>
@@ -774,7 +774,7 @@
                     android:gravity="center"
                     android:text="@string/ayarlar"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textSize="20dp"
                     >
                 </TextView>
 
@@ -806,7 +806,7 @@
                     android:gravity="center"
                     android:text="@string/coins_and_subscriptions"
                     android:textColor="@color/white"
-                    android:textSize="20sp">
+                    android:textSize="20dp">
                 </TextView>
             </RelativeLayout>
 
@@ -829,7 +829,7 @@
         android:text="@string/cikis_yap"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="17sp">
+        android:textSize="17dp">
     </androidx.appcompat.widget.AppCompatButton>
 
 

@@ -1,20 +1,24 @@
 package com.utkangul.falci.internalClasses.dataClasses
 
-import java.util.*
-
 data class UserStatusDataClass(
     val coin: Int,
     val premium: List<Premium>,
     val campain: List<Campaign> // Dikkat: JSON'da "campaign" olarak geçiyor, burada "campain" olarak kullanıldı
 )
 
+var userStatusDataClass = UserStatusDataClass(
+    coin = 0,
+    premium= emptyList<Premium>(),
+    campain = emptyList<Campaign>()
+)
+
 data class Premium(
     val id: Int,
     val is_expired: Boolean,
     val premium_type: String,
-    val expire_date: Date,
-    val updated_at: Date,
-    val created_at: Date,
+    val expire_date: String,
+    val updated_at: String,
+    val created_at: String,
     val user: Int
 )
 
@@ -26,8 +30,8 @@ data class Campaign(
     val remaining_time: Int,
     val coin_amount: Int,
     val coin_interval: Long,
-    val last_claim_date: Date,
-    val expire_date: Date,
+    val last_claim_date: String,
+    val expire_date: String,
     val remain_repeat: Int,
     val user: Int
 )

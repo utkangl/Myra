@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PurchaseFragment"
-    android:background="@drawable/space_background">
+    android:background="@drawable/space_background"
+    tools:ignore="SpUsage">
 
     <ImageView
         android:layout_width="match_parent"
@@ -26,28 +27,29 @@
         android:gravity="center"
         android:text="@string/in_app_products"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="35dp"
         tools:ignore="TextSizeCheck">
     </TextView>
 
 
     <TextView
+        android:id="@+id/OneTimePurchasesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/OneTimePurchasesTitle"
-        android:text="@string/one_time_purchases"
         android:layout_below="@+id/settings_screen_topImage"
-        android:layout_marginTop="90dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="90dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:maxLines="1"
+        android:text="@string/one_time_purchases"
         android:textColor="@color/white"
-        android:textSize="27sp">
+        android:textSize="27dp"
+        tools:ignore="TextSizeCheck">
     </TextView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:id="@+id/fiveCoin_cardView"
         android:layout_centerHorizontal="true"
         app:cardCornerRadius="12dp"
@@ -58,37 +60,41 @@
         android:clickable="true"
         android:layout_below="@id/OneTimePurchasesTitle"
         android:focusable="true">
-            <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/fiveCoin_textView"
-                android:gravity="center_vertical"
-                android:drawableStart="@drawable/mira_coin"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:drawablePadding="15dp"
-                android:text="@string/buy_5_coins"
-                android:textStyle="bold"
-                android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
-                android:maxLines="1"
-                android:textSize="20sp">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/fiveCoin_price_textView"
-                android:layout_gravity="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="@string/sample_price_text"
-                android:textStyle="bold"
-                android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
-                android:textSize="20sp">
-            </TextView>
+
+        <TextView
+            android:id="@+id/fiveCoin_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/mira_coin"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/buy_5_coins"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
+        </TextView>
+
+        <TextView
+            android:id="@+id/fiveCoin_price_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/sample_price_text"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
+        </TextView>
     </androidx.cardview.widget.CardView>
 
     <ImageView
@@ -103,7 +109,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:id="@+id/twentyFiveCoin_cardView"
         android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
@@ -113,36 +119,40 @@
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true">
+
         <TextView
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
             android:id="@+id/twentyFiveCoin_textView"
-            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:drawableStart="@drawable/mira_coin"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:maxLines="1"
-            android:drawablePadding="15dp"
             android:text="@string/buy_25_coins"
-            android:textStyle="bold"
-            android:fontFamily="@font/arima_madurai_light"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="17dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
+
         <TextView
+            android:id="@+id/twentyFiveCoin_price_textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/twentyFiveCoin_price_textView"
             android:layout_gravity="end"
+            android:fontFamily="@font/arima_madurai_light"
             android:gravity="center_vertical"
             android:maxLines="1"
-            android:paddingEnd="15dp"
             android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text="@string/sample_price_text"
-            android:textStyle="bold"
-            android:fontFamily="@font/arima_madurai_light"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
         
     </androidx.cardview.widget.CardView>
@@ -160,7 +170,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/fiftyCoin_cardView"
         android:layout_width="320dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_below="@id/twentyFiveCoin_cardView"
         android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
@@ -184,8 +194,9 @@
             android:paddingEnd="8dp"
             android:text="@string/buy_50_coins"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold">
+            android:textSize="17dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
 
         <TextView
@@ -200,8 +211,10 @@
             android:paddingEnd="15dp"
             android:text="@string/sample_price_text"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
+        </TextView>
 
     </androidx.cardview.widget.CardView>
 
@@ -216,22 +229,23 @@
     </ImageView>
 
     <TextView
+        android:id="@+id/SubscriptionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SubscriptionsTitle"
         android:layout_below="@id/fiftyCoin_cardView"
-        android:text="@string/subscriptions"
-        android:layout_marginTop="45dp"
-        android:maxLines="1"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/arima_madurai_bold"
+        android:maxLines="1"
+        android:text="@string/subscriptions"
         android:textColor="@color/white"
-        android:textSize="27sp">
+        android:textSize="27dp"
+        tools:ignore="TextSizeCheck">
     </TextView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:id="@+id/weeklySubs_cardView"
         app:cardBackgroundColor="#784B84"
         app:cardCornerRadius="12dp"
@@ -242,37 +256,41 @@
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true">
-            <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/weeklySubs_textView"
-                android:gravity="center_vertical"
-                android:drawableStart="@drawable/mira_coin"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:drawablePadding="15dp"
-                android:maxLines="1"
-                android:text="@string/subscribe_weekly"
-                android:textStyle="bold"
-                android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
-                android:textSize="20sp">
-            </TextView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/weeklySubs_price_textView"
-                android:layout_gravity="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:text="@string/sample_price_text"
-                android:textStyle="bold"
-                android:fontFamily="@font/arima_madurai_light"
-                android:textColor="@color/white"
-                android:textSize="20sp">
-            </TextView>
+
+        <TextView
+            android:id="@+id/weeklySubs_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/mira_coin"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/subscribe_weekly"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
+        </TextView>
+
+        <TextView
+            android:id="@+id/weeklySubs_price_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/sample_price_text"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
+        </TextView>
     </androidx.cardview.widget.CardView>
 
     <ImageView
@@ -287,7 +305,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:id="@+id/monthlySubs_cardView"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/weeklySubs_cardView"
@@ -298,36 +316,40 @@
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true">
+
         <TextView
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
             android:id="@+id/monthlySubs_textView"
-            android:text="@string/subscribe_monthly"
-            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/mira_coin"
             android:drawablePadding="15dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:drawableStart="@drawable/mira_coin"
-            android:textStyle="bold"
-            android:fontFamily="@font/arima_madurai_light"
+            android:text="@string/subscribe_monthly"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="17dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
+
         <TextView
+            android:id="@+id/monthlySubs_price_textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:maxLines="1"
-            android:id="@+id/monthlySubs_price_textView"
             android:layout_gravity="end"
-            android:gravity="center_vertical"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp"
-            android:text="@string/sample_price_text"
-            android:textStyle="bold"
             android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/sample_price_text"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
     </androidx.cardview.widget.CardView>
 
@@ -343,7 +365,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="320dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:id="@+id/yearlySubs_cardView"
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="#784B84"
@@ -353,37 +375,42 @@
         android:layout_marginTop="25dp"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        tools:ignore="VisualLintBounds">
+
         <TextView
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
             android:id="@+id/yearlySubs_textView"
-            android:text="@string/subscribe_yearly"
-            android:maxLines="1"
-            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:drawableStart="@drawable/mira_coin"
             android:drawablePadding="15dp"
+            android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/arima_madurai_light"
+            android:text="@string/subscribe_yearly"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="17dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
+
         <TextView
+            android:id="@+id/yearlySubs_price_textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/yearlySubs_price_textView"
             android:layout_gravity="end"
-            android:maxLines="1"
-            android:gravity="center_vertical"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp"
-            android:text="@string/sample_price_text"
-            android:textStyle="bold"
             android:fontFamily="@font/arima_madurai_light"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/sample_price_text"
             android:textColor="@color/white"
-            android:textSize="20sp">
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck">
         </TextView>
     </androidx.cardview.widget.CardView>
 

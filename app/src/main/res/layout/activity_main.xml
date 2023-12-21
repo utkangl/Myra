@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:id="@+id/mainActivityGeneralLayout"
     android:background="@drawable/main_menu_background"
-    tools:ignore="UnusedAttribute">
+    tools:ignore="UnusedAttribute, SpUsage, VisualLintBounds">
 
     <FrameLayout
         android:id="@+id/main_fragment_container"
@@ -26,6 +26,7 @@
         android:visibility="gone">
     </com.airbnb.lottie.LottieAnimationView>
 
+    <!--profile button card-->
     <androidx.cardview.widget.CardView
         android:id="@+id/settingsButtonCard"
         android:layout_width="60dp"
@@ -55,6 +56,7 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!--main myra image-->
     <ImageView
         android:id="@+id/miraMainMenu"
         android:layout_width="350dp"
@@ -120,7 +122,7 @@
         android:visibility="invisible">
     </ImageView>
 
-    <!--    burc card-->
+    <!--burc card-->
     <androidx.cardview.widget.CardView
         android:id="@+id/burcCard"
         android:layout_width="300dp"
@@ -145,7 +147,7 @@
             android:text="@string/click_to_get_horoscope"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="25dp"
             tools:ignore="VisualLintOverlap"
             android:layout_gravity="center"
             android:visibility="visible">
@@ -178,7 +180,7 @@
                     android:paddingBottom="15dp"
                     android:text="@string/ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz"
                     android:textColor="@color/white"
-                    android:textSize="11sp">
+                    android:textSize="11dp">
                 </TextView>
             </ScrollView>
 
@@ -193,7 +195,7 @@
                 android:fontFamily="@font/arima_madurai_bold"
                 android:text="@string/genel"
                 android:textColor="@color/white"
-                android:textSize="25sp">
+                android:textSize="25dp">
             </TextView>
 
             <!--general sign card-->
@@ -219,7 +221,7 @@
                     android:text="@string/genel"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="17sp">
+                    android:textSize="17dp">
                 </TextView>
 
                 <androidx.cardview.widget.CardView
@@ -265,7 +267,7 @@
                     android:text="@string/ask"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="17sp">
+                    android:textSize="17dp">
                 </TextView>
 
                 <androidx.cardview.widget.CardView
@@ -303,7 +305,8 @@
                 android:animateLayoutChanges="true"
                 android:visibility="visible"
                 app:cardBackgroundColor="#423E71"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                tools:ignore="VisualLintBounds">
 
 
                 <TextView
@@ -314,7 +317,7 @@
                     android:text="@string/career"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="17sp">
+                    android:textSize="17dp">
                 </TextView>
 
                 <androidx.cardview.widget.CardView
@@ -371,7 +374,7 @@
                     android:text="@string/gunluk"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="15sp">
+                    android:textSize="15dp">
                 </TextView>
             </androidx.cardview.widget.CardView>
 
@@ -405,7 +408,7 @@
                     android:text="@string/haftalik"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="15sp">
+                    android:textSize="15dp">
                 </TextView>
             </androidx.cardview.widget.CardView>
 
@@ -438,7 +441,7 @@
                     android:text="@string/aylik"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="15sp">
+                    android:textSize="15dp">
                 </TextView>
             </androidx.cardview.widget.CardView>
 
@@ -472,7 +475,7 @@
                     android:text="@string/yillik"
                     android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:textSize="15sp">
+                    android:textSize="15dp">
                 </TextView>
             </androidx.cardview.widget.CardView>
 
@@ -538,7 +541,7 @@
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:text="@string/get_your_horoscope"
                 android:visibility="invisible">
             </androidx.appcompat.widget.AppCompatButton>
@@ -546,6 +549,7 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!--use/gain coin popup card-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="290dp"
@@ -569,17 +573,18 @@
                 android:id="@+id/closeUseOrGainCoinMenuCardButton"
                 android:background="@drawable/back_arrow"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:contentDescription="@string/sample_description">
             </ImageButton>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/useOrGainCoinMenuTitle"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="35dp"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textColor="@color/white"
                 android:text="@string/horoscopetype_timeinterval">
             </TextView>
@@ -587,14 +592,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/useOrGainCoinMenuCurrentCoinText"
+                android:layout_marginEnd="15dp"
                 android:layout_below="@+id/useOrGainCoinMenuTitle"
-                android:layout_marginTop="15dp"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:textSize="24dp"
-                android:textColor="@color/white"
-                android:text="@string/current_coin"
-                android:drawableStart="@drawable/baseline_currency_bitcoin_24">
+                android:gravity="center"
+                android:textSize="22dp"
+                android:textColor="#FDDA0D"
+                android:text="@string/sample_coin_amount"
+                android:drawableEnd="@drawable/baseline_currency_bitcoin_24">
             </TextView>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -604,7 +610,7 @@
                 android:background="@drawable/get_horoscope_button_background"
                 android:layout_centerInParent="true"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:fontFamily="@font/arima_madurai_bold"
                 android:text="@string/use_coin"
                 android:textAllCaps="false"
@@ -629,7 +635,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:fontFamily="@font/arima_madurai_bold"
                 android:text="@string/watch_ad_and_earn_coin"
                 android:textAllCaps="false"
@@ -644,5 +650,34 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <!--coin amount-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coinAmountContainerLayout"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/coinAmountText"
+            android:maxLines="1"
+            android:maxLength="5"
+            android:gravity="center_vertical"
+            android:text="@string/sample_coin_amount"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:textSize="25dp"
+            android:textColor="#FDDA0D">
+        </TextView>
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_toEndOf="@+id/coinAmountText"
+            android:src="@drawable/baseline_currency_bitcoin_24"
+            android:contentDescription="@string/sample_description">
+        </ImageView>
+    </RelativeLayout>
+
 
 </RelativeLayout>

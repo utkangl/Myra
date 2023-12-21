@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SettingsFragment"
-    android:background="@drawable/space_background">
+    android:background="@drawable/space_background"
+    tools:ignore="SpUsage">
 
     <ImageView
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         android:gravity="center"
         android:text="@string/settings"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="35dp"
         tools:ignore="TextSizeCheck">
     </TextView>
 
@@ -58,7 +59,7 @@
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:textColor="@color/black"
-                    android:textSize="32sp">
+                    android:textSize="32dp">
                 </TextView>
 
                 <RelativeLayout
@@ -90,7 +91,7 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/arima_madurai_light"
                         android:textColor="@color/black"
-                        android:textSize="24sp">
+                        android:textSize="24dp">
                     </TextView>
                 </RelativeLayout>
 
@@ -135,7 +136,7 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/arima_madurai_light"
                         android:textColor="@color/black"
-                        android:textSize="24sp">
+                        android:textSize="24dp">
                     </TextView>
                 </RelativeLayout>
 
@@ -178,7 +179,7 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/arima_madurai_light"
                         android:textColor="@color/black"
-                        android:textSize="24sp">
+                        android:textSize="24dp">
                     </TextView>
                 </RelativeLayout>
 
@@ -204,7 +205,7 @@
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:textColor="@color/black"
-                    android:textSize="32sp">
+                    android:textSize="32dp">
                 </TextView>
 
                 <RelativeLayout
@@ -236,7 +237,7 @@
                         android:fontFamily="@font/arima_madurai_light"
                         android:text="@string/change_language"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
+                        android:textSize="24dp"
                         android:textStyle="bold">
                     </TextView>
 
@@ -282,7 +283,7 @@
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/arima_madurai_light"
                         android:textColor="@color/black"
-                        android:textSize="24sp">
+                        android:textSize="24dp">
                     </TextView>
 
                 </RelativeLayout>
@@ -330,7 +331,7 @@
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/arima_madurai_light"
                     android:textColor="@color/black"
-                    android:textSize="24sp">
+                    android:textSize="24dp">
                 </TextView>
 
             </RelativeLayout>

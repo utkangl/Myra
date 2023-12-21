@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     style="?android:attr/spinnerItemStyle"
     android:singleLine="true"
@@ -7,7 +8,8 @@
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
     android:textAlignment="inherit"
-    android:textSize="20sp"
+    android:textSize="20dp"
     android:gravity="center"
     android:textColor="@color/white"
-    android:padding="5dip"/>
+    android:padding="5dip"
+    tools:ignore="SpUsage" />

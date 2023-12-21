@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient_background"
-    tools:context=".EditProfileFragment">
+    tools:context=".EditProfileFragment"
+    tools:ignore="SpUsage">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +42,7 @@
         android:layout_above="@+id/nameFieldHint"
         android:layout_marginBottom="25dp"
         android:fontFamily="@font/arima_madurai_bold"
-        android:textSize="28sp"
+        android:textSize="28dp"
         android:textColor="@color/white"
         android:text="@string/profilini_duzenle"
         >
@@ -57,7 +58,7 @@
         android:text="@string/adin"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -89,7 +90,7 @@
         android:text="@string/cinsiyet"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -102,7 +103,7 @@
         android:layout_above="@+id/birthDateEditText"
         android:layout_marginBottom="40dp"
 
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
@@ -138,7 +139,7 @@
         android:text="@string/dogum_tarihi"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -151,7 +152,7 @@
         android:layout_above="@+id/birthTimeEditText"
         android:layout_marginBottom="40dp"
 
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
@@ -171,7 +172,7 @@
         android:text="@string/dogum_saati"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -182,7 +183,7 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="100dp"
 
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
@@ -202,7 +203,7 @@
         android:text="@string/dogum_yeri"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -214,7 +215,7 @@
         android:layout_marginStart="100dp"
         android:layout_below="@+id/birthTimeEditText"
         android:layout_marginTop="40dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
@@ -233,7 +234,7 @@
         android:text="@string/is"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -245,7 +246,7 @@
         android:layout_marginStart="100dp"
         android:layout_below="@+id/locationEditText"
         android:layout_marginTop="40dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
@@ -279,7 +280,7 @@
         android:text="@string/iliski_durumu"
         android:fontFamily="@font/arima_madurai_light"
         android:textColor="@color/quantum_grey"
-        android:textSize="18sp"
+        android:textSize="18dp"
         >
     </TextView>
 
@@ -291,7 +292,7 @@
         android:layout_marginStart="100dp"
         android:layout_below="@+id/occupationEditText"
         android:layout_marginTop="40dp"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textColor="@color/white"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center_vertical"
