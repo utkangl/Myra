@@ -1,6 +1,5 @@
 package com.utkangul.falci
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -169,7 +168,6 @@ class PurchaseFragment : Fragment() {
             val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), yearlySubsStoreProduct!!))
             Purchases.sharedInstance.purchase(params, makepurchaseCallback)
         }
-
         return v
     } // end of onCreateView
 } // end of class

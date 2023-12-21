@@ -84,7 +84,15 @@ class GetFavsFuncs {
                         }
                         lastScrollY = scrollY
                     }
-                }; else -> println("Response code was: $getFavsStatusCode")
+                }
+                else ->{
+                    println("Response code was: $getFavsStatusCode")
+                    Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
+                    val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                    val intent = Intent(context, ProfileActivity::class.java)
+                    startActivity(context,intent,options.toBundle())
+                }
+
             }
         }
     }
