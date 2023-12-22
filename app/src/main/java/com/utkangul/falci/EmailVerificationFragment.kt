@@ -131,7 +131,7 @@ class EmailVerificationFragment : Fragment() {
                 updateCountdownUI()
                 val client = OkHttpClient()
                 val request = Request.Builder()
-                    .url(urls.resendVerificationEmail)
+                    .url(urls.resendVerificationEmailURL)
                     .get()
                     .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                     .build()

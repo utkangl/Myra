@@ -51,7 +51,10 @@ class ProfileFragment : Fragment() {
 
         println("profile içinden yazıyorum $userProfile")
         // set firstLetter variable with the first letter of UserProfileDataClass's name field
-        val firstLetter = userProfile.first_name!!.first().toString().uppercase()
+        var firstLetter: String = "?"
+        if (!userProfile.first_name.isNullOrEmpty()){
+            firstLetter = userProfile.first_name!!.first().toString().uppercase()
+        }
         firstLetterView.text = firstLetter
         profileFragmentName.text = userProfile.first_name
 

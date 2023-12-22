@@ -644,7 +644,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/burcExplanationText"
                         android:fontFamily="@font/arima_madurai_light"
-                        android:text="@string/en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol_en_do_ru_bur_yorumunu_sana_vermemiz_i_in_bilgilerini_do_ru_girdi_inden_emin_ol"
+                        android:text="@string/sample_long_text"
                         android:textColor="@color/white"
                         android:textSize="15dp">
                     </TextView>

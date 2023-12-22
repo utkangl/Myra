@@ -16,7 +16,8 @@ data class URLDataClass(
     var deleteAccountURL: String,
     var userStatusURL: String,
     var notifyApiOnPurchaseURL: String,
-    var resendVerificationEmail: String,
+    var resendVerificationEmailURL: String,
+    var claimCampaignURl: String,
 )
 
 val urls = URLDataClass(
@@ -35,5 +36,6 @@ val urls = URLDataClass(
     deleteAccountURL = "https://api.kircibros.com/auth/profile/delete/",
     userStatusURL = "https://api.kircibros.com/purchase/detail/",
     notifyApiOnPurchaseURL = "https://api.kircibros.com/purchase/revenou/process/",
-    resendVerificationEmail = "https://api.kircibros.com/auth/verify/resend/",
+    resendVerificationEmailURL = "https://api.kircibros.com/auth/verify/resend/",
+    claimCampaignURl = "https://api.kircibros.com/purchase/campain/",
 )

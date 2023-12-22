@@ -9,9 +9,15 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
+import androidx.cardview.widget.CardView
 import com.utkangul.falci.internalClasses.*
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToSignUpFragment
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.urls
@@ -33,11 +39,13 @@ class SignUpFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
         val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
+        val kvkkPopupCard = v.findViewById<CardView>(R.id.kvkkPopupCard)
+        val acceptKvkkButton = v.findViewById<AppCompatButton>(R.id.acceptKvkkButton)
 
         signupfragmentsignupbutton.setOnClickListener {
-
             emailField = v.findViewById(R.id.signUpFragmentUsernameText)
             passwordField = v.findViewById(R.id.signUpFragmentPasswordText)
+            passwordAgainField = v.findViewById(R.id.signUpFragmentPasswordAgainText)
             passwordAgainField = v.findViewById(R.id.signUpFragmentPasswordAgainText)
 
             //creating the json object that will be posted
@@ -48,34 +56,38 @@ class SignUpFragment : Fragment() {
             userRegister.password = passwordField.text.toString()
 
             // if the passwords match each other
-            if (passwordField.text.contentEquals(passwordAgainField.text)){
-                //post registerJson and let user know the error if there is one, else wise toast success
-                postJsonNoHeader(urls.signUpURL, registerJSON, ) { responseBody, _ ->
+            if (passwordField.text.contentEquals(passwordAgainField.text) && !passwordField.text.isNullOrEmpty()){
+                setViewVisibleWithAnimation(requireContext(),kvkkPopupCard)
+                setViewGoneWithAnimation(requireContext(),signupfragmentsignupbutton)
+                acceptKvkkButton.setOnClickListener{
+                    setViewVisibleWithAnimation(requireContext(),signupfragmentsignupbutton)
+                    setViewGoneWithAnimation(requireContext(),kvkkPopupCard)
+                    //post registerJson and let user know the error if there is one, else wise toast success
+                    postJsonNoHeader(urls.signUpURL, registerJSON, ) { responseBody, _ ->
 
-                    // if response code is 201, toast success and  navigate user to CompleteProfile activity
-                    if (statusCode == 201){
-                        println("status code is $statusCode sign up successful")
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireContext(), "Basari ile kayit olundu", Toast.LENGTH_SHORT).show()
-                            controlVariables.isFromLoveHoroscope = false
-                            replaceLoginActivityToSignUpFragment(parentFragmentManager,EmailVerificationFragment())
-//                            val intent = Intent(requireActivity(), CompleteProfile::class.java)
-//                            startActivity(intent)
+                        // if response code is 201, toast success and  navigate user to CompleteProfile activity
+                        if (statusCode == 201){
+                            println("status code is $statusCode sign up successful")
+                            requireActivity().runOnUiThread {
+                                Toast.makeText(requireContext(), "Basari ile kayit olundu", Toast.LENGTH_SHORT).show()
+                                controlVariables.isFromLoveHoroscope = false
+                                replaceLoginActivityToSignUpFragment(parentFragmentManager,EmailVerificationFragment())
+    //                            val intent = Intent(requireActivity(), CompleteProfile::class.java)
+    //                            startActivity(intent)
+                            }
+                        }
+                        // if response code is 400, toast the error
+                        if (statusCode == 400){
+                            val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                            val detail = responseJson?.optString("detail")
+                            requireActivity().runOnUiThread {
+                                Toast.makeText(requireContext(), "$detail", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
-
-                    // if response code is 400, toast the error
-                    if (statusCode == 400){
-                        val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                        val detail = responseJson?.optString("detail")
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireContext(), "$detail", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
                 }
             } else{ // if passwords do not match
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Passwords do not match or empty", Toast.LENGTH_SHORT).show()
             }
 
         }

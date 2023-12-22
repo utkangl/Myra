@@ -32,6 +32,7 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions
 import com.google.gson.Gson
 import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
+import com.utkangul.falci.internalClasses.UserStatusFunctions.UserStatusFunctionsObject.getUserStatus
 import okhttp3.*
 import java.io.IOException
 
@@ -193,42 +194,7 @@ class MainActivity : AppCompatActivity() {
         if (authenticated.isLoggedIn){
             val url = urls.userStatusURL
             val client = OkHttpClient()
-            fun getUserStatus(url:String, client: OkHttpClient,context: Context){
-                val request = Request.Builder()
-                    .url(url)
-                    .get()
-                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                    .build()
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) { println("exception $e") }
-                    override fun onResponse(call: Call, response: Response) {
-                        println("response code : ${response.code}")
-                        println("response : $response")
-                        if (response.code == 401){
-                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
-                                if (responseBody != null) {
-                                    println(tokensDataClass.accessToken)
-                                    getUserStatus(url, client, context)
-                                } else {
-                                    println(exception)
-                                }
-                            }
-                        }
-                        if (response.code ==200){
-                            val responseBody = response.body?.string()
-                            val gson = Gson()
-                            userStatusDataClass =  gson.fromJson(responseBody, UserStatusDataClass::class.java)
-                            println(userStatusDataClass)
-                            coin.current_coin = userStatusDataClass.coin
-                            runOnUiThread{
-                                useOrGainCoinMenuCurrentCoinText.text = "${userStatusDataClass.coin}"
-                                coinAmountText.text = "${userStatusDataClass.coin}"
-                            }
-                        }
-                    }
-                })
-            }
-            getUserStatus(url,client, this)
+            getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText)
         }
 
         settingsButton.setOnClickListener {
