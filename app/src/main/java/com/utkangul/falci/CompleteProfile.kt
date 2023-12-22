@@ -63,14 +63,20 @@ class CompleteProfile : AppCompatActivity() {
         val star5 = findViewById<ImageView>(R.id.star5)
         val star6 = findViewById<ImageView>(R.id.star6)
         val star7 = findViewById<ImageView>(R.id.star7)
-
-        var allowNext = false
-
+        
         val timePick = findViewById<TimePicker>(R.id.timePick)
         val datePick = findViewById<DatePicker>(R.id.datePick)
 
         val calendarForMaxDate = Calendar.getInstance()
         val maxDate = calendarForMaxDate.timeInMillis
+
+        var isFromSetName = false
+        var isFromSetLocation = false
+        var isFromSetTime = false
+        var isGender = false
+        var isLocation = false
+        var isOccupation = false
+
         datePick.maxDate = maxDate
 
 
@@ -95,9 +101,11 @@ class CompleteProfile : AppCompatActivity() {
         }
 
         var step = 0
-
-        completeProfilePickersContainer.setOnClickListener{ println(step); println(allowNext) }
-
+        
+        completeProfilePickersContainer.setOnClickListener{
+            println(step)
+            println("isFromSetLocation ${isFromSetLocation}")
+        }
 
         // create Json, fill with inputs, post it, handle response with response code,toast detail
         fun completeProfile(){
@@ -181,17 +189,17 @@ class CompleteProfile : AppCompatActivity() {
          // let user to go on to genderpick if input lasts longer than 2 characters else toast error
         // and  set name field of CompleteProfileUserDataClass's instance w/ user's name input
          fun setName(){
-             allowNext = false
+
              if (controlVariables.isFromLoveHoroscope && namePick.text.length >= 2){
                  postPartnerProfile.partnerName = namePick.text.toString()
-                 allowNext = true; star1.setBackgroundResource(R.drawable.star_white)
+                 step = 1; isFromSetName = true
              }else{
                  if (namePick.text.length >= 2) {
                      userCompleteProfile.name = namePick.text.toString()
-                     allowNext = true; star1.setBackgroundResource(R.drawable.star_white)
+                      step = 1 ; isFromSetName = true
                  } else {
                      this.runOnUiThread {
-                         Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show()
+                         Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show();step = 0
                      }
                  }
              }
@@ -199,13 +207,14 @@ class CompleteProfile : AppCompatActivity() {
 
         // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
         fun setGender(){
+            if (genderPick.selectedItem == null || genderPick.selectedItem == "Pick your gender"){
+                isGender = false
+            }
+            println(genderPick.selectedItem)
+            if (step == 1 && genderPick.selectedItem != null && genderPick.selectedItem != "Pick your gender" && !isFromSetName) step=2
             setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
-                if (selectedGender != "Pick your gender") {
-                    if (controlVariables.isFromLoveHoroscope) postPartnerProfile.partnerGender = selectedGender; allowNext = true; star2.setBackgroundResource(R.drawable.star_white)
-                    if (!controlVariables.isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; allowNext = true; star2.setBackgroundResource(R.drawable.star_white)
-
-                } else this.runOnUiThread { Toast.makeText(this, "pick your gender", Toast.LENGTH_SHORT).show(); allowNext = false
-                }
+                if (controlVariables.isFromLoveHoroscope) postPartnerProfile.partnerGender = selectedGender; step =2;isGender = true
+                if (!controlVariables.isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; step = 2; isGender = true
             }
         }
         // set date field of CompleteProfileUserDataClass's instance w/ user's date input
@@ -213,18 +222,15 @@ class CompleteProfile : AppCompatActivity() {
             val year = datePick.year
             val month =  datePick.month + 1
             val day = datePick.dayOfMonth
-            allowNext = (datePick.year < 2020)
             if (controlVariables.isFromLoveHoroscope)  {
                 partnerProfileTimeStamp.year = year
                 partnerProfileTimeStamp.month = month
                 partnerProfileTimeStamp.day = day
-                star3.setBackgroundResource(R.drawable.star_white)
             }
             if (!controlVariables.isFromLoveHoroscope) {
                 completeProfileTimeStamp.year = year
                 completeProfileTimeStamp.month = month
                 completeProfileTimeStamp.day = day
-                star3.setBackgroundResource(R.drawable.star_white)
             }
         }
 
@@ -232,24 +238,26 @@ class CompleteProfile : AppCompatActivity() {
         fun setTime(){
             val hour = timePick.hour
             val minute = timePick.minute
-
             if (controlVariables.isFromLoveHoroscope) {
                 partnerProfileTimeStamp.hour = hour
                 partnerProfileTimeStamp.minute = minute
-                star4.setBackgroundResource(R.drawable.star_white)
             }
             if (!controlVariables.isFromLoveHoroscope) {
                 completeProfileTimeStamp.hour = hour
                 completeProfileTimeStamp.minute = minute
-                star4.setBackgroundResource(R.drawable.star_white)
             }
         }
 
         // set location field of CompleteProfileUserDataClass's instance w/ user's location input
         fun setLocation(){
-            allowNext = false
-            if (locationPick.text != "Sehrini Sec"){
-                allowNext = true
+            if (step==4 && locationPick.text != "Sehrini Sec" ){
+                step = 5
+                isFromSetLocation = true
+                isLocation = true
+                if (!isFromSetTime){
+                    nextButton.performClick()
+                    isLocation = false
+                }
             }
             locationPick.setOnClickListener{
                 val locationService = LocationService(this)
@@ -263,25 +271,32 @@ class CompleteProfile : AppCompatActivity() {
                     controlVariables.inLocationPickCard = false
                     locationService.hideKeyboard(cityInput)
                     locationPick.text = cityInput.text.toString()
-                        allowNext = true; star5.setBackgroundResource(R.drawable.star_white); nextButton.performClick()
+                        isFromSetLocation = true
+                        step=5
+                        isLocation = true
                 }
             }
         }
 
         // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
         fun setOccupation(){
+            isFromSetTime = false
+            if (step == 5 && occupationPick.selectedItem != "Pick your occupation" && occupationPick.selectedItem != null && !isFromSetLocation){
+                step = 6
+            }
             setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
-                if (selectedOccupation != "Pick your occupation" ){
+                if (selectedOccupation != "Pick your occupation" && isFromSetLocation){
                     if (controlVariables.isFromLoveHoroscope) {postPartnerProfile.partnerOccupation = selectedOccupation}
                     if (!controlVariables.isFromLoveHoroscope) {userCompleteProfile.occupation = selectedOccupation}
-                    step = 6; star6.setBackgroundResource(R.drawable.star_white)
+                    step = 6
+                    isOccupation = true
+                    isFromSetLocation = false
                 } else step = 5
             }
         }
 
         // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
         fun setRelation(){
-            allowNext = false
             val gson = Gson()
 
             setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
@@ -316,29 +331,26 @@ class CompleteProfile : AppCompatActivity() {
         setViewVisibleWithAnimation(this,namePickContainer)
 
         nextButton.setOnClickListener{
+            println(step)
             if (step == 0){
                 setName()
-                if (step == 0 && allowNext){
-                    allowNext = false; step = 1; nextButton.performClick()
-                }
             }
 
             if (step == 1){
+                star1.setBackgroundResource(R.drawable.star_white)
                 setGender()
                 setViewGoneWithAnimation(this,namePickContainer)
                 setViewVisibleWithAnimation(this,genderPickContainer)
-                if (step==1 && allowNext){
-                    allowNext = false; step = 2
-                }
             }
 
             if (step == 2){
-                allowNext = false
+                star2.setBackgroundResource(R.drawable.star_white)
                 setViewGoneWithAnimation(this,genderPickContainer, nextButton)
                 setViewVisibleWithAnimation(this,datePickContainer,datePickNextButton)
+                isGender = false
                 setDate()
                 datePickNextButton.setOnClickListener{
-                    allowNext = true
+                    star3.setBackgroundResource(R.drawable.star_white)
                     step = 3
                     setViewVisibleWithAnimation(this,nextButton)
                     setViewGoneWithAnimation(this,datePickContainer)
@@ -347,13 +359,16 @@ class CompleteProfile : AppCompatActivity() {
             }
 
             if (step == 5){
+                star5.setBackgroundResource(R.drawable.star_white)
                 setViewGoneWithAnimation(this,locationPickContainer)
                 setViewVisibleWithAnimation(this,occupationPickContainer)
+                isLocation = false
                 setOccupation()
-
             }
 
             if (step == 6){
+                star6.setBackgroundResource(R.drawable.star_white)
+                isOccupation = false
                 setViewGoneWithAnimation(this,occupationPickContainer)
                 setViewVisibleWithAnimation(this,relationPickContainer)
                 setRelation()
@@ -362,13 +377,12 @@ class CompleteProfile : AppCompatActivity() {
             when(step){
 
                 3 -> {
-                    allowNext = false
                     setViewGoneWithAnimation(this,datePickContainer, nextButton)
                     setViewVisibleWithAnimation(this,timePickContainer,timePickNextButton)
                     setTime()
                     timePickNextButton.setOnClickListener{
-                        allowNext = true
                         step = 4
+                        isFromSetTime = true
                         setViewVisibleWithAnimation(this,nextButton)
                         setViewGoneWithAnimation(this,timePickNextButton)
                         nextButton.performClick()
@@ -377,13 +391,11 @@ class CompleteProfile : AppCompatActivity() {
                 }
 
                 4 -> {
-                    allowNext = false
+                    star4.setBackgroundResource(R.drawable.star_white)
                     setViewGoneWithAnimation(this,timePickContainer)
                     setViewVisibleWithAnimation(this,locationPickContainer)
-                    println("allow next?: $step")
+                    isFromSetLocation = true
                     setLocation()
-                    if (allowNext) step = 5
-                    println("allow next?: $step")
                 }
 
                 7-> completeProfile()
@@ -414,18 +426,30 @@ class CompleteProfile : AppCompatActivity() {
                     step = 0
                     setViewGoneWithAnimation(applicationContext, genderPickContainer)
                     setViewVisibleWithAnimation(applicationContext, namePickContainer)
+                    star1.setBackgroundResource(R.drawable.star)
                 }
 
                 if (step == 2){
-                    step = 1
-                    setViewGoneWithAnimation(applicationContext, datePickContainer,datePickNextButton)
-                    setViewVisibleWithAnimation(applicationContext, genderPickContainer,nextButton)
+                    isFromSetName = false
+                    if (isGender){
+                        step = 0
+                        setViewGoneWithAnimation(applicationContext, genderPickContainer)
+                        setViewVisibleWithAnimation(applicationContext, namePickContainer,nextButton)
+                        star2.setBackgroundResource(R.drawable.star)
+                    }
+                    else{
+                        step = 1
+                        setViewGoneWithAnimation(applicationContext, datePickContainer,datePickNextButton)
+                        setViewVisibleWithAnimation(applicationContext, genderPickContainer,nextButton)
+                        star2.setBackgroundResource(R.drawable.star)
+                    }
                 }
 
                 if (step == 3){
                     step = 2
                     setViewGoneWithAnimation(applicationContext, timePickContainer, timePickNextButton)
                     setViewVisibleWithAnimation(applicationContext, datePickContainer, datePickNextButton)
+                    star3.setBackgroundResource(R.drawable.star)
                 }
 
                 if (step == 4){
@@ -433,26 +457,49 @@ class CompleteProfile : AppCompatActivity() {
                         step = 3
                         setViewGoneWithAnimation(applicationContext, locationPickContainer, nextButton)
                         setViewVisibleWithAnimation(applicationContext, timePickContainer, timePickNextButton)
+                        star4.setBackgroundResource(R.drawable.star)
                     }
                 }
 
                 if (step == 5){
-                    step = 4
-                    allowNext = false
-                    setViewGoneWithAnimation(applicationContext, occupationPickContainer)
-                    setViewVisibleWithAnimation(applicationContext, locationPickContainer)
+                    if (isLocation){
+                        step = 3
+                        nextButton.performClick()
+                        setViewGoneWithAnimation(applicationContext, locationPickContainer)
+                        setViewVisibleWithAnimation(applicationContext, timePickContainer)
+                        star5.setBackgroundResource(R.drawable.star)
+                    }
+                    else{
+                        step = 4
+                        setViewGoneWithAnimation(applicationContext, occupationPickContainer)
+                        setViewVisibleWithAnimation(applicationContext, locationPickContainer)
+                        star5.setBackgroundResource(R.drawable.star)
+                    }
                 }
 
                 if (step == 6){
-                    step = 5
-                    setViewGoneWithAnimation(applicationContext, relationPickContainer)
-                    setViewVisibleWithAnimation(applicationContext, occupationPickContainer)
+                    if (isOccupation){
+                        step = 4
+                        isFromSetLocation = true
+                        setViewGoneWithAnimation(applicationContext, occupationPickContainer)
+                        setViewVisibleWithAnimation(applicationContext, locationPickContainer)
+                        star6.setBackgroundResource(R.drawable.star)
+                    }
+                    else{
+                        step = 5
+                        isFromSetLocation = false
+                        setViewGoneWithAnimation(applicationContext, relationPickContainer)
+                        setViewVisibleWithAnimation(applicationContext, occupationPickContainer)
+                        star6.setBackgroundResource(R.drawable.star)
+                    }
                 }
 
                 if (step == 7){
                     step = 5
                     setViewGoneWithAnimation(applicationContext, relationPickContainer)
                     setViewVisibleWithAnimation(applicationContext, occupationPickContainer)
+                    star6.setBackgroundResource(R.drawable.star)
+                    star7.setBackgroundResource(R.drawable.star)
                 }
 
             }

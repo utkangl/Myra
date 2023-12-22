@@ -24,7 +24,6 @@ import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctio
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
-import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
 import com.utkangul.falci.internalClasses.dataClasses.*
 import com.google.android.gms.ads.*
@@ -224,18 +223,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsButton.setOnClickListener {
-            if (settingsButton.isEnabled) {
-                settingsButton.isEnabled = false
-                if (authenticated.isLoggedIn) {
-                    makeGetProfileRequest(urls.getProfileURL, this, this, settingsButton) { _, _ -> }
-                } else {
-                    if (savedInstanceState == null) {
-                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                        val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
-                        settingsButton.isEnabled = true
-                    }
-                }
-            }
+//            if (settingsButton.isEnabled) {
+//                settingsButton.isEnabled = false
+//                if (authenticated.isLoggedIn) {
+//                    makeGetProfileRequest(urls.getProfileURL, this, this, settingsButton) { _, _ -> }
+//                } else {
+//                    if (savedInstanceState == null) {
+//                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+//                        val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+//                        settingsButton.isEnabled = true
+//                    }
+//                }
+//            }
+            val intent = Intent(this, CompleteProfile::class.java)
+            startActivity(intent)
         }
 
         burcCard.setOnClickListener {

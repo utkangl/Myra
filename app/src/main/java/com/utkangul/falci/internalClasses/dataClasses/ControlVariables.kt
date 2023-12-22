@@ -24,7 +24,9 @@ data class ControlVariables(
     var isFromCompleteLookup: Boolean,
     var isFromAddLookupUser: Boolean,
     var resendMailCountdownFinished: Boolean,
-)
+    var isgender: Boolean,
+
+    )
 
 var controlVariables = ControlVariables(
     isBurcCardOpen = false,
@@ -50,4 +52,5 @@ var controlVariables = ControlVariables(
     isFromCompleteLookup = false,
     isFromAddLookupUser = false,
     resendMailCountdownFinished = true,
+    isgender = false,
 )
