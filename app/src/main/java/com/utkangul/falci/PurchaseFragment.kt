@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.revenuecat.purchases.*
@@ -165,30 +166,93 @@ class PurchaseFragment : Fragment() {
 
         // Make Purchase for MyraCoin
         fiveCoinCard.setOnClickListener {
-            val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiveCoinStoreProduct!!))
-            Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Information about this purchase: " +
+                    "\n This purchase is an One Time Purchase " +
+                    "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
+                    "\n Please note that the tax percentage can change accross countries" +
+                    "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)"+
+                    "\n You will get 5 Myra Coins after this purchase"+
+                    "\nClick continue to purchase")
+            builder.setPositiveButton("Continue") { _, _ ->
+                val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiveCoinStoreProduct!!))
+                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.create().show()
         }
         twentyFiveCoinCard.setOnClickListener {
-            val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), twentyFiveCoinStoreProduct!!))
-            Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Information about this purchase: " +
+                    "\n This purchase is an One Time Purchase " +
+                    "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
+                    "\n Please note that the tax percentage can change accross countries" +
+                    "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)"+
+                    "\n You will get 25 Myra Coins after this purchase"+
+                    "\nClick continue to purchase")
+            builder.setPositiveButton("Continue") { _, _ ->
+                val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), twentyFiveCoinStoreProduct!!))
+                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.create().show()
         }
         fiftyCoinCard.setOnClickListener {
-            val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiftyCoinStoreProduct!!))
-            Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Information about this purchase: " +
+                    "\n This purchase is an One Time Purchase " +
+                    "\n The cost is 149.99 TRY plus %20 taxes for Turkiye " +
+                    "\n Please note that the tax percentage can change accross countries" +
+                    "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)"+
+                    "\n You will get 50 Myra Coins after this purchase"+
+                    "\nClick continue to purchase")
+            builder.setPositiveButton("Continue") { _, _ ->
+                val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiftyCoinStoreProduct!!))
+                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.create().show()
         }
 
         // make purchase for subscriptions
         weeklySubsCard.setOnClickListener {
-            val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), weeklySubsStoreProduct!!))
-            Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in weekly periods"  +
+                    "until you cancel it. \nThe cost is 24.99 TRY plus %20 taxes for Turkiye \n Please note that the tax"  +
+                    "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
+                    "benefits:\n   Use the app without ads for a week \n Click continue to purchase")
+            builder.setPositiveButton("Continue") { _, _ ->
+                val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), weeklySubsStoreProduct!!))
+                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.create().show()
         }
         monthlySubsCard.setOnClickListener {
-            val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), monthlySubsStoreProduct!!))
-            Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in monthly periods"  +
+                    "until you cancel it. \nThe cost is 59.99 TRY plus %20 taxes for Turkiye \n Please note that the tax"  +
+                    "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
+                    "benefits:\n   Use the app without ads for a month \n Click continue to purchase")
+            builder.setPositiveButton("Continue") { _, _ ->
+                val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), monthlySubsStoreProduct!!))
+                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.create().show()
         }
         yearlySubsCard.setOnClickListener {
-            val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), yearlySubsStoreProduct!!))
-            Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in yearly periods"  +
+                     "until you cancel it. \nThe cost is 599.99 TRY plus %20 taxes for Turkiye \n Please note that the tax"  +
+                    "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
+                    "benefits:\n   Use the app without ads for a year \n Click continue to purchase")
+            builder.setPositiveButton("Continue") { _, _ ->
+                val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), yearlySubsStoreProduct!!))
+                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+            }
+            builder.setNegativeButton("Cancel", null)
+            builder.create().show()
         }
         return v
     } // end of onCreateView

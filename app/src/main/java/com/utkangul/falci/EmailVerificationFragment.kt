@@ -108,12 +108,12 @@ class EmailVerificationFragment : Fragment() {
         fifthDigit.addTextChangedListener(commonTextWatcher)
         sixthDigit.addTextChangedListener(commonTextWatcher)
 
-        takeInfoEmailVerification.setOnClickListener{
+        takeInfoEmailVerification.setOnClickListener {
             Toast.makeText(requireContext(), "Try checking your spambox if you \n cant see mail in inbox", Toast.LENGTH_SHORT).show()
         }
 
-        checkVerificationCodeButton.setOnClickListener{
-            if (controlVariables.allowCheck){
+        checkVerificationCodeButton.setOnClickListener {
+            if (controlVariables.allowCheck) {
                 inputCode = "${firstDigit.text}${secondDigit.text}${thirdDigit.text}${forthDigit.text}${fifthDigit.text}${sixthDigit.text}"
                 println(inputCode)
                 println("${urls.emailVerificationURL}$inputCode")
@@ -123,9 +123,9 @@ class EmailVerificationFragment : Fragment() {
 
         val resendCard = v.findViewById<CardView>(R.id.resendEmail)
         val resendEmailImage = v.findViewById<ImageView>(R.id.resendEmailImage)
-        resendEmailImage.setOnClickListener{resendCard.performClick()}
-        resendCard.setOnClickListener{
-            if (controlVariables.resendMailCountdownFinished){
+        resendEmailImage.setOnClickListener { resendCard.performClick() }
+        resendCard.setOnClickListener {
+            if (controlVariables.resendMailCountdownFinished) {
                 remainingTimeMillis = 120000
                 startCountdownTimer()
                 updateCountdownUI()
@@ -136,8 +136,19 @@ class EmailVerificationFragment : Fragment() {
                     .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                     .build()
                 client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) { println("exception $e") }
-                    override fun onResponse(call: Call, response: Response) { val responseCode = response.code;println("responseCode $responseCode")}
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("exception $e")
+                        Toast.makeText(requireContext(), "An unexpected error occured, mail could not be sent", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        val responseCode = response.code
+                        println("responseCode $responseCode")
+                        if (responseCode == 200) {
+                            Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
                 })
             } else Toast.makeText(requireContext(), "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
 
@@ -145,7 +156,7 @@ class EmailVerificationFragment : Fragment() {
         return v
     }
 
-    private fun checkEmail(){
+    private fun checkEmail() {
         val apiUrl = "${urls.emailVerificationURL}$inputCode"
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -163,17 +174,18 @@ class EmailVerificationFragment : Fragment() {
                 println("response $response")
                 val responseCode = response.code
                 println("responseCode $responseCode")
-                if (responseCode == 200){
+                if (responseCode == 200) {
                     val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                     val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
-                } else{
-                    requireActivity().runOnUiThread{
+                } else {
+                    requireActivity().runOnUiThread {
                         Toast.makeText(requireContext(), "Wrong code, hata kodu: $responseCode", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         })
     }
+
     fun focusToNextEditText() {
         when {
             firstDigit.isFocused -> secondDigit.requestFocus()

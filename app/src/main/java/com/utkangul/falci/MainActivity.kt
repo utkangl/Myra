@@ -29,6 +29,7 @@ import com.utkangul.falci.internalClasses.dataClasses.*
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions
 import com.google.gson.Gson
 import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import okhttp3.*
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         RewardedAd.load(this, "ca-app-pub-9194768212989464/2985888856", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
+                println("burada hata veriyorm")
                 println(adError.toString())
                 rewardedAd = null
             }
@@ -62,6 +64,10 @@ class MainActivity : AppCompatActivity() {
             override fun onAdLoaded(ad: RewardedAd) {
                 Log.d(TAG, "Ad was loaded.")
                 rewardedAd = ad
+                val options = ServerSideVerificationOptions.Builder()
+                    .setCustomData(tokensDataClass.accessToken)
+                    .build()
+                rewardedAd?.setServerSideVerificationOptions(options)
             }
         })
 
@@ -182,6 +188,8 @@ class MainActivity : AppCompatActivity() {
             controlVariables.isFromLoveHoroscope = false
         }
 
+
+        //get user status for coin, premium and campaign
         if (authenticated.isLoggedIn){
             val url = urls.userStatusURL
             val client = OkHttpClient()
