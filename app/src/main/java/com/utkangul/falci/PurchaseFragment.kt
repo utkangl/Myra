@@ -83,7 +83,7 @@ class PurchaseFragment : Fragment() {
                 { responseBody, exception -> exception?.printStackTrace()
                     println("responseBody $responseBody")
                     when (statusCode) {
-                        200 -> { Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show() }
+                        200 -> { requireActivity().runOnUiThread{Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show() }}
                         401 -> {
                             takeFreshTokens(urls.refreshURL,requireContext()){ responseBody401, exception401 ->
                                 if (exception401 != null) exception401.printStackTrace()

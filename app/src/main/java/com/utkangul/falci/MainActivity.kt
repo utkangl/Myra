@@ -30,6 +30,7 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.gson.Gson
+import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import okhttp3.*
 import java.io.IOException
 
@@ -223,20 +224,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         settingsButton.setOnClickListener {
-//            if (settingsButton.isEnabled) {
-//                settingsButton.isEnabled = false
-//                if (authenticated.isLoggedIn) {
-//                    makeGetProfileRequest(urls.getProfileURL, this, this, settingsButton) { _, _ -> }
-//                } else {
-//                    if (savedInstanceState == null) {
-//                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-//                        val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
-//                        settingsButton.isEnabled = true
-//                    }
-//                }
-//            }
-            val intent = Intent(this, CompleteProfile::class.java)
-            startActivity(intent)
+            if (settingsButton.isEnabled) {
+                settingsButton.isEnabled = false
+                if (authenticated.isLoggedIn) {
+                    makeGetProfileRequest(urls.getProfileURL, this, this, settingsButton) { _, _ -> }
+                } else {
+                    if (savedInstanceState == null) {
+                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                        val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
+                        settingsButton.isEnabled = true
+                    }
+                }
+            }
         }
 
         burcCard.setOnClickListener {
