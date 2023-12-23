@@ -72,6 +72,11 @@ class PurchaseFragment : Fragment() {
         val yearlySubsPriceText = v.findViewById<TextView>(R.id.yearlySubs_price_textView)
 
 
+        val loadingAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseLoadingAnimation)
+        val successAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseSuccessfullAnimation)
+        val purchaseLoadingAnimationContainer = v.findViewById<CardView>(R.id.purchaseLoadingAnimationContainer)
+
+
         var weeklySubsStoreProduct: GoogleStoreProduct? = null
         var monthlySubsStoreProduct: GoogleStoreProduct? = null
         var yearlySubsStoreProduct: GoogleStoreProduct? = null
@@ -80,10 +85,6 @@ class PurchaseFragment : Fragment() {
         var fiveCoinStoreProduct: GoogleStoreProduct? = null
         var twentyFiveCoinStoreProduct: GoogleStoreProduct? = null
         var fiftyCoinStoreProduct: GoogleStoreProduct? = null
-
-        val loadingAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseLoadingAnimation)
-        val successAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseSuccessfullAnimation)
-        val purchaseLoadingAnimationContainer = v.findViewById<CardView>(R.id.purchaseLoadingAnimationContainer)
 
 
         var allowBackPressed = true
@@ -99,24 +100,16 @@ class PurchaseFragment : Fragment() {
 
 
         successAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(p0: Animator) {
-
-            }
-
+            override fun onAnimationStart(p0: Animator) {}
             override fun onAnimationEnd(p0: Animator) {
                 setViewGoneWithAnimation(requireContext(),purchaseLoadingAnimationContainer,successAnimation,loadingAnimation)
                 allowBackPressed = true
                 callback.isEnabled = true
             }
-
-            override fun onAnimationCancel(p0: Animator) {
-
-            }
-
-            override fun onAnimationRepeat(p0: Animator) {
-
-            }
+            override fun onAnimationCancel(p0: Animator) {}
+            override fun onAnimationRepeat(p0: Animator) {}
         })
+
 
         //onCompleted , onError situations for purchase callback
         val makepurchaseCallback = object : PurchaseCallback {
@@ -189,8 +182,8 @@ class PurchaseFragment : Fragment() {
 
         //set storeProducts
         Purchases.sharedInstance.getOfferingsWith({ error -> println(error) }) { offerings ->
-            offerings.current!!.availablePackages.takeUnless { it.isEmpty() }?.let {
 
+            offerings.current!!.availablePackages.takeUnless { it.isEmpty() }?.let {
                 for ((index, subsPackage) in offerings.current!!.availablePackages.withIndex()) {
                     when (index) {
                         0 -> revenueCatSubscriptionPackages.weeklySubsPackage = subsPackage
@@ -198,7 +191,6 @@ class PurchaseFragment : Fragment() {
                         2 -> revenueCatSubscriptionPackages.yearlySubsPackage = subsPackage
                     }
                 }
-
                 weeklySubsStoreProduct = revenueCatSubscriptionPackages.weeklySubsPackage?.product?.googleProduct!!
                 monthlySubsStoreProduct = revenueCatSubscriptionPackages.monthlySubsPackage?.product?.googleProduct!!
                 yearlySubsStoreProduct = revenueCatSubscriptionPackages.yearlySubsPackage?.product?.googleProduct!!
@@ -215,9 +207,6 @@ class PurchaseFragment : Fragment() {
                 fiveCoinStoreProduct = revenueCatOneTimeCoinPackages.fiveCoinPackage?.product?.googleProduct!!
                 twentyFiveCoinStoreProduct = revenueCatOneTimeCoinPackages.twentyFiveCoinPackage?.product?.googleProduct!!
                 fiftyCoinStoreProduct = revenueCatOneTimeCoinPackages.fiftyCoinPackage?.product?.googleProduct!!
-
-                println(" yaraamm ${fiveCoinStoreProduct!!.productDetails.name}")
-
             }
         }
 
@@ -232,12 +221,12 @@ class PurchaseFragment : Fragment() {
 
 
         // Set Display Names
-        fiveCoinText.text = fiveCoinStoreProduct?.productDetails?.name
-        twentyFiveCoinText.text = twentyFiveCoinStoreProduct?.productDetails?.name
-        fiftyCoinText.text = fiftyCoinStoreProduct?.productDetails?.name
-        weeklySubsTextView.text = weeklySubsStoreProduct?.productDetails?.name
-        monthlySubsTextView.text = monthlySubsStoreProduct?.productDetails?.name
-        yearlySubsTextView.text = yearlySubsStoreProduct?.productDetails?.name
+        fiveCoinText.text             = fiveCoinStoreProduct?.productDetails?.name
+        twentyFiveCoinText.text       = twentyFiveCoinStoreProduct?.productDetails?.name
+        fiftyCoinText.text            = fiftyCoinStoreProduct?.productDetails?.name
+        weeklySubsTextView.text       = weeklySubsStoreProduct?.productDetails?.name
+        monthlySubsTextView.text      = monthlySubsStoreProduct?.productDetails?.name
+        yearlySubsTextView.text       = yearlySubsStoreProduct?.productDetails?.name
 
 
         // Make Purchase for MyraCoin
@@ -258,6 +247,8 @@ class PurchaseFragment : Fragment() {
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
         }
+
+
         twentyFiveCoinCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("Information about this purchase: " +
@@ -275,6 +266,8 @@ class PurchaseFragment : Fragment() {
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
         }
+
+
         fiftyCoinCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("Information about this purchase: " +
@@ -308,6 +301,8 @@ class PurchaseFragment : Fragment() {
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
         }
+
+
         monthlySubsCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in monthly periods"  +
@@ -322,6 +317,8 @@ class PurchaseFragment : Fragment() {
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
         }
+
+
         yearlySubsCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in yearly periods"  +

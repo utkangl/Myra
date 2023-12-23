@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
-import com.utkangul.falci.internalClasses.UserStatusFunctions
 import com.utkangul.falci.internalClasses.dataClasses.authenticated
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
@@ -94,7 +93,7 @@ class SettingsFragment : Fragment() {
                 builder.create().show()
             }
             deleteAccount()
-        };
+        }
         return v
     }
 }

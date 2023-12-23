@@ -269,7 +269,7 @@
                         android:id="@+id/InfoImage"
                         android:layout_marginStart="35dp"
                         android:paddingTop="4dp"
-                        android:src="@drawable/baseline_info_24"
+                        android:src="@drawable/baseline_info_24_black"
                         android:contentDescription="@string/info_image">
                     </ImageView>
                     <TextView

@@ -221,10 +221,9 @@ class ProfileFragment : Fragment() {
                         burcExplanationText.startAnimation(upAnimation)
 
                         fadeOut.setAnimationListener(object : Animation.AnimationListener {
-                            override fun onAnimationStart(animation: Animation?) {
-                            }
+                            override fun onAnimationStart(animation: Animation) {}
 
-                            override fun onAnimationEnd(animation: Animation?) {
+                            override fun onAnimationEnd(animation: Animation) {
                                 burcexplanationplanetimage.setImageResource(planetImages[index])
                                 burcexplanationplanettext.text = planetNames[index]
 
@@ -233,7 +232,7 @@ class ProfileFragment : Fragment() {
                                 planetHoroscopeText.text = sign
                                 burcExplanationText.text = " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)} \t ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
-                                planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
+                                planetSignToImageMap[sign]?.let { it1 -> planetHoroscopeImage.setImageResource(it1) }
 
                                 burcexplanationplanetimage.startAnimation(fadeIn)
                                 burcexplanationplanettext.startAnimation(fadeIn)
@@ -242,9 +241,7 @@ class ProfileFragment : Fragment() {
                                 burcExplanationText.startAnimation(downAnimation)
                             }
 
-                            override fun onAnimationRepeat(animation: Animation?) {
-                                // do nothing
-                            }
+                            override fun onAnimationRepeat(animation: Animation) {}
                         })
                     }
                 }
