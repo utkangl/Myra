@@ -47,19 +47,31 @@ object HoroscopeFunctions {
                         val responseJson = JSONObject(responseBody)
                         println(statusCode)
 
-                        if (statusCode == 200) {
-                            getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
-                            replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
-                            println(getHoroscopeData)
-
-                        } else {
-                            val errorDetail = responseJson.optString("detail")
-                            activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
-                            activity.runOnUiThread { Toast.makeText(context, " redirecting to profile screen ...", Toast.LENGTH_SHORT).show() }
-                            println(errorDetail)
-                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-                            val intent = Intent(context, ProfileActivity::class.java)
-                            startActivity(context, intent, options.toBundle())
+                        when (statusCode) {
+                            200 -> {
+                                getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
+                                replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
+                                println(getHoroscopeData)
+                            }
+                            401 -> {
+                                AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception401 ->
+                                    if (exception401 != null) exception401.printStackTrace()
+                                    else {
+                                        if (responseBody401 != null) {
+                                            getHoroscope(animationView, fm, context, activity)
+                                        }
+                                    }
+                                }
+                            }
+                            else -> {
+                                val errorDetail = responseJson.optString("detail")
+                                activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
+                                activity.runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show() }
+                                println(errorDetail)
+                                val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                                val intent = Intent(context, MainActivity::class.java)
+                                startActivity(context, intent, options.toBundle())
+                            }
                         }
 
                     }
@@ -74,7 +86,7 @@ object HoroscopeFunctions {
         }
     }
 
-    fun getLoveHoroscope(animationView: LottieAnimationView, context: Context, id: Int, fm: FragmentManager) {
+    fun getLoveHoroscope(animationView: LottieAnimationView, context: Context, id: Int, fm: FragmentManager, activity: Activity) {
         val getLoveHoroscopeJson = createJsonObject(
             "type" to postHoroscopeData.type.toString(),
             "time_interval" to postHoroscopeData.time_interval.toString(),
@@ -104,33 +116,46 @@ object HoroscopeFunctions {
                         println(responseBody)
                         println(statusCode)
 
-                        if (statusCode == 200) {
-                            getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
-                            if (!controlVariables.isFromCompleteLookup) {
-                                replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
+                        when (statusCode) {
+                            200 -> {
+                                getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
+                                if (!controlVariables.isFromCompleteLookup) {
+                                    replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
+                                }
+
+                                if (controlVariables.isFromCompleteLookup) {
+                                    controlVariables.navigateToHoroscope = true
+                                    controlVariables.isFromCompleteLookup = false
+                                    val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                                    val intent = Intent(context, MainActivity::class.java)
+                                    context.startActivity(intent, options.toBundle())
+                                }
                             }
 
-                            if (controlVariables.isFromCompleteLookup) {
-                                controlVariables.navigateToHoroscope = true
-                                controlVariables.isFromCompleteLookup = false
+                            401 -> {
+                                AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception401 ->
+                                    if (exception401 != null) exception401.printStackTrace()
+                                    else {
+                                        if (responseBody401 != null) {
+                                            getLoveHoroscope(animationView, context, id, fm,activity)
+                                        }
+                                    }
+                                }
+                            }
+
+                            else -> {
+                                val errorDetail = errorResponseJson.optString("detail")
+                                activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
+                                activity.runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show() }
+                                println(errorDetail)
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, MainActivity::class.java)
-                                context.startActivity(intent, options.toBundle())
+                                startActivity(context, intent, options.toBundle())
                             }
-                        } else {
-                            val errorDetail = errorResponseJson.optString("detail")
-                            println(errorDetail)
-                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-                            val intent = Intent(context, ProfileActivity::class.java)
-                            startActivity(context, intent, options.toBundle())
                         }
                     } else exception?.printStackTrace()
-
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            } catch (e: Exception) { e.printStackTrace() }
         }
     }
-
 }

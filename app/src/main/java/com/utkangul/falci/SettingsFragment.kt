@@ -58,8 +58,7 @@ class SettingsFragment : Fragment() {
                             println(response)
                             if (response.code == 204) {
                                 activity?.runOnUiThread {
-                                    Toast.makeText(requireContext(), "unexpected error: new token status code is 401", Toast.LENGTH_LONG).show()
-                                    Toast.makeText(requireContext(), "please login again, an error occured", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(requireContext(), "Deletion successfull", Toast.LENGTH_LONG).show()
                                     val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
                                     val editor = sharedPreferences.edit()
                                     editor.putString("access_token", null)
@@ -84,6 +83,9 @@ class SettingsFragment : Fragment() {
                             } else {
                                 requireActivity().runOnUiThread {
                                     Toast.makeText(context, "unexpected error: ${response.code}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, "Redirecting to main activity: ${response.code}", Toast.LENGTH_SHORT).show()
+                                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                                    val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent, options.toBundle())
                                 }
                             }
                         }

@@ -4,22 +4,24 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.text.Editable
-import android.text.TextWatcher
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
+import com.utkangul.falci.internalClasses.statusCode
 import okhttp3.*
 import java.io.IOException
 
@@ -150,14 +152,22 @@ class EmailVerificationFragment : Fragment() {
                                 Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
                                     .show()
                             }
-                            else if(responseCode == 401){
-                                takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->
-                                    if (responseBody401 != null) {
-                                        resendVerificationEmail()
-                                    } else {
-                                        exception?.printStackTrace()
+                            else if (statusCode == 401) {
+                                takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->
+                                    if (exception401 != null) exception401.printStackTrace()
+                                    else {
+                                        if (responseBody401 != null) {
+                                            resendVerificationEmail()
+                                        }
                                     }
                                 }
+                            }
+                            else{
+                                requireActivity().runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show()}
+                                requireActivity().runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show()}
+                                val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                                val intent = Intent(context, MainActivity::class.java)
+                                ContextCompat.startActivity(requireContext(), intent, options.toBundle())
                             }
                         }
                     })

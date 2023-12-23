@@ -102,10 +102,11 @@ class PurchaseFragment : Fragment() {
         successAnimation.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(p0: Animator) {}
             override fun onAnimationEnd(p0: Animator) {
-                setViewGoneWithAnimation(requireContext(),purchaseLoadingAnimationContainer,successAnimation,loadingAnimation)
+                setViewGoneWithAnimation(requireContext(), purchaseLoadingAnimationContainer, successAnimation, loadingAnimation)
                 allowBackPressed = true
                 callback.isEnabled = true
             }
+
             override fun onAnimationCancel(p0: Animator) {}
             override fun onAnimationRepeat(p0: Animator) {}
         })
@@ -114,64 +115,66 @@ class PurchaseFragment : Fragment() {
         //onCompleted , onError situations for purchase callback
         val makepurchaseCallback = object : PurchaseCallback {
             override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
+                fun notifyApiAfterPurchase() {
+                    println(storeTransaction)
+                    println(customerInfo)
+                    Toast.makeText(context, "Your Purchase Was Successfull", Toast.LENGTH_SHORT).show()
+                    val userId = Purchases.sharedInstance.appUserID
+                    val revenuecatUserIdJson = AuthenticationFunctions.CreateJsonObject.createJsonObject("user_id" to userId)
+                    setViewVisibleWithAnimation(requireContext(), purchaseLoadingAnimationContainer)
 
-                println(storeTransaction)
-                println(customerInfo)
-                Toast.makeText(context, "Your Purchase Was Successfull", Toast.LENGTH_SHORT).show()
-                val userId = Purchases.sharedInstance.appUserID
-                val revenuecatUserIdJson = AuthenticationFunctions.CreateJsonObject.createJsonObject("user_id" to userId)
-                setViewVisibleWithAnimation(requireContext(),purchaseLoadingAnimationContainer)
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    loadingAnimation.post {
-                        setViewVisible(loadingAnimation)
-                        loadingAnimation.playAnimation()
-                    }
-                    try {
-                        delay(2500)
-                        postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
-                        { responseBody, exception ->
-                            exception?.printStackTrace()
-                            println("responseBody $responseBody")
-                            when (statusCode) {
-                                200 -> {
-                                    requireActivity().runOnUiThread {
-                                        Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show()
-                                    }
-                                    loadingAnimation.post{
-                                        loadingAnimation.cancelAnimation()
-                                        setViewGoneWithAnimation(requireContext(),loadingAnimation)
-                                        setViewVisible(successAnimation)
-                                        successAnimation.post{
-                                            successAnimation.playAnimation()
-                                            successAnimation.repeatCount = 0
+                    CoroutineScope(Dispatchers.IO).launch {
+                        loadingAnimation.post {
+                            setViewVisible(loadingAnimation)
+                            loadingAnimation.playAnimation()
+                        }
+                        try {
+                            delay(2500)
+                            postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
+                            { responseBody, exception ->
+                                exception?.printStackTrace()
+                                println("responseBody $responseBody")
+                                when (statusCode) {
+                                    200 -> {
+                                        requireActivity().runOnUiThread {
+                                            Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show()
                                         }
-                                    }
-                                }
-                                401 -> {
-                                    takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->
-                                        if (exception401 != null) exception401.printStackTrace()
-                                        else {
-                                            if (responseBody401 != null) {
-                                                postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext()) { _, _ -> }
+                                        loadingAnimation.post {
+                                            loadingAnimation.cancelAnimation()
+                                            setViewGoneWithAnimation(requireContext(), loadingAnimation)
+                                            setViewVisible(successAnimation)
+                                            successAnimation.post {
+                                                successAnimation.playAnimation()
+                                                successAnimation.repeatCount = 0
                                             }
                                         }
                                     }
-                                }
-                                else -> {
-                                    Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT)
-                                        .show()
-                                    val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-                                    val intent = Intent(context, ProfileActivity::class.java)
-                                    ContextCompat.startActivity(requireContext(), intent, options.toBundle())
+                                    401 -> {
+                                        takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->
+                                            if (exception401 != null) exception401.printStackTrace()
+                                            else {
+                                                if (responseBody401 != null) {
+                                                    notifyApiAfterPurchase()
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else -> {
+                                        Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
+                                        val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                                        val intent = Intent(context, ProfileActivity::class.java)
+                                        ContextCompat.startActivity(requireContext(), intent, options.toBundle())
+                                    }
                                 }
                             }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
                     }
                 }
+                notifyApiAfterPurchase()
             }
+
             override fun onError(error: PurchasesError, userCancelled: Boolean) {
                 println(error)
                 println(userCancelled)
@@ -212,33 +215,35 @@ class PurchaseFragment : Fragment() {
 
 
         //Set Prices Texts
-        fiveCoinPriceText.text        =fiveCoinStoreProduct?.price?.formatted
-        twentyFiveCoinPriceText.text  =twentyFiveCoinStoreProduct?.price?.formatted
-        fiftyCoinPriceText.text       =fiftyCoinStoreProduct?.price?.formatted
-        weeklySubsPriceText.text      =weeklySubsStoreProduct?.price?.formatted
-        monthlySubsPriceText.text     =monthlySubsStoreProduct?.price?.formatted
-        yearlySubsPriceText.text      =yearlySubsStoreProduct?.price?.formatted
+        fiveCoinPriceText.text = fiveCoinStoreProduct?.price?.formatted
+        twentyFiveCoinPriceText.text = twentyFiveCoinStoreProduct?.price?.formatted
+        fiftyCoinPriceText.text = fiftyCoinStoreProduct?.price?.formatted
+        weeklySubsPriceText.text = weeklySubsStoreProduct?.price?.formatted
+        monthlySubsPriceText.text = monthlySubsStoreProduct?.price?.formatted
+        yearlySubsPriceText.text = yearlySubsStoreProduct?.price?.formatted
 
 
         // Set Display Names
-        fiveCoinText.text             = fiveCoinStoreProduct?.productDetails?.name
-        twentyFiveCoinText.text       = twentyFiveCoinStoreProduct?.productDetails?.name
-        fiftyCoinText.text            = fiftyCoinStoreProduct?.productDetails?.name
-        weeklySubsTextView.text       = weeklySubsStoreProduct?.productDetails?.name
-        monthlySubsTextView.text      = monthlySubsStoreProduct?.productDetails?.name
-        yearlySubsTextView.text       = yearlySubsStoreProduct?.productDetails?.name
+        fiveCoinText.text = fiveCoinStoreProduct?.productDetails?.name
+        twentyFiveCoinText.text = twentyFiveCoinStoreProduct?.productDetails?.name
+        fiftyCoinText.text = fiftyCoinStoreProduct?.productDetails?.name
+        weeklySubsTextView.text = weeklySubsStoreProduct?.productDetails?.name
+        monthlySubsTextView.text = monthlySubsStoreProduct?.productDetails?.name
+        yearlySubsTextView.text = yearlySubsStoreProduct?.productDetails?.name
 
 
         // Make Purchase for MyraCoin
         fiveCoinCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Information about this purchase: " +
-                    "\n This purchase is an One Time Purchase " +
-                    "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
-                    "\n Please note that the tax percentage can change accross countries" +
-                    "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)"+
-                    "\n You will get 5 Myra Coins after this purchase"+
-                    "\nClick continue to purchase")
+            builder.setMessage(
+                "Information about this purchase: " +
+                        "\n This purchase is an One Time Purchase " +
+                        "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
+                        "\n Please note that the tax percentage can change accross countries" +
+                        "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)" +
+                        "\n You will get 5 Myra Coins after this purchase" +
+                        "\nClick continue to purchase"
+            )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiveCoinStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
@@ -251,13 +256,15 @@ class PurchaseFragment : Fragment() {
 
         twentyFiveCoinCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Information about this purchase: " +
-                    "\n This purchase is an One Time Purchase " +
-                    "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
-                    "\n Please note that the tax percentage can change accross countries" +
-                    "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)"+
-                    "\n You will get 25 Myra Coins after this purchase"+
-                    "\nClick continue to purchase")
+            builder.setMessage(
+                "Information about this purchase: " +
+                        "\n This purchase is an One Time Purchase " +
+                        "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
+                        "\n Please note that the tax percentage can change accross countries" +
+                        "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)" +
+                        "\n You will get 25 Myra Coins after this purchase" +
+                        "\nClick continue to purchase"
+            )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), twentyFiveCoinStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
@@ -270,13 +277,15 @@ class PurchaseFragment : Fragment() {
 
         fiftyCoinCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Information about this purchase: " +
-                    "\n This purchase is an One Time Purchase " +
-                    "\n The cost is 149.99 TRY plus %20 taxes for Turkiye " +
-                    "\n Please note that the tax percentage can change accross countries" +
-                    "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)"+
-                    "\n You will get 50 Myra Coins after this purchase"+
-                    "\nClick continue to purchase")
+            builder.setMessage(
+                "Information about this purchase: " +
+                        "\n This purchase is an One Time Purchase " +
+                        "\n The cost is 149.99 TRY plus %20 taxes for Turkiye " +
+                        "\n Please note that the tax percentage can change accross countries" +
+                        "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)" +
+                        "\n You will get 50 Myra Coins after this purchase" +
+                        "\nClick continue to purchase"
+            )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiftyCoinStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
@@ -289,10 +298,12 @@ class PurchaseFragment : Fragment() {
         // make purchase for subscriptions
         weeklySubsCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in weekly periods"  +
-                    "until you cancel it. \nThe cost is 24.99 TRY plus %20 taxes for Turkiye \n Please note that the tax"  +
-                    "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
-                    "benefits:\n   Use the app without ads for a week \n Click continue to purchase")
+            builder.setMessage(
+                "Information about this subscription: \nThis subscription automatically renews itself in weekly periods" +
+                        "until you cancel it. \nThe cost is 24.99 TRY plus %20 taxes for Turkiye \n Please note that the tax" +
+                        "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
+                        "benefits:\n   Use the app without ads for a week \n Click continue to purchase"
+            )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), weeklySubsStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
@@ -305,10 +316,12 @@ class PurchaseFragment : Fragment() {
 
         monthlySubsCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in monthly periods"  +
-                    "until you cancel it. \nThe cost is 59.99 TRY plus %20 taxes for Turkiye \n Please note that the tax"  +
-                    "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
-                    "benefits:\n   Use the app without ads for a month \n Click continue to purchase")
+            builder.setMessage(
+                "Information about this subscription: \nThis subscription automatically renews itself in monthly periods" +
+                        "until you cancel it. \nThe cost is 59.99 TRY plus %20 taxes for Turkiye \n Please note that the tax" +
+                        "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
+                        "benefits:\n   Use the app without ads for a month \n Click continue to purchase"
+            )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), monthlySubsStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
@@ -321,10 +334,12 @@ class PurchaseFragment : Fragment() {
 
         yearlySubsCard.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("Information about this subscription: \nThis subscription automatically renews itself in yearly periods"  +
-                     "until you cancel it. \nThe cost is 599.99 TRY plus %20 taxes for Turkiye \n Please note that the tax"  +
-                    "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
-                    "benefits:\n   Use the app without ads for a year \n Click continue to purchase")
+            builder.setMessage(
+                "Information about this subscription: \nThis subscription automatically renews itself in yearly periods" +
+                        "until you cancel it. \nThe cost is 599.99 TRY plus %20 taxes for Turkiye \n Please note that the tax" +
+                        "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
+                        "benefits:\n   Use the app without ads for a year \n Click continue to purchase"
+            )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), yearlySubsStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)

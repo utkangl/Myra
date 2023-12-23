@@ -317,7 +317,7 @@ class CompleteProfile : AppCompatActivity() {
                             if (statusCode == 201) {
                                 println("responseBody is $responseBody")
                                 controlVariables.isFromCompleteLookup = true
-                                getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager)
+                                getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
                             }
                         }
                     }

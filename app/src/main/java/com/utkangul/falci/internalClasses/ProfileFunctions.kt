@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.utkangul.falci.MainActivity
 import com.utkangul.falci.ProfileActivity
@@ -12,6 +13,7 @@ import com.utkangul.falci.internalClasses.dataClasses.*
 import com.google.gson.Gson
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -43,28 +45,35 @@ class ProfileFunctions {
                     println("response code $getProfileStatusCode")
                     callback(responseBody, null)
 
-                    if (getProfileStatusCode == 401){
-                        println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                            urls.refreshURL,
-                            context,
-                        ) { responseBody401, exception ->
-                            if (responseBody401 != null) {
-                                makeGetProfileRequest(url,  context, activity, settingsButton, callback)
-                            } else {
-                                println(exception)
+                    when(getProfileStatusCode){
+
+                        401->{
+                            println("unauthorized 401, taking new access token")
+                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
+                                urls.refreshURL,
+                                context,
+                            ) { responseBody401, exception ->
+                                if (responseBody401 != null) {
+                                    makeGetProfileRequest(url,  context, activity, settingsButton, callback)
+                                } else {
+                                    println(exception)
+                                }
                             }
                         }
-                    }
-                    if (getProfileStatusCode == 200){
-                        val gson = Gson()
-                        userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
-                        if (!controlVariables.getProfileAgain && !userProfile.first_name.isNullOrEmpty()){
-                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-                            val intent = Intent(context, ProfileActivity::class.java)
-                            ContextCompat.startActivity(context, intent, options.toBundle())
-                            activity?.runOnUiThread{settingsButton?.isEnabled = true}
-                        } else println("get profile req atan fonksiyonun içinden yazıyorum $userProfile")
+                        200->{
+                            val gson = Gson()
+                            userProfile =  gson.fromJson(responseBody, UserProfileDataClass::class.java)
+                            if (!controlVariables.getProfileAgain && !userProfile.first_name.isNullOrEmpty()){
+                                val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                                val intent = Intent(context, ProfileActivity::class.java)
+                                ContextCompat.startActivity(context, intent, options.toBundle())
+                                activity?.runOnUiThread{settingsButton?.isEnabled = true}
+                            } else println("get profile req atan fonksiyonun içinden yazıyorum $userProfile")
+                        }
+                        else -> {
+                            println("get profiledan hata kodu : $getProfileStatusCode")
+                            Toast.makeText(context, "unexpected error, pls try restarting the app", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             })
@@ -73,10 +82,7 @@ class ProfileFunctions {
 
             val editProfileClient = OkHttpClient()
 
-            val requestBody = RequestBody.create(
-                "application/json; charset=utf-8".toMediaTypeOrNull(),
-                json.toString()
-            )
+            val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
             val request = Request.Builder()
                 .url(url)
@@ -84,37 +90,23 @@ class ProfileFunctions {
                 .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                 .build()
 
-
             editProfileClient.newCall(request).enqueue(object : Callback {
 
-                override fun onFailure(call: Call, e: IOException) {
-                    callback(null, e)
-
-                }
+                override fun onFailure(call: Call, e: IOException) { callback(null, e) }
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body?.string()
                     statusCode = response.code
+                    println(statusCode)
+
                     if (statusCode == 401){
                         println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                            urls.refreshURL,
-                            context
-                        ) { responseBody401, exception ->
-                            if (responseBody401 != null) {
-                                println(tokensDataClass.accessToken)
-                                putEditProfileJson(url, json,context, callback)
-                            } else {
-                                println(exception)
-                            }
+                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
+                            exception?.printStackTrace()
+                            if (responseBody401 != null) { println(tokensDataClass.accessToken); putEditProfileJson(url, json,context, callback) }
                         }
                     }
-
-                    if (responseBody != null) {
-                        println(responseBody)
-                        println(statusCode)
-                    }
-
+                    println("response from edit profile is: $responseBody")
                     callback(responseBody, null)
                 }
             })

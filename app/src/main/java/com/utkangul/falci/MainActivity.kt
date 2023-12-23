@@ -104,6 +104,10 @@ class MainActivity : AppCompatActivity() {
         val mainActivityGeneralLayout = findViewById<RelativeLayout>(R.id.mainActivityGeneralLayout)
         mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
 
+        mainActivityGeneralLayout.setOnClickListener{
+            println("authenticated.isLoggedIn ${authenticated.isLoggedIn}")
+        }
+
         controlVariables.getProfileAgain = false
         controlVariables.isSavedUsersLoaded = false
         controlVariables.isBurcCardOpen = false
@@ -321,7 +325,7 @@ class MainActivity : AppCompatActivity() {
                     handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager)
+                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                 }
@@ -368,7 +372,7 @@ class MainActivity : AppCompatActivity() {
                     coin.current_coin -= 10
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager)
+                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                 }
