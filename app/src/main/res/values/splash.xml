@@ -2,8 +2,8 @@
 <resources>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">#000000</item>
-        <item name="windowSplashScreenAnimatedIcon"> @drawable/splash_screen_mira</item>
+        <item name="windowSplashScreenBackground">#1c1444</item>
+        <item name="windowSplashScreenAnimatedIcon"> @drawable/layer_4</item>
         <item name="postSplashScreenTheme">@style/Theme.Falci</item>
     </style>
 

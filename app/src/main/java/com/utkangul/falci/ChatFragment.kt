@@ -105,9 +105,9 @@ class ChatFragment : Fragment() {
 
                         activity?.runOnUiThread {
                             val jsonResponse = responseBody?.let { JSONObject(it) }
-                            val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
-                            if (chatMessagesArray != null) {
 
+                            if (jsonResponse != null && jsonResponse.has("chat_messages")) {
+                                val chatMessagesArray = jsonResponse.getJSONArray("chat_messages")
 
                                 // En son mesaji bulmak icin chatMessagesArray'ı tersten dön
                                 for (i in chatMessagesArray.length() - 1 downTo 0) {
@@ -123,9 +123,12 @@ class ChatFragment : Fragment() {
                                     // En son mesajı bulduktan sonra döngüyü sonlandır
                                     break
                                 }
+
+                                chatAdapter.notifyDataSetChanged()
+                                chatListView.smoothScrollToPosition(messages.size - 1)
+                            } else {
+                                println("chat_messages anahtarı bulunamadı")
                             }
-                            chatAdapter.notifyDataSetChanged()
-                            chatListView.smoothScrollToPosition(messages.size - 1)
                         }
                     }
                 }
