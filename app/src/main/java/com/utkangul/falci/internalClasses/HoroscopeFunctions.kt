@@ -92,7 +92,6 @@ object HoroscopeFunctions {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
                     }
-
                     if (responseBody != null) {
                         val errorResponseJson = JSONObject(responseBody)
                         println(responseBody)

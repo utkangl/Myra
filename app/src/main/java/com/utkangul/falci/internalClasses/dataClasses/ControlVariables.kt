@@ -25,7 +25,7 @@ data class ControlVariables(
     var isFromAddLookupUser: Boolean,
     var resendMailCountdownFinished: Boolean,
     var isgender: Boolean,
-
+    var inNotifyPurchase: Boolean,
     )
 
 var controlVariables = ControlVariables(
@@ -53,4 +53,5 @@ var controlVariables = ControlVariables(
     isFromAddLookupUser = false,
     resendMailCountdownFinished = true,
     isgender = false,
+    inNotifyPurchase = false,
 )

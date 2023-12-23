@@ -1,5 +1,6 @@
 package com.utkangul.falci
 
+import android.animation.Animator
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
@@ -9,19 +10,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import com.airbnb.lottie.LottieAnimationView
 import com.revenuecat.purchases.*
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.models.*
 import com.utkangul.falci.internalClasses.AuthenticationFunctions
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.utkangul.falci.internalClasses.dataClasses.revenueCatOneTimeCoinPackages
 import com.utkangul.falci.internalClasses.dataClasses.revenueCatSubscriptionPackages
 import com.utkangul.falci.internalClasses.dataClasses.urls
 import com.utkangul.falci.internalClasses.statusCode
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PurchaseFragment : Fragment() {
 
@@ -71,42 +81,108 @@ class PurchaseFragment : Fragment() {
         var twentyFiveCoinStoreProduct: GoogleStoreProduct? = null
         var fiftyCoinStoreProduct: GoogleStoreProduct? = null
 
+        val loadingAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseLoadingAnimation)
+        val successAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseSuccessfullAnimation)
+        val purchaseLoadingAnimationContainer = v.findViewById<CardView>(R.id.purchaseLoadingAnimationContainer)
+
+
+        var allowBackPressed = true
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (allowBackPressed) {
+                isEnabled = false
+                requireActivity().onBackPressed()
+            } else {
+                Toast.makeText(requireContext(), "İşlem tamamlanana kadar çıkış yapılamaz", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+        successAnimation.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animator) {
+                setViewGoneWithAnimation(requireContext(),purchaseLoadingAnimationContainer,successAnimation,loadingAnimation)
+                allowBackPressed = true
+                callback.isEnabled = true
+            }
+
+            override fun onAnimationCancel(p0: Animator) {
+
+            }
+
+            override fun onAnimationRepeat(p0: Animator) {
+
+            }
+        })
 
         //onCompleted , onError situations for purchase callback
         val makepurchaseCallback = object : PurchaseCallback {
             override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
+
                 println(storeTransaction)
                 println(customerInfo)
                 Toast.makeText(context, "Your Purchase Was Successfull", Toast.LENGTH_SHORT).show()
                 val userId = Purchases.sharedInstance.appUserID
                 val revenuecatUserIdJson = AuthenticationFunctions.CreateJsonObject.createJsonObject("user_id" to userId)
-                postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
-                { responseBody, exception -> exception?.printStackTrace()
-                    println("responseBody $responseBody")
-                    when (statusCode) {
-                        200 -> { requireActivity().runOnUiThread{Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show() }}
-                        401 -> {
-                            takeFreshTokens(urls.refreshURL,requireContext()){ responseBody401, exception401 ->
-                                if (exception401 != null) exception401.printStackTrace()
-                                else{
-                                    if (responseBody401 != null) {
-                                        postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext()){ _ , _ -> }
+                setViewVisibleWithAnimation(requireContext(),purchaseLoadingAnimationContainer)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    loadingAnimation.post {
+                        setViewVisible(loadingAnimation)
+                        loadingAnimation.playAnimation()
+                    }
+                    try {
+                        delay(2500)
+                        postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
+                        { responseBody, exception ->
+                            exception?.printStackTrace()
+                            println("responseBody $responseBody")
+                            when (statusCode) {
+                                200 -> {
+                                    requireActivity().runOnUiThread {
+                                        Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show()
                                     }
+                                    loadingAnimation.post{
+                                        loadingAnimation.cancelAnimation()
+                                        setViewGoneWithAnimation(requireContext(),loadingAnimation)
+                                        setViewVisible(successAnimation)
+                                        successAnimation.post{
+                                            successAnimation.playAnimation()
+                                            successAnimation.repeatCount = 0
+                                        }
+                                    }
+                                }
+                                401 -> {
+                                    takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->
+                                        if (exception401 != null) exception401.printStackTrace()
+                                        else {
+                                            if (responseBody401 != null) {
+                                                postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext()) { _, _ -> }
+                                            }
+                                        }
+                                    }
+                                }
+                                else -> {
+                                    Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT)
+                                        .show()
+                                    val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                                    val intent = Intent(context, ProfileActivity::class.java)
+                                    ContextCompat.startActivity(requireContext(), intent, options.toBundle())
                                 }
                             }
                         }
-                        else -> {
-                            Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
-                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-                            val intent = Intent(context, ProfileActivity::class.java)
-                            ContextCompat.startActivity(requireContext(), intent, options.toBundle())
-                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
                 }
             }
             override fun onError(error: PurchasesError, userCancelled: Boolean) {
                 println(error)
                 println(userCancelled)
+                allowBackPressed = true
             }
         }
 
@@ -177,6 +253,7 @@ class PurchaseFragment : Fragment() {
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiveCoinStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
@@ -193,6 +270,7 @@ class PurchaseFragment : Fragment() {
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), twentyFiveCoinStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
@@ -209,6 +287,7 @@ class PurchaseFragment : Fragment() {
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiftyCoinStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
@@ -224,6 +303,7 @@ class PurchaseFragment : Fragment() {
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), weeklySubsStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
@@ -237,6 +317,7 @@ class PurchaseFragment : Fragment() {
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), monthlySubsStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
@@ -250,10 +331,12 @@ class PurchaseFragment : Fragment() {
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), yearlySubsStoreProduct!!))
                 Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
         }
+
         return v
     } // end of onCreateView
 } // end of class

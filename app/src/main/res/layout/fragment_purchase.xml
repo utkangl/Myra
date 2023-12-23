@@ -8,6 +8,8 @@
     android:background="@drawable/space_background"
     tools:ignore="SpUsage">
 
+
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -414,5 +416,35 @@
         </TextView>
     </androidx.cardview.widget.CardView>
 
-    
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/purchaseLoadingAnimationContainer"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="#CCffffff"
+        android:elevation="5dp"
+        app:cardCornerRadius="45dp"
+        android:visibility="invisible">
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_height="85dp"
+            android:layout_width="85dp"
+            android:id="@+id/purchaseLoadingAnimation"
+            android:layout_gravity="center"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/purchase_loading"
+            tools:layout_editor_absoluteY="0dp"
+            android:visibility="invisible">
+        </com.airbnb.lottie.LottieAnimationView>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_height="100dp"
+            android:layout_width="100dp"
+            android:id="@+id/purchaseSuccessfullAnimation"
+            android:layout_gravity="center"
+            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/purchase_successfull"
+            tools:layout_editor_absoluteY="0dp"
+            android:visibility="invisible">
+        </com.airbnb.lottie.LottieAnimationView>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
