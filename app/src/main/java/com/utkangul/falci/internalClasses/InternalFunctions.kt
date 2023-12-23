@@ -2,6 +2,7 @@ package com.utkangul.falci.internalClasses
 import android.animation.AnimatorInflater
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Context
 import android.text.TextWatcher
 import android.view.View
@@ -63,17 +64,21 @@ class InternalFunctions {
             }
         }
 
-        fun updateBirthDayIfChanged(jsonField: String, birthDateField: TextView, birthTimeField: TextView, userProfile: UserProfileDataClass, editProfileJson: JSONObject) {
-            val (formattedDate, formattedTime) = TimeFormatFunctions.convertTimestampToDateTime(userProfile.birth_day!!.toLong())
-            println(formattedDate)
-            println(formattedTime)
-            val newBirthDate = birthDateField.text.toString()
-            val newBirthTime = birthTimeField.text.toString()
-
-            if (newBirthDate != formattedDate || newBirthTime != formattedTime) {
-                val timestamp = convertDateTimeToTimestamp(newBirthDate, newBirthTime)
-                editProfileJson.put(jsonField, timestamp)
-                userProfile.birth_day = timestamp.toString()
+        fun updateBirthDayIfChanged(jsonField: String, birthDateField: TextView, birthTimeField: TextView, userProfile: UserProfileDataClass, editProfileJson: JSONObject,activity: Activity,context: Context) {
+            if (!userProfile.birth_day.isNullOrEmpty()){
+                val (formattedDate, formattedTime) = TimeFormatFunctions.convertTimestampToDateTime(userProfile.birth_day!!.toLong())
+                println(formattedDate)
+                println(formattedTime)
+                val newBirthDate = birthDateField.text.toString()
+                val newBirthTime = birthTimeField.text.toString()
+                if (newBirthDate != formattedDate || newBirthTime != formattedTime) {
+                    val timestamp = convertDateTimeToTimestamp(newBirthDate, newBirthTime)
+                    editProfileJson.put(jsonField, timestamp)
+                    userProfile.birth_day = timestamp.toString()
+                }
+            } else {
+                println("userProfile.birth_day was empty")
+                activity.runOnUiThread{ Toast.makeText(context, "userProfile.birth_day was empty", Toast.LENGTH_SHORT).show()}
             }
         }
     }

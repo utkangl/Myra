@@ -61,10 +61,6 @@ class Loginfragment : Fragment() {
             AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader(urls.loginURL, loginJson) { responseBody, _ ->
                 println("response $responseBody")
 
-                   // if response code is 200 success, toast successfully login,
-                  // set isLoggedIn as true and isFromSignIn as false,
-                 // because when isFromSignIn is true, main activity directly navigates to login
-                // then navigate to main activity
                 if (statusCode == 200)  {
                     requireActivity().runOnUiThread {
                         Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()

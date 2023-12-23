@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
@@ -126,37 +127,49 @@ class EmailVerificationFragment : Fragment() {
         resendEmailImage.setOnClickListener { resendCard.performClick() }
         resendCard.setOnClickListener {
             if (controlVariables.resendMailCountdownFinished) {
-                remainingTimeMillis = 120000
-                startCountdownTimer()
-                updateCountdownUI()
-                val client = OkHttpClient()
-                val request = Request.Builder()
-                    .url(urls.resendVerificationEmailURL)
-                    .get()
-                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                    .build()
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        println("exception $e")
-                        Toast.makeText(requireContext(), "An unexpected error occured, mail could not be sent", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun onResponse(call: Call, response: Response) {
-                        val responseCode = response.code
-                        println("responseCode $responseCode")
-                        if (responseCode == 200) {
-                            Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
-                                .show()
+                fun resendVerificationEmail(){
+                    remainingTimeMillis = 120000
+                    startCountdownTimer()
+                    updateCountdownUI()
+                    val client = OkHttpClient()
+                    val request = Request.Builder()
+                        .url(urls.resendVerificationEmailURL)
+                        .get()
+                        .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                        .build()
+                    client.newCall(request).enqueue(object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            println("exception $e")
+                            Toast.makeText(requireContext(), "An unexpected error occured, mail could not be sent", Toast.LENGTH_SHORT).show()
                         }
-                    }
-                })
+
+                        override fun onResponse(call: Call, response: Response) {
+                            val responseCode = response.code
+                            println("responseCode $responseCode")
+                            if (responseCode == 200) {
+                                Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                            else if(responseCode == 401){
+                                takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->
+                                    if (responseBody401 != null) {
+                                        resendVerificationEmail()
+                                    } else {
+                                        exception?.printStackTrace()
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
+                resendVerificationEmail()
             } else Toast.makeText(requireContext(), "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
 
         }
         return v
     }
 
-    private fun checkEmail() {
+    internal fun checkEmail() {
         val apiUrl = "${urls.emailVerificationURL}$inputCode"
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -177,7 +190,17 @@ class EmailVerificationFragment : Fragment() {
                 if (responseCode == 200) {
                     val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                     val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
-                } else {
+                }
+                else if (responseCode == 401){
+                    takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->
+                        if (responseBody401 != null) {
+                            checkEmail()
+                        } else {
+                            exception?.printStackTrace()
+                        }
+                    }
+                }
+                else{
                     requireActivity().runOnUiThread {
                         Toast.makeText(requireContext(), "Wrong code, hata kodu: $responseCode", Toast.LENGTH_SHORT).show()
                     }

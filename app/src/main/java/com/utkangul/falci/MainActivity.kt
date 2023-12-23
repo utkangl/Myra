@@ -30,11 +30,9 @@ import com.google.android.gms.ads.*
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions
-import com.google.gson.Gson
 import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.utkangul.falci.internalClasses.UserStatusFunctions.UserStatusFunctionsObject.getUserStatus
 import okhttp3.*
-import java.io.IOException
 
 
 var cardList: MutableList<SavedLookupUserCardView> = mutableListOf()
@@ -315,7 +313,7 @@ class MainActivity : AppCompatActivity() {
                     handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this,this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                 }
@@ -361,7 +359,7 @@ class MainActivity : AppCompatActivity() {
                     coin.current_coin -= 10
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this)
+                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this,this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                 }

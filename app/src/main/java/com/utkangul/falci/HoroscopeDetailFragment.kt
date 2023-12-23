@@ -201,7 +201,6 @@ class HoroscopeDetailFragment : Fragment() {
                                 if (responseBody401 != null) {
                                     println(tokensDataClass.accessToken)
                                     destroyFavHoroscope(activity, context, favouriteThisHoroscope,favHoroscopeId)
-
                                 } else {
                                     println(exception)
                                 }

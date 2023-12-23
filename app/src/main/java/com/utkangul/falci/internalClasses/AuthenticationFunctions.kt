@@ -1,8 +1,15 @@
 package com.utkangul.falci.internalClasses
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.core.content.ContextCompat.startActivity
+import com.utkangul.falci.MainActivity
+import com.utkangul.falci.R
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.utkangul.falci.internalClasses.dataClasses.JWTTokensDataClass
+import com.utkangul.falci.internalClasses.dataClasses.authenticated
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
 import okhttp3.*
@@ -54,9 +61,7 @@ class AuthenticationFunctions {
                                 refreshToken = refreshToken.toString(),
                                 tokensCreatedAt = System.currentTimeMillis() / 1000 // in seconds
                             )
-
                         }
-
                         println("statusCode $statusCode")
                         callback(responseBody, null)
                     }
@@ -117,7 +122,19 @@ class AuthenticationFunctions {
 
                         val newTokenStatusCode = response.code
                         println("new token statusCode $newTokenStatusCode")
-                        if (newTokenStatusCode == 401){ println("yeni token alma fonksiyonu da 401 ") }
+                        if (newTokenStatusCode == 401){
+                            println("yeni token alma fonksiyonu da 401 ")
+                            val sharedPreferences: SharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+                            editor.putString("access_token", null)
+                            editor.putString("refresh_token", null)
+                            editor.putLong("token_creation_time", 0)
+                            editor.putBoolean("didLogin", false)
+                            editor.apply()
+                            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                            val intent = Intent(context, MainActivity::class.java);startActivity(context,intent, options.toBundle())
+                            authenticated.isLoggedIn = false
+                        }
 
 
                         val responseBody = response.body?.string()

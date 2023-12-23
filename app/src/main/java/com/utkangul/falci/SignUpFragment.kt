@@ -13,10 +13,7 @@ import androidx.cardview.widget.CardView
 import com.utkangul.falci.internalClasses.*
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonNoHeader
-import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
-import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
-import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceLoginActivityToSignUpFragment
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
@@ -76,8 +73,8 @@ class SignUpFragment : Fragment() {
     //                            startActivity(intent)
                             }
                         }
-                        // if response code is 400, toast the error
-                        if (statusCode == 400){
+                        // if response code is not success
+                        else{
                             val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                             val detail = responseJson?.optString("detail")
                             requireActivity().runOnUiThread {

@@ -18,6 +18,7 @@ import com.utkangul.falci.internalClasses.dataClasses.*
 import com.utkangul.falci.internalClasses.statusCode
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
@@ -33,7 +34,7 @@ class ChatFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_chat, container, false)
 
-        val messageInput = v.findViewById<EditText>(com.utkangul.falci.R.id.chatFragmentMessageInputText)
+        val messageInput = v.findViewById<EditText>(R.id.chatFragmentMessageInputText)
         val messageInputParams = messageInput.layoutParams as RelativeLayout.LayoutParams
 
         val sendUserMessage = v.findViewById<ImageButton>(com.utkangul.falci.R.id.sendUserMessage)
@@ -47,12 +48,12 @@ class ChatFragment : Fragment() {
 
         threadNumber = getHoroscopeData.thread
 
-        val chatAdapter = com.utkangul.falci.ChatAdapter(requireContext(), messages)
+        val chatAdapter = ChatAdapter(requireContext(), messages)
         chatListView.adapter = chatAdapter
 
         val chatFuncs = ChatFuncs()
 
-        chatFuncs.getOldMessages(requireContext(), activity!! ,threadNumber!!, oldMessages, chatAdapter, messages, chatListView)
+        threadNumber?.let { chatFuncs.getOldMessages(requireContext(), activity!! , it, oldMessages, chatAdapter, messages, chatListView) }
 
         messageInput.setOnClickListener{
             val scale = requireContext().resources.displayMetrics.density
@@ -150,7 +151,7 @@ class ChatFragment : Fragment() {
         val chatclient = OkHttpClient()
 
         val requestBody =
-            RequestBody.create("application/json; charset=utf-8".toMediaTypeOrNull(), json.toString())
+            json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
         val request = Request.Builder()
             .url(url)

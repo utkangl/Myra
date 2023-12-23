@@ -69,6 +69,8 @@ class EditProfileFragment : Fragment() {
 
         println(userProfile)
 
+
+
         val (formattedDate, formattedTime) = convertTimestampToDateTime(userProfile.birth_day!!.toLong())
         nameField.text = userProfile.first_name
         genderField.text = userProfile.gender
@@ -95,12 +97,13 @@ class EditProfileFragment : Fragment() {
 
         savebutton.setOnClickListener {
             // Add values to EditProfileJson if changed
-            updateProfileFieldIfChanged("first_name", nameField, editProfileJson, userProfile.first_name!!)
-            updateProfileFieldIfChanged("gender", genderField, editProfileJson, userProfile.gender!!)
-            updateBirthDayIfChanged    ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson)
-            updateProfileFieldIfChanged("location", locationField, editProfileJson, userProfile.birth_place!!)
-            updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, userProfile.occupation!!)
-            updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, userProfile.relationship_status!!)
+            userProfile.first_name?.let { it1 -> updateProfileFieldIfChanged("first_name", nameField, editProfileJson, it1) }
+            userProfile.gender?.let { it1 -> updateProfileFieldIfChanged("gender", genderField, editProfileJson, it1) }
+            updateBirthDayIfChanged ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson,requireActivity(),requireContext())
+            userProfile.birth_place?.let { it1 -> updateProfileFieldIfChanged("location", locationField, editProfileJson, it1) }
+            userProfile.occupation?.let { it1 -> updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, it1) }
+            userProfile.relationship_status?.let { it1 -> updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, it1)
+            }
 
             // Save changes
             userProfile.apply {

@@ -26,8 +26,9 @@ import java.util.concurrent.TimeUnit
 
 var listOfFavCards = mutableListOf<FavCardView>()
 
-class GetFavsFuncs {
+class GetFavsFuncs(activity: Activity) {
     private var loadMore = true
+    val activity = activity
     fun getFavouriteHoroscopes(
         animationView: LottieAnimationView,
         context: Context,
@@ -35,7 +36,7 @@ class GetFavsFuncs {
         cancelFavSearchFilter: ImageButton,
         favHoroscopeLinearLayout: LinearLayout,
         getFavsUrl: String,
-        favouriteHoroscopesScrollview: ScrollView
+        favouriteHoroscopesScrollview: ScrollView,
     ) {
         val gson = Gson()
 
@@ -60,7 +61,7 @@ class GetFavsFuncs {
                     cancelFavSearchFilter,
                     favHoroscopeLinearLayout,
                     getFavsUrl,
-                    favouriteHoroscopesScrollview
+                    favouriteHoroscopesScrollview,
                 )
                 200 -> {
                     handleSuccessfulResponse(
@@ -90,7 +91,7 @@ class GetFavsFuncs {
                                     cancelFavSearchFilter,
                                     favHoroscopeLinearLayout,
                                     listOfFavouriteHoroscopes.next!!,
-                                    favouriteHoroscopesScrollview
+                                    favouriteHoroscopesScrollview,
                                 )
                                 loadMore = false
                             }
@@ -111,6 +112,7 @@ class GetFavsFuncs {
                 }
                 else -> {
                     println("Response code was: $getFavsStatusCode")
+                    activity.runOnUiThread{ Toast.makeText(context, "an error occured $getFavsStatusCode", Toast.LENGTH_SHORT).show()}
                     val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                     val intent = Intent(context, ProfileActivity::class.java)
                     startActivity(context, intent, options.toBundle())
@@ -143,7 +145,7 @@ class GetFavsFuncs {
         cancelFavSearchFilter: ImageButton,
         favHoroscopeLinearLayout: LinearLayout,
         getFavsUrl: String,
-        favouriteHoroscopesScrollview: ScrollView
+        favouriteHoroscopesScrollview: ScrollView,
     ) {
         takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
             if (responseBody401 != null) {
@@ -155,7 +157,7 @@ class GetFavsFuncs {
                     cancelFavSearchFilter,
                     favHoroscopeLinearLayout,
                     getFavsUrl,
-                    favouriteHoroscopesScrollview
+                    favouriteHoroscopesScrollview,
                 )
             } else {
                 println(exception)
@@ -276,7 +278,7 @@ class GetFavsFuncs {
                         cancelFavSearchFilter,
                         favHoroscopeLinearLayout,
                         urls.favouriteHoroscopeURL,
-                        favouriteHoroscopesScrollview
+                        favouriteHoroscopesScrollview,
                     )
                     numOfCards = 0
                 }

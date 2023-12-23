@@ -39,12 +39,13 @@ class FavouriteHoroscopesFragment : Fragment() {
         val favouriteHoroscopesScrollview = v.findViewById<ScrollView>(R.id.favourite_horoscopes_scrollview)
         val editFavourites = v.findViewById<TextView>(R.id.editFavourites)
 
-        val getFavsFuncs = GetFavsFuncs()
+        val getFavsFuncs = GetFavsFuncs(requireActivity())
 
 
         controlVariables.swipeBack = false
 
-        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
+        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter,
+            favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
 
         editFavourites.setOnClickListener{
             for (card in listOfFavCards){

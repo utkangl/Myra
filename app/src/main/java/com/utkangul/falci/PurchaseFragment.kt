@@ -189,7 +189,7 @@ class PurchaseFragment : Fragment() {
 
         //set storeProducts
         Purchases.sharedInstance.getOfferingsWith({ error -> println(error) }) { offerings ->
-            offerings.current?.availablePackages?.takeUnless { it.isEmpty() }?.let {
+            offerings.current!!.availablePackages.takeUnless { it.isEmpty() }?.let {
 
                 for ((index, subsPackage) in offerings.current!!.availablePackages.withIndex()) {
                     when (index) {

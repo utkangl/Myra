@@ -1,9 +1,14 @@
 package com.utkangul.falci.internalClasses
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 import com.utkangul.falci.MainActivity
+import com.utkangul.falci.R
 import com.utkangul.falci.internalClasses.dataClasses.*
 import okhttp3.*
 import java.io.IOException
@@ -61,6 +66,13 @@ class UserStatusFunctions {
                                 }
                             })
                         } else { println("kampanya id si yoktu") }
+                    }
+                    else {
+                        activity.runOnUiThread{ Toast.makeText(context, "unexpected error: ${response.code}", Toast.LENGTH_SHORT).show()}
+                        activity.runOnUiThread{ Toast.makeText(context, "Redirecting to Main screen...", Toast.LENGTH_SHORT).show()}
+                        val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+                        val intent = Intent(context, MainActivity::class.java)
+                        ContextCompat.startActivity(context, intent, options.toBundle())
                     }
                 }
             })

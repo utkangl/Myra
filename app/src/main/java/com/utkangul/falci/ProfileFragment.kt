@@ -51,7 +51,7 @@ class ProfileFragment : Fragment() {
 
         println("profile içinden yazıyorum $userProfile")
         // set firstLetter variable with the first letter of UserProfileDataClass's name field
-        var firstLetter: String = "?"
+        var firstLetter = "?"
         if (!userProfile.first_name.isNullOrEmpty()){
             firstLetter = userProfile.first_name!!.first().toString().uppercase()
         }
@@ -134,7 +134,7 @@ class ProfileFragment : Fragment() {
         }
 
 
-        activity!!.runOnUiThread {
+        requireActivity().runOnUiThread {
             val planetLayouts = listOf(
                 jupyterlayout, marslayout, mercurylayout, neptuneLayout,
                 saturnlayout, sunlayout, uranuslayout, venuslayout, moonlayout
@@ -194,11 +194,13 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-            burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+            burcExplanationText.text =
+                " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  \t" +
+                "${sign?.let { getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, it)}}"
 
             val planetExplanation = getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)
-            val zodiacExplanation = getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign)
-            val result = " $planetName ; $planetExplanation $planetName ve $sign birlikteliği $zodiacExplanation"
+            val zodiacExplanation = sign?.let { getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, it) }
+            val result = " $planetName ; $planetExplanation \t $zodiacExplanation"
             updateUIWithResult(result)
 
 
@@ -229,7 +231,7 @@ class ProfileFragment : Fragment() {
                                 planetName = planetNames[index]
                                 sign = planetSignMap[planetName]
                                 planetHoroscopeText.text = sign
-                                burcExplanationText.text = " $planetName ; ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  $planetName ve $sign birlikteliği ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+                                burcExplanationText.text = " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)} \t ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
                                 planetHoroscopeImage.setImageResource(planetSignToImageMap[sign]!!)
 

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.BurcCardFunctions
 
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
@@ -16,6 +17,7 @@ import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctio
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.getPartnerProfile
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
+import com.utkangul.falci.internalClasses.dataClasses.urls
 import okhttp3.*
 import java.io.IOException
 
@@ -115,6 +117,17 @@ object ExportLookupUserCardFunctions {
                             savedLookupUserCardView.startAnimation(animation)
                             savedUsersLinearContainer.removeView(savedLookupUserCardView)
                             cardList.remove(savedLookupUserCardView)
+                        }
+                    }
+                    else if (destroyUserStatusCode == 401){
+                        takeFreshTokens(urls.refreshURL, context)
+                        { responseBody401, exception ->
+                            if (responseBody401 != null) {
+                                println(tokensDataClass.accessToken)
+                                destroySavedLookUpUser(userID,cardList,savedUsersLinearContainer, savedLookupUserCardView, activity, context)
+                            } else {
+                                println(exception)
+                            }
                         }
                     }
                 }

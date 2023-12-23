@@ -1,8 +1,10 @@
 package com.utkangul.falci.internalClasses
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentManager
 import com.airbnb.lottie.LottieAnimationView
@@ -18,7 +20,7 @@ import org.json.JSONObject
 
 object HoroscopeFunctions {
 
-    fun getHoroscope(animationView: LottieAnimationView, fm: FragmentManager, context: Context){
+    fun getHoroscope(animationView: LottieAnimationView, fm: FragmentManager, context: Context, activity: Activity) {
         val getHoroscopeJson = createJsonObject(
             "type" to postHoroscopeData.type.toString(),
             "time_interval" to postHoroscopeData.time_interval.toString()
@@ -50,16 +52,20 @@ object HoroscopeFunctions {
                             replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
                             println(getHoroscopeData)
 
-                        }else {
+                        } else {
                             val errorDetail = responseJson.optString("detail")
+                            activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
+                            activity.runOnUiThread { Toast.makeText(context, " redirecting to profile screen ...", Toast.LENGTH_SHORT).show() }
                             println(errorDetail)
                             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                             val intent = Intent(context, ProfileActivity::class.java)
-                            startActivity(context,intent,options.toBundle())
+                            startActivity(context, intent, options.toBundle())
                         }
 
                     }
-                    if (responseBody == null) {println("response body null"); println("exception is : $exception")}
+                    if (responseBody == null) {
+                        println("response body null"); println("exception is : $exception")
+                    }
 
                 }
             } catch (e: Exception) {
@@ -68,11 +74,12 @@ object HoroscopeFunctions {
         }
     }
 
-    fun getLoveHoroscope(animationView: LottieAnimationView, context: Context, id: Int, fm:FragmentManager){
+    fun getLoveHoroscope(animationView: LottieAnimationView, context: Context, id: Int, fm: FragmentManager) {
         val getLoveHoroscopeJson = createJsonObject(
             "type" to postHoroscopeData.type.toString(),
             "time_interval" to postHoroscopeData.time_interval.toString(),
-            "lookup_user" to id)
+            "lookup_user" to id
+        )
 
         val gson = Gson()
         println(getLoveHoroscopeJson)
@@ -99,23 +106,23 @@ object HoroscopeFunctions {
 
                         if (statusCode == 200) {
                             getHoroscopeData = gson.fromJson(responseBody, GetHoroscopeData::class.java)
-                            if (!controlVariables.isFromCompleteLookup){ replaceMainActivityToFragment(fm, HoroscopeDetailFragment()) }
+                            if (!controlVariables.isFromCompleteLookup) {
+                                replaceMainActivityToFragment(fm, HoroscopeDetailFragment())
+                            }
 
-                            if (controlVariables.isFromCompleteLookup){
+                            if (controlVariables.isFromCompleteLookup) {
                                 controlVariables.navigateToHoroscope = true
                                 controlVariables.isFromCompleteLookup = false
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, MainActivity::class.java)
                                 context.startActivity(intent, options.toBundle())
                             }
-                        }
-
-                        else {
+                        } else {
                             val errorDetail = errorResponseJson.optString("detail")
                             println(errorDetail)
                             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                             val intent = Intent(context, ProfileActivity::class.java)
-                            startActivity(context,intent,options.toBundle())
+                            startActivity(context, intent, options.toBundle())
                         }
                     } else exception?.printStackTrace()
 
