@@ -62,7 +62,7 @@ class UserStatusFunctions {
                                     println("exception $e")
                                 }
                                 override fun onResponse(call: Call, response: Response) {
-                                    println(response.code)
+                                    println(" claim campaign response code ${response.code}")
                                 }
                             })
                         } else { println("kampanya id si yoktu") }
