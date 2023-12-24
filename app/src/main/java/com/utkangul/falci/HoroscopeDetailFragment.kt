@@ -25,8 +25,10 @@ import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityTo
 import com.utkangul.falci.internalClasses.dataClasses.*
 import com.utkangul.falci.internalClasses.statusCode
 import com.google.gson.Gson
+import com.utkangul.falci.internalClasses.InternalFunctions
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
+import com.utkangul.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertTimestampToTime
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -53,7 +55,8 @@ class HoroscopeDetailFragment : Fragment() {
 
         if (getHoroscopeData.time_remaining != null) {
             val builder = AlertDialog.Builder(requireContext())
-            builder.setMessage("You can get your new ${postHoroscopeData.time_interval} ${postHoroscopeData.type} horoscope in \n ${getHoroscopeData.time_remaining}")
+            val remainingTime = convertTimestampToTime(getHoroscopeData.time_remaining!!.toDouble())
+            builder.setMessage("You can get your new ${postHoroscopeData.time_interval} ${postHoroscopeData.type} horoscope in \n $remainingTime ")
             builder.setPositiveButton("Close", null)
             val dialog = builder.create()
             dialog.show()

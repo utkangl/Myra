@@ -48,7 +48,7 @@ class UserStatusFunctions {
                             val responseBody = response.body?.string()
                             val gson = Gson()
                             userStatusDataClass = gson.fromJson(responseBody, UserStatusDataClass::class.java)
-                            println(userStatusDataClass)
+                            println(userStatusDataClass.fortune)
                             coin.current_coin = userStatusDataClass.coin
                             activity.runOnUiThread {
                                 useOrGainCoinMenuCurrentCoinText.text = "${userStatusDataClass.coin}"

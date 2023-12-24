@@ -3,13 +3,15 @@ package com.utkangul.falci.internalClasses.dataClasses
 data class UserStatusDataClass(
     val coin: Int,
     val premium: MutableList<Premium>,
-    val campain: MutableList<Campaign>
+    val campain: MutableList<Campaign>,
+    val fortune: MutableList<DailyFortuneStatus>
 )
 
 var userStatusDataClass = UserStatusDataClass(
     coin = 0,
     premium= mutableListOf(),
-    campain = mutableListOf()
+    campain = mutableListOf(),
+    fortune = mutableListOf()
 )
 
 data class Premium(
@@ -34,4 +36,7 @@ data class Campaign(
     val expire_date: String,
     val remain_repeat: Int,
     val user: Int
+)data class DailyFortuneStatus(
+    val type: String,
+    val is_today: Boolean,
 )

@@ -129,6 +129,14 @@ class InternalFunctions {
             val formattedTime = timeSdf.format(date)
             return Pair(formattedDate, formattedTime)
         }
+        fun convertTimestampToTime(timestamp: Double): String {
+            val timeInMillis = (timestamp * 1000).toLong()
+            val date = Date(timeInMillis)
+            val sdf = SimpleDateFormat("HH:mm:ss")
+            sdf.timeZone = TimeZone.getTimeZone("GMT")
+            return sdf.format(date)
+        }
+
         fun convertDateTimeToTimestamp(dateStr: String, timeStr: String): Long {
             val dateTimeStr = "$dateStr $timeStr"
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
