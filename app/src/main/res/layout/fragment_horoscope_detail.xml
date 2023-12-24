@@ -127,51 +127,77 @@
 
     </ScrollView>
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/favTitleInputLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="300dp"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:layout_marginStart="30dp"-->
-<!--        android:layout_marginEnd="30dp"-->
-<!--        android:visibility="visible">-->
+    <androidx.cardview.widget.CardView
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/takeFavHoroscopeTitleInputCard"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="#FFD8D8D8"
+        android:elevation="5dp"
+        app:cardCornerRadius="15dp"
+        android:visibility="gone">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/takeFavHoroscopeTitleInputText"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/enter_your_title"
+                    android:textColor="@color/black">
+                </TextView>
+                <EditText
+                    android:layout_width="250dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/takeFavHoroscopeTitleInputEditText"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/takeFavHoroscopeTitleInputText"
+                    android:layout_marginTop="15dp"
+                    android:maxLines="1"
+                    android:maxLength="255"
+                    android:background="@drawable/input_edit_text_background"
+                    android:hint="@string/your_title"
+                    android:textColorHint="@color/quantum_grey"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:padding="3dp"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:autofillHints=""
+                    android:inputType="textLongMessage">
+                </EditText>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/takeFavHoroscopeTitleInputSeparatorLine"
+                    android:background="@drawable/seperator_line_grey"
+                    android:layout_below="@id/takeFavHoroscopeTitleInputEditText"
+                    android:layout_marginTop="12dp">
+                </ImageView>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:id="@+id/takeFavHoroscopeTitleInputButton"
+                    android:layout_below="@id/takeFavHoroscopeTitleInputSeparatorLine"
+                    android:text="@string/ok"
+                    android:layout_centerHorizontal="true"
+                    android:background="#D8D8D8"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:textColor="@color/neptune"
+                    android:fontFamily="@font/arima_madurai_bold"
+                    android:focusable="true">
+                </androidx.appcompat.widget.AppCompatButton>
+            </RelativeLayout>
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:cardCornerRadius="25dp"-->
-<!--            app:cardBackgroundColor="#90000000">-->
-
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:id="@+id/favHoroscopeTitleInputCardView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_marginEnd="20dp"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                app:cardBackgroundColor="#1c1444"-->
-<!--                app:cardCornerRadius="15dp"-->
-<!--                app:cardElevation="0dp">-->
-<!--                <EditText-->
-<!--                    android:id="@+id/favHoroscopeTitleInput"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginTop="0dp"-->
-<!--                    android:fontFamily="@font/arima_madurai_light"-->
-<!--                    android:hint="Type your title..."-->
-<!--                    android:imeOptions="actionSend"-->
-<!--                    android:textAlignment="center"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textColorHint="@color/white"-->
-<!--                    android:autofillHints=""-->
-<!--                    android:inputType="textLongMessage"-->
-<!--                     />-->
-<!--            </androidx.cardview.widget.CardView>-->
-
-<!--        </androidx.cardview.widget.CardView>-->
-
-<!--    </RelativeLayout>-->
-
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

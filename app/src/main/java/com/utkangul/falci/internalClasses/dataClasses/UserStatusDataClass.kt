@@ -2,14 +2,14 @@ package com.utkangul.falci.internalClasses.dataClasses
 
 data class UserStatusDataClass(
     val coin: Int,
-    val premium: List<Premium>,
-    val campain: List<Campaign>
+    val premium: MutableList<Premium>,
+    val campain: MutableList<Campaign>
 )
 
 var userStatusDataClass = UserStatusDataClass(
     coin = 0,
-    premium= emptyList<Premium>(),
-    campain = emptyList<Campaign>()
+    premium= mutableListOf(),
+    campain = mutableListOf()
 )
 
 data class Premium(

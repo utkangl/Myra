@@ -173,5 +173,8 @@
     <string name="sample_coin_amount">&amp;&amp;</string>
     <string name="sample_description">the description</string>
     <string name="accept_kvkk">Okudum, onaylıyorum</string>
+    <string name="enter_your_title">Enter your title</string>
+    <string name="your_title">Title..</string>
+    <string name="ok">OK</string>
 
 </resources>

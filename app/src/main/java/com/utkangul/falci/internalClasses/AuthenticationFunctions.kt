@@ -163,7 +163,6 @@ class AuthenticationFunctions {
             }
 
         fun checkIsAccessExpired(nowTime: Long, creationTime: Long, livingTime: Long, context: Context){
-
             if (nowTime - creationTime > livingTime) {
                 println("token is expired")
 
@@ -174,7 +173,6 @@ class AuthenticationFunctions {
                         println(exception)
                     }
                 }
-
             } else {
                 println("token is not expired")
             }

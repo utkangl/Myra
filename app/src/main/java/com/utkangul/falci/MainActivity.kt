@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         RewardedAd.load(this, "ca-app-pub-9194768212989464/2985888856", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                println("burada hata veriyorm")
+                println("onAdFailedToLoad'a dustum")
                 println(adError.toString())
                 rewardedAd = null
             }

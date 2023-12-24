@@ -3,8 +3,10 @@ package com.utkangul.falci.internalClasses
 import android.content.Context
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 import com.utkangul.falci.MainActivity
+import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.dataClasses.*
 import okhttp3.*
 import java.io.IOException
@@ -31,40 +33,66 @@ class UserStatusFunctions {
                             userStatusDataClass =  gson.fromJson(responseBody, UserStatusDataClass::class.java)
                             println(userStatusDataClass)
                             coin.current_coin = userStatusDataClass.coin
-                            var campaignId: Int? = null
-                            if (userStatusDataClass.campain.isNotEmpty()) {
-                                campaignId = userStatusDataClass.campain[0].id
-                            } else println("kampanya listesi bos")
-                            activity.runOnUiThread{
+                            activity.runOnUiThread {
                                 useOrGainCoinMenuCurrentCoinText.text = "${userStatusDataClass.coin}"
                                 coinAmountText.text = "${userStatusDataClass.coin}"
                             }
-                            if (campaignId != null){
-                                val claimCampaignClient = OkHttpClient()
-                                val claimCampaignRequest = Request.Builder()
-                                    .url("${urls.claimCampaignURl}$campaignId")
-                                    .get()
-                                    .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
-                                    .build()
-                                claimCampaignClient.newCall(claimCampaignRequest).enqueue(object : Callback {
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        println("exception $e")
+
+                            if (userStatusDataClass.campain.isEmpty()) { println("kampanya listesi bos") }
+
+                            else {
+                                fun claimCampaign(){
+                                    for (campaign in userStatusDataClass.campain) {
+                                        println("campaign $campaign")
+                                        if (campaign.is_available && !campaign.is_expired) {
+                                            activity.runOnUiThread {
+                                                val builder = AlertDialog.Builder(context)
+                                                builder.setMessage("You have a free campaign, Click yes to Claim")
+                                                builder.setPositiveButton("Yes") { _, _ ->
+                                                    val claimCampaignClient = OkHttpClient()
+                                                    val claimCampaignRequest = Request.Builder()
+                                                        .url("${urls.claimCampaignURl}${campaign.id}")
+                                                        .get()
+                                                        .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
+                                                        .build()
+                                                    claimCampaignClient.newCall(claimCampaignRequest).enqueue(object : Callback {
+                                                        override fun onFailure(call: Call, e: IOException) {
+                                                            println("exception $e")
+                                                        }
+
+                                                        override fun onResponse(call: Call, response: Response) {
+                                                            println(" claim campaign response code ${response.code}")
+                                                            if (response.code == 200) {
+                                                                userStatusDataClass.campain.remove(campaign)
+                                                            } else if (response.code == 401){
+                                                                takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
+                                                                    if (responseBody401 != null) {
+                                                                        println("take fresh tokenin responsu: $responseBody401")
+                                                                        claimCampaign()
+                                                                    } else exception?.printStackTrace()
+                                                                }
+                                                            }
+                                                        }
+                                                    })
+                                                }
+                                                builder.setNegativeButton("No", null)
+                                                builder.create().show()
+                                            }
+                                        } else {
+                                            println("no available campaign")
+                                        }
                                     }
-                                    override fun onResponse(call: Call, response: Response) {
-                                        println(" claim campaign response code ${response.code}")
-                                    }
-                                })
-                            } else { println("kampanya id si yoktu") }
+                                }
+                                if (!controlVariables.navigateBackToProfileActivity) claimCampaign()
+                            }
                         }
 
                         401 -> {
-                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception401 ->
-                                if (exception401 != null) exception401.printStackTrace()
-                                else {
-                                    if (responseBody401 != null) {
-                                        getUserStatus(url, client, context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText)
-                                    }
-                                }
+                            takeFreshTokens(urls.refreshURL, context) { responseBody401, exception401 ->
+                                if (responseBody401 != null) {
+                                    getUserStatus(url, client, context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText)
+                                } else exception401?.printStackTrace()
+
                             }
                         }
 
