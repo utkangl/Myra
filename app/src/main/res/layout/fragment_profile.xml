@@ -89,7 +89,7 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginStart="20dp"
 
-                android:text="@string/doga"
+                android:text="@string/sample_name"
                 android:textSize="24dp"
                 android:fontFamily="@font/arima_madurai_bold"
                 android:textColor="@color/white"
@@ -105,7 +105,7 @@
                 android:layout_marginTop="85dp"
                 android:layout_marginStart="20dp"
 
-                android:text="@string/ikizler"
+                android:text="@string/sample_horoscope"
                 android:textSize="20dp"
                 android:fontFamily="@font/arima_madurai_light"
                 android:textColor="@color/white">
@@ -740,7 +740,7 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:gravity="center"
-                    android:text="@string/favori_burclar_n"
+                    android:text="@string/your_favourite_horoscopes"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     >
@@ -770,7 +770,7 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:gravity="center"
-                    android:text="@string/ayarlar"
+                    android:text="@string/settings"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     >
@@ -824,7 +824,7 @@
         android:background="@drawable/common_next_button"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center"
-        android:text="@string/cikis_yap"
+        android:text="@string/logout"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="17dp">

@@ -77,7 +77,7 @@
                 android:drawableStart="@drawable/search_icon"
                 android:drawablePadding="15dp"
                 android:fontFamily="@font/arima_madurai_light"
-                android:hint="@string/favorileri_ara"
+                android:hint="@string/search_in_favourites"
                 android:imeOptions="actionSend"
                 android:paddingStart="25dp"
                 android:paddingEnd="10dp"

@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,12 +14,12 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
+import com.utkangul.falci.internalClasses.InternalFunctions
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
-import com.utkangul.falci.internalClasses.dataClasses.authenticated
-import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
-import com.utkangul.falci.internalClasses.dataClasses.urls
+import com.utkangul.falci.internalClasses.dataClasses.*
 import okhttp3.*
 import java.io.IOException
+import java.util.*
 
 
 class SettingsFragment : Fragment() {
@@ -32,8 +33,38 @@ class SettingsFragment : Fragment() {
 
         val buyCoinContainerLayout = v.findViewById<RelativeLayout>(R.id.buyCoinContainerLayout)
         val deleteAccountContainerLayout = v.findViewById<RelativeLayout>(R.id.deleteAccountContainerLayout)
+        val changeLanguageContainerLayout = v.findViewById<RelativeLayout>(R.id.changeLanguageContainerLayout)
 
         buyCoinContainerLayout.setOnClickListener{ replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }
+
+        fun setLocale(languageCode: String) {
+            // Dil ayarlarını güncelle
+            val locale = Locale(languageCode)
+            Locale.setDefault(locale)
+            val config = Configuration()
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
+        changeLanguageContainerLayout.setOnClickListener{
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage(R.string.askIfChangeLanguage)
+            builder.setPositiveButton(R.string.yes) { _, _ ->
+                val config: Configuration = resources.configuration
+                if (config.locale.language == "tr") {
+                    setLocale("en")
+                } else {
+                    setLocale("tr")
+                }
+            }
+            builder.setNegativeButton(R.string.no, null)
+            builder.create().show()
+
+        }
 
         deleteAccountContainerLayout.setOnClickListener {
             fun deleteAccount() {
@@ -98,4 +129,5 @@ class SettingsFragment : Fragment() {
         }
         return v
     }
+
 }

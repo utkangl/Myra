@@ -2,22 +2,23 @@
     <string name="app_name">Falci</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="devam">Devam</string>
+    <string name="continue_">Continue</string>
     <string name="enter_a_city">Enter a city</string>
-    <string name="isminiz">Isminiz</string>
-    <string name="sehrini_sec">Sehrini Sec</string>
-    <string name="sifre">Sifre</string>
+    <string name="your_name">Your name</string>
+    <string name="pick_your_vity">Pick your city</string>
+    <string name="password">Password</string>
     <string name="empty" />
     <string name="remember_me">Remember me</string>
-    <string name="favorileri_ara">Favorileri ara…</string>
+    <string name="search_in_favourites">Search in favourites</string>
     <string name="color_of_favcard">color of favCard</string>
     <string name="time_interval_card_background">time interval card background</string>
     <string name="user">User</string>
 
     <string-array name="marital_status">
-        <item>Medeni durumunuzu Seciniz</item>
+        <item>Pick your marital Status</item>
         <item>Single</item>
         <item>Married</item>
+        <item>Flirting</item>
     </string-array>
 
     <string-array name="genders">
@@ -86,19 +87,18 @@
     <string name="forth_digit">forth digit</string>
     <string name="fifth_digit">fifth digit</string>
     <string name="sixth_digit">sixth digit</string>
-    <string name="ayarlar">Ayarlar</string>
     <string name="delete_fav_card_background">delete fav card background</string>
     <string name="title_of_the_horoscope">Title Of The Horoscope</string>
     <string name="image_button_for_click_delete_fav_horoscope_card">image button for click delete fav horoscope card</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_dapibus_diam_quis_imperdiet_accumsan_maecenas_vitae_ex_sed_ipsum_aliquam_interdum_sed_ut_velit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit.</string>
     <string name="message_to_mira">Message to Mira</string>
-    <string name="sldmvbasl_dm_fdnbklnsdfb_lsdbnmdfbml_lsbfmlksfbmlkm_dslbmsdlm_lksfblksfdmbkldsmf_lsdbmldbmklsbf_sldmdsf">şsldmvbaslşdm fdnbklnsdfb lsdbnmdfbml lsbfmlksfbmlkm dslbmsdlm lksfblksfdmbkldsmf lsdbmldbmklsbf sldmdsf</string>
+    <string name="completeProfileNameInputMyraSpeech">Enter your informatins for each following step</string>
     <string name="edit_favourites">Edit Favourites</string>
     <string name="favourites">FAVOURITES</string>
     <string name="cancel_fav_search_filter">cancel fav search filter</string>
-    <string name="bilgilerinizi_girin">Bilgilerinizi Girin</string>
-    <string name="sifremi_unuttum">Sifremi unuttum</string>
-    <string name="hesab_n_z_yok_mu_hesap_a_n">Hesabınız yok mu, hesap açın</string>
+    <string name="enter_your_informations">Enter your informations</string>
+    <string name="forgot_my_password">I forgot my password</string>
+    <string name="done_have_an_account_create_one">Dont have an account? Create one!</string>
     <string name="profile">Profile</string>
     <string name="profile_name_first_letter">profile name first letter</string>
     <string name="emptystring" />
@@ -111,26 +111,25 @@
     <string name="sun">Sun</string>
     <string name="moon">Moon</string>
     <string name="uranus">Uranus</string>
-    <string name="doga">Doga</string>
-    <string name="ikizler">Ikizler</string>
+    <string name="sample_name">Random Name</string>
+    <string name="sample_horoscope">Random Horoscope</string>
     <string name="planet">PLANET</string>
 
 
-    <string name="sample_long_text">6698 sayılı Kişisel Verilerin Korunması Kanunu, 07.04.2016 tarih ve 29677 sayılı Resmi Gazete’de yayınlanarak yürürlüğe girmiştir. Uluslararası belgeler, mukayeseli hukuk uygulamaları ve ülkemiz ihtiyaçları göz önüne alınmak suretiyle hazırlanan Kanun ile kişisel verilerin çağdaş standartlarda işlenmesi ve koruma altına alınması amaçlanmaktadır. Bu kapsamda Kanunun amacı; kişisel verilerin işlenme şartlarını, kişisel verilerin işlenmesinde kişilerin temel hak ve özgürlüklerinin korunmasını ve kişisel verileri işleyen gerçek ve tüzel kişilerin yükümlülükleri ile uyacakları usul ve esasları düzenlemektir.Şirketimiz, 6698 sayılı Kişisel Verilerin Korunması Kanunu’na uymakla yükümlüdür ve faaliyet süreçlerinde işlenen tüm kişisel veriler bu kanun kapsamındadır.Elekse Ödeme Kuruluşu A.Ş. olarak, veri sorumlusu sıfatıyla hareket etmekte ve kişisel verilerin korunması hakkında gerekli önlemleri almaktayız.Kişisel Verilerin İşlenmesinde Genel İlkelerŞirketimiz, kişisel verilerin işlenmesinde 6698 sayılı Kanun’un ortaya koymuş olduğu genel ilkelere uygun davranmaktadır. Kişisel verilerin işlenmesinde genel ilkelerimiz şu şekildedir;1) Hukuka ve dürüstlük kurallarına uygun olma,2) Doğru ve gerektiğinde güncel olma,3) Belirli, açık ve meşru amaçlar için işlenme,4) İşlendikleri amaçla bağlantılı, sınırlı ve ölçülü olma,5) İlgili mevzuatta öngörülen veya işlendikleri amaç için gerekli olan süre kadar muhafaza etme</string>
+    <string name="sample_long_text">This is our Privacy Policy</string>
 
 
-    <string name="favori_burclar_n">Favori Burcların</string>
+    <string name="your_favourite_horoscopes">Your Favourite Horoscopes</string>
     <string name="favourites_screen_top_banner">favourites screen top banner</string>
-    <string name="cikis_yap">Cikis Yap</string>
-    <string name="profilini_duzenle">Profilini Duzenle</string>
-    <string name="adin">Adin</string>
-    <string name="cinsiyet">Cinsiyet</string>
-    <string name="dogum_tarihi">Dogum Tarihi</string>
-    <string name="dogum_saati">Dogum Saati</string>
-    <string name="dogum_yeri">Dogum Yeri</string>
-    <string name="is">Is</string>
-    <string name="iliski_durumu">Iliski Durumu</string>
-    <string name="card_view_bu">card view bu</string>
+    <string name="logout">Logout</string>
+    <string name="edit_your_profile">Edit Your Profile</string>
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="date_of_birth">BirthDate</string>
+    <string name="time_of_birth">BirthTime</string>
+    <string name="location_of_birth">BirthLocation</string>
+    <string name="occupation">occupation</string>
+    <string name="marital_status">Marital status</string>
     <string name="horoscopetype_timeinterval">HoroscopeType/TimeInterval</string>
     <string name="current_coin">Current Coin</string>
     <string name="imagebutton_of_profile">imageButton of profile</string>
@@ -140,22 +139,22 @@
     <string name="main_menu_mira_triangle">main menu mira triangle</string>
     <string name="click_to_get_horoscope">Click to Get Horoscope</string>
     <string name="ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz">Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.</string>
-    <string name="genel">GENEL</string>
+    <string name="general">GENERAL</string>
     <string name="general_sign_card_s_image">general sign card\'s image</string>
-    <string name="ask">ASK</string>
+    <string name="love">LOVE</string>
     <string name="love_sign_card_s_image">love sign card\'s image</string>
-    <string name="career">KARİYER</string>
+    <string name="career">Career</string>
     <string name="career_sign_card_s_image">career sign card\'s image</string>
     <string name="daily_button_background_image">daily button background image</string>
     <string name="weekly_button_background_image">weekly button background image</string>
     <string name="monthly_button_background_image">monthly button background image</string>
-    <string name="aylik">AYLIK</string>
+    <string name="time_interval_monthly">MONTHLY</string>
     <string name="yearly_button_background_image">yearly button background image</string>
-    <string name="yillik">YILLIK</string>
+    <string name="time_interval_yearly">YEARLY</string>
     <string name="time_interval_card_add_icon">time interval card add icon</string>
     <string name="get_your_horoscope">Get your Horoscope</string>
-    <string name="haftalik">HAFTALIK</string>
-    <string name="gunluk">GUNLUK</string>
+    <string name="time_interval_weekly">WEEKLY</string>
+    <string name="time_interval_daily">DAILY</string>
     <string name="use_coin">Use 10 Coin!</string>
     <string name="watch_ad_and_earn_coin">Watch Ad and Earn Coin</string>
     <string name="buy_5_coins">5 Coin</string>
@@ -172,11 +171,13 @@
     <string name="refresh_icon_for_resend_verification_email_card">refresh icon for resend verification email card</string>
     <string name="sample_coin_amount">&amp;&amp;</string>
     <string name="sample_description">the description</string>
-    <string name="accept_kvkk">Okudum, onaylıyorum</string>
+    <string name="accept_kvkk">Read and Agreed</string>
     <string name="enter_your_title">Enter your title</string>
     <string name="your_title">Title..</string>
     <string name="ok">OK</string>
     <string name="claim">Claim</string>
-    <string name="campaign_title">Kampanyadan dolayı 10 coin kazandın! \n Gule Gule harca :)</string>
-
+    <string name="campaign_title">You earned 10 coins from our free campaign! \n Enjoy it :)</string>
+    <string name="askIfChangeLanguage"> This action will restart the app. Do you want to continue</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

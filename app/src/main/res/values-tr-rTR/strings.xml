@@ -1,55 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Falci</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="continue_">Continue</string>
-    <string name="enter_a_city">Enter a city</string>
-    <string name="your_name">Your name</string>
-    <string name="pick_your_vity">Pick your city</string>
-    <string name="password">Password</string>
+    <string name="continue_">Devam</string>
+    <string name="enter_a_city">Bir şehir yaz</string>
+    <string name="your_name">İsminiz</string>
+    <string name="pick_your_vity">Şehrinizi seçin</string>
+    <string name="password">Şifre</string>
+    <string name="remember_me">Beni hatırla</string>
+    <string name="search_in_favourites">Favorilerde ara</string>
+    <string name="user">Kullanıcı</string>
     <string name="empty" />
-    <string name="remember_me">Remember me</string>
-    <string name="search_in_favourites">Search in favourites</string>
-    <string name="color_of_favcard">color of favCard</string>
-    <string name="time_interval_card_background">time interval card background</string>
-    <string name="user">User</string>
 
     <string-array name="marital_status">
-        <item>Pick your marital Status</item>
-        <item>Single</item>
-        <item>Married</item>
-        <item>Flirting</item>
+        <item>Medeni durumunu seç</item>
+        <item>Yalnız</item>
+        <item>Evli</item>
+        <item>Flört Halinde</item>
     </string-array>
 
     <string-array name="genders">
-        <item>Pick your gender</item>
-        <item>Male</item>
-        <item>Female</item>
-        <item>Other</item>
+        <item>Cinsiyetini seç</item>
+        <item>Erkek</item>
+        <item>Kadın</item>
+        <item>Diger</item>
     </string-array>
 
     <string-array name="occupations">
-        <item>Pick your occupation</item>
-        <item>Healthcare and Medicine</item>
-        <item>Education and Teaching</item>
-        <item>Information Technology (IT)</item>
-        <item>Business and Management</item>
-        <item>Sales and Marketing</item>
-        <item>Engineering</item>
-        <item>Arts and Entertainment</item>
-        <item>Construction and Trades</item>
-        <item>Law and Legal Services</item>
-        <item>Science and Research</item>
-        <item>Social Services and Nonprofits</item>
-        <item>Finance and Accounting</item>
-        <item>Agriculture and Farming</item>
-        <item>Hospitality and Tourism</item>
-        <item>Media and Communication</item>
-        <item>Manufacturing and Production</item>
-        <item>Transportation and Logistics</item>
-        <item>Administration and Office Support</item>
-        <item>Sports and Recreation</item>
-        <item>Government and Public Administration</item>
+        <item>Mesleğini seç </item>
+        <item>Sağlık ve Tıp </item>
+        <item>Eğitim ve Öğretim </item>
+        <item>Bilgi Teknolojisi (BT) </item>
+        <item>İş ve yönetim </item>
+        <item>Satış ve Pazarlama </item>
+        <item>Mühendislik </item>
+        <item>Sanat ve Eğlence </item>
+        <item>İnşaat ve Ticaret </item>
+        <item>Hukuk ve Hukuk Hizmetleri </item>
+        <item>Bilim ve Araştırma </item>
+        <item>Sosyal Hizmetler ve Kâr Amacı Gütmeyen Kuruluşlar </item>
+        <item>Finans ve muhasebe </item>
+        <item>Tarım ve Çiftçilik </item>
+        <item>Otelcilik ve Turizm </item>
+        <item>Medya ve İletişim </item>
+        <item>İmalat </item>
+        <item>Taşımacılık ve Lojistik </item>
+        <item>Yönetim ve Ofis Desteği </item>
+        <item>Spor ve Rekreasyon </item>
+        <item>Hükümet ve Kamu Yönetimi </item>
     </string-array>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -64,17 +61,18 @@
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="account">Account</string>
-    <string name="change_your_password">Change Your Password</string>
+
+    <string name="account">Hesap</string>
+    <string name="change_your_password">Şifreni değiştir</string>
     <string name="seperatorline">seperatorline</string>
-    <string name="buy_myra_coins">Buy Myra Coins</string>
-    <string name="delete_account">Delete My Account</string>
-    <string name="support">Support</string>
-    <string name="change_language">Change Language</string>
-    <string name="info">Info</string>
-    <string name="privacy_policy">Privacy Policy</string>
+    <string name="buy_myra_coins">MyraCoin satın al</string>
+    <string name="delete_account">Hesabımı sil</string>
+    <string name="support">Destek</string>
+    <string name="change_language">Dil değiştir</string>
+    <string name="info">Uygulama hakkında</string>
+    <string name="privacy_policy">Gizlilik Politikamız</string>
     <string name="lock_image">lock image</string>
-    <string name="settings">SETTINGS</string>
+    <string name="settings">AYARLAR</string>
     <string name="settings_screen_top_banner">settings screen top banner</string>
     <string name="coin_image">coin image</string>
     <string name="payment_method_image">payment method image</string>
@@ -91,45 +89,43 @@
     <string name="title_of_the_horoscope">Title Of The Horoscope</string>
     <string name="image_button_for_click_delete_fav_horoscope_card">image button for click delete fav horoscope card</string>
     <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_dapibus_diam_quis_imperdiet_accumsan_maecenas_vitae_ex_sed_ipsum_aliquam_interdum_sed_ut_velit">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus diam quis imperdiet accumsan. Maecenas vitae ex sed ipsum aliquam interdum sed ut velit.</string>
-    <string name="message_to_mira">Message to Mira</string>
-    <string name="completeProfileNameInputMyraSpeech">Enter your informatins for each following step</string>
-    <string name="edit_favourites">Edit Favourites</string>
-    <string name="favourites">FAVOURITES</string>
+    <string name="message_to_mira">Mira ile mesajlaş</string>
+    <string name="completeProfileNameInputMyraSpeech">Her aşama için istenen bilgileri doldur</string>
+    <string name="edit_favourites">Favorileri Düzenle</string>
+    <string name="favourites">Favoriler</string>
     <string name="cancel_fav_search_filter">cancel fav search filter</string>
     <string name="enter_your_informations">Enter your informations</string>
-    <string name="forgot_my_password">I forgot my password</string>
-    <string name="done_have_an_account_create_one">Dont have an account? Create one!</string>
-    <string name="profile">Profile</string>
+    <string name="forgot_my_password">Şifremi Unuttum</string>
+    <string name="done_have_an_account_create_one">Hesabın yok mu? Hemen oluştur</string>
+    <string name="profile">Profil</string>
     <string name="profile_name_first_letter">profile name first letter</string>
     <string name="emptystring" />
-    <string name="venus">Venus</string>
-    <string name="saturn">Saturn</string>
-    <string name="neptune">Neptune</string>
+    <string name="venus">Venüs</string>
+    <string name="saturn">Satürn</string>
+    <string name="neptune">Neptün</string>
     <string name="mars">Mars</string>
-    <string name="jupiter">Jupiter</string>
-    <string name="mercury">Mercury</string>
-    <string name="sun">Sun</string>
-    <string name="moon">Moon</string>
-    <string name="uranus">Uranus</string>
+    <string name="jupiter">Jüpiter</string>
+    <string name="mercury">Merkür</string>
+    <string name="sun">Güneş</string>
+    <string name="moon">Ay</string>
+    <string name="uranus">Uranüs</string>
     <string name="sample_name">Random Name</string>
     <string name="sample_horoscope">Random Horoscope</string>
     <string name="planet">PLANET</string>
 
+    <string name="sample_long_text">Bu bizim güvenlik politikamız</string>
 
-    <string name="sample_long_text">This is our Privacy Policy</string>
-
-
-    <string name="your_favourite_horoscopes">Your Favourite Horoscopes</string>
+    <string name="your_favourite_horoscopes">Favori Burç Yorumların</string>
     <string name="favourites_screen_top_banner">favourites screen top banner</string>
-    <string name="logout">Logout</string>
-    <string name="edit_your_profile">Edit Your Profile</string>
-    <string name="name">Name</string>
-    <string name="gender">Gender</string>
-    <string name="date_of_birth">BirthDate</string>
-    <string name="time_of_birth">BirthTime</string>
-    <string name="location_of_birth">BirthLocation</string>
-    <string name="occupation">occupation</string>
-    <string name="marital_status">Marital status</string>
+    <string name="logout">Çıkış Yap</string>
+    <string name="edit_your_profile">Profilini Düzenle</string>
+    <string name="name">İsim</string>
+    <string name="gender">Cinsiyet</string>
+    <string name="date_of_birth">Doğum Tarihi</string>
+    <string name="time_of_birth">Doğum Saati</string>
+    <string name="location_of_birth">Doğum Yeri</string>
+    <string name="occupation">Meslek</string>
+    <string name="marital_status">Medeni Durum</string>
     <string name="horoscopetype_timeinterval">HoroscopeType/TimeInterval</string>
     <string name="current_coin">Current Coin</string>
     <string name="imagebutton_of_profile">imageButton of profile</string>
@@ -137,47 +133,47 @@
     <string name="back_arrow_image_button">back arrow image button</string>
     <string name="main_menu_mira">main menu mira</string>
     <string name="main_menu_mira_triangle">main menu mira triangle</string>
-    <string name="click_to_get_horoscope">Click to Get Horoscope</string>
+    <string name="click_to_get_horoscope">Burç yorumunu almak için tıkla</string>
     <string name="ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz">Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.</string>
-    <string name="general">GENERAL</string>
+    <string name="general">GENEL</string>
     <string name="general_sign_card_s_image">general sign card\'s image</string>
-    <string name="love">LOVE</string>
+    <string name="love">AŞK</string>
     <string name="love_sign_card_s_image">love sign card\'s image</string>
-    <string name="career">Career</string>
+    <string name="career">KARİYER</string>
     <string name="career_sign_card_s_image">career sign card\'s image</string>
     <string name="daily_button_background_image">daily button background image</string>
     <string name="weekly_button_background_image">weekly button background image</string>
     <string name="monthly_button_background_image">monthly button background image</string>
-    <string name="time_interval_monthly">MONTHLY</string>
+    <string name="time_interval_monthly">AYLIK</string>
     <string name="yearly_button_background_image">yearly button background image</string>
-    <string name="time_interval_yearly">YEARLY</string>
+    <string name="time_interval_yearly">YILLIK</string>
     <string name="time_interval_card_add_icon">time interval card add icon</string>
-    <string name="get_your_horoscope">Get your Horoscope</string>
-    <string name="time_interval_weekly">WEEKLY</string>
-    <string name="time_interval_daily">DAILY</string>
-    <string name="use_coin">Use 10 Coin!</string>
-    <string name="watch_ad_and_earn_coin">Watch Ad and Earn Coin</string>
+    <string name="get_your_horoscope">Burç Yorumunu Al</string>
+    <string name="time_interval_weekly">HAFTALIK</string>
+    <string name="time_interval_daily">GÜNLÜK</string>
+    <string name="use_coin">10 Coin Kullan!</string>
+    <string name="watch_ad_and_earn_coin">Reklam izle ve coin kazan</string>
     <string name="buy_5_coins">5 Coin</string>
     <string name="buy_25_coins">25 Coin</string>
     <string name="buy_50_coins">50 Coin</string>
-    <string name="subscribe_weekly">Weekly</string>
-    <string name="subscribe_monthly">Monthly</string>
-    <string name="subscribe_yearly">Yearly</string>
-    <string name="one_time_purchases">One Time Purchases</string>
-    <string name="subscriptions">Subscriptions</string>
-    <string name="in_app_products">In App Products</string>
+    <string name="subscribe_weekly">Haftalık</string>
+    <string name="subscribe_monthly">Aylık</string>
+    <string name="subscribe_yearly">Yıllık</string>
+    <string name="one_time_purchases">Tek seferlik satın alımlar</string>
+    <string name="subscriptions">Abonelikler</string>
+    <string name="in_app_products">Uygulama İçi Ürünler</string>
     <string name="sample_price_text">price</string>
-    <string name="coins_and_subscriptions"><![CDATA[Coins & Subscriptions]]></string>
+    <string name="coins_and_subscriptions"><![CDATA[Coinler & Abonelikler]]></string>
     <string name="refresh_icon_for_resend_verification_email_card">refresh icon for resend verification email card</string>
     <string name="sample_coin_amount">&amp;&amp;</string>
     <string name="sample_description">the description</string>
-    <string name="accept_kvkk">Read and Agreed</string>
-    <string name="enter_your_title">Enter your title</string>
-    <string name="your_title">Title..</string>
-    <string name="ok">OK</string>
-    <string name="claim">Claim</string>
-    <string name="campaign_title">You earned 10 coins from our free campaign! \n Enjoy it :)</string>
-    <string name="askIfChangeLanguage"> This action will restart the app. Do you want to continue</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="accept_kvkk">Okudum, kabul ediyorum</string>
+    <string name="enter_your_title">Başlığınızı Girin</string>
+    <string name="your_title">Başlık..</string>
+    <string name="ok">Tamam</string>
+    <string name="claim">Topla</string>
+    <string name="campaign_title">Kampanyamız sayesinde 10 coin kazandın! \n Güle güle harca :)</string>
+    <string name="askIfChangeLanguage">Bu işlemden sonra uygulamanın yeniden başlatılması gerecek. Devam etmek istiyor musunuz</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
 </resources>
