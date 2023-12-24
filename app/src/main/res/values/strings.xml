@@ -176,5 +176,7 @@
     <string name="enter_your_title">Enter your title</string>
     <string name="your_title">Title..</string>
     <string name="ok">OK</string>
+    <string name="claim">Claim</string>
+    <string name="campaign_title">Kampanyadan dolayı 10 coin kazandın! \n Gule Gule harca :)</string>
 
 </resources>

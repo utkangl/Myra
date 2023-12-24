@@ -12,17 +12,18 @@
         android:layout_height="wrap_content"
 
         android:layout_alignParentEnd="true"
-
         android:layout_marginStart="8dp"
         android:minWidth="120dp"
+        android:maxWidth="300dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/user_chat_message_background"
         android:padding="15dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
+        android:textAlignment="gravity"
         android:textColor="@android:color/white"
         android:fontFamily="@font/arima_madurai_light"
-        android:textSize="18dp"
+        android:textSize="16dp"
         tools:ignore="SpUsage" />
 </RelativeLayout>

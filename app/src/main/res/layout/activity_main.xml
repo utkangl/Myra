@@ -679,5 +679,59 @@
         </ImageView>
     </RelativeLayout>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/claimCampaignCard"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="#FFD8D8D8"
+        android:elevation="5dp"
+        app:cardCornerRadius="15dp"
+        android:visibility="gone">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:maxLines="5"
+                android:gravity="center"
+                android:id="@+id/claimCampaignCardText"
+                android:textSize="18dp"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/campaign_title"
+                android:textColor="@color/black">
+            </TextView>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/claimCampaignSeparatorLine"
+                android:background="@drawable/seperator_line_grey"
+                android:layout_below="@id/claimCampaignCardText"
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/sample_description">
+            </ImageView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:id="@+id/claimCampaignClaimButton"
+                android:layout_below="@id/claimCampaignSeparatorLine"
+                android:text="@string/claim"
+                android:layout_centerHorizontal="true"
+                android:background="#D8D8D8"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:textColor="@color/neptune"
+                android:fontFamily="@font/arima_madurai_bold"
+                android:focusable="true">
+            </androidx.appcompat.widget.AppCompatButton>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

@@ -184,6 +184,9 @@ class MainActivity : AppCompatActivity() {
         val coinAmountContainerLayout = findViewById<RelativeLayout>(R.id.coinAmountContainerLayout)
         val coinAmountText = findViewById<TextView>(R.id.coinAmountText)
 
+        val claimCampaignCard = findViewById<CardView>(R.id.claimCampaignCard)
+        val claimCampaignClaimButton = findViewById<AppCompatButton>(R.id.claimCampaignClaimButton)
+
         val generalSignParams = generalSign.layoutParams as RelativeLayout.LayoutParams
         val loveSignParams = loveSign.layoutParams as RelativeLayout.LayoutParams
         val careerSignParams = careerSign.layoutParams as RelativeLayout.LayoutParams
@@ -225,14 +228,14 @@ class MainActivity : AppCompatActivity() {
             if (authenticated.isLoggedIn){
                 val url = urls.userStatusURL
                 val client = OkHttpClient()
-                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText)
+                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
             }
             },1000)
         } else {
             if (authenticated.isLoggedIn){
                 val url = urls.userStatusURL
                 val client = OkHttpClient()
-                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText)
+                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
             }
         }
 

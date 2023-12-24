@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +14,12 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import com.airbnb.lottie.LottieAnimationView
 import com.utkangul.falci.internalClasses.GetFavsFuncs
+import com.utkangul.falci.internalClasses.UserStatusFunctions
+import com.utkangul.falci.internalClasses.dataClasses.authenticated
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.urls
 import com.utkangul.falci.internalClasses.listOfFavCards
-
+import okhttp3.OkHttpClient
 
 
 var numOfCards = 0
@@ -44,8 +48,11 @@ class FavouriteHoroscopesFragment : Fragment() {
 
         controlVariables.swipeBack = false
 
-        getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter,
-            favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
+        Handler(Looper.getMainLooper()).postDelayed({
+            getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter,
+                favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
+        },1500)
+
 
         editFavourites.setOnClickListener{
             for (card in listOfFavCards){

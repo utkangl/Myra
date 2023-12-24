@@ -50,7 +50,7 @@ class GetFavsFuncs(activity: Activity) {
 
         CoroutineScope(Dispatchers.IO).launch {
             showLoadingAnimation(animationView)
-            delay(2500)
+            delay(1000)
             val response = client.newCall(request).execute()
 
             when (val getFavsStatusCode = response.code) {
