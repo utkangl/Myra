@@ -13,8 +13,8 @@ android {
         applicationId "com.utkangul.falci"
         minSdk 24
         targetSdk 34
-        versionCode 11
-        versionName "11.1"
+        versionCode 12
+        versionName "12.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
