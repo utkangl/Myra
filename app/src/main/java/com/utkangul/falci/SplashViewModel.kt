@@ -22,14 +22,13 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
         val savedRefreshToken = tokensSharedPreferences.getString("refresh_token",null) // refresh token is saved in last login, does not matter if remember me is checked or not, saved until logout
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time",0) // it is set in last login, does not matter if remember me is checked or not, saved until logout
         var didLogin = tokensSharedPreferences.getBoolean("didLogin",false) // this boolean is true when user checks remember me checkbox
-
+        val editor = tokensSharedPreferences.edit()
         val currentTime = System.currentTimeMillis() / 1000
         if(currentTime - savedTokenCreationTime > 600000){ didLogin = false } // refresh token lasts 30 minutes
         //didLogin = false
         // if didLogin is true and the token in sharedPreferences is not null or empty
         if (didLogin && !savedAccessToken.isNullOrEmpty()){
-            println("user tokens are saved in device, didLogin is true, user automatically will be logged in until logout ")
-
+            println("didlogin true kayıtlı token var")
             tokensDataClass= JWTTokensDataClass(
                 accessToken = savedAccessToken,
                 refreshToken = savedRefreshToken!!,
@@ -41,8 +40,25 @@ class SplashViewModel(application: Application) : AndroidViewModel(application) 
             tokensDataClass.tokensCreatedAt = savedTokenCreationTime
             authenticated.isLoggedIn = true
         }
-
-        if(!didLogin){println("access token is not saved in sharedPreferences and didLogin is false")}
+        else if (didLogin && savedAccessToken.isNullOrEmpty()){
+            println("didlogin true ama kayıtlı token yok, didlogin false yapıyom")
+            editor.putBoolean("didLogin", false)
+            editor.apply()
+            didLogin = false
+        }
+        if(!didLogin){
+            println("didLogin is false")
+            if (!savedAccessToken.isNullOrEmpty()){
+                println("$savedAccessToken")
+                println("didlogin false ama token var, didlogin true yapıyorum main activity de expire kontrolüne bak")
+                editor.putBoolean("didLogin", true)
+                editor.apply()
+                didLogin = true
+            }
+            else if(savedAccessToken.isNullOrEmpty()){
+                println("didlogin false token de yok")
+            }
+        }
 
         // wait at least 2 seconds before launch
         viewModelScope.launch{delay(2000); _isLoading.value = false}

@@ -14,6 +14,7 @@ import java.io.IOException
 class UserStatusFunctions {
     object UserStatusFunctionsObject{
         fun getUserStatus(url:String, client: OkHttpClient, context: Context,activity: MainActivity, useOrGainCoinMenuCurrentCoinText:TextView,coinAmountText:TextView){
+            println("get user status burada cagirildi")
             val request = Request.Builder()
                 .url(url)
                 .get()
@@ -22,8 +23,8 @@ class UserStatusFunctions {
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) { println("exception $e") }
                 override fun onResponse(call: Call, response: Response) {
-                    println("response code : ${response.code}")
-                    println("response : $response")
+                    println("response code from get user status : ${response.code}")
+                    println("response from get user status : $response")
 
                     when (response.code ){
 
@@ -83,7 +84,10 @@ class UserStatusFunctions {
                                         }
                                     }
                                 }
-                                if (!controlVariables.navigateBackToProfileActivity) claimCampaign()
+                                if (!controlVariables.navigateBackToProfileActivity && !controlVariables.isFromCompleteLookup) {
+                                    println("claim cagiriyorum cünkü isFromCompleteLookup false: ${controlVariables.isFromCompleteLookup}")
+                                    claimCampaign()
+                                }
                             }
                         }
 

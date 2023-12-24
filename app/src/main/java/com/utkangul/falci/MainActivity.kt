@@ -112,13 +112,37 @@ class MainActivity : AppCompatActivity() {
         controlVariables.isSavedUsersLoaded = false
         controlVariables.isBurcCardOpen = false
         val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+        var didLogin = tokensSharedPreferences.getBoolean("didLogin",false)
 
         val currentTime = System.currentTimeMillis() / 1000
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time", 0)
+        println(" token creation time $savedTokenCreationTime")
+        val isCreationTimeZero: Boolean = savedTokenCreationTime.toInt()==0
 
-        println("it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
-        checkIsAccessExpired(currentTime, savedTokenCreationTime, 750, this) // if it has been more than 15 minutes till creation, refresh
-        if (currentTime - savedTokenCreationTime > 600000) {
+        when(isCreationTimeZero to didLogin){
+            true to true ->{
+                println("token creation time 0 ama didlogin true, didlogini false yapıyorum")
+                authenticated.isLoggedIn = false
+                val editor = tokensSharedPreferences.edit()
+                editor.putBoolean("didLogin", false)
+                editor.apply()
+                didLogin = false
+                authenticated.isLoggedIn = false
+            }
+            false to true -> {
+                println("didlogin true, creation time sıfır değil, expire kontrolü yapıyorum")
+                println("it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
+                controlVariables.isInExpireControl = true
+                checkIsAccessExpired(currentTime, savedTokenCreationTime, 20, this) // if it has been more than 15 minutes till creation, refresh
+            }
+            true to false -> {
+                println("token creation time 0, ve didlogin false. logout yapılmış")
+                authenticated.isLoggedIn = false
+            }
+        }
+
+        if ((currentTime - savedTokenCreationTime > 600000) && savedTokenCreationTime.toInt() != 0) {
+            println("refresh de dolmus")
             authenticated.isLoggedIn = false
         } // refresh token lasts 30 minutes
 
@@ -184,6 +208,8 @@ class MainActivity : AppCompatActivity() {
 
         //navigate user directly to horoscope, when horoscope mode is love and when user is navigated to main screen from lookup user's complete profile
         if (controlVariables.navigateToHoroscope) {
+            println("navigate to horoscope ile geldim ")
+            println("${controlVariables.isFromCompleteLookup} controlVariables.isFromCompleteLookup")
             println("navigating to horoscope detail")
             replaceMainActivityToFragment(supportFragmentManager, HoroscopeDetailFragment())
             setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
@@ -191,12 +217,23 @@ class MainActivity : AppCompatActivity() {
             controlVariables.isFromLoveHoroscope = false
         }
 
-
+        println("is in expire ${controlVariables.isInExpireControl}")
         //get user status for coin, premium and campaign
-        if (authenticated.isLoggedIn){
-            val url = urls.userStatusURL
-            val client = OkHttpClient()
-            getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText)
+        if (controlVariables.isInExpireControl){
+            println("expire kontrolü bitsin diye get user statusu gecikmeli çagiriyorm")
+            Handler(Looper.getMainLooper()).postDelayed({
+            if (authenticated.isLoggedIn){
+                val url = urls.userStatusURL
+                val client = OkHttpClient()
+                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText)
+            }
+            },1000)
+        } else {
+            if (authenticated.isLoggedIn){
+                val url = urls.userStatusURL
+                val client = OkHttpClient()
+                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText)
+            }
         }
 
         settingsButton.setOnClickListener {
@@ -321,13 +358,21 @@ class MainActivity : AppCompatActivity() {
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                 }
-                if (controlVariables.isFromLoveHoroscope) {
+                if (controlVariables.isFromLoveHoroscope && !controlVariables.isFromAddLookupUser) {
                     handleCloseBurcCard()
                     Handler(Looper.getMainLooper()).postDelayed({
                         setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
                         getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
                     }, 350)
                     setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+                }
+                if (controlVariables.isFromLoveHoroscope && controlVariables.isFromAddLookupUser) {
+                    handleCloseBurcCard()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+                        val intent = Intent(this, CompleteProfile::class.java); startActivity(intent, options.toBundle())
+                        controlVariables.isFromAddLookupUser = false
+                    }, 370)
                 }
             }
         }

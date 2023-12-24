@@ -32,6 +32,10 @@ import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityTo
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.utkangul.falci.internalClasses.dataClasses.*
 import com.utkangul.falci.internalClasses.statusCode
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class ProfileFragment : Fragment() {
@@ -258,19 +262,23 @@ class ProfileFragment : Fragment() {
                 postJsonWithHeader(urls.logoutURL,refreshTokenJSON, requireContext())
                 { responseBody, _ ->
                     if (statusCode == 205){
-                        requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
-                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                        val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent,options.toBundle())
-                        authenticated.isLoggedIn = false
-
-                        sharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
-                        val editor = sharedPreferences.edit()
-                        editor.putString("access_token", "")
-                        editor.putString("refresh_token", "")
-                        editor.putLong("token_creation_time", 0)
-                        editor.putBoolean("didLogin", false)
-                        editor.apply()
-                    } else if (statusCode == 400){
+                        println("logoutun status kodu 205")
+                        CoroutineScope(Dispatchers.IO).launch {
+                            requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
+                            sharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+                            editor.putString("access_token", null)
+                            editor.putString("refresh_token", null)
+                            editor.putLong("token_creation_time", 0)
+                            editor.putBoolean("didLogin", false)
+                            editor.apply()
+                            delay(2000)
+                            val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                            val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent,options.toBundle())
+                            authenticated.isLoggedIn = false
+                        }
+                    }
+                    else if (statusCode == 400){
                         val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                         val detail = responseJson?.optString("detail")
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_LONG).show()}

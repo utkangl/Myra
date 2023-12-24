@@ -87,10 +87,12 @@ class HoroscopeDetailFragment : Fragment() {
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val intent = Intent(requireContext(), ProfileActivity::class.java); startActivity(intent, options.toBundle())
                         controlVariables.navigateToFavs = true
+                        controlVariables.isFromCompleteLookup = false
                     } else {
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                         val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(mainActivityIntent, options.toBundle())
+                        controlVariables.isFromCompleteLookup = false
                     }
                 }
             }

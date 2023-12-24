@@ -125,7 +125,7 @@ object HoroscopeFunctions {
 
                                 if (controlVariables.isFromCompleteLookup) {
                                     controlVariables.navigateToHoroscope = true
-                                    controlVariables.isFromCompleteLookup = false
+//                                    controlVariables.isFromCompleteLookup = false
                                     val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                     val intent = Intent(context, MainActivity::class.java)
                                     context.startActivity(intent, options.toBundle())
@@ -147,7 +147,7 @@ object HoroscopeFunctions {
                                 val errorDetail = errorResponseJson.optString("detail")
                                 activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
                                 activity.runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show() }
-                                println(errorDetail)
+                                println(" detaylar $errorDetail")
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, MainActivity::class.java)
                                 startActivity(context, intent, options.toBundle())

@@ -149,8 +149,10 @@ class EmailVerificationFragment : Fragment() {
                             val responseCode = response.code
                             println("responseCode $responseCode")
                             if (responseCode == 200) {
-                                Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
-                                    .show()
+                                requireActivity().runOnUiThread{
+                                    Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
                             }
                             else if (statusCode == 401) {
                                 takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->

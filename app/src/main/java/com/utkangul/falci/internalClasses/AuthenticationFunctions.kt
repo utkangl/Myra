@@ -8,10 +8,7 @@ import androidx.core.content.ContextCompat.startActivity
 import com.utkangul.falci.MainActivity
 import com.utkangul.falci.R
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
-import com.utkangul.falci.internalClasses.dataClasses.JWTTokensDataClass
-import com.utkangul.falci.internalClasses.dataClasses.authenticated
-import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
-import com.utkangul.falci.internalClasses.dataClasses.urls
+import com.utkangul.falci.internalClasses.dataClasses.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -122,8 +119,9 @@ class AuthenticationFunctions {
 
                         val newTokenStatusCode = response.code
                         println("new token statusCode $newTokenStatusCode")
+
                         if (newTokenStatusCode == 401){
-                            println("yeni token alma fonksiyonu da 401 ")
+                            println("yeni token alma fonksiyonu da 401 geldi her şeyi silip cikis yaptiriom")
                             val sharedPreferences: SharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
                             editor.putString("access_token", null)
@@ -167,14 +165,19 @@ class AuthenticationFunctions {
                 println("token is expired")
 
                 takeFreshTokens(urls.refreshURL,  context) { responseBody, exception ->
+                    controlVariables.isInExpireControl = false
+
                     if (responseBody != null) {
+                        println("expire olan tokene yenileme çağırdım, response null değildi: $responseBody")
                         println(tokensDataClass.accessToken)
-                    } else {
-                        println(exception)
+                    } else{
+                        println("expire olan tokene yenileme çağırdım, response null idi")
                     }
+                    exception?.printStackTrace()
                 }
             } else {
                 println("token is not expired")
+                controlVariables.isInExpireControl = false
             }
         }
 
