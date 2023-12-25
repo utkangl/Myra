@@ -134,10 +134,41 @@ class BurcCardFunctions(
         controlVariables.isFromLoveHoroscope = isFromLove
     }
 
-//    fun isSameFortune(){
-//        for(fortune in userStatusDataClass.fortune)
-//            if (fortune.type == "general" )
-//    }
+    fun isSameGeneralFortune(button: AppCompatButton) {
+        if (postHoroscopeData.time_interval != "daily")  button.setText(R.string.get_your_horoscope)
+
+        for(fortune in userStatusDataClass.fortune){
+            if (fortune.type != "love"){
+                if (fortune.is_today && selectedFortuneStatus.time_interval=="daily" && postHoroscopeData.time_interval == "daily"){
+                    if (fortune.type == selectedFortuneStatus.type){
+                        controlVariables.isSameFortune = true
+                        controlVariables.isLoveSameFortune = false
+                        button.setText(R.string.get_your_horoscope_again)
+                    }
+                }
+            }
+
+            else if (fortune.type == "love" && selectedFortuneStatus.time_interval=="daily" && postHoroscopeData.time_interval == "daily" && selectedFortuneStatus.type == "love"){
+                if (fortune.is_today && fortune.lookup_user == getPartnerProfile.id){
+                    controlVariables.isLoveSameFortune = true
+                    controlVariables.isSameFortune = false
+                    button.setText(R.string.get_your_horoscope_again)
+                }
+                else {
+                    button.setText(R.string.get_your_horoscope)
+                }
+            }
+        }
+    }
+
+    fun setSelectedFortuneFields(button: AppCompatButton,type: String, interval:String, lookupUser: Int?){
+        selectedFortuneStatus.type = type
+        selectedFortuneStatus.time_interval = interval
+        if (type == "love"){
+            selectedFortuneStatus.lookupUser = lookupUser
+        }
+        isSameGeneralFortune(button)
+    }
 
 
     fun handleTimeIntervalSelect(time_interval: String) {

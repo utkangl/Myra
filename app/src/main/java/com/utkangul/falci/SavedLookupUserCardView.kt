@@ -14,10 +14,7 @@ import com.utkangul.falci.internalClasses.BurcCardFunctions
 
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
-import com.utkangul.falci.internalClasses.dataClasses.controlVariables
-import com.utkangul.falci.internalClasses.dataClasses.getPartnerProfile
-import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
-import com.utkangul.falci.internalClasses.dataClasses.urls
+import com.utkangul.falci.internalClasses.dataClasses.*
 import okhttp3.*
 import java.io.IOException
 
@@ -44,12 +41,15 @@ class SavedLookupUserCardView constructor(
 
         val burcCardFunctions = BurcCardFunctions(context)
         cardView.setOnClickListener {
+
             if (!isSelected) {
                 getPartnerProfile.id = id!!
                 println(getPartnerProfile.id)
                 selectCard(allCards)
+                burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton, postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
                 val scale = context.resources.displayMetrics.density
                 val buttonParams = learnYourBurcButton.layoutParams as LayoutParams
+                burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton, postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
                 burcCardFunctions.animateBurcCardSize(burcCard, 380, 655, {
                     buttonParams.topMargin = (110 * scale + 0.5f).toInt()
                     setViewVisibleWithAnimation(context, learnYourBurcButton)

@@ -156,6 +156,7 @@
     <string name="time_interval_yearly">YEARLY</string>
     <string name="time_interval_card_add_icon">time interval card add icon</string>
     <string name="get_your_horoscope">Get your Horoscope</string>
+    <string name="get_your_horoscope_again">View this horoscope again</string>
     <string name="time_interval_weekly">WEEKLY</string>
     <string name="time_interval_daily">DAILY</string>
     <string name="use_coin">Use 10 Coin!</string>

@@ -199,12 +199,12 @@ class ProfileFragment : Fragment() {
             }
 
             burcExplanationText.text =
-                " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  \t" +
+                " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)}  \n" +
                 "${sign?.let { getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, it)}}"
 
             val planetExplanation = getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)
             val zodiacExplanation = sign?.let { getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, it) }
-            val result = " $planetName ; $planetExplanation \t $zodiacExplanation"
+            val result = " $planetName ; $planetExplanation \n $zodiacExplanation"
             updateUIWithResult(result)
 
 
@@ -234,7 +234,7 @@ class ProfileFragment : Fragment() {
                                 planetName = planetNames[index]
                                 sign = planetSignMap[planetName]
                                 planetHoroscopeText.text = sign
-                                burcExplanationText.text = " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)} \t ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
+                                burcExplanationText.text = " $planetName : ${getPlanetExplanationJsonValue(requireContext(), planetJsonFileName, planetName)} \n ${getPlanetZodiacExplanationJsonValue(requireContext(), planetZodiacJsonFileName, planetName, sign!!)}"
 
                                 planetSignToImageMap[sign]?.let { it1 -> planetHoroscopeImage.setImageResource(it1) }
 

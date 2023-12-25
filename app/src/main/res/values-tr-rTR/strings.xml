@@ -153,6 +153,7 @@
     <string name="time_interval_yearly">YILLIK</string>
     <string name="time_interval_card_add_icon">time interval card add icon</string>
     <string name="get_your_horoscope">Burç Yorumunu Al</string>
+    <string name="get_your_horoscope_again">Yorumu Yeniden Görüntüle</string>
     <string name="time_interval_weekly">HAFTALIK</string>
     <string name="time_interval_daily">GÜNLÜK</string>
     <string name="use_coin">10 Coin Kullan!</string>

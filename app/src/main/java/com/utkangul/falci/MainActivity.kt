@@ -326,10 +326,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        timeIntervalDaily.setOnClickListener { burcCardFunctions.handleTimeIntervalSelect("daily") }
-        timeIntervalWeekly.setOnClickListener { burcCardFunctions.handleTimeIntervalSelect("weekly") }
-        timeIntervalMonthly.setOnClickListener { burcCardFunctions.handleTimeIntervalSelect("monthly") }
-        timeIntervalYearly.setOnClickListener { burcCardFunctions.handleTimeIntervalSelect("yearly") }
+        timeIntervalDaily.setOnClickListener {
+            burcCardFunctions.handleTimeIntervalSelect("daily")
+            burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton,postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id) }
+
+        timeIntervalWeekly.setOnClickListener {
+            burcCardFunctions.handleTimeIntervalSelect("weekly")
+            burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton,postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
+        }
+
+        timeIntervalMonthly.setOnClickListener {
+            burcCardFunctions.handleTimeIntervalSelect("monthly")
+            burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton,postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
+        }
+        timeIntervalYearly.setOnClickListener {
+            burcCardFunctions.handleTimeIntervalSelect("yearly")
+            burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton,postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
+        }
 
         addLookupUser.setOnClickListener {
             // if horoscope type is love, navigate user to complete profile screen to get lookup user's profile
@@ -380,7 +393,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        watchAdToEarnCoinButton.setOnClickListener {
+            watchAdToEarnCoinButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
 
             rewardedAd?.let { ad ->
@@ -436,7 +449,7 @@ class MainActivity : AppCompatActivity() {
         learnYourBurcButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
             if (authenticated.isLoggedIn) {
-                if (!controlVariables.sameFortune){
+                if (!controlVariables.isSameFortune && !controlVariables.isLoveSameFortune){
                     if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected) {
                         controlVariables.isInDelay = true
                         setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
@@ -446,9 +459,29 @@ class MainActivity : AppCompatActivity() {
                         this.runOnUiThread { Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show() }
                     }
                 }
-                else if(controlVariables.sameFortune){
-                    // butonun ismini yorumu tekrar görüntüle yap ve tıklandığında direkt fortune'a yolla
-
+                else if(controlVariables.isSameFortune && !controlVariables.isLoveSameFortune){
+                    // get daily general/career horoscope again
+//                    burcCardFunctions.setSelectedFortuneFields(postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
+                    handleCloseBurcCard()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
+                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this,this)
+                        controlVariables.isSameFortune = false
+                        controlVariables.isLoveSameFortune = false
+                    }, 350)
+                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+                }
+                else if (controlVariables.isLoveSameFortune && !controlVariables.isSameFortune){
+                    // get daily love horoscope again
+//                    burcCardFunctions.setSelectedFortuneFields(postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
+                    handleCloseBurcCard()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
+                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
+                        controlVariables.isSameFortune = false
+                        controlVariables.isLoveSameFortune = false
+                    }, 350)
+                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
                 }
             }
 

@@ -34,9 +34,7 @@ class UserStatusFunctions {
                 .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                 .build()
             client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    println("exception $e")
-                }
+                override fun onFailure(call: Call, e: IOException) { println("exception $e") }
 
                 override fun onResponse(call: Call, response: Response) {
                     println("response code from get user status : ${response.code}")

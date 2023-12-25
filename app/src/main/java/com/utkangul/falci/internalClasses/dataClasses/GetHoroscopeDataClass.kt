@@ -6,6 +6,12 @@ data class PostHoroscopeData(
 )
 
 val postHoroscopeData = PostHoroscopeData(type = "", time_interval = "")
+data class SelectedFortuneStatus(
+    var type: String?,
+    var time_interval: String?,
+    var lookupUser: Int?,
+)
+val selectedFortuneStatus = SelectedFortuneStatus(type = "", time_interval = "", lookupUser = null)
 
 data class GetHoroscopeData(
     var id: Int?,

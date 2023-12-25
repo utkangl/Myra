@@ -64,7 +64,6 @@ class SettingsFragment : Fragment() {
             }
             builder.setNegativeButton(R.string.no, null)
             builder.create().show()
-
         }
 
         deleteAccountContainerLayout.setOnClickListener {
@@ -129,9 +128,6 @@ class SettingsFragment : Fragment() {
             deleteAccount()
         }
 
-        changePasswordContainerLayout.setOnClickListener{
-
-        }
 
         return v
     }

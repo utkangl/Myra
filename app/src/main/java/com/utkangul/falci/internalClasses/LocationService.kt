@@ -1,14 +1,14 @@
 package com.utkangul.falci.internalClasses
 
+import android.app.Activity
 import android.content.Context
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import com.utkangul.falci.internalClasses.dataClasses.controlVariables
 import com.utkangul.falci.internalClasses.dataClasses.postPartnerProfile
 import com.utkangul.falci.internalClasses.dataClasses.userCompleteProfile
@@ -17,8 +17,9 @@ import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.gms.common.api.ApiException
+import com.utkangul.falci.BuildConfig
 
-class LocationService(private val context: Context) {
+class LocationService(private val context: Context, val activity: Activity) {
 
     private lateinit var placesClient: PlacesClient
     private lateinit var autoCompleteTextView: AutoCompleteTextView
@@ -29,10 +30,12 @@ class LocationService(private val context: Context) {
     fun initializeAutoCompleteTextView(autoCompleteTextView: AutoCompleteTextView) {
         this.autoCompleteTextView = autoCompleteTextView
 
-        val ai: ApplicationInfo = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
-        val value = ai.metaData["com.google.android.geo.API_KEY"]
-        val key = value.toString()
+        val key = BuildConfig.MAPS_API_KEY
+        activity.runOnUiThread{
+            Toast.makeText(context, "maps api keyi bu boş ise başı tuttuk: -> $key", Toast.LENGTH_LONG).show()
+            println(key)
 
+        }
         Places.initialize(context, key)
         placesClient = Places.createClient(context)
 
