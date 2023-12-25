@@ -207,12 +207,13 @@ class CompleteProfile : AppCompatActivity() {
 
         // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
         fun setGender(){
-            if (genderPick.selectedItem == null || genderPick.selectedItem == "Pick your gender"){
+            println(resources.getString(R.string.defaultTextOfGender))
+            if (genderPick.selectedItem == null || genderPick.selectedItem == resources.getString(R.string.defaultTextOfGender)){
                 isGender = false
             }
             println(genderPick.selectedItem)
-            if (step == 1 && genderPick.selectedItem != null && genderPick.selectedItem != "Pick your gender" && !isFromSetName) step=2
-            setSpinner(genderPick, R.array.genders, "Pick your gender") { selectedGender ->
+            if (step == 1 && genderPick.selectedItem != null && genderPick.selectedItem != resources.getString(R.string.defaultTextOfGender) && !isFromSetName) step=2
+            setSpinner(genderPick, R.array.genders, resources.getString(R.string.defaultTextOfGender)) { selectedGender ->
                 if (controlVariables.isFromLoveHoroscope) postPartnerProfile.partnerGender = selectedGender; step =2;isGender = true
                 if (!controlVariables.isFromLoveHoroscope) userCompleteProfile.gender = selectedGender; step = 2; isGender = true
             }
@@ -250,7 +251,7 @@ class CompleteProfile : AppCompatActivity() {
 
         // set location field of CompleteProfileUserDataClass's instance w/ user's location input
         fun setLocation(){
-            if (step==4 && locationPick.text != "Sehrini Sec" ){
+            if (step==4 && locationPick.text != resources.getString(R.string.defaultTextOfLocation) ){
                 step = 5
                 isFromSetLocation = true
                 isLocation = true
@@ -281,11 +282,11 @@ class CompleteProfile : AppCompatActivity() {
         // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
         fun setOccupation(){
             isFromSetTime = false
-            if (step == 5 && occupationPick.selectedItem != "Pick your occupation" && occupationPick.selectedItem != null && !isFromSetLocation){
+            if (step == 5 && occupationPick.selectedItem != resources.getString(R.string.defaultTextOfOccupation) && occupationPick.selectedItem != null && !isFromSetLocation){
                 step = 6
             }
-            setSpinner(occupationPick, R.array.occupations, "Pick your occupation") { selectedOccupation ->
-                if (selectedOccupation != "Pick your occupation" && isFromSetLocation){
+            setSpinner(occupationPick, R.array.occupations, resources.getString(R.string.defaultTextOfOccupation)) { selectedOccupation ->
+                if (selectedOccupation != resources.getString(R.string.defaultTextOfOccupation) && isFromSetLocation){
                     if (controlVariables.isFromLoveHoroscope) {postPartnerProfile.partnerOccupation = selectedOccupation}
                     if (!controlVariables.isFromLoveHoroscope) {userCompleteProfile.occupation = selectedOccupation}
                     step = 6
@@ -299,8 +300,8 @@ class CompleteProfile : AppCompatActivity() {
         fun setRelation(){
             val gson = Gson()
 
-            setSpinner(relationPick, R.array.marital_status, "Medeni durumunuzu Seciniz") { selectedRelation ->
-                if (selectedRelation != "Medeni durumunuzu Seciniz") {
+            setSpinner(relationPick, R.array.marital_status, resources.getString(R.string.defaultTextOfRelation)) { selectedRelation ->
+                if (selectedRelation != resources.getString(R.string.defaultTextOfRelation)) {
 
                     if (controlVariables.isFromLoveHoroscope) {
                         postPartnerProfile.partnerRelationStatus = selectedRelation

@@ -130,7 +130,7 @@
                                     android:paddingEnd="30dp"
                                     android:fontFamily="@font/arima_madurai_light"
                                     android:hint="@string/your_name"
-                                    android:textColorHint="@color/white"
+                                    android:textColorHint="@color/quantum_grey"
                                     android:textColor="@color/white"
                                     android:text=""
                                     android:textSize="24dp"
@@ -186,7 +186,7 @@
                                     android:background="@drawable/common_next_button"
 
                                     android:fontFamily="@font/arima_madurai_bold"
-                                    android:text="@string/pick_your_vity"
+                                    android:text="@string/defaultTextOfLocation"
                                     android:textAllCaps="false"
                                     android:textColor="@color/white"
                                     android:textSize="24dp">
@@ -224,7 +224,7 @@
                                             android:imeOptions="actionSend"
                                             android:textAlignment="center"
                                             android:textColor="@color/white"
-                                            android:textColorHint="@color/white" />
+                                            android:textColorHint="@color/quantum_grey" />
                                 </androidx.cardview.widget.CardView>
                         </RelativeLayout>
 

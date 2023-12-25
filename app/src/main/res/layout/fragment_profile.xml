@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
     android:background="@drawable/gradient_background"
-    tools:ignore="ContentDescription, SpUsage">
+    tools:ignore="SpUsage">
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,6 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="#6B66CF"
+                    android:contentDescription="@string/sample_description"
                     tools:ignore="ImageContrastCheck">
                 </ImageView>
 
@@ -72,7 +73,7 @@
                     android:contentDescription="@string/profile_name_first_letter"
                     android:fontFamily="@font/arima_madurai_bold"
                     android:paddingTop="8dp"
-                    android:text="@string/emptystring"
+                    android:text="@string/questionMark"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="45dp">
@@ -84,6 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/profileFragmentName"
+                android:maxWidth="200dp"
+                android:maxLines="1"
 
                 android:layout_toEndOf="@+id/profilephotocard"
                 android:layout_marginTop="35dp"
@@ -92,8 +95,7 @@
                 android:text="@string/sample_name"
                 android:textSize="24dp"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:textColor="@color/white"
-                >
+                android:textColor="@color/white">
             </TextView>
 
             <TextView
@@ -104,7 +106,7 @@
                 android:layout_toEndOf="@+id/profilephotocard"
                 android:layout_marginTop="85dp"
                 android:layout_marginStart="20dp"
-
+                android:maxLength="3"
                 android:text="@string/sample_horoscope"
                 android:textSize="20dp"
                 android:fontFamily="@font/arima_madurai_light"
@@ -125,11 +127,11 @@
 
                 android:gravity="center"
                 android:fontFamily="@font/arima_madurai_light"
-                android:text="Profilini Düzenle"
+                android:text="@string/edit_your_profile"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="13dp"
-                tools:ignore="HardcodedText,TextSizeCheck">
+                tools:ignore="TextSizeCheck">
             </androidx.appcompat.widget.AppCompatButton>
 
         </RelativeLayout>
@@ -180,24 +182,25 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:id="@+id/jupyterImage"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
-                            android:contentDescription="jupiter image"
+                            android:contentDescription="@string/sample_description"
                             android:src="@drawable/jupiter"
-                            tools:ignore="HardcodedText,ImageContrastCheck">
+                            tools:ignore="ImageContrastCheck">
                         </ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_centerInParent="true"
+                            android:layout_toEndOf="@+id/jupyterImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/jupiter"
                             android:textColor="@color/white"
-                            android:textSize="20dp"
-                            >
+                            android:textSize="20dp">
                         </TextView>
 
                     </RelativeLayout>
@@ -223,6 +226,8 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:id="@+id/marsImage"
+                            android:contentDescription="@string/sample_description"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
@@ -232,7 +237,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/marsImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/mars"
@@ -264,6 +269,8 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:id="@+id/mercuryImage"
+                            android:contentDescription="@string/sample_description"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
@@ -273,7 +280,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/mercuryImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/mercury"
@@ -305,6 +312,8 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:id="@+id/neptuneImage"
+                            android:contentDescription="@string/sample_description"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
@@ -314,7 +323,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/neptuneImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/neptune"
@@ -346,6 +355,8 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:id="@+id/saturnImage"
+                            android:contentDescription="@string/sample_description"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
@@ -355,7 +366,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/saturnImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/saturn"
@@ -389,6 +400,8 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerVertical="true"
+                            android:contentDescription="@string/sample_description"
+                            android:id="@+id/sunImage"
                             android:layout_marginStart="15dp"
                             android:layout_marginEnd="5dp"
                             android:src="@drawable/sun">
@@ -397,7 +410,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="60dp"
+                            android:layout_toEndOf="@+id/sunImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/sun"
@@ -429,6 +442,8 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerVertical="true"
+                            android:contentDescription="@string/sample_description"
+                            android:id="@+id/uranusImage"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:src="@drawable/uranus">
@@ -437,7 +452,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/uranusImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/uranus"
@@ -471,6 +486,8 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerVertical="true"
+                            android:contentDescription="@string/sample_description"
+                            android:id="@+id/venusImage"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:src="@drawable/venus">
@@ -479,7 +496,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/venusImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/venus"
@@ -512,6 +529,8 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerVertical="true"
+                            android:contentDescription="@string/sample_description"
+                            android:id="@+id/moonImage"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:src="@drawable/moon">
@@ -520,7 +539,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="40dp"
+                            android:layout_toEndOf="@+id/moonImage"
                             android:fontFamily="@font/arima_madurai_light"
                             android:gravity="center_vertical"
                             android:text="@string/moon"
@@ -569,6 +588,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/sample_description"
                         android:id="@+id/planet_horoscope_image"
                         android:src="@drawable/gemini">
                     </ImageView>
@@ -605,6 +625,7 @@
                     <ImageView
                         android:id="@+id/burcexplanationplanetimage"
                         android:layout_width="match_parent"
+                        android:contentDescription="@string/sample_description"
                         android:layout_height="match_parent"
                         android:src="@drawable/moon">
                     </ImageView>
@@ -664,6 +685,7 @@
                         android:id="@+id/back_arrow"
                         android:layout_width="45dp"
                         android:layout_height="35dp"
+                        android:contentDescription="@string/sample_description"
                         android:layout_gravity="center"
                         android:background="@drawable/back_arrow"
                         tools:ignore="VisualLintBounds">
@@ -728,7 +750,8 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="25dp"
+                    android:contentDescription="@string/sample_description"
                     android:layout_centerVertical="true"
                     android:src="@drawable/white_star_icon">
                 </ImageView>
@@ -742,8 +765,7 @@
                     android:gravity="center"
                     android:text="@string/your_favourite_horoscopes"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
-                    >
+                    android:textSize="20dp">
                 </TextView>
             </RelativeLayout>
 
@@ -760,7 +782,8 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="25dp"
+                    android:contentDescription="@string/sample_description"
                     android:src="@drawable/settingsbutton">
                 </ImageView>
 
@@ -789,7 +812,8 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="25dp"
+                    android:contentDescription="@string/sample_description"
                     android:layout_centerVertical="true"
                     android:src="@drawable/mira_coin">
                 </ImageView>

@@ -27,6 +27,7 @@ data class ControlVariables(
     var isgender: Boolean,
     var inNotifyPurchase: Boolean,
     var isInExpireControl: Boolean,
+    var sameFortune: Boolean,
 
     )
 
@@ -57,4 +58,5 @@ var controlVariables = ControlVariables(
     isgender = false,
     inNotifyPurchase = false,
     isInExpireControl = false,
+    sameFortune = false,
 )

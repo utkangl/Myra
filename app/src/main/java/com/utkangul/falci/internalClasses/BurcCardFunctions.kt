@@ -134,6 +134,12 @@ class BurcCardFunctions(
         controlVariables.isFromLoveHoroscope = isFromLove
     }
 
+//    fun isSameFortune(){
+//        for(fortune in userStatusDataClass.fortune)
+//            if (fortune.type == "general" )
+//    }
+
+
     fun handleTimeIntervalSelect(time_interval: String) {
 
         if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected){

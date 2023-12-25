@@ -36,7 +36,10 @@ data class Campaign(
     val expire_date: String,
     val remain_repeat: Int,
     val user: Int
-)data class DailyFortuneStatus(
+)
+data class DailyFortuneStatus(
     val type: String,
     val is_today: Boolean,
+    val lookup_user: Int?
 )
+

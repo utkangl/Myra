@@ -19,7 +19,7 @@
     <TextView
         android:id="@+id/settings_screen_title"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/arima_madurai_bold"

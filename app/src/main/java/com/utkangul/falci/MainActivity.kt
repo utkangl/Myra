@@ -436,12 +436,24 @@ class MainActivity : AppCompatActivity() {
         learnYourBurcButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
             if (authenticated.isLoggedIn) {
-                if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected) {
-                    controlVariables.isInDelay = true
-                    setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
-                    useOrGainCoinMenuTitle.text = "${postHoroscopeData.type.toString().uppercase()} / ${postHoroscopeData.time_interval.toString().uppercase()}"
-                } else this.runOnUiThread { Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show() }
-            } else {
+                if (!controlVariables.sameFortune){
+                    if (controlVariables.isCareerModeSelected or controlVariables.isLoveModeSelected or controlVariables.isGeneralModeSelected) {
+                        controlVariables.isInDelay = true
+                        setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
+                        useOrGainCoinMenuTitle.text = "${postHoroscopeData.type.toString().uppercase()} / ${postHoroscopeData.time_interval.toString().uppercase()}"
+                    }
+                    else {
+                        this.runOnUiThread { Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show() }
+                    }
+                }
+                else if(controlVariables.sameFortune){
+                    // butonun ismini yorumu tekrar görüntüle yap ve tıklandığında direkt fortune'a yolla
+
+                }
+            }
+
+            // if user is not logged in
+            else {
                 // if user is not logged in, close burcCard and then after 300ms make the transition
                 // to login signup activity
                 burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard, settingsButtonCard, clickToGetHoroscopeText)

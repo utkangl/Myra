@@ -22,10 +22,10 @@
             android:layout_marginBottom="120dp"
 
             android:fontFamily="@font/arima_madurai_bold"
-            android:text="Bilgilerinizi Girin Lutfen"
+            android:text="@string/enter_your_informations"
             android:textColor="@color/white"
             android:textSize="32dp"
-            tools:ignore="HardcodedText,TextSizeCheck">
+            tools:ignore="TextSizeCheck">
 
         </TextView>
 
@@ -55,16 +55,16 @@
                 android:autofillHints="emailAddress"
                 android:background="@drawable/common_text_input_field"
                 android:fontFamily="@font/arima_madurai_light"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:maxLength="255"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/quantum_grey"
                 android:textSize="24dp"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize,TextSizeCheck" />
+                tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
 
         </androidx.cardview.widget.CardView>
 
@@ -88,16 +88,16 @@
                 android:autofillHints="password"
                 android:background="@drawable/common_text_input_field"
                 android:fontFamily="@font/arima_madurai_light"
-                android:hint="Sifre"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:maxLength="255"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/quantum_grey"
                 android:textSize="24dp"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize,TextSizeCheck" />
+                tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -120,16 +120,16 @@
                 android:autofillHints="password"
                 android:background="@drawable/common_text_input_field"
                 android:fontFamily="@font/arima_madurai_light"
-                android:hint="Tekrardan Sifre"
+                android:hint="@string/password_again"
                 android:inputType="textPassword"
                 android:maxLength="255"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
                 android:text=""
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/quantum_grey"
                 android:textSize="24dp"
-                tools:ignore="HardcodedText,VisualLintTextFieldSize,TextSizeCheck" />
+                tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
         </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -143,12 +143,12 @@
         android:elevation="-15dp"
         android:background="@drawable/common_next_button"
         android:fontFamily="@font/arima_madurai_bold"
-        android:text="Kayit Ol"
+        android:text="@string/signup"
         android:gravity="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="24dp"
-        tools:ignore="HardcodedText,VisualLintButtonSize,TextSizeCheck">
+        tools:ignore="VisualLintButtonSize,TextSizeCheck">
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.cardview.widget.CardView

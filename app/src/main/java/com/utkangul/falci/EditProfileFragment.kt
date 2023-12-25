@@ -166,13 +166,13 @@ class EditProfileFragment : Fragment() {
         setupFieldClickListener(relationShipStatusField, maritalStatusSpinner, relationshipStatusFieldHint)
 
 
-        setSpinner(requireContext(),genderPickSpinner, genderFieldHint, R.array.genders, "Pick your gender")
+        setSpinner(requireContext(),genderPickSpinner, genderFieldHint, R.array.genders, resources.getString(R.string.defaultTextOfGender))
         {selectedGender -> genderField.text = selectedGender}
 
-        setSpinner(requireContext(),occupationSpinner, occupationFieldHint, R.array.occupations, "Pick your occupation")
+        setSpinner(requireContext(),occupationSpinner, occupationFieldHint, R.array.occupations, resources.getString(R.string.defaultTextOfOccupation))
         {selectedOccupation -> occupationField.text = selectedOccupation}
 
-        setSpinner(requireContext(),maritalStatusSpinner, relationshipStatusFieldHint, R.array.marital_status, "Medeni durumunuzu Seciniz")
+        setSpinner(requireContext(),maritalStatusSpinner, relationshipStatusFieldHint, R.array.marital_status, resources.getString(R.string.defaultTextOfRelation))
         {selectedMaritalStatus -> relationShipStatusField.text = selectedMaritalStatus}
 
         val cityInput = v.findViewById<AutoCompleteTextView>(R.id.searchCity)

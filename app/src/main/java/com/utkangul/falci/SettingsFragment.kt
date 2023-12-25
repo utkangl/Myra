@@ -34,6 +34,7 @@ class SettingsFragment : Fragment() {
         val buyCoinContainerLayout = v.findViewById<RelativeLayout>(R.id.buyCoinContainerLayout)
         val deleteAccountContainerLayout = v.findViewById<RelativeLayout>(R.id.deleteAccountContainerLayout)
         val changeLanguageContainerLayout = v.findViewById<RelativeLayout>(R.id.changeLanguageContainerLayout)
+        val changePasswordContainerLayout = v.findViewById<RelativeLayout>(R.id.changePasswordContainerLayout)
 
         buyCoinContainerLayout.setOnClickListener{ replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }
 
@@ -127,6 +128,11 @@ class SettingsFragment : Fragment() {
             }
             deleteAccount()
         }
+
+        changePasswordContainerLayout.setOnClickListener{
+
+        }
+
         return v
     }
 

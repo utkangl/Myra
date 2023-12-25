@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/falci_background"
     tools:context="com.utkangul.falci.Loginfragment"
     tools:ignore="SpUsage">
 
@@ -29,20 +30,14 @@
         <TextView
             android:id="@+id/loginFragmentTitleTextview"
             android:layout_width="wrap_content"
-
             android:layout_height="wrap_content"
-
             android:layout_above="@+id/loginFragmentUsername"
             android:layout_centerHorizontal="true"
-
             android:layout_marginBottom="25dp"
-
             android:fontFamily="@font/arima_madurai_bold"
             android:text="@string/enter_your_informations"
             android:textColor="@color/white"
-            android:textSize="32dp"
-            >
-
+            android:textSize="32dp">
         </TextView>
 
         <EditText
@@ -54,11 +49,12 @@
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="20dp"
             android:autofillHints="emailAddress"
-            android:hint="Email"
+            android:fontFamily="@font/arima_madurai_light"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            tools:ignore="HardcodedText,VisualLintTextFieldSize,TouchTargetSizeCheck">
+            android:textColorHint="@color/quantum_grey"
+            tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
         </EditText>
 
         <EditText
@@ -68,11 +64,12 @@
             android:layout_below="@+id/loginFragmentUsername"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
+            android:fontFamily="@font/arima_madurai_light"
             android:autofillHints="password"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/quantum_grey"
             tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
         </EditText>
 
@@ -111,11 +108,12 @@
             android:layout_marginRight="75dp"
             android:background="@drawable/common_next_button"
             android:fontFamily="@font/arima_madurai_bold"
-            android:text="Devam"
+            android:text="@string/continue_"
+            android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="24dp"
-            tools:ignore="HardcodedText,VisualLintButtonSize">
+            tools:ignore="VisualLintButtonSize">
 
         </androidx.appcompat.widget.AppCompatButton>
 

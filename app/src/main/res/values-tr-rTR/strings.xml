@@ -10,9 +10,13 @@
     <string name="search_in_favourites">Favorilerde ara</string>
     <string name="user">Kullanıcı</string>
     <string name="empty" />
+    <string name="defaultTextOfGender">Cinsiyetini seç</string>
+    <string name="defaultTextOfOccupation">Mesleğini seç</string>
+    <string name="defaultTextOfRelation">İlişki durumunu seç</string>
+    <string name="defaultTextOfLocation">Şehrini seç</string>
 
     <string-array name="marital_status">
-        <item>Medeni durumunu seç</item>
+        <item>İlişki durumunu seç</item>
         <item>Yalnız</item>
         <item>Evli</item>
         <item>Flört Halinde</item>
@@ -72,7 +76,7 @@
     <string name="info">Uygulama hakkında</string>
     <string name="privacy_policy">Gizlilik Politikamız</string>
     <string name="lock_image">lock image</string>
-    <string name="settings">AYARLAR</string>
+    <string name="settings">Ayarlar</string>
     <string name="settings_screen_top_banner">settings screen top banner</string>
     <string name="coin_image">coin image</string>
     <string name="payment_method_image">payment method image</string>
@@ -94,7 +98,7 @@
     <string name="edit_favourites">Favorileri Düzenle</string>
     <string name="favourites">Favoriler</string>
     <string name="cancel_fav_search_filter">cancel fav search filter</string>
-    <string name="enter_your_informations">Enter your informations</string>
+    <string name="enter_your_informations">Bilgilerinizi Girin</string>
     <string name="forgot_my_password">Şifremi Unuttum</string>
     <string name="done_have_an_account_create_one">Hesabın yok mu? Hemen oluştur</string>
     <string name="profile">Profil</string>
@@ -133,7 +137,7 @@
     <string name="back_arrow_image_button">back arrow image button</string>
     <string name="main_menu_mira">main menu mira</string>
     <string name="main_menu_mira_triangle">main menu mira triangle</string>
-    <string name="click_to_get_horoscope">Burç yorumunu almak için tıkla</string>
+    <string name="click_to_get_horoscope">Burç Yorumunu Al</string>
     <string name="ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz">Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Koç burcu insanları enerji dolu ve liderlik özelliklerine sahiptirler. Bu dönemde hedeflerinize odaklanmak için mükemmel bir zaman. Kendinize güveniyorsunuz ve zorlukların üstesinden gelebilecek güce sahipsiniz.</string>
     <string name="general">GENEL</string>
     <string name="general_sign_card_s_image">general sign card\'s image</string>
@@ -176,4 +180,8 @@
     <string name="askIfChangeLanguage">Bu işlemden sonra uygulamanın yeniden başlatılması gerecek. Devam etmek istiyor musunuz</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
+    <string name="questionMark">?</string>
+    <string name="password_again">Yeniden şifre</string>
+    <string name="email">Email</string>
+    <string name="signup">Kayıt Ol</string>
 </resources>

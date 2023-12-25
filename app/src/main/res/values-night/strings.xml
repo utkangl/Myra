@@ -13,9 +13,12 @@
     <string name="color_of_favcard">color of favCard</string>
     <string name="time_interval_card_background">time interval card background</string>
     <string name="user">User</string>
-
+    <string name="defaultTextOfGender">Pick your gender</string>
+    <string name="defaultTextOfOccupation">Pick your occupation</string>
+    <string name="defaultTextOfRelation">Pick your Relationship Status</string>
+    <string name="defaultTextOfLocation">Enter a location</string>
     <string-array name="marital_status">
-        <item>Pick your marital Status</item>
+        <item>Pick your Relationship Status</item>
         <item>Single</item>
         <item>Married</item>
         <item>Flirting</item>
@@ -74,7 +77,7 @@
     <string name="info">Info</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="lock_image">lock image</string>
-    <string name="settings">SETTINGS</string>
+    <string name="settings">Settings</string>
     <string name="settings_screen_top_banner">settings screen top banner</string>
     <string name="coin_image">coin image</string>
     <string name="payment_method_image">payment method image</string>
@@ -180,4 +183,9 @@
     <string name="askIfChangeLanguage"> This action will restart the app. Do you want to continue</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="questionMark"> ? </string>
+    <string name="password_again">Password again</string>
+    <string name="email">Email</string>
+    <string name="signup">Signup</string>
+
 </resources>
