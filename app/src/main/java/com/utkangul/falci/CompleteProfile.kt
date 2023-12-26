@@ -261,7 +261,7 @@ class CompleteProfile : AppCompatActivity() {
                 }
             }
             locationPick.setOnClickListener{
-                val locationService = LocationService(this,this)
+                val locationService = LocationService(this)
                 locationService.initializeAutoCompleteTextView(cityInput)
                 setViewGone(locationPickFirstLayout)
                 setViewVisible(locationPickSecondLayout)

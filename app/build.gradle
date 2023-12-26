@@ -9,27 +9,23 @@ android {
     namespace 'com.utkangul.falci'
     compileSdk 34
 
-    bundle {
-        language {
+    bundle{
+        language{
             enableSplit = false
         }
     }
-
-
 
     defaultConfig {
         applicationId "com.utkangul.falci"
         minSdk 24
         targetSdk 34
-        versionCode 15
-        versionName "15.1"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode 16
+        versionName "16.1"
 
         Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-
-        // Set API keys in BuildConfig
-        buildConfigField "String", "MAPS_API_KEY", "\"${properties.getProperty("MAPS_API_KEY")}\""
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -37,11 +33,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

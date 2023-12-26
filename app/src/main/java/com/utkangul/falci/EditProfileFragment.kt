@@ -178,7 +178,7 @@ class EditProfileFragment : Fragment() {
         val cityInput = v.findViewById<AutoCompleteTextView>(R.id.searchCity)
         val editProfileLocationCardView = v.findViewById<CardView>(R.id.editProfileLocationCardView)
 
-        this.locationService = LocationService(requireContext(),requireActivity())
+        this.locationService = LocationService(requireContext())
         locationService.initializeAutoCompleteTextView(cityInput)
 
         locationField.setOnClickListener {
