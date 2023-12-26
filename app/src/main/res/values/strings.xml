@@ -188,5 +188,7 @@
     <string name="password_again">Password again</string>
     <string name="email">Email</string>
     <string name="signup">Signup</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="change_password">Change Password</string>
 
 </resources>

@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
 
-            android:layout_above="@id/signUpFragmentPassword"
+            android:layout_above="@id/changePasswordNewPasswordCard"
             android:layout_marginBottom="20dp"
 
             app:cardElevation="2dp"
@@ -70,7 +70,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/signUpFragmentPassword"
+            android:id="@+id/changePasswordNewPasswordCard"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_centerInParent="true"
@@ -104,7 +104,7 @@
             android:id="@+id/signUpFragmentPasswordAgain"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_below="@+id/signUpFragmentPassword"
+            android:layout_below="@+id/changePasswordNewPasswordCard"
             app:cardElevation="2dp"
             android:outlineAmbientShadowColor="@color/black"
             android:outlineSpotShadowColor="@color/black"

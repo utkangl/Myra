@@ -78,8 +78,6 @@ class ProfileFragment : Fragment() {
         val profileTitle = v.findViewById<TextView>(R.id.profileTitle)
         val profileCardZodiacName = v.findViewById<TextView>(R.id.profileCardZodiacName)
         val logoutButton = v.findViewById<AppCompatButton>(R.id.logoutButton)
-        val backArrowCard = v.findViewById<CardView>(R.id.backArrowCard)
-        val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
         val burcexplanationplanet = v.findViewById<CardView>(R.id.burcexplanationplanet)
         val planetHoroscopeImageCard = v.findViewById<CardView>(R.id.planet_horoscope_image_card)
         val zodiacexplanationcard = v.findViewById<RelativeLayout>(R.id.zodiacexplanationcard)
@@ -92,6 +90,7 @@ class ProfileFragment : Fragment() {
         val burcExplanationText = zodiacexplanationcard.findViewById<TextView>(R.id.burcExplanationText)
         val burcExplanationTextScroll = zodiacexplanationcard.findViewById<ScrollView>(R.id.burcExplanationTextScroll)
         val navigateToPurchaseContainerLayout = v.findViewById<RelativeLayout>(R.id.navigateToPurchaseContainerLayout)
+        val profileFragmentMainLayout = v.findViewById<RelativeLayout>(R.id.profileFragmentMainLayout)
 
         getHoroscopeData.apply {
             id = null
@@ -108,14 +107,13 @@ class ProfileFragment : Fragment() {
         // if user click to zodiac card, make the card larger and set other components invisible
         zodiacCard.setOnClickListener {
             setViewGone(profileCard, profileViewBottomCard, profileTitle, logoutButton)
-            setViewVisible(backArrowCard)
             animateCardSize(requireContext(), 370, 550, zodiacCard,burcExplanationTextScroll, 90 )
         }
 
-        // if user click to back arrow, make the zodiac card smaller and set components visible
-        backArrow.setOnClickListener {
+
+
+        profileFragmentMainLayout.setOnClickListener{
             setViewVisible(profileCard, profileViewBottomCard, profileTitle, logoutButton)
-            setViewGone(backArrowCard)
             animateCardSize(requireContext(), 370, 330, zodiacCard,burcExplanationTextScroll, 40)
         }
 

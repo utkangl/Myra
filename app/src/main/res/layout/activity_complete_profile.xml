@@ -129,13 +129,15 @@
                                     android:paddingStart="30dp"
                                     android:paddingEnd="30dp"
                                     android:fontFamily="@font/arima_madurai_light"
+                                    android:maxLines="1"
+                                    android:imeOptions="actionDone"
                                     android:hint="@string/your_name"
                                     android:textColorHint="@color/quantum_grey"
                                     android:textColor="@color/white"
                                     android:text=""
                                     android:textSize="24dp"
                                     android:autofillHints="name"
-                                    android:inputType="textMultiLine" />
+                                    android:inputType="textPersonName" />
                         </androidx.cardview.widget.CardView>
                 </RelativeLayout>
 

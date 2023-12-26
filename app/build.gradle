@@ -9,12 +9,20 @@ android {
     namespace 'com.utkangul.falci'
     compileSdk 34
 
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+
+
     defaultConfig {
         applicationId "com.utkangul.falci"
         minSdk 24
         targetSdk 34
-        versionCode 14
-        versionName "14.1"
+        versionCode 15
+        versionName "15.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         Properties properties = new Properties()

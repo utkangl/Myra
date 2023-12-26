@@ -185,4 +185,7 @@
     <string name="password_again">Yeniden şifre</string>
     <string name="email">Email</string>
     <string name="signup">Kayıt Ol</string>
+    <string name="verification_code">Doğrulama Kodu</string>
+    <string name="change_password">Şifreyi Değiştir</string>
+
 </resources>
