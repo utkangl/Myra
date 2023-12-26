@@ -409,6 +409,7 @@ class CompleteProfile : AppCompatActivity() {
                 if (controlVariables.inLocationPickCard){
                     setViewVisible(locationPickFirstLayout)
                     setViewGone(locationPickSecondLayout)
+                    controlVariables.inLocationPickCard = false
                 }
 
                 if (step == 0){

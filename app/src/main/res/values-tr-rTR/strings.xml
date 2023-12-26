@@ -187,5 +187,8 @@
     <string name="signup">Kayıt Ol</string>
     <string name="verification_code">Doğrulama Kodu</string>
     <string name="change_password">Şifreyi Değiştir</string>
+    <string name="send_code">Dogrulama Kodu Yolla</string>
+    <string name="new_password">Yeni Şifre</string>
+    <string name="new_password_again">Tekrardan Yeni Şifre</string>
 
 </resources>

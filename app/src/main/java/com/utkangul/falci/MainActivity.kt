@@ -3,6 +3,8 @@ package com.utkangul.falci
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -33,6 +35,7 @@ import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions
 import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.utkangul.falci.internalClasses.UserStatusFunctions.UserStatusFunctionsObject.getUserStatus
 import okhttp3.*
+import java.util.*
 
 
 var cardList: MutableList<SavedLookupUserCardView> = mutableListOf()
@@ -43,15 +46,28 @@ class MainActivity : AppCompatActivity() {
     private var rewardedAd: RewardedAd? = null
     private var TAG = "MainActivity"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.runOnUiThread{
+            val languageSharedPreferences: SharedPreferences = application.getSharedPreferences("language_choice", Context.MODE_PRIVATE)
+            val languageChoice = languageSharedPreferences.getString("language",null)
+            val locale = Locale(languageChoice)
+            Locale.setDefault(locale)
+            val config = Configuration()
+            config.locale = locale
+            resources.updateConfiguration(config, resources.displayMetrics)
+        }
+
+
         splashViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[SplashViewModel::class.java]
         installSplashScreen().apply {
             setKeepOnScreenCondition { (splashViewModel as SplashViewModel).isLoading.value }  // keep showing splash screen until launching is over
         }
         setContentView(R.layout.activity_main)
 
-
+        println(userProfile)
         val adRequest = AdRequest.Builder().build()
         RewardedAd.load(this, "ca-app-pub-9194768212989464/2985888856", adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
@@ -285,6 +301,7 @@ class MainActivity : AppCompatActivity() {
             burcCard.setCardBackgroundColor(Color.parseColor("#1c1444"))
             setViewVisibleWithAnimation(this, miraMainMenu, settingsButtonCard,coinAmountContainerLayout)
             mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
+            selectedModeTitle.text = ""
             burcCardFunctions.animateBurcCardOut(
                 burcCard,
                 miraBurcCardTop,

@@ -146,7 +146,7 @@
     <string name="general_sign_card_s_image">general sign card\'s image</string>
     <string name="love">LOVE</string>
     <string name="love_sign_card_s_image">love sign card\'s image</string>
-    <string name="career">Career</string>
+    <string name="career">CAREER</string>
     <string name="career_sign_card_s_image">career sign card\'s image</string>
     <string name="daily_button_background_image">daily button background image</string>
     <string name="weekly_button_background_image">weekly button background image</string>
@@ -190,5 +190,8 @@
     <string name="signup">Signup</string>
     <string name="verification_code">Verification Code</string>
     <string name="change_password">Change Password</string>
+    <string name="send_code">Send Verification Code</string>
+    <string name="new_password">New Password</string>
+    <string name="new_password_again">New Password Again</string>
 
 </resources>

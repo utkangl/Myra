@@ -310,7 +310,11 @@ class BurcCardFunctions(
         setViewInvisible(selectedModeTitle)
         val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
         selectedModeTitle!!.startAnimation(animation)
-        selectedModeTitle.text = type.uppercase()
+        when (type){
+            "general" -> selectedModeTitle.text = context.resources.getString(R.string.general)
+            "love" -> selectedModeTitle.text = context.resources.getString(R.string.love)
+            "career" -> selectedModeTitle.text = context.resources.getString(R.string.career)
+        }
         setViewVisible(selectedModeTitle)
 
         ExportLookupUserCardFunctions.deselectAllCards(cardList)

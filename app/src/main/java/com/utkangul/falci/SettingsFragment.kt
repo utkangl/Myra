@@ -45,6 +45,8 @@ class SettingsFragment : Fragment() {
             val config = Configuration()
             config.locale = locale
             resources.updateConfiguration(config, resources.displayMetrics)
+
+
             val intent = Intent(context, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
@@ -55,11 +57,18 @@ class SettingsFragment : Fragment() {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage(R.string.askIfChangeLanguage)
             builder.setPositiveButton(R.string.yes) { _, _ ->
+                val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("language_choice", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+
                 val config: Configuration = resources.configuration
                 if (config.locale.language == "tr") {
                     setLocale("en")
+                    editor.putString("language", "en")
+                    editor.apply()
                 } else {
                     setLocale("tr")
+                    editor.putString("language", "tr")
+                    editor.apply()
                 }
             }
             builder.setNegativeButton(R.string.no, null)

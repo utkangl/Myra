@@ -185,10 +185,8 @@ class ProfileFragment : Fragment() {
             val fadeIn = AlphaAnimation(0f, 1f)
             fadeIn.duration = 300
 
-
             val planetZodiacJsonFileName = "planet_sign_exp"
             val planetJsonFileName = "planet_exp"
-
 
             fun updateUIWithResult(result: String) {
                 requireActivity().runOnUiThread {
