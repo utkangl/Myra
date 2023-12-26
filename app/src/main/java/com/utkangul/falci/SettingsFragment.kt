@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.InternalFunctions
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
@@ -137,6 +138,13 @@ class SettingsFragment : Fragment() {
             deleteAccount()
         }
 
+
+        changePasswordContainerLayout.setOnClickListener{
+            val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
+            val intent = Intent(context, ChangePasswordActivity
+            ::class.java)
+            ContextCompat.startActivity(requireContext(), intent, options.toBundle())
+        }
 
         return v
     }

@@ -50,7 +50,7 @@ class SavedLookupUserCardView constructor(
                 val scale = context.resources.displayMetrics.density
                 val buttonParams = learnYourBurcButton.layoutParams as LayoutParams
                 burcCardFunctions.setSelectedFortuneFields(learnYourBurcButton, postHoroscopeData.type!!, postHoroscopeData.time_interval!!, getPartnerProfile.id)
-                burcCardFunctions.animateBurcCardSize(burcCard, 380, 655, {
+                burcCardFunctions.animateBurcCardSize(burcCard, 380, 540, {
                     buttonParams.topMargin = (110 * scale + 0.5f).toInt()
                     setViewVisibleWithAnimation(context, learnYourBurcButton)
                     controlVariables.isFromAddLookupUser = false}, {})

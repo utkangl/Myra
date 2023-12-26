@@ -50,7 +50,7 @@ class BurcCardFunctions(
                           backArrowCard: CardView, mainActivityGeneralLayout: RelativeLayout) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         controlVariables.isBurcCardOpen = true
-        animateBurcCardSize(burcCard, 380, 500, {
+        animateBurcCardSize(burcCard, 380, 400, {
             setViewVisibleWithAnimation(context, backArrowCard, burcCardInnerLayout)
             burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
         }, {
@@ -135,7 +135,11 @@ class BurcCardFunctions(
     }
 
     fun isSameGeneralFortune(button: AppCompatButton) {
-        if (postHoroscopeData.time_interval != "daily")  button.setText(R.string.get_your_horoscope)
+        if (postHoroscopeData.time_interval != "daily") {
+            button.setText(R.string.get_your_horoscope)
+            controlVariables.isSameFortune = false
+            controlVariables.isLoveSameFortune = false
+        }
 
         for(fortune in userStatusDataClass.fortune){
             if (fortune.type != "love"){
@@ -179,7 +183,7 @@ class BurcCardFunctions(
                 ExportLookupUserCardFunctions.deselectAllCards(cardList)
             }
 
-            animateCardSize(context, 380, 580, burcCard!!, animationDuration = 200)
+            animateCardSize(context, 380, 480, burcCard!!, animationDuration = 200)
             postHoroscopeData.time_interval = time_interval
 
             if (!controlVariables.isTimeIntervalSelected) {
@@ -301,7 +305,7 @@ class BurcCardFunctions(
         val careerSignBackground = careerSign.findViewById<CardView>(R.id.careerSignBackground)
         controlVariables.isTimeIntervalSelected = false
         controlVariables.selectedTimeInterval = null
-        animateCardSize(context, 380, 500, burcCard!!, animationDuration = 200)
+        animateCardSize(context, 380, 400, burcCard!!, animationDuration = 200)
         setViewInvisible(learnYourBurcButton, timeIntervalDailySelectedBG, timeIntervalWeeklySelectedBG,
                         timeIntervalMonthlySelectedBG, timeIntervalYearlySelectedBG, savedUsersScrollContainer)
         postHoroscopeData.time_interval = null

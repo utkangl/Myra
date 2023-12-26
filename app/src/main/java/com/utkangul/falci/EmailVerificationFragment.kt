@@ -146,6 +146,7 @@ class EmailVerificationFragment : Fragment() {
                         }
 
                         override fun onResponse(call: Call, response: Response) {
+
                             val responseCode = response.code
                             println("responseCode $responseCode")
                             if (responseCode == 200) {

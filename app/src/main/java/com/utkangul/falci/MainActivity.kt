@@ -53,11 +53,13 @@ class MainActivity : AppCompatActivity() {
         this.runOnUiThread{
             val languageSharedPreferences: SharedPreferences = application.getSharedPreferences("language_choice", Context.MODE_PRIVATE)
             val languageChoice = languageSharedPreferences.getString("language",null)
-            val locale = Locale(languageChoice)
-            Locale.setDefault(locale)
-            val config = Configuration()
-            config.locale = locale
-            resources.updateConfiguration(config, resources.displayMetrics)
+            if (!languageChoice.isNullOrEmpty()){
+                val locale = Locale(languageChoice)
+                Locale.setDefault(locale)
+                val config = Configuration()
+                config.locale = locale
+                resources.updateConfiguration(config, resources.displayMetrics)
+            }
         }
 
 
@@ -85,7 +87,6 @@ class MainActivity : AppCompatActivity() {
                 rewardedAd?.setServerSideVerificationOptions(options)
             }
         })
-
 
         rewardedAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdClicked() {
@@ -225,6 +226,11 @@ class MainActivity : AppCompatActivity() {
             setViewGone(burcCard, settingsButtonCard)
         }
 
+        if (authenticated.isLoggedIn){
+            setViewVisibleWithAnimation(this,coinAmountContainerLayout)
+        }
+
+
         //navigate user directly to horoscope, when horoscope mode is love and when user is navigated to main screen from lookup user's complete profile
         if (controlVariables.navigateToHoroscope) {
             println("navigate to horoscope ile geldim ")
@@ -301,7 +307,7 @@ class MainActivity : AppCompatActivity() {
             burcCard.setCardBackgroundColor(Color.parseColor("#1c1444"))
             setViewVisibleWithAnimation(this, miraMainMenu, settingsButtonCard,coinAmountContainerLayout)
             mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
-            selectedModeTitle.text = ""
+            selectedModeTitle.text = resources.getString(R.string.select_mode)
             burcCardFunctions.animateBurcCardOut(
                 burcCard,
                 miraBurcCardTop,

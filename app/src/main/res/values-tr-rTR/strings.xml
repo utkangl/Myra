@@ -190,5 +190,6 @@
     <string name="send_code">Dogrulama Kodu Yolla</string>
     <string name="new_password">Yeni Şifre</string>
     <string name="new_password_again">Tekrardan Yeni Şifre</string>
+    <string name="select_mode">Mod Seç</string>
 
 </resources>

@@ -162,38 +162,38 @@
             android:visibility="invisible">
 
             <!--burc explanation text scroll-->
-            <ScrollView
-                android:id="@+id/burcCardExplanationTextScroll"
-                android:layout_width="350dp"
-                android:layout_height="95dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:visibility="visible">
-                <!--burc explanation text-->
-                <TextView
-                    android:id="@+id/burcCardExplanationText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/arima_madurai_light"
-                    android:padding="10dp"
-                    android:paddingBottom="15dp"
-                    android:text="@string/ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz"
-                    android:textColor="@color/white"
-                    android:textSize="11dp">
-                </TextView>
-            </ScrollView>
+<!--            <ScrollView-->
+<!--                android:id="@+id/burcCardExplanationTextScroll"-->
+<!--                android:layout_width="350dp"-->
+<!--                android:layout_height="95dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="25dp"-->
+<!--                android:visibility="visible">-->
+<!--                &lt;!&ndash;burc explanation text&ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/burcCardExplanationText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:fontFamily="@font/arima_madurai_light"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:paddingBottom="15dp"-->
+<!--                    android:text="@string/ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_ko_burcu_insanlar_enerji_dolu_ve_liderlik_zelliklerine_sahiptirler_bu_d_nemde_hedeflerinize_odaklanmak_i_in_m_kemmel_bir_zaman_kendinize_g_veniyorsunuz_ve_zorluklar_n_stesinden_gelebilecek_g_ce_sahipsiniz"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="11dp">-->
+<!--                </TextView>-->
+<!--            </ScrollView>-->
 
             <!--selected mode title-->
             <TextView
                 android:id="@+id/selectedModeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/burcCardExplanationTextScroll"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="45dp"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:text="@string/general"
+                android:text="@string/select_mode"
                 android:textColor="@color/white"
                 android:textSize="25dp">
             </TextView>
@@ -644,11 +644,6 @@
 
         </RelativeLayout>
 
-
-
-
-
-
     </androidx.cardview.widget.CardView>
 
     <!--coin amount-->
@@ -656,6 +651,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/coinAmountContainerLayout"
+        android:visibility="gone"
         android:layout_marginTop="40dp"
         android:layout_marginStart="20dp">
         <TextView
