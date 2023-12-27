@@ -19,8 +19,6 @@ import java.io.IOException
 class UserStatusFunctions {
     object UserStatusFunctionsObject {
         fun getUserStatus(
-            url: String,
-            client: OkHttpClient,
             context: Context,
             activity: MainActivity,
             useOrGainCoinMenuCurrentCoinText: TextView,
@@ -30,10 +28,11 @@ class UserStatusFunctions {
         ) {
             println("get user status burada cagirildi")
             val request = Request.Builder()
-                .url(url)
+                .url(urls.userStatusURL)
                 .get()
                 .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                 .build()
+            val client = OkHttpClient()
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
@@ -93,7 +92,7 @@ class UserStatusFunctions {
                                                             if (response.code == 200) {
                                                                 userStatusDataClass.campain.remove(campaign)
                                                                 activity.runOnUiThread { Toast.makeText(context, "Campaign Successfuly Claimed", Toast.LENGTH_SHORT).show() }
-                                                                getUserStatus(url, client, context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText, claimCampaignCard, claimCampaignClaimButton)
+                                                                getUserStatus(context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText, claimCampaignCard, claimCampaignClaimButton)
                                                             } else if (response.code == 401) {
                                                                 takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception ->
                                                                     if (responseBody401 != null) {
@@ -121,16 +120,7 @@ class UserStatusFunctions {
                         401 -> {
                             takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception401 ->
                                 if (responseBody401 != null) {
-                                    getUserStatus(
-                                        url,
-                                        client,
-                                        context,
-                                        activity,
-                                        useOrGainCoinMenuCurrentCoinText,
-                                        coinAmountText,
-                                        claimCampaignCard,
-                                        claimCampaignClaimButton
-                                    )
+                                    getUserStatus(context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText, claimCampaignCard, claimCampaignClaimButton)
                                 } else exception401?.printStackTrace()
 
                             }

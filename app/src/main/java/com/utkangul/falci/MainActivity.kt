@@ -98,6 +98,8 @@ class MainActivity : AppCompatActivity() {
                 // Called when ad is dismissed.
                 // Set the ad reference to null so you don't show the ad a second time.
                 Log.d(TAG, "Ad dismissed fullscreen content.")
+                val options = ActivityOptions.makeCustomAnimation(this@MainActivity, R.anim.activity_slide_down, 0)
+                val intent = Intent(this@MainActivity, CompleteProfile::class.java); startActivity(intent, options.toBundle())
                 rewardedAd = null
             }
 
@@ -248,16 +250,14 @@ class MainActivity : AppCompatActivity() {
             println("expire kontrolü bitsin diye get user statusu gecikmeli çagiriyorm")
             Handler(Looper.getMainLooper()).postDelayed({
             if (authenticated.isLoggedIn){
-                val url = urls.userStatusURL
-                val client = OkHttpClient()
-                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
+                getUserStatus(this, this,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
             }
             },1000)
         } else {
             if (authenticated.isLoggedIn){
                 val url = urls.userStatusURL
                 val client = OkHttpClient()
-                getUserStatus(url,client, this, this@MainActivity,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
+                getUserStatus(this, this,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
             }
         }
 
@@ -420,46 +420,38 @@ class MainActivity : AppCompatActivity() {
             controlVariables.navigateBackToProfileActivity = false
 
             rewardedAd?.let { ad ->
-
-
                 Handler(Looper.getMainLooper()).postDelayed({
                     ad.show(this, OnUserEarnedRewardListener { _ ->
                         // Handle the reward.
-                        coin.current_coin += 20
                         Log.d(TAG, "User earned the reward.")
-
-                        if (controlVariables.isFromLoveHoroscope && controlVariables.isFromAddLookupUser) {
-                            coin.current_coin -= 10
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-                                val intent = Intent(this, CompleteProfile::class.java); startActivity(intent, options.toBundle())
-                                controlVariables.isFromAddLookupUser = false
-                            }, 650)
-                        }
+                        this.runOnUiThread{ Toast.makeText(this, "You earned your ad reward", Toast.LENGTH_SHORT).show()}
+                        getUserStatus(this, this,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
+//                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
+//                        val intent = Intent(this, MainActivity::class.java); startActivity(intent, options.toBundle())
                     })
                 }, 190)
-                handleCloseBurcCard()
-                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
+//                handleCloseBurcCard()
+//                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
 
                 controlVariables.isInDelay = true
                 // if horoscope type is not love, call get horoscope function
-                if (!controlVariables.isFromLoveHoroscope) {
-                    coin.current_coin -= 10
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this,this)
-                    }, 350)
-                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
-                }
-
-                if (controlVariables.isFromLoveHoroscope && !controlVariables.isFromAddLookupUser) {
-                    coin.current_coin -= 10
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
-                    }, 350)
-                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
-                }
+//                if (!controlVariables.isFromLoveHoroscope) {
+//                    coin.current_coin -= 10
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
+//                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this,this)
+//                    }, 350)
+//                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+//                }
+//
+//                if (controlVariables.isFromLoveHoroscope && !controlVariables.isFromAddLookupUser) {
+//                    coin.current_coin -= 10
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
+//                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
+//                    }, 350)
+//                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
+//                }
 
             } ?: run {
                 Log.d(TAG, "The rewarded ad wasn't ready yet.")
