@@ -19,8 +19,8 @@ android {
         applicationId "com.utkangul.falci"
         minSdk 24
         targetSdk 34
-        versionCode 17
-        versionName "17.1"
+        versionCode 18
+        versionName "18.1"
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]

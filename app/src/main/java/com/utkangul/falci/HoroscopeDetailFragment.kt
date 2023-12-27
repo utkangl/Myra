@@ -115,54 +115,71 @@ class HoroscopeDetailFragment : Fragment() {
             if (!getHoroscopeData.is_favourite) {
 
 
-                setViewVisibleWithAnimation(requireContext(), takeFavHoroscopeTitleInputCard)
-                takeFavHoroscopeTitleInputButton.setOnClickListener {
+                    setViewVisibleWithAnimation(requireContext(), takeFavHoroscopeTitleInputCard)
+                    takeFavHoroscopeTitleInputButton.setOnClickListener {
 
-                    val title: String = takeFavHoroscopeTitleInputEditText.text.toString()
-                    println("basligi yazıyom ${createFavouriteHoroscope.title}")
-                    createFavouriteHoroscope.title = title
-                    println("basligi yazdım ${createFavouriteHoroscope.title}")
-                    if (!getHoroscopeData.is_favourite) {
-                        val gson = Gson()
-                        createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
-                        val favouriteHoroscopeJson = createJsonObject("title" to createFavouriteHoroscope.title, "fortune" to createFavouriteHoroscope.horoscopeId!!.toInt())
-                        postJsonWithHeader(requireActivity(),urls.favouriteHoroscopeURL, favouriteHoroscopeJson, requireContext())
-                        { responseBody, _ ->
-                            requireActivity().runOnUiThread{
-                                setViewGoneWithAnimation(requireContext(),takeFavHoroscopeTitleInputCard)
-                            }
-                            val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
-                            val detail = responseJson?.optString("detail")
-                            println(statusCode)
-                            if (statusCode == 201) {
-                                println(responseJson)
-                                requireActivity().runOnUiThread { favouriteThisHoroscope.setImageResource(R.drawable.filled_heart) }
-                                getHoroscopeData.is_favourite = true
-                                favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
-                                getHoroscopeData.favourite_id = favouriteHoroscope.id
+                        val title: String = takeFavHoroscopeTitleInputEditText.text.toString()
+                        println("basligi yazıyom ${createFavouriteHoroscope.title}")
+                        createFavouriteHoroscope.title = title
+                        println("basligi yazdım ${createFavouriteHoroscope.title}")
+                        if (!getHoroscopeData.is_favourite) {
+                            if (!takeFavHoroscopeTitleInputEditText.text.isNullOrEmpty()) {
+
+                                val gson = Gson()
+                            createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
+                            val favouriteHoroscopeJson =
+                                createJsonObject(
+                                    "title" to createFavouriteHoroscope.title,
+                                    "fortune" to createFavouriteHoroscope.horoscopeId!!.toInt()
+                                )
+                            postJsonWithHeader(requireActivity(), urls.favouriteHoroscopeURL, favouriteHoroscopeJson, requireContext())
+                            { responseBody, _ ->
                                 requireActivity().runOnUiThread {
-                                    Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.fav_horoscope_added), Toast.LENGTH_SHORT).show()
-                                    inTitleInput = false
+                                    setViewGoneWithAnimation(requireContext(), takeFavHoroscopeTitleInputCard)
+                                }
+                                val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
+                                val detail = responseJson?.optString("detail")
+                                println(statusCode)
+                                if (statusCode == 201) {
+                                    println(responseJson)
+                                    requireActivity().runOnUiThread { favouriteThisHoroscope.setImageResource(R.drawable.filled_heart) }
+                                    getHoroscopeData.is_favourite = true
+                                    favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
+                                    getHoroscopeData.favourite_id = favouriteHoroscope.id
+                                    requireActivity().runOnUiThread {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            requireActivity().resources.getString(R.string.fav_horoscope_added),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        inTitleInput = false
+                                    }
+                                }
+                                if (statusCode == 208) {
+                                    println(detail)
+                                    requireActivity().runOnUiThread { favouriteThisHoroscope.setImageResource(R.drawable.filled_heart) }
+                                    favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
+                                    requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_SHORT).show() }
+                                    getHoroscopeData.is_favourite = true
+                                }
+                                if (statusCode == 400) {
+                                    println(detail)
+                                    requireActivity().runOnUiThread {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            requireActivity().resources.getString(R.string.empty_title_warning),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    getHoroscopeData.is_favourite = false
+                                }
+                                if (statusCode == 404) {
+                                    println(detail)
+                                    requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_SHORT).show() }
+                                    getHoroscopeData.is_favourite = false
                                 }
                             }
-                            if (statusCode == 208) {
-                                println(detail)
-                                requireActivity().runOnUiThread { favouriteThisHoroscope.setImageResource(R.drawable.filled_heart) }
-                                favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
-                                requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_SHORT).show() }
-                                getHoroscopeData.is_favourite = true
-                            }
-                            if (statusCode == 400) {
-                                println(detail)
-                                requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_SHORT).show() }
-                                getHoroscopeData.is_favourite = false
-                            }
-                            if (statusCode == 404) {
-                                println(detail)
-                                requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_SHORT).show() }
-                                getHoroscopeData.is_favourite = false
-                            }
-                        }
+                        }else Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.empty_title_warning), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -176,7 +193,7 @@ class HoroscopeDetailFragment : Fragment() {
 
         } // end of favouriteThisHoroscope.setOnClickListener
 
-        horoscopeDetailBackButton.setOnClickListener{
+        horoscopeDetailBackButton.setOnClickListener {
             callback.handleOnBackPressed()
         }
 
@@ -196,10 +213,16 @@ class HoroscopeDetailFragment : Fragment() {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        activity.runOnUiThread{ Toast.makeText(context, activity.resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
+                        activity.runOnUiThread {
+                            Toast.makeText(
+                                context,
+                                activity.resources.getString(R.string.unexpected_error_occured_onServer_text),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                         val intent = Intent(context, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(context,intent,null)
+                        startActivity(context, intent, null)
                         activity.finish()
                         e.printStackTrace()
                     }
@@ -211,7 +234,7 @@ class HoroscopeDetailFragment : Fragment() {
 
                         if (statusCode == 401) {
                             println("unauthorized 401, taking new access token")
-                            takeFreshTokens(activity,urls.refreshURL, context)
+                            takeFreshTokens(activity, urls.refreshURL, context)
                             { responseBody401, exception ->
                                 if (responseBody401 != null) {
                                     println(tokensDataClass.accessToken)
