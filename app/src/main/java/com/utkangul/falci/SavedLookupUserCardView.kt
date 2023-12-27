@@ -1,14 +1,13 @@
 package com.utkangul.falci
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.BurcCardFunctions
 
@@ -105,7 +104,12 @@ object ExportLookupUserCardFunctions {
 
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
-                    println("exception $e")
+                    activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(context,intent,null)
+                    activity.finish()
+                    e.printStackTrace()
                 }
 
                 override fun onResponse(call: Call, response: Response) {
@@ -120,7 +124,7 @@ object ExportLookupUserCardFunctions {
                         }
                     }
                     else if (destroyUserStatusCode == 401){
-                        takeFreshTokens(urls.refreshURL, context)
+                        takeFreshTokens(activity,urls.refreshURL, context)
                         { responseBody401, exception ->
                             if (responseBody401 != null) {
                                 println(tokensDataClass.accessToken)

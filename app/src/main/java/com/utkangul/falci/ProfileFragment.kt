@@ -255,7 +255,7 @@ class ProfileFragment : Fragment() {
         logoutButton.setOnClickListener{
             if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to tokensDataClass.refreshToken)
-                postJsonWithHeader(urls.logoutURL,refreshTokenJSON, requireContext())
+                postJsonWithHeader(requireActivity(),urls.logoutURL,refreshTokenJSON, requireContext())
                 { responseBody, _ ->
                     if (statusCode == 205){
                         println("logoutun status kodu 205")

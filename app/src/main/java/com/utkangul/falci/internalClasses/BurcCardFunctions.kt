@@ -5,18 +5,16 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.HorizontalScrollView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import com.utkangul.falci.*
 import com.utkangul.falci.internalClasses.InternalFunctions.AnimateCardSize.animateCardSize
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
@@ -234,7 +232,12 @@ class BurcCardFunctions(
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                println("exception $e")
+                activity?.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(context,intent,null)
+                activity?.finish()
+                e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -243,16 +246,9 @@ class BurcCardFunctions(
 
                 if (statusCode == 401) {
                     println("unauthorized 401, taking new access token")
-                    AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                        urls.refreshURL,
-                        context
-                    ) { responseBody401, exception ->
-                        if (responseBody401 != null) {
-                            println(tokensDataClass.accessToken)
-                            getSavedLookUpUsers(context)
-                        } else {
-                            println(exception)
-                        }
+                    AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(activity!!, urls.refreshURL, context) { responseBody401, exception ->
+                        if (exception == null && responseBody401 != null) { println(tokensDataClass.accessToken);getSavedLookUpUsers(context) }
+                        else println(exception)
                     }
                 }
                 if (statusCode == 200) {

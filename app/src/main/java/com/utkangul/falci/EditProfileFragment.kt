@@ -116,7 +116,7 @@ class EditProfileFragment : Fragment() {
             }
 
             println("yolladigim json $editProfileJson")
-            putEditProfileJson(urls.editProfileURL, editProfileJson, requireContext()) {_,_->
+            putEditProfileJson(requireActivity(),urls.editProfileURL, editProfileJson, requireContext()) {_,_->
                 if (statusCode == 200){
                     requireActivity().runOnUiThread { setViewGone(savebutton) }
                     parentFragmentManager.popBackStack()

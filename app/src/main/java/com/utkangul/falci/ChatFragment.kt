@@ -1,15 +1,13 @@
 package com.utkangul.falci
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ListView
-import android.widget.RelativeLayout
+import android.widget.*
 import com.utkangul.falci.internalClasses.AuthenticationFunctions
 import com.utkangul.falci.internalClasses.ChatFuncs
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
@@ -163,9 +161,13 @@ class ChatFragment : Fragment() {
         chatclient.newCall(request).enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
+                requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent,null)
+                requireActivity().finish()
                 callback(null, e)
-                println("hata var yav $e")
-
+                e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -173,7 +175,7 @@ class ChatFragment : Fragment() {
                 statusCode = response.code
                 if (statusCode == 401){
                     println("unauthorized 401, taking new access token")
-                    AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->
+                    AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody401, exception ->
                         if (responseBody401 != null) {
                             println(tokensDataClass.accessToken)
                             postChatJson(url, json, callback)

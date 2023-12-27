@@ -130,7 +130,7 @@ class PurchaseFragment : Fragment() {
                         }
                         try {
                             delay(2500)
-                            postJsonWithHeader(urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
+                            postJsonWithHeader(requireActivity(),urls.notifyApiOnPurchaseURL, revenuecatUserIdJson, requireContext())
                             { responseBody, exception ->
                                 exception?.printStackTrace()
                                 println("responseBody $responseBody")
@@ -150,7 +150,7 @@ class PurchaseFragment : Fragment() {
                                         }
                                     }
                                     401 -> {
-                                        takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->
+                                        takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody401, exception401 ->
                                             if (exception401 != null) exception401.printStackTrace()
                                             else {
                                                 if (responseBody401 != null) {

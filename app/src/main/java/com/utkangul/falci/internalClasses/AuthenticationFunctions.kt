@@ -1,9 +1,11 @@
 package com.utkangul.falci.internalClasses
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import com.utkangul.falci.MainActivity
 import com.utkangul.falci.R
@@ -30,7 +32,7 @@ class AuthenticationFunctions {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build()
 
-            fun postJsonNoHeader(url: String, json: JSONObject,  callback: (String?, Exception?) -> Unit) {
+            fun postJsonNoHeader(context: Context, activity:Activity, url: String, json: JSONObject,  callback: (String?, Exception?) -> Unit) {
 
                 val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val request = Request.Builder()
@@ -40,6 +42,11 @@ class AuthenticationFunctions {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
+                        activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(context,intent,null)
+                        activity.finish()
                         callback(null, e)
                     }
 
@@ -65,7 +72,7 @@ class AuthenticationFunctions {
                 })
             }
 
-            fun postJsonWithHeader(url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
+            fun postJsonWithHeader(activity: Activity, url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
 
                 val requestBody = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 val request = Request.Builder()
@@ -76,17 +83,22 @@ class AuthenticationFunctions {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        callback(null, e)
+                        activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(context,intent,null)
+                        activity.finish()
+                        e.printStackTrace()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
                         statusCode = response.code
                         if (statusCode == 401){
                             println("unauthorized 401, taking new access token")
-                            takeFreshTokens(urls.refreshURL, context) { responseBody, exception ->
+                            takeFreshTokens(activity,urls.refreshURL, context) { responseBody, exception ->
                                 if (responseBody != null) {
                                     println(tokensDataClass.accessToken)
-                                    postJsonWithHeader(url, json, context, callback)
+                                    postJsonWithHeader(activity,url, json, context, callback)
                                 } else {
                                     println(exception)
                                 }
@@ -100,7 +112,7 @@ class AuthenticationFunctions {
                 })
             }
 
-            fun takeFreshTokens(url: String, context: Context, callback: (String?, Exception?) -> Unit) {
+            fun takeFreshTokens(activity: Activity,url: String, context: Context, callback: (String?, Exception?) -> Unit) {
 
                 val refreshJson = createJsonObject("refresh" to tokensDataClass.refreshToken)
                 println(tokensDataClass)
@@ -111,7 +123,13 @@ class AuthenticationFunctions {
                     .build()
 
                 client.newCall(request).enqueue(object : Callback {
+
                     override fun onFailure(call: Call, e: IOException) {
+                        activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(context,intent,null)
+                        activity.finish()
                         callback(null, e)
                     }
 
@@ -160,11 +178,11 @@ class AuthenticationFunctions {
                 })
             }
 
-        fun checkIsAccessExpired(nowTime: Long, creationTime: Long, livingTime: Long, context: Context){
+        fun checkIsAccessExpired(activity: Activity, nowTime: Long, creationTime: Long, livingTime: Long, context: Context){
             if (nowTime - creationTime > livingTime) {
                 println("token is expired")
 
-                takeFreshTokens(urls.refreshURL,  context) { responseBody, exception ->
+                takeFreshTokens(activity, urls.refreshURL,  context) { responseBody, exception ->
                     controlVariables.isInExpireControl = false
 
                     if (responseBody != null) {

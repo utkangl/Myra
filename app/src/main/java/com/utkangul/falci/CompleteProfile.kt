@@ -154,7 +154,7 @@ class CompleteProfile : AppCompatActivity() {
             // main activity will directly navigate user to login screen when isFromSignIn is true
             // if response code is error just toast the error
             println(completeProfileJSON)
-            postJsonWithHeader(urls.completeProfileURL, completeProfileJSON, this)
+            postJsonWithHeader(this,urls.completeProfileURL, completeProfileJSON, this)
             { responseBody, _ ->
                 val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                 val detail = responseJson?.optString("detail")
@@ -324,7 +324,7 @@ class CompleteProfile : AppCompatActivity() {
                         createLookupUserJson()
                         println(postLookupUserJson)
                         setViewGone(completeProfilePickersContainer, miraSpeechBubbleContainer)
-                        postJsonWithHeader(urls.lookupUserURL, postLookupUserJson, this) { responseBody, _ ->
+                        postJsonWithHeader(this,urls.lookupUserURL, postLookupUserJson, this) { responseBody, _ ->
                             val responseJson = responseBody?.let { it1 -> JSONObject(it1) }
                             val detail = responseJson?.optString("detail")
                             val errorCode = responseJson?.optString("error_code")

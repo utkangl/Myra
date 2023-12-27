@@ -34,6 +34,7 @@ object HoroscopeFunctions {
             }
             try {
                 AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
+                    activity,
                     urls.getHoroscopeURL,
                     getHoroscopeJson,
                     context
@@ -54,7 +55,7 @@ object HoroscopeFunctions {
                                 println(getHoroscopeData)
                             }
                             401 -> {
-                                AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception401 ->
+                                AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception401 ->
                                     if (exception401 != null) exception401.printStackTrace()
                                     else {
                                         if (responseBody401 != null) {
@@ -103,10 +104,7 @@ object HoroscopeFunctions {
             }
             try {
                 AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader(
-                    urls.getHoroscopeURL,
-                    getLoveHoroscopeJson,
-                    context
-                ) { responseBody, exception ->
+                    activity, urls.getHoroscopeURL, getLoveHoroscopeJson, context) { responseBody, exception ->
                     animationView.post {
                         setViewGone(animationView)
                         animationView.cancelAnimation()
@@ -133,7 +131,7 @@ object HoroscopeFunctions {
                             }
 
                             401 -> {
-                                AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception401 ->
+                                AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception401 ->
                                     if (exception401 != null) exception401.printStackTrace()
                                     else {
                                         if (responseBody401 != null) {

@@ -60,7 +60,7 @@ class SignUpFragment : Fragment() {
                     setViewVisibleWithAnimation(requireContext(),signupfragmentsignupbutton)
                     setViewGoneWithAnimation(requireContext(),kvkkPopupCard)
                     //post registerJson and let user know the error if there is one, else wise toast success
-                    postJsonNoHeader(urls.signUpURL, registerJSON, ) { responseBody, _ ->
+                    postJsonNoHeader(requireContext(),requireActivity(),urls.signUpURL, registerJSON, ) { responseBody, _ ->
 
                         // if response code is 201, toast success and  navigate user to CompleteProfile activity
                         if (statusCode == 201){

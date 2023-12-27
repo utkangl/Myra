@@ -91,8 +91,14 @@ class SettingsFragment : Fragment() {
                         .build()
 
                     client.newCall(request).enqueue(object : Callback {
+
                         override fun onFailure(call: Call, e: IOException) {
-                            println("exception $e")
+                            requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                            val intent = Intent(context, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            startActivity(intent,null)
+                            requireActivity().finish()
+                            e.printStackTrace()
                         }
 
                         override fun onResponse(call: Call, response: Response) {
@@ -113,7 +119,7 @@ class SettingsFragment : Fragment() {
                                 }
                             }
                             if (response.code == 401) {
-                                takeFreshTokens(urls.refreshURL, requireContext()) { responseBody, exception ->
+                                takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody, exception ->
                                     if (responseBody != null) {
                                         println(tokensDataClass.accessToken)
                                         deleteAccount()
@@ -141,8 +147,7 @@ class SettingsFragment : Fragment() {
 
         changePasswordContainerLayout.setOnClickListener{
             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
-            val intent = Intent(context, ChangePasswordActivity
-            ::class.java)
+            val intent = Intent(context, ChangePasswordActivity::class.java)
             ContextCompat.startActivity(requireContext(), intent, options.toBundle())
         }
 

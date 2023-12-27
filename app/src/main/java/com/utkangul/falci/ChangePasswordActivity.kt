@@ -143,10 +143,12 @@ class ChangePasswordActivity : AppCompatActivity() {
                     .build()
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        this@ChangePasswordActivity.runOnUiThread {
-                            println("exception $e")
-                            Toast.makeText(this@ChangePasswordActivity, "An unexpected error occured, mail could not be sent", Toast.LENGTH_SHORT).show()
-                        }
+                        this@ChangePasswordActivity.runOnUiThread{ Toast.makeText(this@ChangePasswordActivity, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        val intent = Intent(this@ChangePasswordActivity, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent,null)
+                        this@ChangePasswordActivity.finish()
+                        e.printStackTrace()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
@@ -161,7 +163,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                             }
                             401 -> {
                                 AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                                    urls.refreshURL, this@ChangePasswordActivity) { responseBody401, exception401 ->
+                                    this@ChangePasswordActivity,urls.refreshURL, this@ChangePasswordActivity) { responseBody401, exception401 ->
                                     if (exception401 != null) exception401.printStackTrace()
                                     else {
                                         if (responseBody401 != null) {
@@ -197,7 +199,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                     if (changePasswordNewPassword.text.contentEquals(changePasswordNewPasswordAgain.text) && !changePasswordNewPassword.text.isNullOrEmpty()){
                         resetPasswordDataClass.password = changePasswordNewPassword.text.toString()
                         val changePasswordJSON = createJsonObject("code" to resetPasswordDataClass.code!!, "password" to resetPasswordDataClass.password!!)
-                        postJsonWithHeader("https://api.kircibros.com/auth/reset/password/", changePasswordJSON,this ){
+                        postJsonWithHeader(this,"https://api.kircibros.com/auth/reset/password/", changePasswordJSON,this ){
                             responseBody, exception ->
                             exception?.printStackTrace()
                             if (exception == null){

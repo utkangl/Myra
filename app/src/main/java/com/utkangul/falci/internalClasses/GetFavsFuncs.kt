@@ -147,18 +147,10 @@ class GetFavsFuncs(activity: Activity) {
         getFavsUrl: String,
         favouriteHoroscopesScrollview: ScrollView,
     ) {
-        takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
+        takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception ->
             if (responseBody401 != null) {
                 println(tokensDataClass.accessToken)
-                getFavouriteHoroscopes(
-                    animationView,
-                    context,
-                    searchFavHoroscope,
-                    cancelFavSearchFilter,
-                    favHoroscopeLinearLayout,
-                    getFavsUrl,
-                    favouriteHoroscopesScrollview,
-                )
+                getFavouriteHoroscopes(animationView, context, searchFavHoroscope, cancelFavSearchFilter, favHoroscopeLinearLayout, getFavsUrl, favouriteHoroscopesScrollview,)
             } else {
                 println(exception)
             }

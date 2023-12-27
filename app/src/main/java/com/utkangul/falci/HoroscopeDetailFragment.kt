@@ -16,6 +16,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.utkangul.falci.HoroscopeDetailFragment.DestroyFavHoroscope.destroyFavHoroscope
 import com.utkangul.falci.internalClasses.AuthenticationFunctions
@@ -25,7 +26,7 @@ import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityTo
 import com.utkangul.falci.internalClasses.dataClasses.*
 import com.utkangul.falci.internalClasses.statusCode
 import com.google.gson.Gson
-import com.utkangul.falci.internalClasses.InternalFunctions
+import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.utkangul.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertTimestampToTime
@@ -124,7 +125,7 @@ class HoroscopeDetailFragment : Fragment() {
                         val gson = Gson()
                         createFavouriteHoroscope.horoscopeId = getHoroscopeData.id
                         val favouriteHoroscopeJson = createJsonObject("title" to createFavouriteHoroscope.title, "fortune" to createFavouriteHoroscope.horoscopeId!!.toInt())
-                        postJsonWithHeader(urls.favouriteHoroscopeURL, favouriteHoroscopeJson, requireContext())
+                        postJsonWithHeader(requireActivity(),urls.favouriteHoroscopeURL, favouriteHoroscopeJson, requireContext())
                         { responseBody, _ ->
                             requireActivity().runOnUiThread{
                                 setViewGoneWithAnimation(requireContext(),takeFavHoroscopeTitleInputCard)
@@ -190,7 +191,12 @@ class HoroscopeDetailFragment : Fragment() {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        println("exception $e")
+                        activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(context,intent,null)
+                        activity.finish()
+                        e.printStackTrace()
                     }
 
                     override fun onResponse(call: Call, response: Response) {
@@ -200,7 +206,7 @@ class HoroscopeDetailFragment : Fragment() {
 
                         if (statusCode == 401) {
                             println("unauthorized 401, taking new access token")
-                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context)
+                            takeFreshTokens(activity,urls.refreshURL, context)
                             { responseBody401, exception ->
                                 if (responseBody401 != null) {
                                     println(tokensDataClass.accessToken)

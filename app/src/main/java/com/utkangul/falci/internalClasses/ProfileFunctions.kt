@@ -1,11 +1,13 @@
 package com.utkangul.falci.internalClasses
 
+import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.utkangul.falci.MainActivity
 import com.utkangul.falci.ProfileActivity
 import com.utkangul.falci.R
@@ -34,10 +36,14 @@ class ProfileFunctions {
             getProfileClient.newCall(request).enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {
-                    callback(null, e)
-                    println(call)
-                    println("failure")
+                    activity?.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(context,intent,null)
+                    activity?.finish()
+                    e.printStackTrace()
                 }
+
                 override fun onResponse(call: Call, response: Response) {
                     val getProfileStatusCode = response.code
                     val responseBody = response.body?.string()
@@ -49,9 +55,7 @@ class ProfileFunctions {
 
                         401->{
                             println("unauthorized 401, taking new access token")
-                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                                urls.refreshURL,
-                                context,
+                            AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(activity!!,urls.refreshURL, context,
                             ) { responseBody401, exception ->
                                 if (responseBody401 != null) {
                                     makeGetProfileRequest(url,  context, activity, settingsButton, callback)
@@ -66,7 +70,7 @@ class ProfileFunctions {
                             if (!controlVariables.getProfileAgain && !userProfile.first_name.isNullOrEmpty()){
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, ProfileActivity::class.java)
-                                ContextCompat.startActivity(context, intent, options.toBundle())
+                                startActivity(context, intent, options.toBundle())
                                 activity?.runOnUiThread{settingsButton?.isEnabled = true}
                             } else println("get profile req atan fonksiyonun içinden yazıyorum $userProfile")
                         }
@@ -78,7 +82,7 @@ class ProfileFunctions {
                 }
             })
         }
-        fun putEditProfileJson(url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
+        fun putEditProfileJson(activity: Activity, url: String, json: JSONObject, context: Context, callback: (String?, Exception?) -> Unit) {
 
             val editProfileClient = OkHttpClient()
 
@@ -92,7 +96,15 @@ class ProfileFunctions {
 
             editProfileClient.newCall(request).enqueue(object : Callback {
 
-                override fun onFailure(call: Call, e: IOException) { callback(null, e) }
+                override fun onFailure(call: Call, e: IOException) {
+                    activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                    val intent = Intent(context, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(context,intent,null)
+                    activity.finish()
+                    callback(null, e)
+                    e.printStackTrace()
+                }
 
                 override fun onResponse(call: Call, response: Response) {
                     val responseBody = response.body?.string()
@@ -101,9 +113,9 @@ class ProfileFunctions {
 
                     if (statusCode == 401){
                         println("unauthorized 401, taking new access token")
-                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(urls.refreshURL, context) { responseBody401, exception ->
+                        AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(activity, urls.refreshURL, context) { responseBody401, exception ->
                             exception?.printStackTrace()
-                            if (responseBody401 != null) { println(tokensDataClass.accessToken); putEditProfileJson(url, json,context, callback) }
+                            if (responseBody401 != null) { println(tokensDataClass.accessToken); putEditProfileJson(activity,url, json,context, callback) }
                         }
                     }
                     println("response from edit profile is: $responseBody")

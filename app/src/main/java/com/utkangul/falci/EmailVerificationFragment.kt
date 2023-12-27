@@ -140,9 +140,14 @@ class EmailVerificationFragment : Fragment() {
                         .header("Authorization", "Bearer ${tokensDataClass.accessToken}")
                         .build()
                     client.newCall(request).enqueue(object : Callback {
+
                         override fun onFailure(call: Call, e: IOException) {
-                            println("exception $e")
-                            Toast.makeText(requireContext(), "An unexpected error occured, mail could not be sent", Toast.LENGTH_SHORT).show()
+                            requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                            val intent = Intent(context, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            startActivity(intent,null)
+                            requireActivity().finish()
+                            e.printStackTrace()
                         }
 
                         override fun onResponse(call: Call, response: Response) {
@@ -156,7 +161,7 @@ class EmailVerificationFragment : Fragment() {
                                 }
                             }
                             else if (statusCode == 401) {
-                                takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception401 ->
+                                takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody401, exception401 ->
                                     if (exception401 != null) exception401.printStackTrace()
                                     else {
                                         if (responseBody401 != null) {
@@ -193,7 +198,12 @@ class EmailVerificationFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                println("exception $e")
+                requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent,null)
+                requireActivity().finish()
+                e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -205,7 +215,7 @@ class EmailVerificationFragment : Fragment() {
                     val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
                 }
                 else if (responseCode == 401){
-                    takeFreshTokens(urls.refreshURL, requireContext()) { responseBody401, exception ->
+                    takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody401, exception ->
                         if (responseBody401 != null) {
                             checkEmail()
                         } else {
