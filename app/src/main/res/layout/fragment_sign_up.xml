@@ -10,127 +10,142 @@
 
 
 
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/signupBackButton"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/sample_description"
+        android:background="@drawable/baseline_arrow_back_24"
+        android:elevation="15dp">
+    </ImageButton>
 
-        <TextView
-            android:id="@+id/loginFragmentTitleTextview"
+    <TextView
+        android:id="@+id/loginFragmentTitleTextview"
 
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
 
-            android:layout_above="@+id/signUpFragmentUsername"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="120dp"
+        android:layout_above="@+id/signUpFragmentUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="120dp"
 
-            android:fontFamily="@font/arima_madurai_bold"
-            android:text="@string/enter_your_informations"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:text="@string/enter_your_informations"
+        android:textColor="@color/white"
+        android:textSize="32dp"
+        tools:ignore="TextSizeCheck">
+
+    </TextView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signUpFragmentUsername"
+
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+
+        android:layout_above="@id/changePasswordNewPasswordCard"
+        android:layout_marginBottom="20dp"
+
+        app:cardElevation="2dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+
+        app:cardCornerRadius="20dp">
+
+        <EditText
+            android:id="@+id/signUpFragmentUsernameText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="emailAddress"
+            android:background="@drawable/common_text_input_field"
+            android:fontFamily="@font/arima_madurai_light"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLength="255"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text=""
             android:textColor="@color/white"
-            android:textSize="32dp"
-            tools:ignore="TextSizeCheck">
+            android:textColorHint="@color/quantum_grey"
+            android:textSize="24dp"
+            tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
 
-        </TextView>
+    </androidx.cardview.widget.CardView>
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/signUpFragmentUsername"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/changePasswordNewPasswordCard"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_centerInParent="true"
+        app:cardElevation="2dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+        app:cardCornerRadius="20dp">
 
+        <EditText
+            android:id="@+id/signUpFragmentPasswordText"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
+            android:layout_height="match_parent"
+            android:autofillHints="password"
+            android:background="@drawable/common_text_input_field"
+            android:fontFamily="@font/arima_madurai_light"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="255"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textColorHint="@color/quantum_grey"
+            android:textSize="24dp"
+            tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
+    </androidx.cardview.widget.CardView>
 
-            android:layout_above="@id/changePasswordNewPasswordCard"
-            android:layout_marginBottom="20dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signUpFragmentPasswordAgain"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_below="@+id/changePasswordNewPasswordCard"
+        app:cardElevation="2dp"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="55dp"
+        app:cardCornerRadius="20dp">
 
-            app:cardElevation="2dp"
-            android:outlineAmbientShadowColor="@color/black"
-            android:outlineSpotShadowColor="@color/black"
-
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"
-
-            app:cardCornerRadius="20dp">
-
-            <EditText
-                android:id="@+id/signUpFragmentUsernameText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="emailAddress"
-                android:background="@drawable/common_text_input_field"
-                android:fontFamily="@font/arima_madurai_light"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:maxLength="255"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:text=""
-                android:textColor="@color/white"
-                android:textColorHint="@color/quantum_grey"
-                android:textSize="24dp"
-                tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
-
-        </androidx.cardview.widget.CardView>
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/changePasswordNewPasswordCard"
+        <EditText
+            android:id="@+id/signUpFragmentPasswordAgainText"
             android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_centerInParent="true"
-            app:cardElevation="2dp"
-            android:outlineAmbientShadowColor="@color/black"
-            android:outlineSpotShadowColor="@color/black"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"
-            app:cardCornerRadius="20dp">
-
-            <EditText
-                android:id="@+id/signUpFragmentPasswordText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="password"
-                android:background="@drawable/common_text_input_field"
-                android:fontFamily="@font/arima_madurai_light"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLength="255"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:text=""
-                android:textColor="@color/white"
-                android:textColorHint="@color/quantum_grey"
-                android:textSize="24dp"
-                tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/signUpFragmentPasswordAgain"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_below="@+id/changePasswordNewPasswordCard"
-            app:cardElevation="2dp"
-            android:outlineAmbientShadowColor="@color/black"
-            android:outlineSpotShadowColor="@color/black"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="55dp"
-            app:cardCornerRadius="20dp">
-
-            <EditText
-                android:id="@+id/signUpFragmentPasswordAgainText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:autofillHints="password"
-                android:background="@drawable/common_text_input_field"
-                android:fontFamily="@font/arima_madurai_light"
-                android:hint="@string/password_again"
-                android:inputType="textPassword"
-                android:maxLength="255"
-                android:paddingStart="30dp"
-                android:paddingEnd="30dp"
-                android:text=""
-                android:textColor="@color/white"
-                android:textColorHint="@color/quantum_grey"
-                android:textSize="24dp"
-                tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
-        </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent"
+            android:autofillHints="password"
+            android:background="@drawable/common_text_input_field"
+            android:fontFamily="@font/arima_madurai_light"
+            android:hint="@string/password_again"
+            android:inputType="textPassword"
+            android:maxLength="255"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textColorHint="@color/quantum_grey"
+            android:textSize="24dp"
+            tools:ignore="VisualLintTextFieldSize,TextSizeCheck" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signupfragmentsignupbutton"

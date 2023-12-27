@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -51,6 +52,7 @@ class EmailVerificationFragment : Fragment() {
         val checkVerificationCodeButton = v.findViewById<AppCompatButton>(R.id.checkVerificationCodeButton)
         val resendEmailCountdownTextview = v.findViewById<TextView>(R.id.resendEmailCountdownTextview)
         val takeInfoEmailVerification = v.findViewById<ImageView>(R.id.takeInfoEmailVerification)
+        val emailVerificationBackButton = v.findViewById<ImageButton>(R.id.emailVerificationBackButton)
 
 
         fun updateCountdownUI() {
@@ -184,6 +186,10 @@ class EmailVerificationFragment : Fragment() {
             } else Toast.makeText(requireContext(), "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
 
         }
+
+        emailVerificationBackButton.setOnClickListener{
+            requireActivity().onBackPressed()
+        }
         return v
     }
 
@@ -242,4 +248,5 @@ class EmailVerificationFragment : Fragment() {
             sixthDigit.isFocused -> controlVariables.allowCheck = true
         }
     }
+
 }

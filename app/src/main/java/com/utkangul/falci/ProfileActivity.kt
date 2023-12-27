@@ -32,6 +32,8 @@ class ProfileActivity : AppCompatActivity() {
         println("favorilere yonendir ${controlVariables.navigateToFavs}")
         if (!controlVariables.navigateToFavs) replaceProfileActivityToFragment(supportFragmentManager, ProfileFragment())
         if (controlVariables.navigateToFavs)  replaceProfileActivityToFragment(supportFragmentManager, FavouriteHoroscopesFragment()); controlVariables.navigateToFavs = false
+        if (controlVariables.isFromChangePassword)  replaceProfileActivityToFragment(supportFragmentManager, SettingsFragment()); controlVariables.isFromChangePassword = false
+
     }
 
      // when user press back button, simply go back if there are fragments in the backstack

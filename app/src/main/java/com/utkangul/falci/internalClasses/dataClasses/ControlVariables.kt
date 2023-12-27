@@ -31,6 +31,8 @@ data class ControlVariables(
     var isInExpireControl: Boolean,
     var isSameFortune: Boolean,
     var isLoveSameFortune: Boolean,
+    var isFromChangePassword: Boolean,
+    var isZodiacCardOpen: Boolean,
     )
 
 var controlVariables = ControlVariables(
@@ -64,4 +66,6 @@ var controlVariables = ControlVariables(
     isInExpireControl = false,
     isSameFortune = false,
     isLoveSameFortune = false,
+    isFromChangePassword = false,
+    isZodiacCardOpen = false,
 )

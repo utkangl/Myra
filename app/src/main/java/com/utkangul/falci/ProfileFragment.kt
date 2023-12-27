@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
@@ -52,6 +53,7 @@ class ProfileFragment : Fragment() {
         val firstLetterView = v.findViewById<TextView>(R.id.profileFragmentFirstLetter)
         val profileFragmentName = v.findViewById<TextView>(R.id.profileFragmentName)
         val editprofilebutton = v.findViewById<AppCompatButton>(R.id.profilefragmenteditprofilebutton)
+        val profileBackButton= v.findViewById<ImageButton>(R.id.profileBackButton)
 
         println("profile içinden yazıyorum $userProfile")
         // set firstLetter variable with the first letter of UserProfileDataClass's name field
@@ -106,15 +108,19 @@ class ProfileFragment : Fragment() {
 
         // if user click to zodiac card, make the card larger and set other components invisible
         zodiacCard.setOnClickListener {
-            setViewGone(profileCard, profileViewBottomCard, profileTitle, logoutButton)
+            setViewGone(profileCard, profileViewBottomCard, profileTitle, logoutButton,profileBackButton)
             animateCardSize(requireContext(), 370, 550, zodiacCard,burcExplanationTextScroll, 90 )
+            controlVariables.isZodiacCardOpen = true
         }
 
 
 
         profileFragmentMainLayout.setOnClickListener{
-            setViewVisible(profileCard, profileViewBottomCard, profileTitle, logoutButton)
-            animateCardSize(requireContext(), 370, 330, zodiacCard,burcExplanationTextScroll, 40)
+            if (controlVariables.isZodiacCardOpen){
+                setViewVisible(profileCard, profileViewBottomCard, profileTitle, logoutButton)
+                animateCardSize(requireContext(), 370, 305, zodiacCard,burcExplanationTextScroll, 40)
+                controlVariables.isZodiacCardOpen = false
+            }
         }
 
         editprofilebutton.setOnClickListener {
@@ -255,8 +261,7 @@ class ProfileFragment : Fragment() {
         logoutButton.setOnClickListener{
             if (authenticated.isLoggedIn){
                 val refreshTokenJSON = createJsonObject("refresh_token" to tokensDataClass.refreshToken)
-                postJsonWithHeader(requireActivity(),urls.logoutURL,refreshTokenJSON, requireContext())
-                { responseBody, _ ->
+                postJsonWithHeader(requireActivity(),urls.logoutURL,refreshTokenJSON, requireContext()) { responseBody, _ ->
                     if (statusCode == 205){
                         println("logoutun status kodu 205")
                         CoroutineScope(Dispatchers.IO).launch {
@@ -282,9 +287,10 @@ class ProfileFragment : Fragment() {
                 }
             } else{requireActivity().runOnUiThread { Toast.makeText(requireContext(), "can not logout without logging in", Toast.LENGTH_LONG).show()} }
         }
-        showFavHoroscopesLayout.setOnClickListener{ replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment())}
-        navigateToSettingsContainerLayout.setOnClickListener{replaceProfileActivityToFragment(parentFragmentManager, SettingsFragment())}
+        showFavHoroscopesLayout.setOnClickListener{ replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment()) }
+        navigateToSettingsContainerLayout.setOnClickListener{replaceProfileFragmentWithAnimation(parentFragmentManager, SettingsFragment())}
         navigateToPurchaseContainerLayout.setOnClickListener{replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment())}
+        profileBackButton.setOnClickListener{requireActivity().onBackPressed()}
         return v
     }
 }

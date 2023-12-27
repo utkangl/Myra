@@ -10,9 +10,11 @@ import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
@@ -72,6 +74,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         val changePasswordNewPassword                = findViewById<EditText>(R.id.changePasswordNewPassword)
         val changePasswordNewPasswordAgain           = findViewById<EditText>(R.id.changePasswordNewPasswordAgain)
         val changePasswordButton                     = findViewById<AppCompatButton>(R.id.changePasswordButton)
+        val changePasswordBackButton                     = findViewById<ImageButton>(R.id.changePasswordBackButton)
 
 
         fun updateCountdownUI() {
@@ -233,7 +236,21 @@ class ChangePasswordActivity : AppCompatActivity() {
             } else Toast.makeText(this, "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
 
         }
+
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val options = ActivityOptions.makeCustomAnimation(this@ChangePasswordActivity, R.anim.activity_slide_down, 0)
+                val mainActivityIntent = Intent(this@ChangePasswordActivity, ProfileActivity::class.java)
+                startActivity(mainActivityIntent, options.toBundle())
+                controlVariables.isFromChangePassword = true
+            }
+        };this.onBackPressedDispatcher.addCallback(this, callback)
+
+        changePasswordBackButton.setOnClickListener{ callback.handleOnBackPressed() }
+
     }
+
 
     fun focusToNextEditText() {
         when {

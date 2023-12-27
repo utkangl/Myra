@@ -83,6 +83,10 @@ class CompleteProfile : AppCompatActivity() {
         val timePick = findViewById<TimePicker>(R.id.timePick)
         val datePick = findViewById<DatePicker>(R.id.datePick)
 
+
+        val completeProfileBackButton = findViewById<ImageButton>(R.id.completeProfileBackButton)
+
+
         val calendarForMaxDate = Calendar.getInstance()
         val maxDate = calendarForMaxDate.timeInMillis
 
@@ -524,5 +528,8 @@ class CompleteProfile : AppCompatActivity() {
         }
         this.onBackPressedDispatcher.addCallback(this, callback)
 
+        completeProfileBackButton.setOnClickListener{
+            this.onBackPressed()
+        }
     }
 }

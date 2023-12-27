@@ -7,6 +7,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.media.Image
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -45,11 +46,11 @@ class BurcCardFunctions(
 ) {
 
     fun animateBurcCardIn(burcCard: CardView, burcCardInnerLayout: RelativeLayout, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView,
-                          backArrowCard: CardView, mainActivityGeneralLayout: RelativeLayout) {
+                          mainActivityBackButton: ImageButton, mainActivityGeneralLayout: RelativeLayout) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         controlVariables.isBurcCardOpen = true
         animateBurcCardSize(burcCard, 380, 400, {
-            setViewVisibleWithAnimation(context, backArrowCard, burcCardInnerLayout)
+            setViewVisibleWithAnimation(context, mainActivityBackButton, burcCardInnerLayout)
             burcCard.setCardBackgroundColor(Color.parseColor("#313131"))
         }, {
             setViewVisibleWithAnimation(context, MiraBurcCardTop, MiraBurcCardTopTriangle)
@@ -60,7 +61,7 @@ class BurcCardFunctions(
     }
 
     fun animateBurcCardOut(burcCard: CardView, MiraBurcCardTop: ImageView, MiraBurcCardTopTriangle: ImageView,
-                           backArrowCard: CardView, settingsButtonCard: CardView, clickToGetHoroscopeText: TextView) {
+                           mainActivityBackButton: ImageButton, settingsButtonCard: CardView, clickToGetHoroscopeText: TextView) {
         val params = burcCard.layoutParams as RelativeLayout.LayoutParams
         controlVariables.isBurcCardOpen = false
         controlVariables.isGeneralModeSelected = false
@@ -84,7 +85,7 @@ class BurcCardFunctions(
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1)
         }, {
             setViewVisible(settingsButtonCard, clickToGetHoroscopeText)
-            setViewGone(backArrowCard)
+            setViewGone(mainActivityBackButton)
         })
     }
 

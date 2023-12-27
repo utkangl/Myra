@@ -42,6 +42,7 @@ class FavouriteHoroscopesFragment : Fragment() {
         val cancelFavSearchFilter = v.findViewById<ImageButton>(R.id.cancelFavSearchFilter)
         val favouriteHoroscopesScrollview = v.findViewById<ScrollView>(R.id.favourite_horoscopes_scrollview)
         val editFavourites = v.findViewById<TextView>(R.id.editFavourites)
+        val favHoroscopesBackButton = v.findViewById<ImageButton>(R.id.favHoroscopesBackButton)
 
         val getFavsFuncs = GetFavsFuncs(requireActivity())
 
@@ -67,74 +68,19 @@ class FavouriteHoroscopesFragment : Fragment() {
             }
         }
 
-//        var startY : Float = 0F
-//        var swipeDistance: Float = 0f
-//        favouriteHoroscopesScrollview.setOnTouchListener { _, event ->
-//            val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//            inputMethodManager.hideSoftInputFromWindow(cancelFavSearchFilter.windowToken, 0)
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    // Save the initial Y position
-//                    startY = event.y
-//                }
-//                MotionEvent.ACTION_MOVE -> {
-//                    // Calculate the vertical distance from the initial position
-//                    val dy = event.y - startY
-//                    println(startY)
-//                    println(event.y)
-//
-//                    if (dy <= -220 && !controlVariables.favsSwipedDown) {
-//                        setViewGoneWithAnimation(requireContext(), favHoroscopesContainer)
-//                        controlVariables.favsSwipedDown = true
-//                    } else if (dy >= 220 && controlVariables.favsSwipedDown) {
-//                        setViewVisibleWithAnimation(requireContext(), favHoroscopesContainer)
-//                        controlVariables.favsSwipedDown = false
-//                    }
-//                    swipeDistance = dy
-//                }
-//                MotionEvent.ACTION_UP -> {
-//                    // Handle release if needed
-//                }
-//            }
-//
-//            // Return true to indicate that the event has been consumed
-//            true
-//        }
-
-//        favouriteHoroscopesScrollview.viewTreeObserver.addOnScrollChangedListener {
-//            favouriteHoroscopesScrollview.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-//                val scrollDifference = scrollY - oldScrollY
-//                println(scrollDifference)
-//                when {
-//                    scrollDifference > 100 -> {
-//                        // Aşağı kaydırma işlemi
-//                        if (!controlVariables.favsSwipedDown) {
-//                            setViewGoneWithAnimation(requireContext(), favHoroscopesContainer)
-//                            controlVariables.favsSwipedDown = true
-//                        }
-//                    }
-//                    scrollDifference < -60 -> {
-//                        // Yukarı kaydırma işlemi
-//                        if (controlVariables.favsSwipedDown) {
-//                            setViewVisibleWithAnimation(requireContext(), favHoroscopesContainer)
-//                            controlVariables.favsSwipedDown = false
-//                        }
-//                    }
-//                }
+        // create callback variable which will handle onBackPressed and navigate to profile activity
+//        val callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, R.anim.slide_up)
+//                val intent = Intent(requireContext(), ProfileActivity::class.java)
+//                startActivity(intent, options.toBundle())
 //            }
 //        }
+//        // call callback to navigate user to main activity when back button is pressed
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
+        favHoroscopesBackButton.setOnClickListener{ requireActivity().onBackPressed()}
 
-        // create callback variable which will handle onBackPressed and navigate to main activity
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                val intent = Intent(requireContext(), ProfileActivity::class.java)
-                startActivity(intent, options.toBundle())
-            }
-        }
-        // call callback to navigate user to main activity when back button is pressed
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return v
 
     }

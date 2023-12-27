@@ -20,6 +20,21 @@
             android:visibility="gone">
         </com.airbnb.lottie.LottieAnimationView>
 
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/completeProfileBackButton"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_marginTop="44dp"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@string/sample_description"
+            android:background="@drawable/baseline_arrow_back_24"
+            android:elevation="15dp">
+        </ImageButton>
 
         <TextView
             android:layout_width="wrap_content"

@@ -52,7 +52,7 @@ class EditProfileFragment : Fragment() {
 
         val savebutton = v.findViewById<AppCompatButton>(R.id.savebutton)
         val savedatebutton = v.findViewById<AppCompatButton>(R.id.savedatebutton)
-        val backArrow = v.findViewById<ImageView>(R.id.back_arrow)
+        val editProfileBackButton = v.findViewById<ImageButton>(R.id.editProfileBackButton)
 
         val editProfileDatePicker = v.findViewById<DatePicker>(R.id.editProfileDatePicker)
         val editProfileTimePicker = v.findViewById<TimePicker>(R.id.editProfileTimePicker)
@@ -126,7 +126,7 @@ class EditProfileFragment : Fragment() {
             }
         }
 
-        backArrow.setOnClickListener { parentFragmentManager.popBackStack() }
+        editProfileBackButton.setOnClickListener { parentFragmentManager.popBackStack() }
 
         birthDateField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)

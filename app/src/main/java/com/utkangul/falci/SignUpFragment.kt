@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
@@ -38,6 +39,7 @@ class SignUpFragment : Fragment() {
         val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
         val kvkkPopupCard = v.findViewById<CardView>(R.id.kvkkPopupCard)
         val acceptKvkkButton = v.findViewById<AppCompatButton>(R.id.acceptKvkkButton)
+        val signupBackButton = v.findViewById<ImageButton>(R.id.signupBackButton)
 
         signupfragmentsignupbutton.setOnClickListener {
             emailField = v.findViewById(R.id.signUpFragmentUsernameText)
@@ -98,6 +100,7 @@ class SignUpFragment : Fragment() {
             }
         };requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
+        signupBackButton.setOnClickListener{ callback.handleOnBackPressed() }
 
         return v
     }

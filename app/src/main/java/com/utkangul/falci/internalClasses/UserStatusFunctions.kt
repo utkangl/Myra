@@ -34,6 +34,7 @@ class UserStatusFunctions {
                 .build()
             val client = OkHttpClient()
             client.newCall(request).enqueue(object : Callback {
+
                 override fun onFailure(call: Call, e: IOException) {
                     activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
                     val intent = Intent(context, MainActivity::class.java)

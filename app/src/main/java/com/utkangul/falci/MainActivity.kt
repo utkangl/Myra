@@ -123,9 +123,7 @@ class MainActivity : AppCompatActivity() {
         val mainActivityGeneralLayout = findViewById<RelativeLayout>(R.id.mainActivityGeneralLayout)
         mainActivityGeneralLayout.background = resources.getDrawable(R.drawable.main_menu_background, theme)
 
-        mainActivityGeneralLayout.setOnClickListener{
-            println("authenticated.isLoggedIn ${authenticated.isLoggedIn}")
-        }
+
 
         controlVariables.getProfileAgain = false
         controlVariables.isSavedUsersLoaded = false
@@ -170,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         val burcCardInnerLayout = findViewById<RelativeLayout>(R.id.burcCardInnerLayout)
         val miraBurcCardTop = findViewById<ImageView>(R.id.MiraBurcCardTop)
         val miraBurcCardTopTriangle = findViewById<ImageView>(R.id.MiraBurcCardTopTriangle)
-        val backArrowCard = findViewById<CardView>(R.id.backArrowCard)
+        val mainActivityBackButton = findViewById<ImageButton>(R.id.mainActivityBackButton)
         val settingsButtonCard = findViewById<CardView>(R.id.settingsButtonCard)
         val generalSign = findViewById<CardView>(R.id.generalSign)
         val timeIntervalDaily = findViewById<CardView>(R.id.timeIntervalDaily)
@@ -183,7 +181,6 @@ class MainActivity : AppCompatActivity() {
         val timeIntervalYearlySelectedBG = findViewById<ImageView>(R.id.timeIntervalYearlySelectedBG)
         val loveSign = findViewById<CardView>(R.id.loveSign)
         val careerSign = findViewById<CardView>(R.id.careerSign)
-        val backArrow = findViewById<ImageButton>(R.id.back_arrow)
         val savedUsersScrollContainer = findViewById<HorizontalScrollView>(R.id.savedUsersScrollContainer)
         val savedUsersLinearContainer = findViewById<LinearLayout>(R.id.savedUsersLinearContainer)
         val addLookupUser = findViewById<CardView>(R.id.addLookupUser)
@@ -287,7 +284,7 @@ class MainActivity : AppCompatActivity() {
                             burcCardInnerLayout,
                             miraBurcCardTop,
                             miraBurcCardTopTriangle,
-                            backArrowCard,
+                            mainActivityBackButton,
                             mainActivityGeneralLayout
                         )
                     } else {
@@ -312,7 +309,7 @@ class MainActivity : AppCompatActivity() {
                 burcCard,
                 miraBurcCardTop,
                 miraBurcCardTopTriangle,
-                backArrowCard,
+                mainActivityBackButton,
                 settingsButtonCard,
                 clickToGetHoroscopeText
             )
@@ -322,12 +319,19 @@ class MainActivity : AppCompatActivity() {
             controlVariables.selectedTimeInterval = null
         }
 
-        backArrowCard.setOnClickListener {
+        mainActivityBackButton.setOnClickListener {
             if (controlVariables.isBurcCardOpen) {
                 handleCloseBurcCard()
+                closeUseOrGainCoinMenuCard.performClick()
             }
         }
-        backArrow.setOnClickListener { backArrowCard.performClick() }
+
+        mainActivityGeneralLayout.setOnClickListener{
+            if (controlVariables.isBurcCardOpen){
+                handleCloseBurcCard()
+                closeUseOrGainCoinMenuCard.performClick()
+            }
+        }
 
         generalSign.setOnClickListener {
             if (!controlVariables.isGeneralModeSelected) {
@@ -504,7 +508,7 @@ class MainActivity : AppCompatActivity() {
             else {
                 // if user is not logged in, close burcCard and then after 300ms make the transition
                 // to login signup activity
-                burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, backArrowCard, settingsButtonCard, clickToGetHoroscopeText)
+                burcCardFunctions.animateBurcCardOut(burcCard, miraBurcCardTop, miraBurcCardTopTriangle, mainActivityBackButton, settingsButtonCard, clickToGetHoroscopeText)
                 Handler(Looper.getMainLooper()).postDelayed({
                     val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                     val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())

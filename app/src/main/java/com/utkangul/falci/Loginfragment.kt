@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
@@ -34,6 +35,7 @@ class Loginfragment : Fragment() {
 
         val changeToSignUp = v.findViewById<LinkTextView>(R.id.loginfragmentsignuplinkedtext)
         val loginfragmentloginbutton = v.findViewById<AppCompatButton>(R.id.loginFragmentNextButton)
+        val loginBackButton= v.findViewById<ImageButton>(R.id.loginBackButton)
 
         usernameEditText = v.findViewById(R.id.loginFragmentUsername)
         passwordEditText = v.findViewById(R.id.loginFragmentPassword)
@@ -98,8 +100,12 @@ class Loginfragment : Fragment() {
                 val mainActivityIntent = Intent(requireContext(), MainActivity::class.java)
                 startActivity(mainActivityIntent, options.toBundle())
             }
-        };requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
+        loginBackButton.setOnClickListener{
+            callback.handleOnBackPressed()
+        }
         return v
     }
 

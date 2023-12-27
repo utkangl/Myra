@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -49,6 +50,7 @@ class HoroscopeDetailFragment : Fragment() {
         val takeFavHoroscopeTitleInputButton = v.findViewById<AppCompatButton>(R.id.takeFavHoroscopeTitleInputButton)
         val takeFavHoroscopeTitleInputCard = v.findViewById<CardView>(R.id.takeFavHoroscopeTitleInputCard)
         val takeFavHoroscopeTitleInputEditText = v.findViewById<EditText>(R.id.takeFavHoroscopeTitleInputEditText)
+        val horoscopeDetailBackButton = v.findViewById<ImageButton>(R.id.horoscopeDetailBackButton)
 
 
         var inTitleInput = false
@@ -174,6 +176,10 @@ class HoroscopeDetailFragment : Fragment() {
             }
 
         } // end of favouriteThisHoroscope.setOnClickListener
+
+        horoscopeDetailBackButton.setOnClickListener{
+            callback.handleOnBackPressed()
+        }
 
         return v // end of onCreateView
     }

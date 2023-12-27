@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
@@ -36,6 +38,7 @@ class SettingsFragment : Fragment() {
         val deleteAccountContainerLayout = v.findViewById<RelativeLayout>(R.id.deleteAccountContainerLayout)
         val changeLanguageContainerLayout = v.findViewById<RelativeLayout>(R.id.changeLanguageContainerLayout)
         val changePasswordContainerLayout = v.findViewById<RelativeLayout>(R.id.changePasswordContainerLayout)
+        val settingsBackButton = v.findViewById<ImageButton>(R.id.settingsBackButton)
 
         buyCoinContainerLayout.setOnClickListener{ replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }
 
@@ -149,6 +152,10 @@ class SettingsFragment : Fragment() {
             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
             val intent = Intent(context, ChangePasswordActivity::class.java)
             ContextCompat.startActivity(requireContext(), intent, options.toBundle())
+        }
+
+        settingsBackButton.setOnClickListener{
+            requireActivity().onBackPressed()
         }
 
         return v

@@ -166,7 +166,7 @@
     <string name="subscribe_yearly">Yıllık</string>
     <string name="one_time_purchases">Tek seferlik satın alımlar</string>
     <string name="subscriptions">Abonelikler</string>
-    <string name="in_app_products">Uygulama İçi Ürünler</string>
+    <string name="in_app_products">Satın Alım</string>
     <string name="sample_price_text">price</string>
     <string name="coins_and_subscriptions"><![CDATA[Coinler & Abonelikler]]></string>
     <string name="refresh_icon_for_resend_verification_email_card">refresh icon for resend verification email card</string>

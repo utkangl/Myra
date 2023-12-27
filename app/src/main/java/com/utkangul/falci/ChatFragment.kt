@@ -35,11 +35,12 @@ class ChatFragment : Fragment() {
         val messageInput = v.findViewById<EditText>(R.id.chatFragmentMessageInputText)
         val messageInputParams = messageInput.layoutParams as RelativeLayout.LayoutParams
 
-        val sendUserMessage = v.findViewById<ImageButton>(com.utkangul.falci.R.id.sendUserMessage)
-        val cancelUserMessage = v.findViewById<ImageButton>(com.utkangul.falci.R.id.cancelUserMessage)
+        val sendUserMessage = v.findViewById<ImageButton>(R.id.sendUserMessage)
+        val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
+        val chatBackButton = v.findViewById<ImageButton>(R.id.chatBackButton)
 
 
-        val chatListView = v.findViewById<ListView>(com.utkangul.falci.R.id.chatListView)
+        val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
         val messages = mutableListOf<ChatMessage>()
         val oldMessages = mutableListOf<ChatMessage>()
@@ -134,6 +135,7 @@ class ChatFragment : Fragment() {
             }
         }
 
+        chatBackButton.setOnClickListener{requireActivity().onBackPressed()}
         return v
     }
 

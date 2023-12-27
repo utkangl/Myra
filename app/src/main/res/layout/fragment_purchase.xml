@@ -12,11 +12,27 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="132dp"
         android:id="@+id/settings_screen_topImage"
         android:background="#5b54b1"
         android:contentDescription="@string/settings_screen_top_banner">
     </ImageView>
+
+    <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/purchaseBackButton"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:layout_marginTop="44dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/sample_description"
+        android:background="@drawable/baseline_arrow_back_24"
+        android:elevation="15dp">
+    </ImageButton>
 
     <TextView
         android:id="@+id/purchases_screen_title"
@@ -24,12 +40,12 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:maxLines="1"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:gravity="center"
         android:text="@string/in_app_products"
         android:textColor="@color/white"
-        android:textSize="35dp"
+        android:textSize="31dp"
         tools:ignore="TextSizeCheck">
     </TextView>
 
@@ -40,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/settings_screen_topImage"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="78dp"
         android:fontFamily="@font/arima_madurai_bold"
         android:maxLines="1"
         android:text="@string/one_time_purchases"

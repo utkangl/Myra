@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -76,6 +77,7 @@ class PurchaseFragment : Fragment() {
         val successAnimation = v.findViewById<LottieAnimationView>(R.id.purchaseSuccessfullAnimation)
         val purchaseLoadingAnimationContainer = v.findViewById<CardView>(R.id.purchaseLoadingAnimationContainer)
 
+        val purchaseBackButton = v.findViewById<ImageButton>(R.id.purchaseBackButton)
 
         var weeklySubsStoreProduct: GoogleStoreProduct? = null
         var monthlySubsStoreProduct: GoogleStoreProduct? = null
@@ -347,6 +349,10 @@ class PurchaseFragment : Fragment() {
             }
             builder.setNegativeButton("Cancel", null)
             builder.create().show()
+        }
+
+        purchaseBackButton.setOnClickListener{
+            requireActivity().onBackPressed()
         }
 
         return v
