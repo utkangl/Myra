@@ -65,7 +65,7 @@ class Loginfragment : Fragment() {
 
                 if (statusCode == 200)  {
                     requireActivity().runOnUiThread {
-                        Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                         authenticated.isLoggedIn = true
                         authenticated.isFromSignIn = false
                         val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)

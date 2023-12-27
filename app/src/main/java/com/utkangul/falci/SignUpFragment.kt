@@ -68,7 +68,7 @@ class SignUpFragment : Fragment() {
                         if (statusCode == 201){
                             println("status code is $statusCode sign up successful")
                             requireActivity().runOnUiThread {
-                                Toast.makeText(requireContext(), "Basari ile kayit olundu", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.signup_success), Toast.LENGTH_SHORT).show()
                                 controlVariables.isFromLoveHoroscope = false
                                 replaceLoginActivityToSignUpFragment(parentFragmentManager,EmailVerificationFragment())
     //                            val intent = Intent(requireActivity(), CompleteProfile::class.java)
@@ -86,9 +86,8 @@ class SignUpFragment : Fragment() {
                     }
                 }
             } else{ // if passwords do not match
-                Toast.makeText(requireContext(), "Passwords do not match or empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.empty_or_unmatch_passwords), Toast.LENGTH_SHORT).show()
             }
-
         }
 
         val callback = object : OnBackPressedCallback(true) {

@@ -114,7 +114,7 @@ class EmailVerificationFragment : Fragment() {
         sixthDigit.addTextChangedListener(commonTextWatcher)
 
         takeInfoEmailVerification.setOnClickListener {
-            Toast.makeText(requireContext(), "Try checking your spambox if you \n cant see mail in inbox", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.check_your_spambox_text), Toast.LENGTH_SHORT).show()
         }
 
         checkVerificationCodeButton.setOnClickListener {
@@ -123,7 +123,7 @@ class EmailVerificationFragment : Fragment() {
                 println(inputCode)
                 println("${urls.emailVerificationURL}$inputCode")
                 checkEmail()
-            } else Toast.makeText(requireContext(), "Code must be 6 digits exactly", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.code_is_not_Six), Toast.LENGTH_SHORT).show()
         }
 
         val resendCard = v.findViewById<CardView>(R.id.resendEmail)
@@ -144,7 +144,7 @@ class EmailVerificationFragment : Fragment() {
                     client.newCall(request).enqueue(object : Callback {
 
                         override fun onFailure(call: Call, e: IOException) {
-                            requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                            requireActivity().runOnUiThread{ Toast.makeText(context, requireActivity().resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
                             val intent = Intent(context, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                             startActivity(intent,null)
@@ -158,7 +158,7 @@ class EmailVerificationFragment : Fragment() {
                             println("responseCode $responseCode")
                             if (responseCode == 200) {
                                 requireActivity().runOnUiThread{
-                                    Toast.makeText(requireContext(), "New mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT)
+                                    Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.mail_sent_success), Toast.LENGTH_SHORT)
                                         .show()
                                 }
                             }
@@ -173,8 +173,7 @@ class EmailVerificationFragment : Fragment() {
                                 }
                             }
                             else{
-                                requireActivity().runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show()}
-                                requireActivity().runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show()}
+                                requireActivity().runOnUiThread { Toast.makeText(context, requireActivity().resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, MainActivity::class.java)
                                 ContextCompat.startActivity(requireContext(), intent, options.toBundle())
@@ -183,7 +182,9 @@ class EmailVerificationFragment : Fragment() {
                     })
                 }
                 resendVerificationEmail()
-            } else Toast.makeText(requireContext(), "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
+            } else requireActivity().runOnUiThread{
+                Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.mail_cooldown_warning), Toast.LENGTH_LONG).show()
+            }
 
         }
 
@@ -204,7 +205,7 @@ class EmailVerificationFragment : Fragment() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                requireActivity().runOnUiThread{ Toast.makeText(context, requireActivity().resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent,null)
@@ -216,22 +217,24 @@ class EmailVerificationFragment : Fragment() {
                 println("response $response")
                 val responseCode = response.code
                 println("responseCode $responseCode")
-                if (responseCode == 200) {
-                    val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
-                    val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
-                }
-                else if (responseCode == 401){
-                    takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody401, exception ->
-                        if (responseBody401 != null) {
-                            checkEmail()
-                        } else {
-                            exception?.printStackTrace()
+                when (responseCode) {
+                    200 -> {
+                        val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
+                        val intent = Intent(requireActivity(), CompleteProfile::class.java);startActivity(intent, options.toBundle())
+                    }
+                    401 -> {
+                        takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody401, exception ->
+                            if (responseBody401 != null) {
+                                checkEmail()
+                            } else {
+                                exception?.printStackTrace()
+                            }
                         }
                     }
-                }
-                else{
-                    requireActivity().runOnUiThread {
-                        Toast.makeText(requireContext(), "Wrong code, hata kodu: $responseCode", Toast.LENGTH_SHORT).show()
+                    else -> {
+                        requireActivity().runOnUiThread {
+                            Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.wrong_verif_code), Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

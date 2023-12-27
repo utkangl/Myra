@@ -16,7 +16,7 @@ import com.utkangul.falci.internalClasses.InternalFunctions.UpdateProfileFieldIf
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisible
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGone
 import com.utkangul.falci.internalClasses.InternalFunctions.AddTextWatcher.addTextWatcher
- import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
+import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewInvisible
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
 import com.utkangul.falci.internalClasses.InternalFunctions.SpinnerFunctions.setSpinner
 import com.utkangul.falci.internalClasses.InternalFunctions.TimeFormatFunctions.convertTimestampToDateTime
@@ -31,6 +31,7 @@ import com.utkangul.falci.internalClasses.statusCode
 
 
 val editProfileJson = JSONObject()
+
 class EditProfileFragment : Fragment() {
 
     private lateinit var locationService: LocationService
@@ -85,45 +86,58 @@ class EditProfileFragment : Fragment() {
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
+
             override fun afterTextChanged(s: Editable?) {
                 setViewVisible(savebutton)
             }
         }
 
         // Add TextWatcher to each EditText
-        addTextWatcher(nameField,genderField,birthDateField,birthTimeField,locationField,occupationField,relationShipStatusField, textWatcher = textWatcher)
+        addTextWatcher(
+            nameField,
+            genderField,
+            birthDateField,
+            birthTimeField,
+            locationField,
+            occupationField,
+            relationShipStatusField,
+            textWatcher = textWatcher
+        )
 
         savebutton.setOnClickListener {
             // Add values to EditProfileJson if changed
-            userProfile.first_name?.let { it1 -> updateProfileFieldIfChanged("first_name", nameField, editProfileJson, it1) }
-            userProfile.gender?.let { it1 -> updateProfileFieldIfChanged("gender", genderField, editProfileJson, it1) }
-            updateBirthDayIfChanged ("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson,requireActivity(),requireContext())
-            userProfile.birth_place?.let { it1 -> updateProfileFieldIfChanged("location", locationField, editProfileJson, it1) }
-            userProfile.occupation?.let { it1 -> updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, it1) }
-            userProfile.relationship_status?.let { it1 -> updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, it1)
-            }
-
-            // Save changes
-            userProfile.apply {
-                first_name = nameField.text.toString()
-                gender = genderField.text.toString()
-               // birth_day = birthDateField.text.toString()
-                birth_place = locationField.text.toString()
-                occupation = occupationField.text.toString()
-                relationship_status = relationShipStatusField.text.toString()
-            }
-
-            println("yolladigim json $editProfileJson")
-            putEditProfileJson(requireActivity(),urls.editProfileURL, editProfileJson, requireContext()) {_,_->
-                if (statusCode == 200){
-                    requireActivity().runOnUiThread { setViewGone(savebutton) }
-                    parentFragmentManager.popBackStack()
-                    controlVariables.getProfileAgain = true
+            if (userProfile.first_name?.length!! >= 2) {
+                userProfile.first_name?.let { it1 -> updateProfileFieldIfChanged("first_name", nameField, editProfileJson, it1) }
+                userProfile.gender?.let { it1 -> updateProfileFieldIfChanged("gender", genderField, editProfileJson, it1) }
+                updateBirthDayIfChanged("birthDay", birthDateField, birthTimeField, userProfile, editProfileJson, requireActivity(), requireContext())
+                userProfile.birth_place?.let { it1 -> updateProfileFieldIfChanged("location", locationField, editProfileJson, it1) }
+                userProfile.occupation?.let { it1 -> updateProfileFieldIfChanged("occupation", occupationField, editProfileJson, it1) }
+                userProfile.relationship_status?.let { it1 ->
+                    updateProfileFieldIfChanged("relationshipStatus", relationShipStatusField, editProfileJson, it1)
                 }
-                else println(statusCode)
-            }
+
+                // Save changes
+                userProfile.apply {
+                    first_name = nameField.text.toString()
+                    gender = genderField.text.toString()
+                    // birth_day = birthDateField.text.toString()
+                    birth_place = locationField.text.toString()
+                    occupation = occupationField.text.toString()
+                    relationship_status = relationShipStatusField.text.toString()
+                }
+
+                println("yolladigim json $editProfileJson")
+                putEditProfileJson(requireActivity(), urls.editProfileURL, editProfileJson, requireContext()) { _, _ ->
+                    if (statusCode == 200) {
+                        requireActivity().runOnUiThread { setViewGone(savebutton) }
+                        parentFragmentManager.popBackStack()
+                        controlVariables.getProfileAgain = true
+                    } else println(statusCode)
+                }
+            } else Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.name_character_warning), Toast.LENGTH_SHORT).show()
         }
 
         editProfileBackButton.setOnClickListener { parentFragmentManager.popBackStack() }
@@ -146,7 +160,7 @@ class EditProfileFragment : Fragment() {
         }
         birthTimeField.setOnClickListener {
             setViewGone(editProfileGeneralLayout)
-            setViewVisible(editProfileTimePicker,savedatebutton)
+            setViewVisible(editProfileTimePicker, savedatebutton)
             controlVariables.inPicker = true
 
             savedatebutton.setOnClickListener {
@@ -155,7 +169,7 @@ class EditProfileFragment : Fragment() {
                 val editProfileSelectedTime = "$selectedHour:$selectedMinute:00"
                 birthTimeField.text = editProfileSelectedTime
                 println(birthTimeField.text)
-                setViewGone(editProfileTimePicker,savedatebutton)
+                setViewGone(editProfileTimePicker, savedatebutton)
                 setViewVisible(editProfileGeneralLayout)
                 controlVariables.inPicker = false
             }
@@ -166,14 +180,26 @@ class EditProfileFragment : Fragment() {
         setupFieldClickListener(relationShipStatusField, maritalStatusSpinner, relationshipStatusFieldHint)
 
 
-        setSpinner(requireContext(),genderPickSpinner, genderFieldHint, R.array.genders, resources.getString(R.string.defaultTextOfGender))
-        {selectedGender -> genderField.text = selectedGender}
+        setSpinner(requireContext(), genderPickSpinner, genderFieldHint, R.array.genders, resources.getString(R.string.defaultTextOfGender))
+        { selectedGender -> genderField.text = selectedGender }
 
-        setSpinner(requireContext(),occupationSpinner, occupationFieldHint, R.array.occupations, resources.getString(R.string.defaultTextOfOccupation))
-        {selectedOccupation -> occupationField.text = selectedOccupation}
+        setSpinner(
+            requireContext(),
+            occupationSpinner,
+            occupationFieldHint,
+            R.array.occupations,
+            resources.getString(R.string.defaultTextOfOccupation)
+        )
+        { selectedOccupation -> occupationField.text = selectedOccupation }
 
-        setSpinner(requireContext(),maritalStatusSpinner, relationshipStatusFieldHint, R.array.marital_status, resources.getString(R.string.defaultTextOfRelation))
-        {selectedMaritalStatus -> relationShipStatusField.text = selectedMaritalStatus}
+        setSpinner(
+            requireContext(),
+            maritalStatusSpinner,
+            relationshipStatusFieldHint,
+            R.array.marital_status,
+            resources.getString(R.string.defaultTextOfRelation)
+        )
+        { selectedMaritalStatus -> relationShipStatusField.text = selectedMaritalStatus }
 
         val cityInput = v.findViewById<AutoCompleteTextView>(R.id.searchCity)
         val editProfileLocationCardView = v.findViewById<CardView>(R.id.editProfileLocationCardView)
@@ -199,12 +225,11 @@ class EditProfileFragment : Fragment() {
             override fun handleOnBackPressed() {
                 if (controlVariables.inLocationPickCard) {
                     setViewInvisible(editProfileLocationCardView)
-                    setViewVisibleWithAnimation(requireContext(),editProfileGeneralLayout)
+                    setViewVisibleWithAnimation(requireContext(), editProfileGeneralLayout)
                     controlVariables.inLocationPickCard = false
-                }
-                else if (controlVariables.inPicker) {
-                    setViewInvisible(editProfileDatePicker, editProfileTimePicker,savedatebutton)
-                    setViewVisibleWithAnimation(requireContext(),editProfileGeneralLayout)
+                } else if (controlVariables.inPicker) {
+                    setViewInvisible(editProfileDatePicker, editProfileTimePicker, savedatebutton)
+                    setViewVisibleWithAnimation(requireContext(), editProfileGeneralLayout)
                     controlVariables.inPicker = false
                 } else {
                     remove() // Geri çağrıyı kaldır

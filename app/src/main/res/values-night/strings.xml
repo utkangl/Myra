@@ -194,5 +194,27 @@
     <string name="new_password">New Password</string>
     <string name="new_password_again">New Password Again</string>
     <string name="select_mode">Select Mode</string>
+    <string name="unexpected_error_occured_onServer_text">Unexpected error occured on our server. Directing you to main page</string>
+    <string name="unexpected_error_occured_restartApp_text">unexpected error, please try restarting the app</string>
+    <string name="unexpected_error">Unexpected error occured</string>
+    <string name="check_your_spambox_text">Try checking your spambox if you cant see mail in inbox</string>
+    <string name="code_is_not_Six">Code must be 6 digits exactly</string>
+    <string name="mail_sent_success">Mail sent succesfully, dont forget to check your spambox</string>
+    <string name="mail_cooldown_warning">You can get verification mails in every 2 minutes, wait for countdown</string>
+    <string name="name_character_warning">Your name must be at least 2 characters long</string>
+    <string name="error_loading_ad">There was an error while loading the ad, please try again after a few seconds</string>
+    <string name="campaign_claimed">Campaign Successfuly Claimed</string>
+    <string name="signup_success">Basari ile kayit olundu</string>
+    <string name="logout_success">"Logout Successful</string>
+    <string name="login_success">"Login Successful</string>
+    <string name="password_change_success">"Password Successfuly Changed</string>
+    <string name="empty_or_unmatch_passwords">"Passwords do not match or empty</string>
+    <string name="wrong_verif_code">"Password could not change, You entered a wrong verification code probably</string>
+    <string name="delete_account_success">"Account Successfully Deleted</string>
+    <string name="gained_benefits_purchase">"You Gained Your Benefits of This Purchase</string>
+    <string name="fav_horoscope_deleted">"Successfully removed from favourites</string>
+    <string name="fav_horoscope_added">"Successfully added to favourites</string>
+    <string name="empty_title_warning">"Title cannot be empty</string>
+    <string name="wait_for_process">"Please wait until process ends</string>
 
 </resources>

@@ -265,7 +265,7 @@ class ProfileFragment : Fragment() {
                     if (statusCode == 205){
                         println("logoutun status kodu 205")
                         CoroutineScope(Dispatchers.IO).launch {
-                            requireActivity().runOnUiThread { Toast.makeText(requireContext(), "Logout Successful", Toast.LENGTH_LONG).show()}
+                            requireActivity().runOnUiThread { Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.logout_success), Toast.LENGTH_LONG).show()}
                             sharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
                             editor.putString("access_token", null)
@@ -285,7 +285,7 @@ class ProfileFragment : Fragment() {
                         requireActivity().runOnUiThread { Toast.makeText(requireContext(), detail, Toast.LENGTH_LONG).show()}
                     }
                 }
-            } else{requireActivity().runOnUiThread { Toast.makeText(requireContext(), "can not logout without logging in", Toast.LENGTH_LONG).show()} }
+            }
         }
         showFavHoroscopesLayout.setOnClickListener{ replaceProfileActivityToFragment(parentFragmentManager, FavouriteHoroscopesFragment()) }
         navigateToSettingsContainerLayout.setOnClickListener{replaceProfileFragmentWithAnimation(parentFragmentManager, SettingsFragment())}

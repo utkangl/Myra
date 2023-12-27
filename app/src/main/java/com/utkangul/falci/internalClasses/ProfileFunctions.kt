@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import com.utkangul.falci.MainActivity
 import com.utkangul.falci.ProfileActivity
@@ -36,7 +35,7 @@ class ProfileFunctions {
             getProfileClient.newCall(request).enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {
-                    activity?.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                    activity?.runOnUiThread{ Toast.makeText(context, activity.resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
                     val intent = Intent(context, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(context,intent,null)
@@ -76,7 +75,7 @@ class ProfileFunctions {
                         }
                         else -> {
                             println("get profiledan hata kodu : $getProfileStatusCode")
-                            Toast.makeText(context, "unexpected error, pls try restarting the app", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, activity?.resources?.getString(R.string.unexpected_error_occured_restartApp_text) , Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -97,7 +96,7 @@ class ProfileFunctions {
             editProfileClient.newCall(request).enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {
-                    activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                    activity.runOnUiThread{ Toast.makeText(context, activity.resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
                     val intent = Intent(context, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(context,intent,null)

@@ -66,8 +66,7 @@ object HoroscopeFunctions {
                             }
                             else -> {
                                 val errorDetail = responseJson.optString("detail")
-                                activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
-                                activity.runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show() }
+                                activity.runOnUiThread { Toast.makeText(context, activity.resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show() }
                                 println(errorDetail)
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, MainActivity::class.java)
@@ -143,8 +142,7 @@ object HoroscopeFunctions {
 
                             else -> {
                                 val errorDetail = errorResponseJson.optString("detail")
-                                activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
-                                activity.runOnUiThread { Toast.makeText(context, " redirecting to main screen ...", Toast.LENGTH_SHORT).show() }
+                                activity.runOnUiThread { Toast.makeText(context, activity.resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show() }
                                 println(" detaylar $errorDetail")
                                 val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                 val intent = Intent(context, MainActivity::class.java)

@@ -219,7 +219,7 @@ class CompleteProfile : AppCompatActivity() {
                       step = 1 ; isFromSetName = true
                  } else {
                      this.runOnUiThread {
-                         Toast.makeText(this, "Your name must be at least 2 characters long", Toast.LENGTH_SHORT).show();step = 0
+                         Toast.makeText(this, this.resources.getString(R.string.name_character_warning), Toast.LENGTH_SHORT).show();step = 0
                      }
                  }
              }

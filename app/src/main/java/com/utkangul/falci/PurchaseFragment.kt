@@ -96,7 +96,7 @@ class PurchaseFragment : Fragment() {
                 isEnabled = false
                 requireActivity().onBackPressed()
             } else {
-                Toast.makeText(requireContext(), "İşlem tamamlanana kadar çıkış yapılamaz", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.wait_for_process), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -120,7 +120,6 @@ class PurchaseFragment : Fragment() {
                 fun notifyApiAfterPurchase() {
                     println(storeTransaction)
                     println(customerInfo)
-                    Toast.makeText(context, "Your Purchase Was Successfull", Toast.LENGTH_SHORT).show()
                     val userId = Purchases.sharedInstance.appUserID
                     val revenuecatUserIdJson = AuthenticationFunctions.CreateJsonObject.createJsonObject("user_id" to userId)
                     setViewVisibleWithAnimation(requireContext(), purchaseLoadingAnimationContainer)
@@ -139,7 +138,7 @@ class PurchaseFragment : Fragment() {
                                 when (statusCode) {
                                     200 -> {
                                         requireActivity().runOnUiThread {
-                                            Toast.makeText(context, "You Gained Your Benefits of This Purchase", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(context, requireActivity().resources.getString(R.string.gained_benefits_purchase), Toast.LENGTH_SHORT).show()
                                         }
                                         loadingAnimation.post {
                                             loadingAnimation.cancelAnimation()
@@ -162,7 +161,7 @@ class PurchaseFragment : Fragment() {
                                         }
                                     }
                                     else -> {
-                                        Toast.makeText(context, "An unexpected error occured, you are being redirected to main page", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(context, requireActivity().resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()
                                         val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                                         val intent = Intent(context, ProfileActivity::class.java)
                                         ContextCompat.startActivity(requireContext(), intent, options.toBundle())
@@ -183,7 +182,6 @@ class PurchaseFragment : Fragment() {
                 allowBackPressed = true
             }
         }
-
 
         //set storeProducts
         Purchases.sharedInstance.getOfferingsWith({ error -> println(error) }) { offerings ->

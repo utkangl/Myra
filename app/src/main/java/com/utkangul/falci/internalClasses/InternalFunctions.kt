@@ -78,7 +78,7 @@ class InternalFunctions {
                 }
             } else {
                 println("userProfile.birth_day was empty")
-                activity.runOnUiThread{ Toast.makeText(context, "userProfile.birth_day was empty", Toast.LENGTH_SHORT).show()}
+                activity.runOnUiThread{ Toast.makeText(context, activity.resources.getString(R.string.unexpected_error), Toast.LENGTH_SHORT).show()}
             }
         }
     }

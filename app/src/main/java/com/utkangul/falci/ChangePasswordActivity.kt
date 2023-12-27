@@ -38,17 +38,17 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var forthDigit: EditText
     private lateinit var fifthDigit: EditText
     private lateinit var sixthDigit: EditText
-    private var          inputCode: String? = null
-    private var          countdownTimer: CountDownTimer? = null
-    private var          remainingTimeMillis: Long = 120000
+    private var inputCode: String? = null
+    private var countdownTimer: CountDownTimer? = null
+    private var remainingTimeMillis: Long = 120000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        this.runOnUiThread{
+        this.runOnUiThread {
             val languageSharedPreferences: SharedPreferences = application.getSharedPreferences("language_choice", Context.MODE_PRIVATE)
-            val languageChoice = languageSharedPreferences.getString("language",null)
-            if (!languageChoice.isNullOrEmpty()){
+            val languageChoice = languageSharedPreferences.getString("language", null)
+            if (!languageChoice.isNullOrEmpty()) {
                 val locale = Locale(languageChoice)
                 Locale.setDefault(locale)
                 val config = Configuration()
@@ -59,22 +59,22 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_change_password)
 
-        firstDigit  = findViewById(R.id.firstDigit)
+        firstDigit = findViewById(R.id.firstDigit)
         secondDigit = findViewById(R.id.secondDigit)
-        thirdDigit  = findViewById(R.id.thirdDigit)
-        forthDigit  = findViewById(R.id.forthDigit)
-        fifthDigit  = findViewById(R.id.fifthDigit)
-        sixthDigit  = findViewById(R.id.sixthDigit)
+        thirdDigit = findViewById(R.id.thirdDigit)
+        forthDigit = findViewById(R.id.forthDigit)
+        fifthDigit = findViewById(R.id.fifthDigit)
+        sixthDigit = findViewById(R.id.sixthDigit)
 
-        val sendVerificationCodeButton               = findViewById<AppCompatButton>(R.id.sendVerificationCodeButton)
-        val resendEmailCountdownTextview             = findViewById<TextView>(R.id.resendEmailCountdownTextviewChangePassword)
-        val takeInfoEmailVerificationChangePassword  = findViewById<ImageView>(R.id.takeInfoEmailVerificationChangePassword)
-        val resendEmailChangePassword                = findViewById<CardView>(R.id.resendEmailChangePassword)
-        val resendEmailImageChangePassword           = findViewById<ImageView>(R.id.resendEmailImageChangePassword)
-        val changePasswordNewPassword                = findViewById<EditText>(R.id.changePasswordNewPassword)
-        val changePasswordNewPasswordAgain           = findViewById<EditText>(R.id.changePasswordNewPasswordAgain)
-        val changePasswordButton                     = findViewById<AppCompatButton>(R.id.changePasswordButton)
-        val changePasswordBackButton                     = findViewById<ImageButton>(R.id.changePasswordBackButton)
+        val sendVerificationCodeButton = findViewById<AppCompatButton>(R.id.sendVerificationCodeButton)
+        val resendEmailCountdownTextview = findViewById<TextView>(R.id.resendEmailCountdownTextviewChangePassword)
+        val takeInfoEmailVerificationChangePassword = findViewById<ImageView>(R.id.takeInfoEmailVerificationChangePassword)
+        val resendEmailChangePassword = findViewById<CardView>(R.id.resendEmailChangePassword)
+        val resendEmailImageChangePassword = findViewById<ImageView>(R.id.resendEmailImageChangePassword)
+        val changePasswordNewPassword = findViewById<EditText>(R.id.changePasswordNewPassword)
+        val changePasswordNewPasswordAgain = findViewById<EditText>(R.id.changePasswordNewPasswordAgain)
+        val changePasswordButton = findViewById<AppCompatButton>(R.id.changePasswordButton)
+        val changePasswordBackButton = findViewById<ImageButton>(R.id.changePasswordBackButton)
 
 
         fun updateCountdownUI() {
@@ -133,7 +133,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         sixthDigit.addTextChangedListener(commonTextWatcher)
 
         takeInfoEmailVerificationChangePassword.setOnClickListener {
-            Toast.makeText(this, "Try checking your spambox if you \n cant see mail in inbox", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, this.resources.getString(R.string.check_your_spambox_text), Toast.LENGTH_SHORT).show()
         }
 
         sendVerificationCodeButton.setOnClickListener {
@@ -146,10 +146,16 @@ class ChangePasswordActivity : AppCompatActivity() {
                     .build()
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        this@ChangePasswordActivity.runOnUiThread{ Toast.makeText(this@ChangePasswordActivity, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        this@ChangePasswordActivity.runOnUiThread {
+                            Toast.makeText(
+                                this@ChangePasswordActivity,
+                                this@ChangePasswordActivity.resources.getString(R.string.unexpected_error_occured_onServer_text),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                         val intent = Intent(this@ChangePasswordActivity, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent,null)
+                        startActivity(intent, null)
                         this@ChangePasswordActivity.finish()
                         e.printStackTrace()
                     }
@@ -160,13 +166,18 @@ class ChangePasswordActivity : AppCompatActivity() {
                         when (responseCode) {
                             200 -> {
                                 this@ChangePasswordActivity.runOnUiThread {
-                                    Toast.makeText(this@ChangePasswordActivity, "mail sent succesfully, dont forget to check your spambox", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        this@ChangePasswordActivity,
+                                        this@ChangePasswordActivity.resources.getString(R.string.mail_sent_success),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     startCountdownTimer()
                                 }
                             }
                             401 -> {
                                 AuthenticationFunctions.PostJsonFunctions.takeFreshTokens(
-                                    this@ChangePasswordActivity,urls.refreshURL, this@ChangePasswordActivity) { responseBody401, exception401 ->
+                                    this@ChangePasswordActivity, urls.refreshURL, this@ChangePasswordActivity
+                                ) { responseBody401, exception401 ->
                                     if (exception401 != null) exception401.printStackTrace()
                                     else {
                                         if (responseBody401 != null) {
@@ -176,56 +187,80 @@ class ChangePasswordActivity : AppCompatActivity() {
                                 }
                             }
                             400 -> {
-                                this@ChangePasswordActivity.runOnUiThread{ Toast.makeText(this@ChangePasswordActivity, "You got an email less then 2 minutes ago", Toast.LENGTH_SHORT).show() }
+                                this@ChangePasswordActivity.runOnUiThread {
+                                    Toast.makeText(
+                                        this@ChangePasswordActivity,
+                                        this@ChangePasswordActivity.resources.getString(R.string.mail_cooldown_warning), Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
                             else -> {
-                                this@ChangePasswordActivity.runOnUiThread { Toast.makeText(this@ChangePasswordActivity, "unexpected error: $responseCode", Toast.LENGTH_SHORT).show() }
-                                this@ChangePasswordActivity.runOnUiThread { Toast.makeText(this@ChangePasswordActivity, " redirecting to main screen ...", Toast.LENGTH_SHORT).show() }
-//                                val options = ActivityOptions.makeCustomAnimation(this@ChangePasswordActivity, R.anim.activity_slide_down, 0)
-//                                val intent = Intent(this@ChangePasswordActivity, MainActivity::class.java)
-//                                ContextCompat.startActivity(this@ChangePasswordActivity, intent, options.toBundle())
+                                this@ChangePasswordActivity.runOnUiThread {
+                                    Toast.makeText(
+                                        this@ChangePasswordActivity,
+                                        this@ChangePasswordActivity.resources.getString(R.string.unexpected_error_occured_onServer_text),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                val options = ActivityOptions.makeCustomAnimation(this@ChangePasswordActivity, R.anim.activity_slide_down, 0)
+                                val intent = Intent(this@ChangePasswordActivity, MainActivity::class.java)
+                                ContextCompat.startActivity(this@ChangePasswordActivity, intent, options.toBundle())
                             }
                         }
                     }
                 })
             }
             if (controlVariables.resendMailChangePasswordCountdownFinished) sendVerificationCodeForChangePassword()
-            else Toast.makeText(this, "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
+            else Toast.makeText(this, this.resources.getString(R.string.mail_cooldown_warning), Toast.LENGTH_LONG).show()
         }
 
         changePasswordButton.setOnClickListener {
             if (controlVariables.allowCheckChangePasswordCode) {
                 inputCode = "${firstDigit.text}${secondDigit.text}${thirdDigit.text}${forthDigit.text}${fifthDigit.text}${sixthDigit.text}"
                 println(inputCode)
-                if (inputCode!!.length == 6){
+                if (inputCode!!.length == 6) {
                     resetPasswordDataClass.code = inputCode
-                    if (changePasswordNewPassword.text.contentEquals(changePasswordNewPasswordAgain.text) && !changePasswordNewPassword.text.isNullOrEmpty()){
+                    if (changePasswordNewPassword.text.contentEquals(changePasswordNewPasswordAgain.text) && !changePasswordNewPassword.text.isNullOrEmpty()) {
                         resetPasswordDataClass.password = changePasswordNewPassword.text.toString()
-                        val changePasswordJSON = createJsonObject("code" to resetPasswordDataClass.code!!, "password" to resetPasswordDataClass.password!!)
-                        postJsonWithHeader(this,"https://api.kircibros.com/auth/reset/password/", changePasswordJSON,this ){
-                            responseBody, exception ->
+                        val changePasswordJSON =
+                            createJsonObject("code" to resetPasswordDataClass.code!!, "password" to resetPasswordDataClass.password!!)
+                        postJsonWithHeader(
+                            this,
+                            "https://api.kircibros.com/auth/reset/password/",
+                            changePasswordJSON,
+                            this
+                        ) { responseBody, exception ->
                             exception?.printStackTrace()
-                            if (exception == null){
-                                if (statusCode == 200){
+                            if (exception == null) {
+                                if (statusCode == 200) {
                                     println("change password responseBody $responseBody")
-                                    this@ChangePasswordActivity.runOnUiThread{
-                                        Toast.makeText(this, "Password Successfuly Changed", Toast.LENGTH_SHORT).show()
+                                    this@ChangePasswordActivity.runOnUiThread {
+                                        Toast.makeText(
+                                            this,
+                                            this@ChangePasswordActivity.resources.getString(R.string.password_change_success),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                                         val intent = Intent(this, MainActivity::class.java)
                                         ContextCompat.startActivity(this, intent, options.toBundle())
                                     }
-                                }
-                                else if( statusCode == 400){
+                                } else if (statusCode == 400) {
                                     println("wrong verification code, statuscode: 400")
-                                    this@ChangePasswordActivity.runOnUiThread{
-                                        Toast.makeText(this, "Password could not change, You entered a wrong verification code probably", Toast.LENGTH_SHORT).show()
+                                    this@ChangePasswordActivity.runOnUiThread {
+                                        Toast.makeText(
+                                            this,
+                                            this.resources.getString(R.string.wrong_verif_code),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                             }
                         }
-                    } else this@ChangePasswordActivity.runOnUiThread{ Toast.makeText(this, "Passwords are empty or doesnt match", Toast.LENGTH_SHORT).show() }
+                    } else this.runOnUiThread {
+                        Toast.makeText(this, this.resources.getString(R.string.empty_or_unmatch_passwords), Toast.LENGTH_SHORT).show()
+                    }
                 }
-            } else Toast.makeText(this, "Code must be 6 digits exactly", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, this.resources.getString(R.string.code_is_not_Six), Toast.LENGTH_SHORT).show()
         }
 
         resendEmailImageChangePassword.setOnClickListener { resendEmailChangePassword.performClick() }
@@ -233,7 +268,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         resendEmailChangePassword.setOnClickListener {
             if (controlVariables.resendMailChangePasswordCountdownFinished) {
                 sendVerificationCodeButton.performClick()
-            } else Toast.makeText(this, "You can get verification mails in every 2 minutes, wait for countdown", Toast.LENGTH_LONG).show()
+            } else Toast.makeText(this, this.resources.getString(R.string.mail_cooldown_warning), Toast.LENGTH_LONG).show()
 
         }
 
@@ -247,7 +282,7 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
         };this.onBackPressedDispatcher.addCallback(this, callback)
 
-        changePasswordBackButton.setOnClickListener{ callback.handleOnBackPressed() }
+        changePasswordBackButton.setOnClickListener { callback.handleOnBackPressed() }
 
     }
 

@@ -13,11 +13,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
-import com.utkangul.falci.internalClasses.InternalFunctions
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
 import com.utkangul.falci.internalClasses.dataClasses.*
 import okhttp3.*
@@ -32,7 +30,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v =  inflater.inflate(R.layout.fragment_settings, container, false)
+        val v = inflater.inflate(R.layout.fragment_settings, container, false)
 
         val buyCoinContainerLayout = v.findViewById<RelativeLayout>(R.id.buyCoinContainerLayout)
         val deleteAccountContainerLayout = v.findViewById<RelativeLayout>(R.id.deleteAccountContainerLayout)
@@ -40,7 +38,7 @@ class SettingsFragment : Fragment() {
         val changePasswordContainerLayout = v.findViewById<RelativeLayout>(R.id.changePasswordContainerLayout)
         val settingsBackButton = v.findViewById<ImageButton>(R.id.settingsBackButton)
 
-        buyCoinContainerLayout.setOnClickListener{ replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }
+        buyCoinContainerLayout.setOnClickListener { replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }
 
         fun setLocale(languageCode: String) {
             // Dil ayarlarını güncelle
@@ -57,7 +55,7 @@ class SettingsFragment : Fragment() {
             requireActivity().finish()
         }
 
-        changeLanguageContainerLayout.setOnClickListener{
+        changeLanguageContainerLayout.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage(R.string.askIfChangeLanguage)
             builder.setPositiveButton(R.string.yes) { _, _ ->
@@ -96,10 +94,16 @@ class SettingsFragment : Fragment() {
                     client.newCall(request).enqueue(object : Callback {
 
                         override fun onFailure(call: Call, e: IOException) {
-                            requireActivity().runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                            requireActivity().runOnUiThread {
+                                Toast.makeText(
+                                    context,
+                                    requireActivity().resources.getString(R.string.unexpected_error_occured_onServer_text),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                             val intent = Intent(context, MainActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            startActivity(intent,null)
+                            startActivity(intent, null)
                             requireActivity().finish()
                             e.printStackTrace()
                         }
@@ -108,8 +112,13 @@ class SettingsFragment : Fragment() {
                             println(response)
                             if (response.code == 204) {
                                 activity?.runOnUiThread {
-                                    Toast.makeText(requireContext(), "Deletion successfull", Toast.LENGTH_LONG).show()
-                                    val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
+                                    Toast.makeText(
+                                        requireContext(),
+                                        requireActivity().resources.getString(R.string.delete_account_success),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    val sharedPreferences: SharedPreferences =
+                                        requireContext().getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
                                     val editor = sharedPreferences.edit()
                                     editor.putString("access_token", null)
                                     editor.putString("refresh_token", null)
@@ -122,7 +131,7 @@ class SettingsFragment : Fragment() {
                                 }
                             }
                             if (response.code == 401) {
-                                takeFreshTokens(requireActivity(),urls.refreshURL, requireContext()) { responseBody, exception ->
+                                takeFreshTokens(requireActivity(), urls.refreshURL, requireContext()) { responseBody, exception ->
                                     if (responseBody != null) {
                                         println(tokensDataClass.accessToken)
                                         deleteAccount()
@@ -132,8 +141,11 @@ class SettingsFragment : Fragment() {
                                 }
                             } else {
                                 requireActivity().runOnUiThread {
-                                    Toast.makeText(context, "unexpected error: ${response.code}", Toast.LENGTH_SHORT).show()
-                                    Toast.makeText(context, "Redirecting to main activity: ${response.code}", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        requireActivity().resources.getString(R.string.unexpected_error_occured_onServer_text),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     val options = ActivityOptions.makeCustomAnimation(requireContext(), R.anim.activity_slide_down, 0)
                                     val intent = Intent(requireContext(), MainActivity::class.java);startActivity(intent, options.toBundle())
                                 }
@@ -148,13 +160,13 @@ class SettingsFragment : Fragment() {
         }
 
 
-        changePasswordContainerLayout.setOnClickListener{
+        changePasswordContainerLayout.setOnClickListener {
             val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
             val intent = Intent(context, ChangePasswordActivity::class.java)
             ContextCompat.startActivity(requireContext(), intent, options.toBundle())
         }
 
-        settingsBackButton.setOnClickListener{
+        settingsBackButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
 

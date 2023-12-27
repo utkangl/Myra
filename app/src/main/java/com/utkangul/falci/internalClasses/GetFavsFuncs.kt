@@ -112,7 +112,7 @@ class GetFavsFuncs(activity: Activity) {
                 }
                 else -> {
                     println("Response code was: $getFavsStatusCode")
-                    activity.runOnUiThread{ Toast.makeText(context, "an error occured $getFavsStatusCode", Toast.LENGTH_SHORT).show()}
+                    activity.runOnUiThread{ Toast.makeText(context, activity.resources.getString(R.string.unexpected_error), Toast.LENGTH_SHORT).show()}
                     val options = ActivityOptions.makeCustomAnimation(context, R.anim.activity_slide_down, 0)
                     val intent = Intent(context, ProfileActivity::class.java)
                     startActivity(context, intent, options.toBundle())

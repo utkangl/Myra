@@ -20,7 +20,6 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import com.utkangul.falci.HoroscopeDetailFragment.DestroyFavHoroscope.destroyFavHoroscope
-import com.utkangul.falci.internalClasses.AuthenticationFunctions
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.CreateJsonObject.createJsonObject
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.postJsonWithHeader
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceActivityToFragment.replaceMainActivityToFragment
@@ -86,7 +85,7 @@ class HoroscopeDetailFragment : Fragment() {
             override fun handleOnBackPressed() {
 
                 if (inTitleInput) {
-                    Toast.makeText(context, "sent your title!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, requireActivity().resources.getString(R.string.empty_title_warning), Toast.LENGTH_SHORT).show()
                 } else {
                     if (controlVariables.navigateBackToProfileActivity) {
                         controlVariables.navigateBackToProfileActivity = false
@@ -142,7 +141,7 @@ class HoroscopeDetailFragment : Fragment() {
                                 favouriteHoroscope = gson.fromJson(responseBody, FavouriteHoroscopeDataClass::class.java)
                                 getHoroscopeData.favourite_id = favouriteHoroscope.id
                                 requireActivity().runOnUiThread {
-                                    Toast.makeText(requireContext(), "201 fav success", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), requireActivity().resources.getString(R.string.fav_horoscope_added), Toast.LENGTH_SHORT).show()
                                     inTitleInput = false
                                 }
                             }
@@ -197,7 +196,7 @@ class HoroscopeDetailFragment : Fragment() {
 
                 client.newCall(request).enqueue(object : Callback {
                     override fun onFailure(call: Call, e: IOException) {
-                        activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                        activity.runOnUiThread{ Toast.makeText(context, activity.resources.getString(R.string.unexpected_error_occured_onServer_text), Toast.LENGTH_SHORT).show()}
                         val intent = Intent(context, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(context,intent,null)
@@ -226,7 +225,7 @@ class HoroscopeDetailFragment : Fragment() {
                         if (statusCode == 204) {
                             getHoroscopeData.is_favourite = false
                             activity.runOnUiThread {
-                                Toast.makeText(context, "204 deleted", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, activity.resources.getString(R.string.fav_horoscope_deleted), Toast.LENGTH_SHORT).show()
                                 println("is this horoscope favourite ${getHoroscopeData.is_favourite}")
                                 favouriteThisHoroscope?.setImageResource(R.drawable.heart)
                             }
@@ -240,7 +239,7 @@ class HoroscopeDetailFragment : Fragment() {
                 })
             }
             if (favHoroscopeId == null) {
-                activity.runOnUiThread { Toast.makeText(context, "fav horoscope id is null", Toast.LENGTH_SHORT).show() }
+                println("fav horoscope id is null")
             }
         }
     }

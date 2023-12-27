@@ -1,6 +1,7 @@
 package com.utkangul.falci
 
 import android.app.ActivityOptions
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -44,7 +45,6 @@ var savedLookupUserList: List<SavedLookUpUsersDataClass> = emptyList()
 class MainActivity : AppCompatActivity() {
     private lateinit var splashViewModel: ViewModel
     private var rewardedAd: RewardedAd? = null
-    private var TAG = "MainActivity"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         controlVariables.isSavedUsersLoaded = false
         controlVariables.isBurcCardOpen = false
         val tokensSharedPreferences = this.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
-        var didLogin = tokensSharedPreferences.getBoolean("didLogin",false)
+        val didLogin = tokensSharedPreferences.getBoolean("didLogin",false)
 
         val currentTime = System.currentTimeMillis() / 1000
         val savedTokenCreationTime = tokensSharedPreferences.getLong("token_creation_time", 0)
@@ -143,7 +143,6 @@ class MainActivity : AppCompatActivity() {
                 val editor = tokensSharedPreferences.edit()
                 editor.putBoolean("didLogin", false)
                 editor.apply()
-                didLogin = false
                 authenticated.isLoggedIn = false
             }
             false to true -> {
@@ -252,8 +251,6 @@ class MainActivity : AppCompatActivity() {
             },1000)
         } else {
             if (authenticated.isLoggedIn){
-                val url = urls.userStatusURL
-                val client = OkHttpClient()
                 getUserStatus(this, this,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
             }
         }
@@ -428,7 +425,6 @@ class MainActivity : AppCompatActivity() {
                     ad.show(this, OnUserEarnedRewardListener { _ ->
                         // Handle the reward.
                         Log.d(TAG, "User earned the reward.")
-                        this.runOnUiThread{ Toast.makeText(this, "You earned your ad reward", Toast.LENGTH_SHORT).show()}
                         getUserStatus(this, this,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
 //                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
 //                        val intent = Intent(this, MainActivity::class.java); startActivity(intent, options.toBundle())
@@ -460,7 +456,7 @@ class MainActivity : AppCompatActivity() {
             } ?: run {
                 Log.d(TAG, "The rewarded ad wasn't ready yet.")
                 this.runOnUiThread{
-                    Toast.makeText(this, "There was an error while loading the ad, please try again after a few seconds", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, this.resources.getString(R.string.error_loading_ad), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -473,9 +469,6 @@ class MainActivity : AppCompatActivity() {
                         controlVariables.isInDelay = true
                         setViewVisibleWithAnimation(this, useOrGainCoinMenuCard)
                         useOrGainCoinMenuTitle.text = "${postHoroscopeData.type.toString().uppercase()} / ${postHoroscopeData.time_interval.toString().uppercase()}"
-                    }
-                    else {
-                        this.runOnUiThread { Toast.makeText(this, "Pick the Mode", Toast.LENGTH_SHORT).show() }
                     }
                 }
                 else if(controlVariables.isSameFortune && !controlVariables.isLoveSameFortune){

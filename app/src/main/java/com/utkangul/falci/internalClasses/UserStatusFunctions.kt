@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.Gson
 import com.utkangul.falci.MainActivity
+import com.utkangul.falci.R
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewGoneWithAnimation
 import com.utkangul.falci.internalClasses.InternalFunctions.SetVisibilityFunctions.setViewVisibleWithAnimation
@@ -36,10 +37,16 @@ class UserStatusFunctions {
             client.newCall(request).enqueue(object : Callback {
 
                 override fun onFailure(call: Call, e: IOException) {
-                    activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                    activity.runOnUiThread {
+                        Toast.makeText(
+                            context,
+                            activity.resources.getString(R.string.unexpected_error_occured_onServer_text),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     val intent = Intent(context, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(context,intent,null)
+                    startActivity(context, intent, null)
                     activity.finish()
                     e.printStackTrace()
                 }
@@ -80,10 +87,16 @@ class UserStatusFunctions {
                                                         .build()
                                                     claimCampaignClient.newCall(claimCampaignRequest).enqueue(object : Callback {
                                                         override fun onFailure(call: Call, e: IOException) {
-                                                            activity.runOnUiThread{ Toast.makeText(context, "Unexpected error occured on our server. Directing you to main page", Toast.LENGTH_SHORT).show()}
+                                                            activity.runOnUiThread {
+                                                                Toast.makeText(
+                                                                    context,
+                                                                    activity.resources.getString(R.string.unexpected_error_occured_onServer_text),
+                                                                    Toast.LENGTH_SHORT
+                                                                ).show()
+                                                            }
                                                             val intent = Intent(context, MainActivity::class.java)
                                                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                                                            startActivity(context,intent,null)
+                                                            startActivity(context, intent, null)
                                                             activity.finish()
                                                             println("exception $e")
                                                         }
@@ -92,10 +105,23 @@ class UserStatusFunctions {
                                                             println(" claim campaign response code ${response.code}")
                                                             if (response.code == 200) {
                                                                 userStatusDataClass.campain.remove(campaign)
-                                                                activity.runOnUiThread { Toast.makeText(context, "Campaign Successfuly Claimed", Toast.LENGTH_SHORT).show() }
-                                                                getUserStatus(context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText, claimCampaignCard, claimCampaignClaimButton)
+                                                                activity.runOnUiThread {
+                                                                    Toast.makeText(
+                                                                        context,
+                                                                        activity.resources.getString(R.string.campaign_claimed),
+                                                                        Toast.LENGTH_SHORT
+                                                                    ).show()
+                                                                }
+                                                                getUserStatus(
+                                                                    context,
+                                                                    activity,
+                                                                    useOrGainCoinMenuCurrentCoinText,
+                                                                    coinAmountText,
+                                                                    claimCampaignCard,
+                                                                    claimCampaignClaimButton
+                                                                )
                                                             } else if (response.code == 401) {
-                                                                takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception ->
+                                                                takeFreshTokens(activity, urls.refreshURL, context) { responseBody401, exception ->
                                                                     if (responseBody401 != null) {
                                                                         println("take fresh tokenin responsu: $responseBody401")
                                                                         claimCampaign()
@@ -119,17 +145,29 @@ class UserStatusFunctions {
                         }
 
                         401 -> {
-                            takeFreshTokens(activity,urls.refreshURL, context) { responseBody401, exception401 ->
+                            takeFreshTokens(activity, urls.refreshURL, context) { responseBody401, exception401 ->
                                 if (responseBody401 != null) {
-                                    getUserStatus(context, activity, useOrGainCoinMenuCurrentCoinText, coinAmountText, claimCampaignCard, claimCampaignClaimButton)
+                                    getUserStatus(
+                                        context,
+                                        activity,
+                                        useOrGainCoinMenuCurrentCoinText,
+                                        coinAmountText,
+                                        claimCampaignCard,
+                                        claimCampaignClaimButton
+                                    )
                                 } else exception401?.printStackTrace()
 
                             }
                         }
 
                         else -> {
-                            activity.runOnUiThread { Toast.makeText(context, "unexpected error: $statusCode", Toast.LENGTH_SHORT).show() }
-                            activity.runOnUiThread { Toast.makeText(context, "Please try restarting the app", Toast.LENGTH_SHORT).show() }
+                            activity.runOnUiThread {
+                                Toast.makeText(
+                                    context,
+                                    activity.resources.getString(R.string.unexpected_error_occured_restartApp_text),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }

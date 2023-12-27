@@ -191,5 +191,28 @@
     <string name="new_password">Yeni Şifre</string>
     <string name="new_password_again">Tekrardan Yeni Şifre</string>
     <string name="select_mode">Mod Seç</string>
+    <string name="unexpected_error_occured_onServer_text">Sunucuda beklenmeyen bir hata oluştu. Ana sayfaya yönlendiriliyorsunuz</string>
+    <string name="unexpected_error_occured_restartApp_text">Beklenmeyen bir hata oluştu, uygulamayı yeniden başlatmayı deneyin</string>
+    <string name="unexpected_error">Beklenmeyen bir hata oluştu</string>
+    <string name="check_your_spambox_text">Maili göremiyorsanız Spam kutunuzu kontrol etmeyi deneyin</string>
+    <string name="code_is_not_Six">Kod tam 6 basamaklı olmalı</string>
+    <string name="mail_sent_success">Mail gönderildi. Spam kutunuzu kontrol etmeyi unutmayın</string>
+    <string name="mail_cooldown_warning">2 dakikada içerisinde 1 kez mail alabilirsiniz. Sürenin bitmesini bekleyin</string>
+    <string name="name_character_warning">İsim en az 2 harf olmalı</string>
+    <string name="error_loading_ad">Reklam yüklenirken hata oluştu, birkaç saniye içinde tekrar deneyin</string>
+    <string name="campaign_claimed">Kampanya başarı ile tanımlandı</string>
+    <string name="signup_success">Basari ile kayit olundu</string>
+    <string name="logout_success">"Başarı ile çıkış yapıldı</string>
+    <string name="login_success">"Başarı ile giriş yapıldı</string>
+    <string name="password_change_success">"Şifre başarı ile değiştirildi</string>
+    <string name="empty_or_unmatch_passwords">"Şifreler eşleşmiyor, veya şifre girilmedi</string>
+    <string name="wrong_verif_code">"Şifre değiştirilemedi, Muhtemelen kodu yanlış girdiniz</string>
+    <string name="delete_account_success">"Hesap başarı ile silindi</string>
+    <string name="gained_benefits_purchase">"Satın alımın ödülleri başarı ile tanımlandı</string>
+    <string name="fav_horoscope_deleted">"Favorilerden başarı ile kaldırıldı</string>
+    <string name="fav_horoscope_added">"Başarı ile favorilere eklendi</string>
+    <string name="empty_title_warning">"Başlık boş bırakılamaz</string>
+    <string name="wait_for_process">"Lütfen satın alım işlemi bitene kadar bekleyin</string>
+
 
 </resources>
