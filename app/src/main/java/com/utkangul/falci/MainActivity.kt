@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                 println("didlogin true, creation time sıfır değil, expire kontrolü yapıyorum")
                 println("it has been ${currentTime - savedTokenCreationTime} seconds since last token refresh")
                 controlVariables.isInExpireControl = true
-                checkIsAccessExpired(currentTime, savedTokenCreationTime, 20, this) // if it has been more than 15 minutes till creation, refresh
+                checkIsAccessExpired(currentTime, savedTokenCreationTime, 900, this) // if it has been more than 15 minutes till creation, refresh
             }
             true to false -> {
                 println("token creation time 0, ve didlogin false. logout yapılmış")

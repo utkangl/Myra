@@ -51,7 +51,7 @@ class FavouriteHoroscopesFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             getFavsFuncs.getFavouriteHoroscopes(favHoroscopeLoadingAnimation, requireContext(), searchFavHoroscope, cancelFavSearchFilter,
                 favHoroscopeLinearLayout, urls.favouriteHoroscopeURL, favouriteHoroscopesScrollview)
-        },1500)
+        },1200)
 
 
         editFavourites.setOnClickListener{

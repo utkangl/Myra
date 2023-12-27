@@ -669,8 +669,11 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_marginTop="1dp"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/coinAmountText"
-            android:src="@drawable/baseline_currency_bitcoin_24"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/mira_coin"
             android:contentDescription="@string/sample_description">
         </ImageView>
     </RelativeLayout>

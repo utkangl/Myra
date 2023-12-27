@@ -1,7 +1,10 @@
 package com.utkangul.falci
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -26,6 +29,19 @@ import java.util.*
 class CompleteProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.runOnUiThread{
+            val languageSharedPreferences: SharedPreferences = application.getSharedPreferences("language_choice", Context.MODE_PRIVATE)
+            val languageChoice = languageSharedPreferences.getString("language",null)
+            if (!languageChoice.isNullOrEmpty()){
+                val locale = Locale(languageChoice)
+                Locale.setDefault(locale)
+                val config = Configuration()
+                config.locale = locale
+                resources.updateConfiguration(config, resources.displayMetrics)
+            }
+        }
+
         setContentView(R.layout.activity_complete_profile)
 
         val miraSpeechBubbleContainer = findViewById<RelativeLayout>(R.id.mira_speech_bubble_container)

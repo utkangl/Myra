@@ -43,7 +43,7 @@ class TransitionToFragment {
 
         fun replaceProfileActivityToFragment(fragmentManager: FragmentManager, targetFragment: Fragment) {
             fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.fragment_slide_down, 0, R.anim.fragment_slide_down, R.anim.slide_up)
+                .setCustomAnimations(R.anim.profile_fragment_slide_down, 0, R.anim.fragment_slide_down, R.anim.slide_up)
                 .replace(R.id.profile_fragment_container, targetFragment)
                 .addToBackStack(null)
                 .commit()
