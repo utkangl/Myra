@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentActivity
 import com.utkangul.falci.MainActivity
 import com.utkangul.falci.R
 import com.utkangul.falci.internalClasses.dataClasses.ChatMessage
+import com.utkangul.falci.internalClasses.dataClasses.chatDetails
+import com.utkangul.falci.internalClasses.dataClasses.coin
 import com.utkangul.falci.internalClasses.dataClasses.getHoroscopeData
 import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
 import com.utkangul.falci.internalClasses.dataClasses.urls
@@ -59,7 +61,11 @@ class ChatFuncs {
                         val welcomeMessage = ChatMessage(getHoroscopeData.summary.toString(), false)
                         messages.add(welcomeMessage)
                         val jsonResponse = responseBody?.let { JSONObject(it) }
+                        println("jsonResponse $jsonResponse")
                         val chatMessagesArray = jsonResponse?.getJSONArray("chat_messages")
+                        chatDetails.coin = jsonResponse?.getInt("coin")
+                        chatDetails.remainingMessages = jsonResponse?.getInt("remaining_message")
+                        coin.current_coin = chatDetails.coin!!
 
                         for (i in 0 until chatMessagesArray!!.length()) {
 

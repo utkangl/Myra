@@ -20,7 +20,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 
-class ChatFragment : Fragment() {
+class   ChatFragment : Fragment() {
 
     private lateinit var usermessagetomira: String
 
@@ -39,6 +39,8 @@ class ChatFragment : Fragment() {
         val cancelUserMessage = v.findViewById<ImageButton>(R.id.cancelUserMessage)
         val chatBackButton = v.findViewById<ImageButton>(R.id.chatBackButton)
 
+        val coinAmountText = v.findViewById<TextView>(R.id.coinAmountTextChat)
+        val coinAmountTextLayout = v.findViewById<RelativeLayout>(R.id.coinAmountContainerLayoutChat)
 
         val chatListView = v.findViewById<ListView>(R.id.chatListView)
 
@@ -52,7 +54,9 @@ class ChatFragment : Fragment() {
 
         val chatFuncs = ChatFuncs()
 
-        threadNumber?.let { chatFuncs.getOldMessages(requireContext(), activity!! , it, oldMessages, chatAdapter, messages, chatListView) }
+        coinAmountText.text = coin.current_coin.toString()
+
+        threadNumber?.let { chatFuncs.getOldMessages(requireContext(), requireActivity() , it, oldMessages, chatAdapter, messages, chatListView) }
 
         messageInput.setOnClickListener{
             val scale = requireContext().resources.displayMetrics.density
@@ -73,61 +77,80 @@ class ChatFragment : Fragment() {
 
         sendUserMessage.setOnClickListener{
 
-            val scale = requireContext().resources.displayMetrics.density
-            messageInputParams.width = (330 * scale + 0.5).toInt()
-            messageInput.layoutParams = messageInputParams
-            setViewGone(cancelUserMessage)
+            if (chatDetails.remainingMessages == 0 && coin.current_coin <2){
+                requireActivity().runOnUiThread{
+                    Toast.makeText(requireContext(), "You dont have enough coin to send a message", Toast.LENGTH_SHORT).show()
+                }
+            }
 
-            val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(sendUserMessage.windowToken, 0)
+            else{
 
-            println(messageInput.text.toString())
-            usermessagetomira = messageInput.text.toString()
+                val scale = requireContext().resources.displayMetrics.density
+                messageInputParams.width = (330 * scale + 0.5).toInt()
+                messageInput.layoutParams = messageInputParams
+                setViewGone(cancelUserMessage)
+                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-            if (!messageInput.text.isNullOrEmpty()) {
+                inputMethodManager.hideSoftInputFromWindow(sendUserMessage.windowToken, 0)
+                println(messageInput.text.toString())
 
-                val myMessage = ChatMessage(usermessagetomira, true)
-                messages.add(myMessage)
-                messageInput.setText("")
-                chatAdapter.notifyDataSetChanged()
-                chatListView.smoothScrollToPosition(messages.size - 1)
+                usermessagetomira = messageInput.text.toString()
+                if (!messageInput.text.isNullOrEmpty()) {
+                    chatDetails.addMessage = chatDetails.remainingMessages == 0
+                    val myMessage = ChatMessage(usermessagetomira, true)
+                    messages.add(myMessage)
+                    messageInput.setText("")
+                    chatAdapter.notifyDataSetChanged()
+                    chatListView.smoothScrollToPosition(messages.size - 1)
 
-                val chatJson = createChatJSON(usermessagetomira, threadNumber)
-                println("thread bu: $threadNumber")
-                println("sending chat json as: $chatJson")
+                    val chatJson = createChatJSON(usermessagetomira, threadNumber, chatDetails.addMessage)
+                    println("thread bu: $threadNumber")
+                    println("sending chat json as: $chatJson")
 
-                postChatJson(urls.chatGptURL, chatJson)
-                { responseBody, exception ->
-                    if (exception != null) {
-                        println("Error: ${exception.message}")
-                    } else {
-                        println("thread verdim response bu: $responseBody")
-
-                        activity?.runOnUiThread {
+                    postChatJson(urls.chatGptURL, chatJson)
+                    { responseBody, exception ->
+                        if (exception != null) {
+                            println("Error: ${exception.message}")
+                        }
+                        else {
+                            println("thread verdim response bu: $responseBody")
                             val jsonResponse = responseBody?.let { JSONObject(it) }
+                            println("jsonResponse $jsonResponse")
+                            if (statusCode == 200) {
+                                activity?.runOnUiThread {
+                                    if (jsonResponse != null) {
 
-                            if (jsonResponse != null && jsonResponse.has("chat_messages")) {
-                                val chatMessagesArray = jsonResponse.getJSONArray("chat_messages")
+                                        if (jsonResponse.has("chat_messages")) {
+                                            val chatMessagesArray = jsonResponse.getJSONArray("chat_messages")
+                                            // En son mesaji bulmak icin chatMessagesArray'ı tersten dön
+                                            for (i in chatMessagesArray.length() - 1 downTo 0) {
+                                                val chatMessageObject = chatMessagesArray.getJSONObject(i)
+                                                val sender = chatMessageObject.getString("owner")
+                                                val message = chatMessageObject.getString("message")
+                                                threadNumber = chatMessageObject.getInt("thread")
+                                                println("sender $sender")
+                                                val apiMessage = ChatMessage(message, false)
+                                                println(apiMessage)
+                                                messages.add(apiMessage)
 
-                                // En son mesaji bulmak icin chatMessagesArray'ı tersten dön
-                                for (i in chatMessagesArray.length() - 1 downTo 0) {
-                                    val chatMessageObject = chatMessagesArray.getJSONObject(i)
-                                    val sender = chatMessageObject.getString("owner")
-                                    val message = chatMessageObject.getString("message")
-                                    threadNumber = chatMessageObject.getInt("thread")
-                                    println("sender $sender")
-                                    val apiMessage = ChatMessage(message, false)
-                                    println(apiMessage)
-                                    messages.add(apiMessage)
+                                                // En son mesajı bulduktan sonra döngüyü sonlandır
+                                                break
+                                            }
 
-                                    // En son mesajı bulduktan sonra döngüyü sonlandır
-                                    break
+                                        }
+                                        if (jsonResponse.has("coin")) {
+                                            coin.current_coin = jsonResponse.getInt("coin")
+                                            chatDetails.coin = jsonResponse.getInt("coin")
+                                            coinAmountText.text = coin.current_coin.toString()
+                                        }
+                                        if (jsonResponse.has("remaining_message")) {
+                                            chatDetails.remainingMessages =
+                                                jsonResponse.getInt("remaining_message")
+                                        }
+                                        chatAdapter.notifyDataSetChanged()
+                                        chatListView.smoothScrollToPosition(messages.size - 1)
+                                    }
                                 }
-
-                                chatAdapter.notifyDataSetChanged()
-                                chatListView.smoothScrollToPosition(messages.size - 1)
-                            } else {
-                                println("chat_messages anahtarı bulunamadı")
                             }
                         }
                     }
@@ -139,10 +162,13 @@ class ChatFragment : Fragment() {
         return v
     }
 
-    private fun createChatJSON(message: String, thread: Int? = null): JSONObject {
+
+    private fun createChatJSON(message: String, thread: Int? = null, addMessage: Boolean?): JSONObject {
         val chatJsonObject = JSONObject()
         chatJsonObject.put("message", message)
         if (thread != null) { chatJsonObject.put("thread", thread) }
+        chatJsonObject.put("add_message", addMessage)
+
         return chatJsonObject
     }
 

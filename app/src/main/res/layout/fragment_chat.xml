@@ -24,16 +24,36 @@
         android:elevation="15dp">
     </ImageButton>
 
-
+    <!--coin amount-->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="223dp"
-        android:id="@+id/miraChatTop">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coinAmountContainerLayoutChat"
+        android:visibility="visible"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/chatFragmentContainer"
+        android:layout_marginEnd="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/coinAmountTextChat"
+            android:maxLines="1"
+            android:maxLength="5"
+            android:gravity="center_vertical"
+            android:text="@string/sample_coin_amount"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:textSize="25dp"
+            android:textColor="#FDDA0D">
+        </TextView>
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/miraChatScreen"
-            android:background="@drawable/mira_chat_screen_sky">
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="1dp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/coinAmountTextChat"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/mira_coin"
+            android:contentDescription="@string/sample_description">
         </ImageView>
     </RelativeLayout>
 
@@ -41,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp"
-        android:layout_below="@+id/miraChatTop"
+        android:layout_below="@+id/chatBackButton"
         android:layout_above="@+id/chatFragmentMessageInputText"
         android:layout_marginBottom="10dp"
         android:id="@+id/chatFragmentContainer">

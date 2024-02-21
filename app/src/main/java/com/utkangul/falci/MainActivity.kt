@@ -5,6 +5,8 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -35,7 +37,6 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions
 import com.utkangul.falci.internalClasses.ProfileFunctions.ProfileFunctions.makeGetProfileRequest
 import com.utkangul.falci.internalClasses.UserStatusFunctions.UserStatusFunctionsObject.getUserStatus
-import okhttp3.*
 import java.util.*
 
 
@@ -71,7 +72,9 @@ class MainActivity : AppCompatActivity() {
 
         println(userProfile)
         val adRequest = AdRequest.Builder().build()
-        RewardedAd.load(this, "ca-app-pub-9194768212989464/2985888856", adRequest, object : RewardedAdLoadCallback() {
+        val ai: ApplicationInfo = this.packageManager.getApplicationInfo(this.packageName, PackageManager.GET_META_DATA)
+        val adId = ai.metaData["AD_UNIT_ID"]
+        RewardedAd.load(this, adId.toString(), adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 println("onAdFailedToLoad'a dustum")
                 println(adError.toString())

@@ -32,8 +32,8 @@ class LocationService(private val context: Context) {
         val ai: ApplicationInfo = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
         val value = ai.metaData["com.google.android.geo.API_KEY"]
         val key = value.toString()
-        println(key)
         Places.initialize(context, key)
+        println(key)
         placesClient = Places.createClient(context)
 
         val adapter = ArrayAdapter(
