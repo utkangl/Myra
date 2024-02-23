@@ -77,6 +77,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
+            android:name="REVENUECAT_API_KEY"
+            android:value="${REVENUECAT_API_KEY}" />
+        <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9194768212989464~1123407222" />
     </application>

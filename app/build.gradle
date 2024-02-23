@@ -25,6 +25,7 @@ android {
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
         manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
         manifestPlaceholders = [AD_UNIT_ID: "${properties.getProperty('AD_UNIT_ID')}"]
+        manifestPlaceholders = [REVENUECAT_API_KEY: "${properties.getProperty('REVENUECAT_API_KEY')}"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

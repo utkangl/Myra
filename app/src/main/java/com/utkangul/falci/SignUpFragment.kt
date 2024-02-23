@@ -94,7 +94,7 @@ class SignUpFragment : Fragment() {
             override fun handleOnBackPressed() {
                 replaceLoginActivityToSignUpFragment(
                     parentFragmentManager,
-                    Loginfragment()
+                    LoginFragment()
                 )
             }
         };requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)

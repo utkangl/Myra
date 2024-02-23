@@ -77,6 +77,9 @@ class MainActivity : AppCompatActivity() {
         RewardedAd.load(this, adId.toString(), adRequest, object : RewardedAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 println("onAdFailedToLoad'a dustum")
+                this@MainActivity.runOnUiThread{
+                    Toast.makeText(this@MainActivity, "$adError", Toast.LENGTH_SHORT).show()
+                }
                 println(adError.toString())
                 rewardedAd = null
             }
@@ -187,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         val savedUsersLinearContainer = findViewById<LinearLayout>(R.id.savedUsersLinearContainer)
         val addLookupUser = findViewById<CardView>(R.id.addLookupUser)
         val learnYourBurcButton = findViewById<AppCompatButton>(R.id.learnYourBurcButton)
-        val settingsButton = findViewById<ImageButton>(R.id.settingsButton)
+        val ProfileButton = findViewById<ImageButton>(R.id.settingsButton)
         val miraMainMenu = findViewById<ImageView>(R.id.miraMainMenu)
         val clickToGetHoroscopeText = findViewById<TextView>(R.id.ClickToGetHoroscopeText)
         val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
@@ -258,16 +261,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        settingsButton.setOnClickListener {
-            if (settingsButton.isEnabled) {
-                settingsButton.isEnabled = false
+        ProfileButton.setOnClickListener {
+            if (ProfileButton.isEnabled) {
+                ProfileButton.isEnabled = false
                 if (authenticated.isLoggedIn) {
-                    makeGetProfileRequest(urls.getProfileURL, this, this, settingsButton) { _, _ -> }
+                    makeGetProfileRequest(urls.getProfileURL, this, this, ProfileButton) { _, _ -> }
                 } else {
                     if (savedInstanceState == null) {
                         val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
                         val intent = Intent(this, LoginSignupActivity::class.java); startActivity(intent, options.toBundle())
-                        settingsButton.isEnabled = true
+                        ProfileButton.isEnabled = true
                     }
                 }
             }
@@ -511,6 +514,12 @@ class MainActivity : AppCompatActivity() {
                 }, 250)
             }
         }
+
+        coinAmountContainerLayout.setOnClickListener{
+            controlVariables.isFromCoinClick = true
+            makeGetProfileRequest(urls.getProfileURL, this, this, ProfileButton) { _, _ -> }
+        }
+
     } // end of onCreate function
 
     // if back button is pressed in main activity, check if you are in main activity or,

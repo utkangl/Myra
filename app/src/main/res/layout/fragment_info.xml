@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".InfoFragment"
+    android:background="@drawable/falci_background"
+    tools:ignore="SpUsage">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:id="@+id/InfoTitle"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:textSize="40dp"
+        android:textColor="@color/white"
+        android:text="@string/myra"
+        android:layout_centerHorizontal="true">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/InfoTitle"
+        android:layout_marginTop="60dp"
+        android:id="@+id/InfoTitle2"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:text="@string/app_info"
+        android:layout_centerHorizontal="true">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/InfoTitle2"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="30dp"
+        android:id="@+id/ApplicationNameKey"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Application">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/seperator_line_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_below="@id/ApplicationNameKey"
+        android:contentDescription="@string/seperatorline">
+    </ImageView>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/InfoTitle2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/ApplicationNameValue"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="@string/myra">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ApplicationNameKey"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="30dp"
+        android:id="@+id/CompatibilityKey"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Compatibility">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/seperator_line_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_below="@id/CompatibilityKey"
+        android:contentDescription="@string/seperatorline">
+    </ImageView>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ApplicationNameValue"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/CompatibilityValue"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Android">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CompatibilityKey"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="30dp"
+        android:id="@+id/DeveloperKey"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Developers">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/seperator_line_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_below="@id/DeveloperKey"
+        android:contentDescription="@string/seperatorline">
+    </ImageView>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CompatibilityValue"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/DeveloperValue"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Utkan Gül / Emre Arslan">
+    </TextView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DeveloperValue"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="30dp"
+        android:id="@+id/DesignerKey"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Designer">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/seperator_line_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_below="@id/DesignerKey"
+        android:contentDescription="@string/seperatorline">
+    </ImageView>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DeveloperKey"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/DesignerValue"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Doga Muluk">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DesignerKey"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="30dp"
+        android:id="@+id/WebsiteKey"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Website">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/seperator_line_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_below="@id/WebsiteKey"
+        android:contentDescription="@string/seperatorline">
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DesignerValue"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/WebsiteValue"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="mira.kajutech.com">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WebsiteKey"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="30dp"
+        android:id="@+id/VersionKey"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="Version">
+    </TextView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/seperator_line_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="32dp"
+        android:layout_below="@id/VersionKey"
+        android:contentDescription="@string/seperatorline">
+    </ImageView>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WebsiteValue"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/VersionValue"
+        android:fontFamily="@font/arima_madurai_light"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="mira.kajutech.com">
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="280dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="75dp"
+        android:layout_marginTop="75dp"
+        app:cardCornerRadius="20dp"
+        android:layout_centerHorizontal="true">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/learnYourBurcButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:text="Continue">
+        </androidx.appcompat.widget.AppCompatButton>
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

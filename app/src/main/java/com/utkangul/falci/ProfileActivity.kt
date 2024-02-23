@@ -33,6 +33,7 @@ class ProfileActivity : AppCompatActivity() {
         if (!controlVariables.navigateToFavs) replaceProfileActivityToFragment(supportFragmentManager, ProfileFragment())
         if (controlVariables.navigateToFavs)  replaceProfileActivityToFragment(supportFragmentManager, FavouriteHoroscopesFragment()); controlVariables.navigateToFavs = false
         if (controlVariables.isFromChangePassword)  replaceProfileActivityToFragment(supportFragmentManager, SettingsFragment()); controlVariables.isFromChangePassword = false
+        if (controlVariables.isFromCoinClick)  replaceProfileActivityToFragment(supportFragmentManager, PurchaseFragment()); controlVariables.isFromCoinClick = false
 
     }
 

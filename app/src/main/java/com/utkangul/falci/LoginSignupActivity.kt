@@ -28,7 +28,7 @@ class LoginSignupActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login_signup)
         // directly navigate to login fragment when this activity is created
-        if (!controlVariables.navigateToSignUp) replaceLoginActivityToFragment(supportFragmentManager, Loginfragment())
+        if (!controlVariables.navigateToSignUp) replaceLoginActivityToFragment(supportFragmentManager, LoginFragment())
 
 
         if (controlVariables.navigateToSignUp){

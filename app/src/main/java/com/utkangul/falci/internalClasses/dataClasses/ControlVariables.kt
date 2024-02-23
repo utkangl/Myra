@@ -33,6 +33,7 @@ data class ControlVariables(
     var isLoveSameFortune: Boolean,
     var isFromChangePassword: Boolean,
     var isZodiacCardOpen: Boolean,
+    var isFromCoinClick: Boolean,
     )
 
 var controlVariables = ControlVariables(
@@ -68,4 +69,5 @@ var controlVariables = ControlVariables(
     isLoveSameFortune = false,
     isFromChangePassword = false,
     isZodiacCardOpen = false,
+    isFromCoinClick = false,
 )

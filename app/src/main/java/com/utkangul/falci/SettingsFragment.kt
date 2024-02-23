@@ -38,6 +38,10 @@ class SettingsFragment : Fragment() {
         val changePasswordContainerLayout = v.findViewById<RelativeLayout>(R.id.changePasswordContainerLayout)
         val settingsBackButton = v.findViewById<ImageButton>(R.id.settingsBackButton)
 
+        if (controlVariables.isFromCoinClick){
+
+        }
+
         buyCoinContainerLayout.setOnClickListener { replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }
 
         fun setLocale(languageCode: String) {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/falci_background"
-    tools:context="com.utkangul.falci.Loginfragment"
+    tools:context="com.utkangul.falci.LoginFragment"
     tools:ignore="SpUsage">
 
 
@@ -85,27 +85,6 @@
         android:textColorHint="@color/quantum_grey"
         tools:ignore="VisualLintTextFieldSize,TouchTargetSizeCheck">
     </EditText>
-
-    <com.utkangul.falci.LinkTextView
-        android:id="@+id/loginFragmentForgotMyPasswordLinkedText"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/loginFragmentPassword"
-        android:layout_alignParentEnd="true"
-
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="75dp"
-
-        android:fontFamily="@font/arima_madurai_bold"
-        android:text="@string/forgot_my_password"
-        android:textColor="@color/white"
-        android:textStyle="italic"
-        >
-
-    </com.utkangul.falci.LinkTextView>
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginFragmentNextButton"

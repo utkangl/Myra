@@ -213,6 +213,8 @@
     <string name="fav_horoscope_added">"Başarı ile favorilere eklendi</string>
     <string name="empty_title_warning">"Başlık boş bırakılamaz</string>
     <string name="wait_for_process">"Lütfen satın alım işlemi bitene kadar bekleyin</string>
+    <string name="myra">MYRA</string>
+    <string name="app_info">App Info</string>
 
 
 </resources>

@@ -216,5 +216,7 @@
     <string name="fav_horoscope_added">"Successfully added to favourites</string>
     <string name="empty_title_warning">"Title cannot be empty</string>
     <string name="wait_for_process">"Please wait until process ends</string>
+    <string name="myra">MYRA</string>
+    <string name="app_info">App Info</string>
 
 </resources>

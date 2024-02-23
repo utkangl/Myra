@@ -20,7 +20,7 @@ import com.utkangul.falci.internalClasses.dataClasses.*
 import org.json.JSONObject
 
 
-class Loginfragment : Fragment() {
+class LoginFragment : Fragment() {
 
     // making this fields lateInit to initialize those on button click. If we were to initialize
     // them in onCreateView, they would not be re assignable when we came back with back button
