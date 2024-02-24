@@ -117,7 +117,7 @@ class ProfileFragment : Fragment() {
 
         profileFragmentMainLayout.setOnClickListener{
             if (controlVariables.isZodiacCardOpen){
-                setViewVisible(profileCard, profileViewBottomCard, profileTitle, logoutButton)
+                setViewVisible(profileCard, profileViewBottomCard, profileTitle, logoutButton,profileBackButton)
                 animateCardSize(requireContext(), 370, 305, zodiacCard,burcExplanationTextScroll, 40)
                 controlVariables.isZodiacCardOpen = false
             }

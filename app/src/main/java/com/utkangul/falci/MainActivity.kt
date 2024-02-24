@@ -425,6 +425,25 @@ class MainActivity : AppCompatActivity() {
 
             watchAdToEarnCoinButton.setOnClickListener {
             controlVariables.navigateBackToProfileActivity = false
+            RewardedAd.load(this, adId.toString(), adRequest, object : RewardedAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    println("onAdFailedToLoad'a dustum")
+                    this@MainActivity.runOnUiThread{
+                        Toast.makeText(this@MainActivity, "$adError", Toast.LENGTH_SHORT).show()
+                    }
+                    println(adError.toString())
+                    rewardedAd = null
+                }
+
+                override fun onAdLoaded(ad: RewardedAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    rewardedAd = ad
+                    val options = ServerSideVerificationOptions.Builder()
+                        .setCustomData(tokensDataClass.accessToken)
+                        .build()
+                    rewardedAd?.setServerSideVerificationOptions(options)
+                }
+            })
 
             rewardedAd?.let { ad ->
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -432,32 +451,10 @@ class MainActivity : AppCompatActivity() {
                         // Handle the reward.
                         Log.d(TAG, "User earned the reward.")
                         getUserStatus(this, this,useOrGainCoinMenuCurrentCoinText,coinAmountText,claimCampaignCard,claimCampaignClaimButton)
-//                        val options = ActivityOptions.makeCustomAnimation(this, R.anim.activity_slide_down, 0)
-//                        val intent = Intent(this, MainActivity::class.java); startActivity(intent, options.toBundle())
                     })
                 }, 190)
-//                handleCloseBurcCard()
-//                setViewGoneWithAnimation(this,useOrGainCoinMenuCard)
 
                 controlVariables.isInDelay = true
-                // if horoscope type is not love, call get horoscope function
-//                if (!controlVariables.isFromLoveHoroscope) {
-//                    coin.current_coin -= 10
-//                    Handler(Looper.getMainLooper()).postDelayed({
-//                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-//                        HoroscopeFunctions.getHoroscope(thinkingAnimation, supportFragmentManager, this,this)
-//                    }, 350)
-//                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
-//                }
-//
-//                if (controlVariables.isFromLoveHoroscope && !controlVariables.isFromAddLookupUser) {
-//                    coin.current_coin -= 10
-//                    Handler(Looper.getMainLooper()).postDelayed({
-//                        setViewGone(burcCard, settingsButtonCard, miraMainMenu,coinAmountContainerLayout)
-//                        getLoveHoroscope(thinkingAnimation, this, getPartnerProfile.id,supportFragmentManager,this)
-//                    }, 350)
-//                    setViewGone(miraBurcCardTop, miraBurcCardTopTriangle)
-//                }
 
             } ?: run {
                 Log.d(TAG, "The rewarded ad wasn't ready yet.")

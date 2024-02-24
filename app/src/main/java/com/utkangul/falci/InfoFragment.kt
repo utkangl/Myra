@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 
 class InfoFragment : Fragment() {
@@ -17,9 +18,9 @@ class InfoFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_info, container, false)
 
+        val versionText = v.findViewById<TextView>(R.id.VersionValue)
 
-
-
+        versionText.text = BuildConfig.VERSION_NAME
 
 
         return v

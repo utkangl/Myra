@@ -37,6 +37,7 @@ class SettingsFragment : Fragment() {
         val changeLanguageContainerLayout = v.findViewById<RelativeLayout>(R.id.changeLanguageContainerLayout)
         val changePasswordContainerLayout = v.findViewById<RelativeLayout>(R.id.changePasswordContainerLayout)
         val settingsBackButton = v.findViewById<ImageButton>(R.id.settingsBackButton)
+        val infoContainerLayout = v.findViewById<RelativeLayout>(R.id.infoContainerLayout)
 
         if (controlVariables.isFromCoinClick){
 
@@ -170,9 +171,14 @@ class SettingsFragment : Fragment() {
             ContextCompat.startActivity(requireContext(), intent, options.toBundle())
         }
 
+        infoContainerLayout.setOnClickListener {
+            replaceProfileFragmentWithAnimation(parentFragmentManager,InfoFragment())
+        }
+
         settingsBackButton.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
 
         return v
     }

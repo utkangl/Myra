@@ -253,7 +253,7 @@
         android:fontFamily="@font/arima_madurai_light"
         android:textSize="16dp"
         android:textColor="@color/white"
-        android:text="mira.kajutech.com">
+        android:text="@string/sample_coin_amount">
     </TextView>
 
     <androidx.cardview.widget.CardView

@@ -115,7 +115,7 @@ class PurchaseFragment : Fragment() {
 
 
         //onCompleted , onError situations for purchase callback
-        val makepurchaseCallback = object : PurchaseCallback {
+        val makePurchaseCallback = object : PurchaseCallback {
             override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
                 fun notifyApiAfterPurchase() {
                     println(storeTransaction)
@@ -238,7 +238,7 @@ class PurchaseFragment : Fragment() {
             builder.setMessage(
                 "Information about this purchase: " +
                         "\n This purchase is an One Time Purchase " +
-                        "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
+                        "\n The cost is ${fiveCoinStoreProduct?.price?.formatted}" +
                         "\n Please note that the tax percentage can change accross countries" +
                         "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)" +
                         "\n You will get 5 Myra Coins after this purchase" +
@@ -246,7 +246,7 @@ class PurchaseFragment : Fragment() {
             )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiveCoinStoreProduct!!))
-                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                Purchases.sharedInstance.purchase(params, makePurchaseCallback)
                 allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
@@ -259,7 +259,7 @@ class PurchaseFragment : Fragment() {
             builder.setMessage(
                 "Information about this purchase: " +
                         "\n This purchase is an One Time Purchase " +
-                        "\n The cost is 79.99 TRY plus %20 taxes for Turkiye " +
+                        "\n The cost is ${twentyFiveCoinStoreProduct?.price?.formatted}" +
                         "\n Please note that the tax percentage can change accross countries" +
                         "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)" +
                         "\n You will get 25 Myra Coins after this purchase" +
@@ -267,7 +267,7 @@ class PurchaseFragment : Fragment() {
             )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), twentyFiveCoinStoreProduct!!))
-                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                Purchases.sharedInstance.purchase(params, makePurchaseCallback)
                 allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
@@ -280,7 +280,7 @@ class PurchaseFragment : Fragment() {
             builder.setMessage(
                 "Information about this purchase: " +
                         "\n This purchase is an One Time Purchase " +
-                        "\n The cost is 149.99 TRY plus %20 taxes for Turkiye " +
+                        "\n The cost is ${fiftyCoinStoreProduct?.price?.formatted}" +
                         "\n Please note that the tax percentage can change accross countries" +
                         "\n You dont have to make a purchase to use the app but coins are needed for some features,(example: get horoscope)" +
                         "\n You will get 50 Myra Coins after this purchase" +
@@ -288,7 +288,7 @@ class PurchaseFragment : Fragment() {
             )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), fiftyCoinStoreProduct!!))
-                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                Purchases.sharedInstance.purchase(params, makePurchaseCallback)
                 allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
@@ -300,13 +300,13 @@ class PurchaseFragment : Fragment() {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage(
                 "Information about this subscription: \nThis subscription automatically renews itself in weekly periods" +
-                        "until you cancel it. \nThe cost is 24.99 TRY plus %20 taxes for Turkiye \n Please note that the tax" +
+                        "until you cancel it. \nThe cost is ${weeklySubsStoreProduct?.price?.formatted} \n Please note that the tax" +
                         "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
                         "benefits:\n   Use the app without ads for a week \n Click continue to purchase"
             )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), weeklySubsStoreProduct!!))
-                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                Purchases.sharedInstance.purchase(params, makePurchaseCallback)
                 allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
@@ -318,13 +318,14 @@ class PurchaseFragment : Fragment() {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage(
                 "Information about this subscription: \nThis subscription automatically renews itself in monthly periods" +
-                        "until you cancel it. \nThe cost is 59.99 TRY plus %20 taxes for Turkiye \n Please note that the tax" +
+                        "until you cancel it. \nThe cost is ${monthlySubsStoreProduct?.price?.formatted}" +
+                        "\n Please note that the tax" +
                         "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
                         "benefits:\n   Use the app without ads for a month \n Click continue to purchase"
             )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), monthlySubsStoreProduct!!))
-                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                Purchases.sharedInstance.purchase(params, makePurchaseCallback)
                 allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
@@ -336,13 +337,13 @@ class PurchaseFragment : Fragment() {
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage(
                 "Information about this subscription: \nThis subscription automatically renews itself in yearly periods" +
-                        "until you cancel it. \nThe cost is 599.99 TRY plus %20 taxes for Turkiye \n Please note that the tax" +
+                        "until you cancel it. \nThe cost is ${yearlySubsStoreProduct?.price?.formatted} \n Please note that the tax" +
                         "percentage can change accross countries\nYou dont have to subscribe to use the app, but the subcription has those" +
                         "benefits:\n   Use the app without ads for a year \n Click continue to purchase"
             )
             builder.setPositiveButton("Continue") { _, _ ->
                 val params = PurchaseParams(PurchaseParams.Builder(requireActivity(), yearlySubsStoreProduct!!))
-                Purchases.sharedInstance.purchase(params, makepurchaseCallback)
+                Purchases.sharedInstance.purchase(params, makePurchaseCallback)
                 allowBackPressed = false
             }
             builder.setNegativeButton("Cancel", null)
