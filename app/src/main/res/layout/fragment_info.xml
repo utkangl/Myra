@@ -258,14 +258,14 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="280dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="75dp"
         android:layout_marginTop="75dp"
         app:cardCornerRadius="20dp"
         android:layout_centerHorizontal="true">
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/learnYourBurcButton"
+            android:id="@+id/goBackButtonInfoScreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -274,10 +274,8 @@
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="25dp"
-            android:text="Continue">
+            android:text="@string/go_back">
         </androidx.appcompat.widget.AppCompatButton>
     </androidx.cardview.widget.CardView>
-
-
 
 </RelativeLayout>

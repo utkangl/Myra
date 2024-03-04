@@ -36,16 +36,15 @@ class SignUpFragment : Fragment() {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
-        val signupfragmentsignupbutton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
+        val signUpButton = v.findViewById<AppCompatButton>(R.id.signupfragmentsignupbutton)
         val kvkkPopupCard = v.findViewById<CardView>(R.id.kvkkPopupCard)
         val acceptKvkkButton = v.findViewById<AppCompatButton>(R.id.acceptKvkkButton)
         val signupBackButton = v.findViewById<ImageButton>(R.id.signupBackButton)
 
-        signupfragmentsignupbutton.setOnClickListener {
-            emailField = v.findViewById(R.id.signUpFragmentUsernameText)
-            passwordField = v.findViewById(R.id.signUpFragmentPasswordText)
-            passwordAgainField = v.findViewById(R.id.signUpFragmentPasswordAgainText)
-            passwordAgainField = v.findViewById(R.id.signUpFragmentPasswordAgainText)
+        signUpButton.setOnClickListener {
+            emailField = v.findViewById(R.id.signUpFragmentUsername)
+            passwordField = v.findViewById(R.id.signUpFragmentPassword)
+            passwordAgainField = v.findViewById(R.id.signUpFragmentPasswordAgain)
 
             //creating the json object that will be posted
             val registerJSON = createJsonObject("email" to emailField.text.toString(), "password" to passwordField.text.toString())
@@ -57,12 +56,12 @@ class SignUpFragment : Fragment() {
             // if the passwords match each other
             if (passwordField.text.contentEquals(passwordAgainField.text) && !passwordField.text.isNullOrEmpty()){
                 setViewVisibleWithAnimation(requireContext(),kvkkPopupCard)
-                setViewGoneWithAnimation(requireContext(),signupfragmentsignupbutton)
+                setViewGoneWithAnimation(requireContext(),signUpButton)
                 acceptKvkkButton.setOnClickListener{
-                    setViewVisibleWithAnimation(requireContext(),signupfragmentsignupbutton)
+                    setViewVisibleWithAnimation(requireContext(),signUpButton)
                     setViewGoneWithAnimation(requireContext(),kvkkPopupCard)
                     //post registerJson and let user know the error if there is one, else wise toast success
-                    postJsonNoHeader(requireContext(),requireActivity(),urls.signUpURL, registerJSON, ) { responseBody, _ ->
+                    postJsonNoHeader(requireContext(),requireActivity(),urls.signUpURL, registerJSON) { responseBody, _ ->
 
                         // if response code is 201, toast success and  navigate user to CompleteProfile activity
                         if (statusCode == 201){

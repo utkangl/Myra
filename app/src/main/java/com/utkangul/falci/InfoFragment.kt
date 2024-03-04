@@ -19,9 +19,12 @@ class InfoFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_info, container, false)
 
         val versionText = v.findViewById<TextView>(R.id.VersionValue)
+        val goBackButtonInfoScreen = v.findViewById<TextView>(R.id.goBackButtonInfoScreen)
 
         versionText.text = BuildConfig.VERSION_NAME
-
+        goBackButtonInfoScreen.setOnClickListener{
+            requireActivity().onBackPressed()
+        }
 
         return v
     }

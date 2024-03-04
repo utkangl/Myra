@@ -60,6 +60,8 @@ class CompleteProfile : AppCompatActivity() {
         val locationPickSecondLayout = findViewById<RelativeLayout>(R.id.locationPickSecondLayout)
         val occupationPickContainer = findViewById<RelativeLayout>(R.id.occupationPickContainer)
         val relationPickContainer= findViewById<RelativeLayout>(R.id.relationPickContainer)
+        val mira_complete_profile_chat= findViewById<TextView>(R.id.mira_complete_profile_chat)
+
 
         val thinkingAnimation = findViewById<LottieAnimationView>(R.id.thinkingAnimation)
 
@@ -212,7 +214,8 @@ class CompleteProfile : AppCompatActivity() {
 
              if (controlVariables.isFromLoveHoroscope && namePick.text.length >= 2){
                  postPartnerProfile.partnerName = namePick.text.toString()
-                 step = 1; isFromSetName = true
+                 step = 1; isFromSetName = true;
+
              }else{
                  if (namePick.text.length >= 2) {
                      userCompleteProfile.name = namePick.text.toString()
@@ -227,6 +230,7 @@ class CompleteProfile : AppCompatActivity() {
 
         // set gender field of CompleteProfileUserDataClass's instance w/ user's gender input
         fun setGender(){
+            mira_complete_profile_chat.text = "Tekrardan merhaba ${userCompleteProfile.name}! Hadi cinsiyet bilgine geçelim ."
             println(resources.getString(R.string.defaultTextOfGender))
             if (genderPick.selectedItem == null || genderPick.selectedItem == resources.getString(R.string.defaultTextOfGender)){
                 isGender = false
@@ -240,6 +244,8 @@ class CompleteProfile : AppCompatActivity() {
         }
         // set date field of CompleteProfileUserDataClass's instance w/ user's date input
         fun setDate(){
+            mira_complete_profile_chat.text = "Cinsiyet bilgini verdiğin için teşekkürler ♂ ! Sırada doğum tarihi var."
+
             val year = datePick.year
             val month =  datePick.month + 1
             val day = datePick.dayOfMonth
@@ -257,6 +263,7 @@ class CompleteProfile : AppCompatActivity() {
 
         // set time field of CompleteProfileUserDataClass's instance w/ user's time input
         fun setTime(){
+            mira_complete_profile_chat.text = "Şimdi de doğum saatin."
             val hour = timePick.hour
             val minute = timePick.minute
             if (controlVariables.isFromLoveHoroscope) {
@@ -271,6 +278,8 @@ class CompleteProfile : AppCompatActivity() {
 
         // set location field of CompleteProfileUserDataClass's instance w/ user's location input
         fun setLocation(){
+            mira_complete_profile_chat.text = "Teşekkürler! Sırada doğum yeri bilgin var."
+
             if (step==4 && locationPick.text != resources.getString(R.string.defaultTextOfLocation) ){
                 step = 5
                 isFromSetLocation = true
@@ -292,15 +301,17 @@ class CompleteProfile : AppCompatActivity() {
                     controlVariables.inLocationPickCard = false
                     locationService.hideKeyboard(cityInput)
                     locationPick.text = cityInput.text.toString()
-                        isFromSetLocation = true
-                        step=5
-                        isLocation = true
+                    isFromSetLocation = true
+                    step=5
+                    isLocation = true
                 }
             }
         }
 
         // set occupation field of CompleteProfileUserDataClass's instance w/ user's occupation input
         fun setOccupation(){
+            mira_complete_profile_chat.text = "Süper ! Bir sonraki aşamada hangi sektörde çalıştığın var"
+
             isFromSetTime = false
             if (step == 5 && occupationPick.selectedItem != resources.getString(R.string.defaultTextOfOccupation) && occupationPick.selectedItem != null && !isFromSetLocation){
                 step = 6
@@ -318,6 +329,11 @@ class CompleteProfile : AppCompatActivity() {
 
         // set relation field of CompleteProfileUserDataClass's instance w/ user's relation input
         fun setRelation(){
+            if (userCompleteProfile.occupation == "Student" || userCompleteProfile.occupation == "Öğrenci"){
+                mira_complete_profile_chat.text = "Demek kariyerinin başındasın. Kariyerinin geleceğiyle ilgili fikir sahibi olmak için doğru yerdesin! İlişki durumunu da seçince profilini tamamladık demektir"
+            } else {
+                mira_complete_profile_chat.text = " Hmm ${userCompleteProfile.occupation}... Mesleğinle ilgili konuşacak çok şeyimiz olacak! İlişki durumunu da seçince profilini tamamladık demektir!"
+            }
             val gson = Gson()
 
             setSpinner(relationPick, R.array.marital_status, resources.getString(R.string.defaultTextOfRelation)) { selectedRelation ->

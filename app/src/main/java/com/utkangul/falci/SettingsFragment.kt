@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +15,20 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.utkangul.falci.internalClasses.AuthenticationFunctions.PostJsonFunctions.takeFreshTokens
 import com.utkangul.falci.internalClasses.TransitionToFragment.ReplaceFragmentWithAnimation.replaceProfileFragmentWithAnimation
-import com.utkangul.falci.internalClasses.dataClasses.*
-import okhttp3.*
+import com.utkangul.falci.internalClasses.dataClasses.authenticated
+import com.utkangul.falci.internalClasses.dataClasses.controlVariables
+import com.utkangul.falci.internalClasses.dataClasses.tokensDataClass
+import com.utkangul.falci.internalClasses.dataClasses.urls
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import java.io.IOException
-import java.util.*
+import java.util.Locale
 
 
 class SettingsFragment : Fragment() {
@@ -38,9 +46,16 @@ class SettingsFragment : Fragment() {
         val changePasswordContainerLayout = v.findViewById<RelativeLayout>(R.id.changePasswordContainerLayout)
         val settingsBackButton = v.findViewById<ImageButton>(R.id.settingsBackButton)
         val infoContainerLayout = v.findViewById<RelativeLayout>(R.id.infoContainerLayout)
+        val privacyPolicyLayout = v.findViewById<RelativeLayout>(R.id.privacyPolicyContainerLayout)
 
         if (controlVariables.isFromCoinClick){
 
+        }
+
+        privacyPolicyLayout.setOnClickListener {
+            val uri = Uri.parse("https://api.kircibros.com/privacy-policy/")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
 
         buyCoinContainerLayout.setOnClickListener { replaceProfileFragmentWithAnimation(parentFragmentManager, PurchaseFragment()) }

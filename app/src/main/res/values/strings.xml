@@ -53,6 +53,7 @@
         <item>Administration and Office Support</item>
         <item>Sports and Recreation</item>
         <item>Government and Public Administration</item>
+        <item>Student</item>
     </string-array>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -218,5 +219,7 @@
     <string name="wait_for_process">"Please wait until process ends</string>
     <string name="myra">MYRA</string>
     <string name="app_info">App Info</string>
+    <string name="login">Login</string>
+    <string name="go_back">Go back</string>
 
 </resources>

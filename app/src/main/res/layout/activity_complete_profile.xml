@@ -85,14 +85,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/mira_complete_profile_chat"
-                            android:maxWidth="180dp"
+                            android:maxWidth="150dp"
                             android:maxHeight="180dp"
                             android:padding="6dp"
                             android:fontFamily="@font/arima_madurai_light"
-                            android:textSize="17dp"
+                            android:textSize="14dp"
                             android:textColor="@color/white"
                             android:textAlignment="center"
-                            android:text="@string/completeProfileNameInputMyraSpeech">
+                            android:text="Selam! Başlamadan önce doğru burç yorumunu vermem için birkaç bilgine ihtiyacım var. Merak etme bilgilerin benimle güvende 😇.">
                         </TextView>
                 </androidx.cardview.widget.CardView>
 

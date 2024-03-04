@@ -50,7 +50,8 @@
         <item>Taşımacılık ve Lojistik </item>
         <item>Yönetim ve Ofis Desteği </item>
         <item>Spor ve Rekreasyon </item>
-        <item>Hükümet ve Kamu Yönetimi </item>
+        <item>Siyaset ve Kamu Yönetimi </item>
+        <item>Öğrenci</item>
     </string-array>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -215,6 +216,7 @@
     <string name="wait_for_process">"Lütfen satın alım işlemi bitene kadar bekleyin</string>
     <string name="myra">MYRA</string>
     <string name="app_info">App Info</string>
-
+    <string name="login">Giriş Yap</string>
+    <string name="go_back">Geri dön</string>
 
 </resources>
